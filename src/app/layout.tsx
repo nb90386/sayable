@@ -9,10 +9,19 @@ import "./effects.css";
 
 const sourceSerif = Source_Serif_4({
   subsets: ["latin"],
-  style: ["normal", "italic"],
+  style: ["normal"],
   axes: ["opsz"],
   variable: "--font-source-serif",
   display: "swap",
+});
+// The italic turn appears only on the two bookend headlines, so it loads without a preload.
+const sourceSerifItalic = Source_Serif_4({
+  subsets: ["latin"],
+  style: ["italic"],
+  axes: ["opsz"],
+  variable: "--font-source-serif-italic",
+  display: "swap",
+  preload: false,
 });
 const hanken = Hanken_Grotesk({ subsets: ["latin"], variable: "--font-hanken", display: "swap" });
 const fragment = Fragment_Mono({ subsets: ["latin"], weight: "400", variable: "--font-fragment", display: "swap", preload: false });
@@ -27,7 +36,7 @@ export const viewport: Viewport = { themeColor: "#f7f9f4" };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en-US" className={`${sourceSerif.variable} ${hanken.variable} ${fragment.variable}`}>
+    <html lang="en-US" className={`${sourceSerif.variable} ${sourceSerifItalic.variable} ${hanken.variable} ${fragment.variable}`}>
       <body>
         <a href="#main" className="skip-link sr-only-focusable">
           Skip to content

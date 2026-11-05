@@ -34,7 +34,7 @@ export function FinalCta() {
       <div className="wrap grid-12 items-center gap-y-12">
         <div className="col-span-12 lg:col-span-6">
           <h2 id="cta-title" className="display text-[length:var(--step-5)]">
-            See what your <em>documents need.</em>
+            See what your <em className="turn">documents need.</em>
           </h2>
           <p className="lede mt-7 !max-w-[42ch]">
             Send us your public website. We&rsquo;ll scope a Readiness Audit of the documents on it: what must be fixed,

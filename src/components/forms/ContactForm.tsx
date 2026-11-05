@@ -22,7 +22,7 @@ const LABELS: Record<keyof ContactPayload, string> = {
 };
 
 const inputCls =
-  "mt-2 block w-full rounded-[3px] border bg-sheet px-3.5 py-3 text-[1rem] text-ink transition-[border-color,box-shadow] duration-300 placeholder:text-muted/70 hairline focus:border-signal focus:outline-none focus:ring-2 focus:ring-signal/25 aria-[invalid=true]:border-ember";
+  "mt-2 block w-full rounded-[10px] border bg-sheet px-3.5 py-3 text-[1rem] text-ink transition-[border-color,box-shadow] duration-300 placeholder:text-muted/70 hairline focus:border-signal focus:outline-none focus:ring-2 focus:ring-signal/25 aria-[invalid=true]:border-ember";
 
 function composeMessage(p: ContactPayload) {
   const interest = INTERESTS.find((i) => i.value === p.interest)?.label ?? p.interest;
@@ -160,7 +160,7 @@ export function ContactForm({ contactEmail, defaultInterest }: { contactEmail: s
           <input id={id("organization")} name="organization" autoComplete="organization" maxLength={LIMITS.organization} className={inputCls} {...err("organization")} />
         </Field>
         <Field label={LABELS.role} htmlFor={id("role")} error={errors.role} errId={id("role-err")}>
-          <select id={id("role")} name="role" defaultValue="" className={`${inputCls} appearance-none bg-[length:12px] bg-[right_1rem_center] bg-no-repeat pr-10`} style={{ backgroundImage: "url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' fill='none' stroke='%230e1020' stroke-width='1.5'/%3E%3C/svg%3E\")" }} {...err("role")}>
+          <select id={id("role")} name="role" defaultValue="" className={`${inputCls} appearance-none bg-[length:12px] bg-[right_1rem_center] bg-no-repeat pr-10`} style={{ backgroundImage: "url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' fill='none' stroke='%2317211d' stroke-width='1.5'/%3E%3C/svg%3E\")" }} {...err("role")}>
             <option value="" disabled>
               Choose one
             </option>
@@ -184,7 +184,7 @@ export function ContactForm({ contactEmail, defaultInterest }: { contactEmail: s
           {INTERESTS.map((it) => (
             <label
               key={it.value}
-              className="group flex min-h-12 cursor-pointer items-center gap-3 rounded-[3px] border px-3.5 py-2.5 text-[0.95rem] transition-colors hairline hover:border-ink/40 has-[:checked]:border-signal has-[:checked]:bg-signal-wash/50"
+              className="group flex min-h-12 cursor-pointer items-center gap-3 rounded-[10px] border px-3.5 py-2.5 text-[0.95rem] transition-colors hairline hover:border-ink/40 has-[:checked]:border-signal has-[:checked]:bg-signal-wash/50"
             >
               <input type="radio" name="interest" value={it.value} defaultChecked={it.value === defaultInterest} className="h-4 w-4 accent-[var(--color-signal)]" />
               {it.label}

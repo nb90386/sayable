@@ -130,22 +130,22 @@ function StageArtifact({ stage }: { stage: string }) {
             <NoticePage />
             {/* DISCOVER: barriers flagged */}
             <g className={on("discover")}>
-              <rect width="850" height="1100" fill="rgb(11 12 23 / 0.04)" />
+              <rect width="850" height="1100" fill="rgb(19 54 46 / 0.04)" />
               {[blocks[1]!, blocks[5]!, blocks[7]!].map((b, i) => (
                 <g key={b.id}>
                   <rect x={b.x - 8} y={b.y - 8} width={b.w + 16} height={b.h + 16} fill="rgb(162 74 28 / 0.06)" stroke="#a24a1c" strokeWidth="2" strokeDasharray="7 6" />
                   <g transform={`translate(${b.x + b.w - 190} ${b.y - 34})`}>
-                    <rect width="198" height="26" fill="#a24a1c" />
-                    <text x="10" y="18" fontFamily="var(--font-mono)" fontSize="14" fill="#fff">
+                    <rect width="198" height="28" rx="14" fill="#a24a1c" />
+                    <text x="10" y="18" fontFamily="var(--font-sans)" fontWeight="600" fontSize="14" fill="#fff">
                       {["no heading tag", "no table headers", "2 fields unnamed"][i]}
                     </text>
                   </g>
                 </g>
               ))}
               <g transform="translate(470 30)">
-                <rect width="316" height="34" fill="#17211d" />
-                <text x="14" y="23" fontFamily="var(--font-mono)" fontSize="15" fill="#fff">
-                  TRIAGE · MUST FIX · form + service link
+                <rect width="316" height="34" rx="17" fill="#a24a1c" />
+                <text x="14" y="23" fontFamily="var(--font-sans)" fontWeight="600" fontSize="15" fill="#fff">
+                  Must fix: form on a service page
                 </text>
               </g>
             </g>
@@ -164,8 +164,8 @@ function StageArtifact({ stage }: { stage: string }) {
               ))}
               {ordered.map((b) => (
                 <g key={b.id} transform={`translate(${b.x - 26} ${b.y + 20})`}>
-                  <circle r="14" fill="#17211d" />
-                  <text textAnchor="middle" y="5" fontFamily="var(--font-mono)" fontSize="14" fill="#fff">
+                  <circle r="14" fill="#1d5347" />
+                  <text textAnchor="middle" y="5" fontFamily="var(--font-sans)" fontWeight="600" fontSize="14" fill="#fff">
                     {b.order}
                   </text>
                 </g>
@@ -173,20 +173,20 @@ function StageArtifact({ stage }: { stage: string }) {
             </g>
             <g className={on("repair")}>
               <g transform="translate(560 640)">
-                <rect width="226" height="34" fill="#17211d" />
-                <text x="14" y="23" fontFamily="var(--font-mono)" fontSize="14.5" fill="#fff">
-                  PERSON · table headers
+                <rect width="226" height="34" rx="17" fill="#1d5347" />
+                <text x="14" y="23" fontFamily="var(--font-sans)" fontWeight="600" fontSize="14.5" fill="#fff">
+                  Person: table headers
                 </text>
               </g>
             </g>
             {/* VERIFY: three checks */}
             <g className={on("verify")}>
-              <rect x="200" y="380" width="450" height="236" fill="#17211d" />
+              <rect x="200" y="380" width="450" height="236" rx="18" fill="#13362e" />
               {["veraPDF  PDF/UA-1", "Semantic review", "Human review"].map((t, i) => (
                 <g key={t} transform={`translate(230 ${430 + i * 62})`}>
                   <circle r="14" cx="10" cy="-6" fill="none" stroke="#9fd3bf" strokeWidth="2" />
                   <path d="M3 -6 l5 5 l9 -10" stroke="#9fd3bf" strokeWidth="2.4" fill="none" />
-                  <text x="44" fontFamily="var(--font-mono)" fontSize="19" fill="#fff">
+                  <text x="44" fontFamily="var(--font-sans)" fontWeight="600" fontSize="19" fill="#fff">
                     {t}
                   </text>
                   <text x="390" textAnchor="end" fontFamily="var(--font-mono)" fontSize="15" fill="#bcd0c6">
@@ -198,9 +198,9 @@ function StageArtifact({ stage }: { stage: string }) {
             {/* PUBLISH: ready stamp */}
             <g className={on("publish")}>
               <g transform="translate(520 30)">
-                <rect width="266" height="38" fill="#1d5347" />
-                <text x="16" y="26" fontFamily="var(--font-mono)" fontSize="16" fill="#fff">
-                  READY TO POST · report.pdf
+                <rect width="266" height="38" rx="19" fill="#1d5347" />
+                <text x="16" y="26" fontFamily="var(--font-sans)" fontWeight="600" fontSize="16" fill="#fff">
+                  Ready to post · report attached
                 </text>
               </g>
             </g>

@@ -82,7 +82,7 @@ export function NoticePage() {
 
       {/* table */}
       <g fontFamily={sans} fontSize="16.5">
-        <rect x="64" y="466" width="722" height="44" fill="#e8e2d4" />
+        <rect x="64" y="466" width="722" height="44" fill="#e3ebe4" />
         <g fill="#17211d" fontWeight="600">
           <text x="80" y="494">Permit type</text>
           <text x="410" y="494">Current</text>
@@ -108,7 +108,7 @@ export function NoticePage() {
 
       {/* map figure */}
       <g>
-        <rect x="64" y="700" width="340" height="212" fill="#efeadf" />
+        <rect x="64" y="700" width="340" height="212" fill="#eef2ec" />
         <g stroke="#17211d" strokeOpacity="0.28" strokeWidth="9" fill="none" strokeLinecap="round">
           <path d="M64 780 H404" />
           <path d="M200 700 V912" />
@@ -118,7 +118,7 @@ export function NoticePage() {
           <path d="M64 780 H404" />
           <path d="M200 700 V912" />
         </g>
-        <rect x="248" y="724" width="70" height="40" fill="#cfc6b2" />
+        <rect x="248" y="724" width="70" height="40" fill="#c7d3cb" />
         <circle cx="283" cy="744" r="9" fill="#17211d" />
         <text x="64" y="938" fontFamily={sans} fontSize="14" fill="#56655d">
           Council Chambers, 410 Main Street

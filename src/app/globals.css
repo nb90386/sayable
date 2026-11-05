@@ -21,6 +21,7 @@
   --color-signal: #1d5347;
   --color-signal-bright: #2e7a67;
   --color-signal-wash: #dcebe4;
+  --color-signal-light: #9fd3bf;
   /* where the path snags */
   --color-warm: #f0ae71;
   --color-warm-wash: #fcebdc;
@@ -108,7 +109,9 @@
     letter-spacing: -0.022em;
     line-height: 0.98;
   }
-  .display em, .display i { font-style: italic; font-weight: 360; color: var(--color-signal); letter-spacing: -0.012em; }
+  .display em, .display i { font-style: normal; color: var(--color-signal); }
+  /* the italic turn: only the hero h1 and the closing h2 (DESIGN.md, Two Bookends) */
+  .display em.turn { font-family: var(--font-source-serif-italic), var(--font-serif); font-style: italic; font-weight: 360; letter-spacing: -0.012em; }
   .headline {
     font-family: var(--font-serif);
     font-weight: 400;

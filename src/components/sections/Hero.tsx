@@ -11,7 +11,7 @@ export function Hero() {
             <h1 id="hero-title" className="display text-[length:clamp(2.5rem,1.3rem+3.4vw,4.75rem)]">
               <span className="block" data-reveal="mask">A document can look right</span>
               <span className="block" data-reveal="mask" style={{ ["--d" as string]: "140ms" }}>
-                <em>and still leave someone out.</em>
+                <em className="turn">and still leave someone out.</em>
               </span>
             </h1>
             <p className="lede mt-8 !max-w-[38ch]" data-reveal style={{ ["--d" as string]: "320ms" }}>

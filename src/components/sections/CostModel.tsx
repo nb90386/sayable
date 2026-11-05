@@ -173,7 +173,7 @@ export function CostModel() {
                       >
                         {r.id === "c" ? (
                           <span className="flex h-full">
-                            <span className="h-full bg-[#9fd3bf]" style={{ width: `${mixed ? ((autoPages * (v.autoCost + reviewCostPerPage)) / mixed) * 100 : 0}%` }} />
+                            <span className="h-full bg-signal-light" style={{ width: `${mixed ? ((autoPages * (v.autoCost + reviewCostPerPage)) / mixed) * 100 : 0}%` }} />
                             <span className="h-full flex-1 bg-warm" />
                           </span>
                         ) : null}
@@ -185,7 +185,7 @@ export function CostModel() {
               </ol>
 
               <div className="mt-6 flex flex-wrap gap-x-6 gap-y-2 text-[0.85rem] text-moon-muted">
-                <span className="inline-flex items-center gap-2"><span aria-hidden="true" className="h-1.5 w-5 rounded-full bg-[#9fd3bf]" /> Automated, checked and reviewed</span>
+                <span className="inline-flex items-center gap-2"><span aria-hidden="true" className="h-1.5 w-5 rounded-full bg-signal-light" /> Automated, checked and reviewed</span>
                 <span className="inline-flex items-center gap-2"><span aria-hidden="true" className="h-1.5 w-5 rounded-full bg-warm" /> Remediated by a person</span>
               </div>
 

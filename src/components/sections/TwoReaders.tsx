@@ -65,7 +65,7 @@ export function TwoReaders() {
                 </div>
                 <div className="pointer-events-none absolute inset-y-0" style={{ left: `${split}%` }}>
                   <div className="absolute inset-y-0 -left-px w-[2px] bg-signal" />
-                  <div className="lens-handle-knob absolute left-1/2 top-1/2 flex h-12 w-12 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full bg-ink text-paper shadow-lg">
+                  <div className="lens-handle-knob absolute left-1/2 top-1/2 flex h-12 w-12 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full bg-ink text-paper shadow-[var(--shadow-sheet)]">
                     <svg width="22" height="12" viewBox="0 0 22 12" fill="none" stroke="currentColor" strokeWidth="1.6">
                       <path d="M6 1 1 6l5 5M16 1l5 5-5 5" />
                     </svg>

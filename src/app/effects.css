@@ -115,7 +115,6 @@
   padding: 0.4em 0.9em;
   border-radius: 999px;
 }
-.stamp::before { content: ""; width: 0.55em; height: 0.55em; border-radius: 50%; background: currentColor; }
 .on-night .stamp { color: var(--color-ink); background: var(--color-warm); }
 
 /* ─── Mobile menu item entrance ───────────────────────────── */

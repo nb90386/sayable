@@ -3,13 +3,14 @@
 import Link from "next/link";
 import { useEffect, useMemo, useState } from "react";
 import { useInView, usePrefersReducedMotion } from "@/lib/useInView";
+import { Ribbon } from "../Ribbon";
 
 const groups = [
   { key: "service", name: "Active service documents", short: "Service", tone: "fix", why: "Forms, applications and pages residents use to get something done. These come first." },
   { key: "new", name: "New, check before posting", short: "New", tone: "signal", why: "Agendas and notices still being published. Checking them before upload stops the pile growing." },
-  { key: "repair", name: "Needs accessibility repair", short: "Repair", tone: "fix", why: "Current documents with missing tags, unnamed fields or broken reading order." },
+  { key: "repair", name: "Needs accessibility repair", short: "Repair", tone: "warm", why: "Current documents with missing tags, unnamed fields or broken reading order." },
   { key: "historic", name: "Possible historical exception", short: "Archive?", tone: "muted", why: "Older records kept for reference. Sayable flags them; your team decides whether an exception applies." },
-  { key: "policy", name: "Needs a policy decision", short: "Policy", tone: "warm", why: "Duplicates, third-party files and anything that needs a person with authority to decide." },
+  { key: "policy", name: "Needs a policy decision", short: "Policy", tone: "ink", why: "Duplicates, third-party files and anything that needs a person with authority to decide." },
 ] as const;
 
 type Key = (typeof groups)[number]["key"];
@@ -52,6 +53,7 @@ const toneClass: Record<string, string> = {
   signal: "bg-signal",
   muted: "bg-muted",
   warm: "bg-warm",
+  ink: "bg-ink",
 };
 
 export function Inventory() {
@@ -85,7 +87,8 @@ export function Inventory() {
   }, []);
 
   return (
-    <section aria-labelledby="inv-title" className="relative pb-24 pt-20 sm:pb-32 sm:pt-24">
+    <section aria-labelledby="inv-title" className="relative pb-24 pt-6 sm:pb-32">
+      <Ribbon className="mb-10 h-[80px] sm:h-[120px]" d="M -60 30 C 300 150, 620 10, 900 80 S 1260 150, 1500 40" viewBox="0 0 1440 160" band={48} />
       <div className="wrap">
         <div className="grid-12 items-end gap-y-6">
           <h2 id="inv-title" className="headline col-span-12 lg:col-span-7">

@@ -1,420 +1,376 @@
 {
   "schemaVersion": 2,
-  "generatedAt": "2026-11-05T07:44:23+00:00",
+  "generatedAt": "2026-11-05T00:00:00Z",
   "title": "Design System: Sayable",
   "extensions": {
     "colorMeta": {
-      "folder-board": {
+      "paper": {
         "role": "neutral",
-        "displayName": "Folder Board",
-        "canonical": "#d9bd84",
-        "oklch": "oklch(80.9% 0.081 84.5)",
+        "displayName": "Porcelain",
+        "canonical": "oklch(97.9% 0.007 124)",
         "tonalRamp": [
-          "#120900",
-          "#312200",
-          "#543e0a",
-          "#775d25",
-          "#997e47",
-          "#baa271",
-          "#dac7a1",
-          "#fbedd2"
+          "#0b0b0b",
+          "#252524",
+          "#414240",
+          "#60625e",
+          "#81837f",
+          "#a4a5a2",
+          "#c9c9c7",
+          "#eeeeed"
         ]
       },
-      "folder-board-deep": {
+      "paper-deep": {
         "role": "neutral",
-        "displayName": "Folder Board Deep",
-        "canonical": "#cdae6f",
-        "oklch": "oklch(76.4% 0.089 84.2)",
-        "tonalRamp": [
-          "#130900",
-          "#332200",
-          "#563e00",
-          "#795c1a",
-          "#9b7e3f",
-          "#bca16b",
-          "#dcc79d",
-          "#fcedcf"
-        ]
-      },
-      "folder-manila": {
-        "role": "neutral",
-        "displayName": "Manila Folder",
-        "canonical": "#c9a663",
-        "oklch": "oklch(74.2% 0.095 82.6)",
-        "tonalRamp": [
-          "#140800",
-          "#342100",
-          "#583d00",
-          "#7b5b11",
-          "#9e7d39",
-          "#bfa066",
-          "#dec69a",
-          "#feeccd"
-        ]
-      },
-      "index-sheet": {
-        "role": "neutral",
-        "displayName": "Index Sheet",
-        "canonical": "#fbfaf6",
-        "oklch": "oklch(98.5% 0.005 95.1)",
+        "displayName": "Pale Celadon",
+        "canonical": "oklch(94.5% 0.012 138)",
         "tonalRamp": [
           "#0b0b0a",
-          "#262523",
-          "#43423f",
-          "#62615e",
-          "#83827f",
-          "#a6a5a2",
-          "#cac9c6",
-          "#efeeec"
+          "#242623",
+          "#40433f",
+          "#5e635d",
+          "#7f847e",
+          "#a3a6a1",
+          "#c7cac7",
+          "#eeefed"
+        ]
+      },
+      "sheet": {
+        "role": "neutral",
+        "displayName": "Sheet White",
+        "canonical": "oklch(100.0% 0.000 90)",
+        "tonalRamp": [
+          "#0b0b0b",
+          "#252525",
+          "#424242",
+          "#616161",
+          "#828282",
+          "#a5a5a5",
+          "#c9c9c9",
+          "#eeeeee"
         ]
       },
       "ink": {
         "role": "neutral",
-        "displayName": "Ink",
-        "canonical": "#1b1a16",
-        "oklch": "oklch(21.7% 0.008 95.4)",
+        "displayName": "Green-Black Ink",
+        "canonical": "oklch(23.7% 0.016 168)",
         "tonalRamp": [
-          "#0c0b09",
-          "#262522",
-          "#43423e",
-          "#62615c",
-          "#84827d",
-          "#a6a5a0",
-          "#cac9c5",
-          "#efeeec"
+          "#0a0c0b",
+          "#222624",
+          "#3d4441",
+          "#5a6460",
+          "#7a8581",
+          "#9fa7a4",
+          "#c5cbc8",
+          "#ecefee"
         ]
       },
       "ink-soft": {
         "role": "neutral",
-        "displayName": "Ink Soft",
-        "canonical": "#2f2b21",
-        "oklch": "oklch(29.0% 0.018 88.8)",
+        "displayName": "Soft Ink",
+        "canonical": "oklch(36.5% 0.021 167)",
         "tonalRamp": [
-          "#0d0b07",
-          "#27251e",
-          "#454238",
-          "#656156",
-          "#878276",
-          "#a9a59a",
-          "#ccc9c0",
-          "#f1eee8"
+          "#0a0c0b",
+          "#212624",
+          "#3b4440",
+          "#58655f",
+          "#788680",
+          "#9da8a3",
+          "#c4cbc8",
+          "#ecefee"
         ]
       },
-      "ink-muted": {
+      "muted": {
         "role": "neutral",
-        "displayName": "Ink Muted",
-        "canonical": "#4a3c1d",
-        "oklch": "oklch(36.3% 0.050 85.5)",
+        "displayName": "Muted Sage",
+        "canonical": "oklch(49.2% 0.022 162)",
         "tonalRamp": [
-          "#100a02",
-          "#2d2411",
-          "#4d4025",
-          "#6e5f40",
-          "#908160",
-          "#b2a385",
-          "#d3c8b0",
-          "#f6eedd"
-        ]
-      },
-      "stamp-violet": {
-        "role": "primary",
-        "displayName": "Stamp-Pad Violet",
-        "canonical": "#3b2db8",
-        "oklch": "oklch(41.8% 0.206 277.2)",
-        "tonalRamp": [
-          "#070032",
-          "#1b0f66",
-          "#32279f",
-          "#4c47d2",
-          "#696df9",
-          "#8b95ff",
-          "#b3c0ff",
-          "#dee9ff"
-        ]
-      },
-      "stamp-violet-bright": {
-        "role": "primary",
-        "displayName": "Bright Violet",
-        "canonical": "#5a4ae0",
-        "oklch": "oklch(52.0% 0.218 280.5)",
-        "tonalRamp": [
-          "#0a0034",
-          "#200869",
-          "#3920a3",
-          "#5341d7",
-          "#7167ff",
-          "#9291ff",
-          "#b8bdff",
-          "#e1e7ff"
-        ]
-      },
-      "stamp-violet-wash": {
-        "role": "primary",
-        "displayName": "Violet Wash",
-        "canonical": "#e4e0fb",
-        "oklch": "oklch(91.8% 0.037 292.5)",
-        "tonalRamp": [
-          "#0b0a12",
-          "#252330",
-          "#423f52",
-          "#615e75",
-          "#827f97",
-          "#a5a2b8",
-          "#c9c7d8",
-          "#eeedfa"
-        ]
-      },
-      "errata-red": {
-        "role": "secondary",
-        "displayName": "Errata Red",
-        "canonical": "#8f1915",
-        "oklch": "oklch(42.2% 0.154 28.2)",
-        "tonalRamp": [
-          "#220000",
-          "#4c0203",
-          "#7b1511",
-          "#a7332a",
-          "#ce574b",
-          "#ee8174",
-          "#ffafa3",
-          "#ffddd3"
-        ]
-      },
-      "errata-wash": {
-        "role": "secondary",
-        "displayName": "Errata Wash",
-        "canonical": "#f7dcd6",
-        "oklch": "oklch(91.5% 0.031 32.6)",
-        "tonalRamp": [
-          "#110907",
-          "#2f211f",
-          "#503d39",
-          "#725b56",
-          "#947c77",
-          "#b69f9a",
-          "#d7c5c0",
-          "#f8ebe8"
-        ]
-      },
-      "cabinet-night": {
-        "role": "neutral",
-        "displayName": "Cabinet Night",
-        "canonical": "#18211d",
-        "oklch": "oklch(23.7% 0.015 166.2)",
-        "tonalRamp": [
-          "#080c0a",
+          "#0a0c0b",
           "#212724",
-          "#3c4440",
-          "#5a645f",
-          "#7a8580",
-          "#9ea8a3",
-          "#c3cbc7",
-          "#eaf0ed"
+          "#3b4540",
+          "#58655e",
+          "#78867f",
+          "#9da8a2",
+          "#c4cbc7",
+          "#ecefed"
         ]
       },
-      "cabinet-night-raise": {
-        "role": "neutral",
-        "displayName": "Cabinet Night Raise",
-        "canonical": "#222d28",
-        "oklch": "oklch(28.5% 0.018 165.7)",
+      "signal": {
+        "role": "primary",
+        "displayName": "Evergreen",
+        "canonical": "oklch(40.3% 0.060 176)",
         "tonalRamp": [
-          "#080c0a",
+          "#060d0b",
+          "#172924",
+          "#2a4941",
+          "#3e6b60",
+          "#5f8d81",
+          "#8caea4",
+          "#b9cfc8",
+          "#e7f1ee"
+        ]
+      },
+      "signal-wash": {
+        "role": "primary",
+        "displayName": "Evergreen Wash",
+        "canonical": "oklch(92.7% 0.018 166)",
+        "tonalRamp": [
+          "#0a0c0b",
+          "#222624",
+          "#3c4440",
+          "#59645f",
+          "#7a8680",
+          "#9ea8a3",
+          "#c5cbc8",
+          "#ecefee"
+        ]
+      },
+      "warm": {
+        "role": "secondary",
+        "displayName": "Apricot",
+        "canonical": "oklch(80.0% 0.110 63)",
+        "tonalRamp": [
+          "#120903",
+          "#351f0a",
+          "#5d3813",
+          "#87531d",
+          "#ab7540",
+          "#c69c76",
+          "#e0c3aa",
+          "#faece0"
+        ]
+      },
+      "warm-wash": {
+        "role": "secondary",
+        "displayName": "Apricot Wash",
+        "canonical": "oklch(95.0% 0.027 64)",
+        "tonalRamp": [
+          "#0d0b09",
+          "#29241f",
+          "#494038",
+          "#6b5f53",
+          "#8d8074",
+          "#ada39a",
+          "#cfc8c1",
+          "#f1eeeb"
+        ]
+      },
+      "ember": {
+        "role": "secondary",
+        "displayName": "Rust",
+        "canonical": "oklch(51.5% 0.130 45)",
+        "tonalRamp": [
+          "#140804",
+          "#3b1b0c",
+          "#663117",
+          "#954822",
+          "#ba6a45",
+          "#d39478",
+          "#e9beac",
+          "#feeae1"
+        ]
+      },
+      "ember-wash": {
+        "role": "secondary",
+        "displayName": "Rust Wash",
+        "canonical": "oklch(93.8% 0.031 60)",
+        "tonalRamp": [
+          "#0d0b09",
+          "#2a241f",
+          "#4b4037",
+          "#6e5e52",
+          "#8f7f72",
+          "#afa298",
+          "#d0c7c1",
+          "#f2edea"
+        ]
+      },
+      "night": {
+        "role": "tertiary",
+        "displayName": "Deep Evergreen Night",
+        "canonical": "oklch(30.4% 0.043 176)",
+        "tonalRamp": [
+          "#080c0b",
+          "#1c2825",
+          "#324741",
+          "#4a6960",
+          "#6b8a81",
+          "#93aba4",
+          "#bdcdc9",
+          "#e9f0ee"
+        ]
+      },
+      "night-raise": {
+        "role": "tertiary",
+        "displayName": "Night Raise",
+        "canonical": "oklch(36.1% 0.051 174)",
+        "tonalRamp": [
+          "#070d0b",
+          "#1a2924",
+          "#2f4840",
+          "#466a5f",
+          "#668c80",
+          "#90aca3",
+          "#bbcec8",
+          "#e8f1ee"
+        ]
+      },
+      "moon": {
+        "role": "tertiary",
+        "displayName": "Moon",
+        "canonical": "oklch(97.1% 0.009 135)",
+        "tonalRamp": [
+          "#0b0b0b",
+          "#242524",
+          "#414340",
+          "#5f625e",
+          "#80837f",
+          "#a3a6a2",
+          "#c8cac7",
+          "#eeefed"
+        ]
+      },
+      "moon-muted": {
+        "role": "tertiary",
+        "displayName": "Moon Muted",
+        "canonical": "oklch(84.0% 0.026 164)",
+        "tonalRamp": [
+          "#090c0b",
           "#202724",
           "#3a4540",
-          "#58655f",
-          "#798680",
-          "#9ca8a3",
-          "#c2ccc7",
-          "#eaf0ed"
+          "#56665e",
+          "#76877f",
+          "#9ca9a2",
+          "#c3cbc7",
+          "#ebf0ed"
         ]
-      },
-      "night-paper": {
-        "role": "neutral",
-        "displayName": "Night Paper",
-        "canonical": "#f1ede2",
-        "oklch": "oklch(94.6% 0.015 90.2)",
-        "tonalRamp": [
-          "#0c0b08",
-          "#27251f",
-          "#45423a",
-          "#646158",
-          "#868278",
-          "#a8a59c",
-          "#ccc9c2",
-          "#f0eee9"
-        ]
-      },
-      "night-paper-muted": {
-        "role": "neutral",
-        "displayName": "Night Paper Muted",
-        "canonical": "#b9b6a6",
-        "oklch": "oklch(77.4% 0.022 98.2)",
-        "tonalRamp": [
-          "#0c0b07",
-          "#27251d",
-          "#454236",
-          "#646253",
-          "#868374",
-          "#a8a597",
-          "#cbc9be",
-          "#f0efe7"
-        ]
-      },
-      "stamp-violet-night": {
-        "role": "primary",
-        "displayName": "Night Violet",
-        "canonical": "#b7adff",
-        "oklch": "oklch(78.7% 0.116 289.0)",
-        "tonalRamp": [
-          "#0b0620",
-          "#251c48",
-          "#423674",
-          "#60549e",
-          "#8176c3",
-          "#a39ae2",
-          "#c7c1fa",
-          "#ede9ff"
-        ]
-      },
-      "rule": {
-        "role": "neutral",
-        "displayName": "Rule",
-        "canonical": "rgb(27 26 22 / 0.18)"
-      },
-      "rule-strong": {
-        "role": "neutral",
-        "displayName": "Rule Strong",
-        "canonical": "rgb(27 26 22 / 0.4)"
-      },
-      "rule-night": {
-        "role": "neutral",
-        "displayName": "Rule Night",
-        "canonical": "rgb(236 235 245 / 0.14)"
       }
     },
     "typographyMeta": {
       "display": {
         "displayName": "Display",
-        "purpose": "Page-opening and closing statements; Archivo 800 at wdth 112, upright violet emphasis."
+        "purpose": "Page h1s and the final CTA h2. Source Serif 4, opsz auto. Italic turn only on the hero h1 and final CTA h2."
+      },
+      "display-italic": {
+        "displayName": "Display Italic Turn",
+        "purpose": "The human line in the two bookends only; evergreen, weight 360."
       },
       "headline": {
         "displayName": "Headline",
-        "purpose": "Section headings, Archivo 760 at wdth 100."
+        "purpose": "Home section h2s and night CTA h2s; emphasis is upright and coloured."
       },
-      "headline-sm": {
-        "displayName": "Headline Small",
-        "purpose": "Narrow-column and supporting-page row headings (step 3)."
+      "section-title": {
+        "displayName": "Section Title",
+        "purpose": "Lifecycle stage h3s, supporting-page row h2s."
       },
       "title": {
         "displayName": "Title",
-        "purpose": "Finding titles, check names, sub-panel headings."
-      },
-      "tab-label": {
-        "displayName": "Tab Label",
-        "purpose": "Folder tabs only; condensed uppercase."
-      },
-      "stamp": {
-        "displayName": "Stamp",
-        "purpose": "Rubber-stamp marks for completed checks only; extra-wide uppercase."
+        "purpose": "Small serif heads: terms, finding titles, check names."
       },
       "lede": {
         "displayName": "Lede",
-        "purpose": "The paragraph directly under a headline, ink soft, 34 to 48ch."
+        "purpose": "One paragraph under a heading, 36–48ch, soft ink."
       },
       "body": {
         "displayName": "Body",
-        "purpose": "Reading text, 40 to 62ch."
+        "purpose": "Running copy, 42–62ch."
       },
       "label": {
         "displayName": "Label",
-        "purpose": "Courier clerk voice: accession numbers, tags, captions, disclosures."
+        "purpose": "Buttons, form labels, toggles, legend terms. Sentence case."
       },
-      "button": {
-        "displayName": "Button",
-        "purpose": "Primary action text."
+      "tag": {
+        "displayName": "Tag",
+        "purpose": "Machine voice only: file names, metrics, arithmetic, stage names."
       }
     },
-    "fluidScale": [
+    "typeScale": [
       {
         "name": "step--1",
         "value": "clamp(0.8rem, 0.78rem + 0.1vw, 0.875rem)"
       },
       {
         "name": "step-0",
-        "value": "clamp(1rem, 0.96rem + 0.2vw, 1.125rem)"
+        "value": "clamp(1rem, 0.97rem + 0.18vw, 1.125rem)"
       },
       {
         "name": "step-1",
-        "value": "clamp(1.2rem, 1.1rem + 0.45vw, 1.45rem)"
+        "value": "clamp(1.18rem, 1.1rem + 0.4vw, 1.4rem)"
       },
       {
         "name": "step-2",
-        "value": "clamp(1.5rem, 1.3rem + 0.9vw, 2.1rem)"
+        "value": "clamp(1.45rem, 1.28rem + 0.85vw, 2rem)"
       },
       {
         "name": "step-3",
-        "value": "clamp(1.9rem, 1.5rem + 1.9vw, 3.1rem)"
+        "value": "clamp(1.85rem, 1.5rem + 1.7vw, 2.9rem)"
       },
       {
         "name": "step-4",
-        "value": "clamp(2.4rem, 1.7rem + 3.4vw, 4.6rem)"
+        "value": "clamp(2.3rem, 1.7rem + 3vw, 4.25rem)"
       },
       {
         "name": "step-5",
-        "value": "clamp(2.9rem, 1.6rem + 6vw, 7.4rem)"
+        "value": "clamp(2.7rem, 1.7rem + 4.6vw, 5.75rem)"
       }
     ],
-    "fontAxes": [
+    "rules": [
       {
-        "family": "Archivo",
-        "axis": "wdth",
-        "range": "62-125",
-        "used": [
-          75,
-          100,
-          112,
-          125
-        ],
-        "setVia": "font-stretch percent"
+        "name": "rule",
+        "value": "rgb(23 33 29 / 0.12)",
+        "purpose": "Hairlines on light."
       },
       {
-        "family": "Archivo",
-        "axis": "wght",
-        "used": [
-          700,
-          720,
-          740,
-          760,
-          800
-        ]
+        "name": "rule-strong",
+        "value": "rgb(23 33 29 / 0.3)",
+        "purpose": "Quiet button ring, strong dividers."
+      },
+      {
+        "name": "rule-night",
+        "value": "rgb(243 247 241 / 0.16)",
+        "purpose": "Hairlines on night."
       }
     ],
     "shadows": [
       {
-        "name": "sheet-lift",
-        "value": "0 1px 0 rgb(255 255 255 / 0.8) inset, 0 1px 2px rgb(14 16 32 / 0.06), 0 12px 24px -8px rgb(14 16 32 / 0.12), 0 40px 80px -24px rgb(30 24 90 / 0.22)",
-        "purpose": "Every index sheet: document pages, report figures, confirmations."
+        "name": "sheet",
+        "value": "0 1px 2px rgb(23 50 40 / 0.06), 0 10px 24px -10px rgb(23 50 40 / 0.14), 0 36px 72px -30px rgb(23 50 40 / 0.26)",
+        "purpose": "Every document sheet, report and form."
       },
       {
-        "name": "folder-cast",
-        "value": "0 1px 0 rgb(255 255 255 / 0.35) inset, 0 18px 40px -18px rgb(60 40 5 / 0.55)",
-        "purpose": "The manila folder lying on the board."
+        "name": "pill-lift",
+        "value": "0 1px 0 rgb(255 255 255 / 0.12) inset, 0 10px 24px -14px rgb(19 54 46 / 0.7)",
+        "purpose": "Filled buttons."
       },
       {
-        "name": "button-rest",
-        "value": "0 1px 0 rgb(255 255 255 / 0.12) inset, 0 8px 24px -12px rgb(14 16 32 / 0.6)",
-        "purpose": "Primary buttons at rest."
+        "name": "toggle-thumb",
+        "value": "0 1px 2px rgb(23 50 40 / 0.12), 0 4px 10px -4px rgb(23 50 40 / 0.2)",
+        "purpose": "Checked segmented-toggle option."
+      },
+      {
+        "name": "mini-sheet",
+        "value": "0 1px 2px rgb(23 50 40 / 0.08), 0 6px 14px -8px rgb(23 50 40 / 0.25)",
+        "purpose": "Inventory document cards."
+      },
+      {
+        "name": "seal",
+        "value": "0 6px 16px -8px rgb(23 50 40 / 0.4)",
+        "purpose": "Seal laid over the final sheet."
       }
     ],
     "focus": [
       {
         "name": "focus-ring",
-        "value": "outline: 2px solid #3b2db8; outline-offset: 3px",
-        "purpose": "All focus-visible states; #b7adff on night passages."
+        "value": "outline: 2px solid #1d5347; outline-offset: 3px; border-radius: 4px",
+        "purpose": "All focusable elements on light."
       },
       {
-        "name": "field-focus",
-        "value": "border-color: #3b2db8; box-shadow: 0 0 0 2px rgb(59 45 184 / 0.25)",
+        "name": "focus-ring-night",
+        "value": "outline-color: #f0ae71",
+        "purpose": "Inside .on-night."
+      },
+      {
+        "name": "input-focus",
+        "value": "border-color: #1d5347; box-shadow: 0 0 0 2px rgb(29 83 71 / 0.25)",
         "purpose": "Form fields."
       }
     ],
@@ -422,37 +378,47 @@
       {
         "name": "ease-out-expo",
         "value": "cubic-bezier(0.16, 1, 0.3, 1)",
-        "purpose": "Default easing: buttons, reveals, structure drawing, nav underline."
+        "purpose": "Arrivals, state changes, buttons, reveals, sorting."
       },
       {
         "name": "ease-out-quart",
         "value": "cubic-bezier(0.25, 1, 0.5, 1)",
-        "purpose": "Lifecycle layer fades."
+        "purpose": "Fades (lifecycle layers)."
       },
       {
         "name": "ease-in-out-quint",
         "value": "cubic-bezier(0.83, 0, 0.17, 1)",
-        "purpose": "Reading-order path trace only."
+        "purpose": "Path and ribbon drawing."
       },
       {
-        "name": "hinge-step",
-        "value": "90ms steps(2, end)",
-        "purpose": "Acetate leaf hinging over the notice."
+        "name": "path-tangle",
+        "value": "2.2s, delay 0.2s",
+        "purpose": "Hero tangled path draw; snags pop at 0.9s + i×0.35s."
+      },
+      {
+        "name": "path-fix",
+        "value": "1.9s, delay 0.15s; switch at 3.2s",
+        "purpose": "Resolved path draw; nodes +0.22s, chips +0.2s stagger."
+      },
+      {
+        "name": "ribbon-draw",
+        "value": "2.4s",
+        "purpose": "Ribbon centre line on scroll-in."
       },
       {
         "name": "reveal",
-        "value": "opacity 0.9s, transform 1.1s from translateY(18px); mask wipe 1.1s; 120ms stagger",
-        "purpose": "Scroll reveals; content visible without script."
+        "value": "opacity 0.9s, translate 14px over 1.1s; mask clip 1.1s",
+        "purpose": "Progressive enhancement only; visible by default."
       },
       {
-        "name": "button-sweep",
-        "value": "0.6s",
-        "purpose": "Violet structure line under a hovered button."
+        "name": "button",
+        "value": "0.45s",
+        "purpose": "Lift, darken, arrow nudge 3px."
       },
       {
         "name": "reduced-motion",
-        "value": "all transitions 0.001ms; reveals and 3D rig flattened",
-        "purpose": "prefers-reduced-motion: reduce."
+        "value": "durations 0.001ms",
+        "purpose": "End states shown; hero opens resolved; replay hidden."
       }
     ],
     "breakpoints": [
@@ -467,28 +433,6 @@
       {
         "name": "lg",
         "value": "1024px"
-      },
-      {
-        "name": "phone-max",
-        "value": "767px",
-        "purpose": "Flattens the hero folder tilt."
-      }
-    ],
-    "patterns": [
-      {
-        "name": "index-card-ruling",
-        "value": "repeating 1px rgb(59 45 184 / 0.16) rule every 2rem, plus one rgb(176 32 27 / 0.35) margin rule at 2.75rem",
-        "purpose": "Ruled index-sheet ground for the inventory field."
-      },
-      {
-        "name": "paper-tooth",
-        "value": "radial-gradient(rgb(14 16 32 / 0.035) 0.6px, transparent 0.7px) at 3px, over linear-gradient(180deg, #fffefb, #fbfaf6)",
-        "purpose": "Optional sheet grain."
-      },
-      {
-        "name": "acetate-leaf",
-        "value": "fill rgb(59 45 184 / 0.05), stroke rgb(59 45 184 / 0.6) 1.2px, hinge rgb(59 45 184 / 0.2), punches #c9a663",
-        "purpose": "Structure layer hinged over a document."
       }
     ]
   },
@@ -497,140 +441,161 @@
       "name": "Primary Button",
       "kind": "button",
       "refersTo": "button-primary",
-      "description": "The one primary action, e.g. Request a Readiness Audit; ink ground with a violet structure line that sweeps in on hover.",
-      "html": "<a class=\"ds-btn\" href=\"#\">Request a Readiness Audit <svg width=\"16\" height=\"11\" viewBox=\"0 0 20 14\" aria-hidden=\"true\"><path d=\"M1 7h17M12 1l6 6-6 6\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.8\" stroke-linecap=\"square\"/></svg></a>",
-      "css": ".ds-btn { position: relative; display: inline-flex; align-items: center; gap: 0.75rem; min-height: 3rem; padding: 0 1.35rem 0 1.4rem; font-family: var(--font-public), ui-sans-serif, system-ui, sans-serif; font-weight: 560; font-size: 0.975rem; letter-spacing: -0.005em; color: #d9bd84; background: #1b1a16; border: 0; border-radius: 3px; text-decoration: none; overflow: hidden; isolation: isolate; cursor: pointer; box-shadow: 0 1px 0 rgb(255 255 255 / 0.12) inset, 0 8px 24px -12px rgb(14 16 32 / 0.6); transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1); } .ds-btn::before { content: ''; position: absolute; inset: auto 0 0 0; height: 2px; background: #5a4ae0; transform: scaleX(0); transform-origin: left; transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1); z-index: -1; } .ds-btn:hover::before, .ds-btn:focus-visible::before { transform: scaleX(1); } .ds-btn:hover { transform: translateY(-1px); } .ds-btn:active { transform: none; } .ds-btn svg { transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1); } .ds-btn:hover svg { transform: translateX(3px); } .ds-btn:focus-visible { outline: 2px solid #3b2db8; outline-offset: 3px; }"
+      "description": "Evergreen full pill for the one primary action per view.",
+      "html": "<a class=\"ds-btn\" href=\"#\">Request a Readiness Audit <span class=\"ds-arrow\"><svg width=\"15\" height=\"11\" viewBox=\"0 0 20 14\" aria-hidden=\"true\"><path d=\"M1 7h17M12 1l6 6-6 6\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.8\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/></svg></span></a>",
+      "css": ".ds-btn{display:inline-flex;align-items:center;gap:0.7rem;min-height:3.1rem;padding:0 1.5rem;font-family:var(--font-sans,'Hanken Grotesk',system-ui,sans-serif);font-weight:600;font-size:1rem;letter-spacing:-0.005em;border:0;border-radius:999px;text-decoration:none;cursor:pointer;transition:transform .45s cubic-bezier(.16,1,.3,1),box-shadow .45s cubic-bezier(.16,1,.3,1),background-color .3s;color:#fff;background:var(--color-signal,#1d5347);box-shadow:0 1px 0 rgb(255 255 255 / .12) inset,0 10px 24px -14px rgb(19 54 46 / .7);} .ds-btn:hover{transform:translateY(-1px);background:color-mix(in oklab,var(--color-signal,#1d5347),#000 12%);} .ds-btn:active{transform:none;} .ds-btn:focus-visible{outline:2px solid var(--color-signal,#1d5347);outline-offset:3px;} .ds-arrow{display:inline-flex;transition:transform .45s cubic-bezier(.16,1,.3,1);} .ds-btn:hover .ds-arrow{transform:translateX(3px);}"
     },
     {
       "name": "Night Button",
       "kind": "button",
       "refersTo": "button-night",
-      "description": "Primary action on cabinet-night passages.",
-      "html": "<div class=\"ds-night-wrap\"><a class=\"ds-btn ds-btn-night\" href=\"#\">Request an audit <svg width=\"16\" height=\"11\" viewBox=\"0 0 20 14\" aria-hidden=\"true\"><path d=\"M1 7h17M12 1l6 6-6 6\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.8\" stroke-linecap=\"square\"/></svg></a></div>",
-      "css": ".ds-btn { position: relative; display: inline-flex; align-items: center; gap: 0.75rem; min-height: 3rem; padding: 0 1.35rem 0 1.4rem; font-family: var(--font-public), ui-sans-serif, system-ui, sans-serif; font-weight: 560; font-size: 0.975rem; letter-spacing: -0.005em; color: #d9bd84; background: #1b1a16; border: 0; border-radius: 3px; text-decoration: none; overflow: hidden; isolation: isolate; cursor: pointer; box-shadow: 0 1px 0 rgb(255 255 255 / 0.12) inset, 0 8px 24px -12px rgb(14 16 32 / 0.6); transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1); } .ds-btn::before { content: ''; position: absolute; inset: auto 0 0 0; height: 2px; background: #5a4ae0; transform: scaleX(0); transform-origin: left; transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1); z-index: -1; } .ds-btn:hover::before, .ds-btn:focus-visible::before { transform: scaleX(1); } .ds-btn:hover { transform: translateY(-1px); } .ds-btn:active { transform: none; } .ds-btn svg { transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1); } .ds-btn:hover svg { transform: translateX(3px); } .ds-btn:focus-visible { outline: 2px solid #3b2db8; outline-offset: 3px; } .ds-night-wrap { background: #18211d; padding: 2rem; } .ds-btn-night { background: #f1ede2; color: #18211d; } .ds-btn-night:focus-visible { outline-color: #b7adff; }"
+      "description": "Apricot pill with ink text, only on deep evergreen night passages.",
+      "html": "<div class=\"ds-night-wrap\"><a class=\"ds-btn-night\" href=\"#\">Request an audit <span><svg width=\"15\" height=\"11\" viewBox=\"0 0 20 14\" aria-hidden=\"true\"><path d=\"M1 7h17M12 1l6 6-6 6\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.8\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/></svg></span></a></div>",
+      "css": ".ds-night-wrap{background:var(--color-night,#13362e);padding:2rem;} .ds-btn-night{display:inline-flex;align-items:center;gap:0.7rem;min-height:3.1rem;padding:0 1.5rem;font-family:var(--font-sans,'Hanken Grotesk',system-ui,sans-serif);font-weight:600;font-size:1rem;letter-spacing:-0.005em;border:0;border-radius:999px;text-decoration:none;cursor:pointer;transition:transform .45s cubic-bezier(.16,1,.3,1),box-shadow .45s cubic-bezier(.16,1,.3,1),background-color .3s;color:var(--color-ink,#17211d);background:var(--color-warm,#f0ae71);box-shadow:0 1px 0 rgb(255 255 255 / .12) inset,0 10px 24px -14px rgb(19 54 46 / .7);} .ds-btn-night:hover{transform:translateY(-1px);background:color-mix(in oklab,var(--color-warm,#f0ae71),#000 12%);} .ds-btn-night:focus-visible{outline:2px solid var(--color-warm,#f0ae71);outline-offset:3px;}"
+    },
+    {
+      "name": "Quiet Button",
+      "kind": "button",
+      "refersTo": "button-quiet",
+      "description": "White pill with an inset rule ring; in-section controls.",
+      "html": "<button class=\"ds-btn-quiet\" type=\"button\">Sort the collection</button>",
+      "css": ".ds-btn-quiet{display:inline-flex;align-items:center;gap:0.7rem;min-height:3.1rem;padding:0 1.5rem;font-family:var(--font-sans,'Hanken Grotesk',system-ui,sans-serif);font-weight:600;font-size:1rem;letter-spacing:-0.005em;border:0;border-radius:999px;text-decoration:none;cursor:pointer;transition:transform .45s cubic-bezier(.16,1,.3,1),box-shadow .45s cubic-bezier(.16,1,.3,1),background-color .3s;min-height:2.75rem;font-size:.95rem;color:var(--color-ink,#17211d);background:var(--color-sheet,#fff);box-shadow:inset 0 0 0 1px rgb(23 33 29 / .3);} .ds-btn-quiet:hover{transform:translateY(-1px);box-shadow:inset 0 0 0 1.5px var(--color-signal,#1d5347);} .ds-btn-quiet:focus-visible{outline:2px solid var(--color-signal,#1d5347);outline-offset:3px;}"
     },
     {
       "name": "Quiet Link",
-      "kind": "button",
-      "refersTo": "button-primary",
-      "description": "Secondary text action beside a primary button; underline retracts and text turns violet on hover.",
-      "html": "<a class=\"ds-link-quiet\" href=\"#\">Hear what a screen reader gets</a>",
-      "css": ".ds-link-quiet { display: inline-flex; align-items: center; min-height: 3rem; font-family: var(--font-public), ui-sans-serif, system-ui, sans-serif; font-weight: 540; color: #1b1a16; text-decoration: none; background-image: linear-gradient(currentColor, currentColor); background-size: 100% 1px; background-position: 0 calc(50% + 0.8em); background-repeat: no-repeat; transition: background-size 0.5s cubic-bezier(0.16, 1, 0.3, 1), color 0.3s; } .ds-link-quiet:hover { color: #3b2db8; background-size: 0% 1px; background-position: 100% calc(50% + 0.8em); } .ds-link-quiet:focus-visible { outline: 2px solid #3b2db8; outline-offset: 3px; }"
+      "kind": "custom",
+      "refersTo": "link-quiet",
+      "description": "Secondary action with an apricot underline that wipes away on hover.",
+      "html": "<a class=\"ds-link-quiet\" href=\"#\">Discuss a pilot</a>",
+      "css": ".ds-link-quiet{display:inline-flex;align-items:center;min-height:3rem;font-family:var(--font-sans,'Hanken Grotesk',system-ui,sans-serif);font-weight:600;color:var(--color-ink,#17211d);text-decoration:none;background-image:linear-gradient(var(--color-warm,#f0ae71),var(--color-warm,#f0ae71));background-size:100% 2px;background-position:0 calc(50% + .8em);background-repeat:no-repeat;transition:background-size .5s cubic-bezier(.16,1,.3,1),color .3s;} .ds-link-quiet:hover{color:var(--color-signal,#1d5347);background-size:0% 2px;background-position:100% calc(50% + .8em);} .ds-link-quiet:focus-visible{outline:2px solid var(--color-signal,#1d5347);outline-offset:3px;border-radius:4px;}"
     },
     {
-      "name": "Text Field",
+      "name": "Segmented Toggle",
+      "kind": "chip",
+      "refersTo": "segmented-toggle",
+      "description": "Pale celadon pill track; checked option is a white thumb. role=radiogroup.",
+      "html": "<div class=\"ds-toggle\" role=\"radiogroup\" aria-label=\"Show the document\"><button type=\"button\" role=\"radio\" aria-checked=\"false\">As posted</button><button type=\"button\" role=\"radio\" aria-checked=\"true\">After Sayable</button></div>",
+      "css": ".ds-toggle{display:inline-flex;padding:4px;border-radius:999px;background:var(--color-paper-deep,#e9efe7);} .ds-toggle button{min-height:2.6rem;padding:0 1.1rem;border:0;border-radius:999px;background:transparent;font-family:var(--font-sans,'Hanken Grotesk',system-ui,sans-serif);font-weight:600;font-size:.95rem;color:var(--color-ink-soft,#34423c);cursor:pointer;transition:background-color .3s,color .3s,box-shadow .3s;} .ds-toggle button:hover{color:var(--color-ink,#17211d);} .ds-toggle button[aria-checked=true]{background:var(--color-sheet,#fff);color:var(--color-ink,#17211d);box-shadow:0 1px 2px rgb(23 50 40 / .12),0 4px 10px -4px rgb(23 50 40 / .2);} .ds-toggle button:focus-visible{outline:2px solid var(--color-signal,#1d5347);outline-offset:3px;}"
+    },
+    {
+      "name": "Text Input",
       "kind": "input",
       "refersTo": "input-field",
-      "description": "Contact form field on index-sheet white.",
-      "html": "<label class=\"ds-field\">Public website<input class=\"ds-input\" type=\"url\" placeholder=\"https://www.example.gov\"></label>",
-      "css": ".ds-field { display: block; font-family: var(--font-public), ui-sans-serif, system-ui, sans-serif; font-size: 0.95rem; font-weight: 540; color: #1b1a16; max-width: 24rem; } .ds-input { margin-top: 0.5rem; display: block; width: 100%; box-sizing: border-box; border: 1px solid rgb(27 26 22 / 0.18); border-radius: 3px; background: #fbfaf6; padding: 0.75rem 0.875rem; font: inherit; font-size: 1rem; font-weight: 400; color: #1b1a16; transition: border-color 0.3s, box-shadow 0.3s; } .ds-input::placeholder { color: rgb(74 60 29 / 0.7); } .ds-input:focus { outline: none; border-color: #3b2db8; box-shadow: 0 0 0 2px rgb(59 45 184 / 0.25); } .ds-input[aria-invalid=true] { border-color: #8f1915; }"
+      "description": "Sheet-white field, hairline border, 3px radius; evergreen focus, rust error.",
+      "html": "<label class=\"ds-field\"><span class=\"ds-label\">Work email</span><input class=\"ds-input\" type=\"email\" placeholder=\"name@city.gov\"></label>",
+      "css": ".ds-field{display:block;max-width:22rem;font-family:var(--font-sans,'Hanken Grotesk',system-ui,sans-serif);} .ds-label{font-size:.95rem;font-weight:560;color:var(--color-ink,#17211d);} .ds-input{margin-top:.5rem;display:block;width:100%;padding:.75rem .875rem;font:inherit;font-size:1rem;color:var(--color-ink,#17211d);background:var(--color-sheet,#fff);border:1px solid rgb(23 33 29 / .12);border-radius:3px;transition:border-color .3s,box-shadow .3s;} .ds-input::placeholder{color:rgb(86 101 93 / .7);} .ds-input:focus{outline:none;border-color:var(--color-signal,#1d5347);box-shadow:0 0 0 2px rgb(29 83 71 / .25);} .ds-input[aria-invalid=true]{border-color:var(--color-ember,#a24a1c);}"
     },
     {
       "name": "Primary Navigation",
       "kind": "nav",
-      "refersTo": "",
-      "description": "Header nav items with a violet line that scales in under the hovered or current item.",
-      "html": "<nav class=\"ds-nav\"><a href=\"#\" aria-current=\"page\">Product</a><a href=\"#\">How it works</a><a href=\"#\">Approach</a><a href=\"#\">Solutions</a></nav>",
-      "css": ".ds-nav { display: flex; background: #d9bd84; padding: 0 0.5rem; } .ds-nav a { position: relative; display: inline-flex; align-items: center; min-height: 2.75rem; padding: 0 0.875rem; font-family: var(--font-public), ui-sans-serif, system-ui, sans-serif; font-size: 0.95rem; font-weight: 480; color: #2f2b21; text-decoration: none; transition: color 0.3s; } .ds-nav a::after { content: ''; position: absolute; left: 0.875rem; right: 0.875rem; bottom: 0.5rem; height: 1px; background: #3b2db8; transform: scaleX(0); transform-origin: left; transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1); } .ds-nav a:hover, .ds-nav a[aria-current] { color: #1b1a16; } .ds-nav a:hover::after, .ds-nav a[aria-current]::after { transform: scaleX(1); } .ds-nav a:focus-visible { outline: 2px solid #3b2db8; outline-offset: 3px; }"
+      "refersTo": "nav",
+      "description": "Soft-ink links with an evergreen underline that scales in; current page keeps it.",
+      "html": "<nav class=\"ds-nav\" aria-label=\"Primary\"><a href=\"#\" aria-current=\"page\">Product</a><a href=\"#\">How it works</a><a href=\"#\">Approach</a></nav>",
+      "css": ".ds-nav{display:flex;gap:.25rem;font-family:var(--font-sans,'Hanken Grotesk',system-ui,sans-serif);} .ds-nav a{position:relative;display:inline-flex;align-items:center;min-height:2.75rem;padding:0 .875rem;font-size:.95rem;font-weight:480;color:var(--color-ink-soft,#34423c);text-decoration:none;transition:color .3s;} .ds-nav a::after{content:'';position:absolute;left:.875rem;right:.875rem;bottom:.5rem;height:1px;background:var(--color-signal,#1d5347);transform:scaleX(0);transform-origin:left;transition:transform .5s cubic-bezier(.16,1,.3,1);} .ds-nav a:hover{color:var(--color-ink,#17211d);} .ds-nav a:hover::after,.ds-nav a[aria-current=page]::after{transform:scaleX(1);} .ds-nav a:focus-visible{outline:2px solid var(--color-signal,#1d5347);outline-offset:3px;border-radius:4px;}"
     },
     {
-      "name": "Manila Folder with Tab Rail",
-      "kind": "custom",
-      "refersTo": "manila-folder",
-      "description": "The hero's signature object: a rail of stepped folder tabs over a manila folder holding an index sheet.",
-      "html": "<div class=\"ds-folder-stage\"><ol class=\"ds-tab-rail\"><li class=\"is-current\" style=\"--t:0\">Discover</li><li style=\"--t:1\">Repair</li><li style=\"--t:2\">Verify</li><li style=\"--t:3\">Publish</li><li style=\"--t:4\">Monitor</li></ol><div class=\"ds-folder\"><div class=\"ds-sheet\">Notice of Public Hearing</div></div></div>",
-      "css": ".ds-folder-stage { background: #d9bd84; padding: 2rem; } .ds-tab-rail { display: flex; gap: 3px; padding: 0 0 0 0.5rem; margin: 0; list-style: none; } .ds-tab-rail li { flex: 1 1 0; min-width: 0; padding: 0.5rem 0.6rem 0.4rem; border-radius: 5px 5px 0 0; background: color-mix(in oklab, #c9a663, #6b5426 calc(var(--t) * 7%)); color: #2e2410; font-family: var(--font-archivo), 'Arial Narrow', sans-serif; font-stretch: 75%; font-weight: 700; font-size: 0.85rem; letter-spacing: 0.02em; text-transform: uppercase; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; transform: translateY(calc(var(--t) * 2px)); } .ds-tab-rail li.is-current { background: #c9a663; transform: none; } .ds-folder { background: #c9a663; border-radius: 2px 6px 6px 6px; box-shadow: 0 1px 0 rgb(255 255 255 / 0.35) inset, 0 18px 40px -18px rgb(60 40 5 / 0.55); padding: 1.5rem; } .ds-sheet { background: #fbfaf6; border-radius: 2px; padding: 2rem; font-family: var(--font-archivo), 'Arial Narrow', sans-serif; font-weight: 760; font-size: 1.5rem; color: #1b1a16; box-shadow: 0 1px 0 rgb(255 255 255 / 0.8) inset, 0 1px 2px rgb(14 16 32 / 0.06), 0 12px 24px -8px rgb(14 16 32 / 0.12), 0 40px 80px -24px rgb(30 24 90 / 0.22); }"
-    },
-    {
-      "name": "Finding Sheet with Stamp",
+      "name": "Document Sheet with Reading Path",
       "kind": "card",
-      "refersTo": "index-sheet",
-      "description": "An index-sheet report figure: Courier accession line, errata finding, Archivo title, stamped verdict.",
-      "html": "<figure class=\"ds-report\"><div class=\"ds-report-head\"><span>ACC-2026-0412 · notice-of-public-hearing.pdf</span><span class=\"ds-muted\">Page 1 of 2</span></div><div class=\"ds-report-body\"><p class=\"ds-finding\">Finding 2 of 4 · major · table_headers</p><p class=\"ds-report-title\">The fee table has no header cells.</p><p class=\"ds-stamp\">Checked · Ready to post</p></div></figure>",
-      "css": ".ds-report { margin: 0; max-width: 32rem; background: #fbfaf6; border-radius: 2px; box-shadow: 0 1px 0 rgb(255 255 255 / 0.8) inset, 0 1px 2px rgb(14 16 32 / 0.06), 0 12px 24px -8px rgb(14 16 32 / 0.12), 0 40px 80px -24px rgb(30 24 90 / 0.22); color: #1b1a16; } .ds-report-head { display: flex; justify-content: space-between; gap: 1rem; padding: 0.75rem 1.75rem; border-bottom: 1px solid rgb(27 26 22 / 0.18); font-family: var(--font-courier), 'Courier New', monospace; font-size: 0.85rem; } .ds-muted { color: #4a3c1d; } .ds-report-body { padding: 1.5rem 1.75rem 2rem; } .ds-finding { margin: 0; font-family: var(--font-courier), 'Courier New', monospace; font-size: 0.85rem; color: #8f1915; } .ds-report-title { margin: 0.5rem 0 0; font-family: var(--font-archivo), 'Arial Narrow', sans-serif; font-weight: 720; font-size: 1.35rem; line-height: 1.2; } .ds-stamp { display: inline-block; margin: 1.75rem 0 0; font-family: var(--font-archivo), 'Arial Narrow', sans-serif; font-weight: 800; font-stretch: 125%; letter-spacing: 0.04em; text-transform: uppercase; font-size: 1.1rem; color: #3b2db8; border: 2px solid currentColor; padding: 0.25em 0.6em 0.2em; border-radius: 3px; transform: rotate(-4deg); mix-blend-mode: multiply; }"
+      "refersTo": "document-sheet",
+      "description": "Signature: white sheet, layered paper shadow, evergreen structure boxes, numbered nodes and tag chips; a rust snag chip on an apricot knot.",
+      "html": "<svg class=\"ds-sheet\" viewBox=\"0 0 425 300\" role=\"img\" aria-label=\"Illustration: a document with its reading path in order\"><rect width=\"425\" height=\"300\" fill=\"#fff\"/><text x=\"40\" y=\"60\" font-family=\"Source Serif 4, Georgia, serif\" font-size=\"26\" fill=\"#17211d\">Notice of Public Hearing</text><rect x=\"32\" y=\"36\" width=\"330\" height=\"36\" rx=\"8\" fill=\"rgb(29 83 71 / 0.04)\" stroke=\"#1d5347\" stroke-width=\"1.6\"/><g font-family=\"Hanken Grotesk, system-ui, sans-serif\" font-size=\"11\" fill=\"#34423c\"><text x=\"40\" y=\"104\">The Planning Commission will hold a public hearing</text><text x=\"40\" y=\"120\">on Tuesday, December 8 at 6:00 p.m.</text></g><rect x=\"32\" y=\"90\" width=\"330\" height=\"40\" rx=\"8\" fill=\"rgb(29 83 71 / 0.04)\" stroke=\"#1d5347\" stroke-width=\"1.6\"/><path d=\"M20 54 C 4 80, 4 90, 20 110 C 30 150, 60 190, 120 210\" fill=\"none\" stroke=\"#1d5347\" stroke-width=\"3\" stroke-linecap=\"round\"/><g font-family=\"Hanken Grotesk, system-ui, sans-serif\" font-weight=\"700\" font-size=\"11\" fill=\"#fff\" text-anchor=\"middle\"><circle cx=\"20\" cy=\"54\" r=\"11\" fill=\"#1d5347\"/><text x=\"20\" y=\"58\">1</text><circle cx=\"20\" cy=\"110\" r=\"11\" fill=\"#1d5347\"/><text x=\"20\" y=\"114\">2</text></g><g transform=\"translate(300 18)\"><rect width=\"34\" height=\"20\" rx=\"10\" fill=\"#1d5347\"/><text x=\"9\" y=\"14\" font-family=\"Fragment Mono, monospace\" font-size=\"11\" fill=\"#fff\">H1</text></g><circle cx=\"150\" cy=\"220\" r=\"10\" fill=\"#fcebdc\" stroke=\"#f0ae71\" stroke-width=\"2\"/><circle cx=\"150\" cy=\"220\" r=\"4\" fill=\"#a24a1c\"/><g transform=\"translate(170 208)\"><rect width=\"150\" height=\"24\" rx=\"12\" fill=\"#a24a1c\"/><text x=\"11\" y=\"16\" font-family=\"Hanken Grotesk, system-ui, sans-serif\" font-weight=\"600\" font-size=\"11.5\" fill=\"#fff\">Fields have no names</text></g></svg>",
+      "css": ".ds-sheet{display:block;width:100%;max-width:26rem;height:auto;border-radius:14px;background:#fff;box-shadow:0 1px 2px rgb(23 50 40 / .06),0 10px 24px -10px rgb(23 50 40 / .14),0 36px 72px -30px rgb(23 50 40 / .26);transform:rotate(-1.2deg);transition:transform 1.4s cubic-bezier(.16,1,.3,1);} .ds-sheet:hover{transform:rotate(0deg);}"
     },
     {
-      "name": "Custody Line",
+      "name": "Ribbon",
       "kind": "custom",
-      "refersTo": "",
-      "description": "Verification sequence: solid violet for machine checks, dashed ink for person review.",
-      "html": "<ol class=\"ds-custody\"><li class=\"is-machine\"><span class=\"ds-mark\"></span><span><b>veraPDF, PDF/UA-1</b><small>Software check</small></span></li><li class=\"is-person\"><span class=\"ds-mark\"></span><span><b>Human review</b><small>Person</small></span></li><li class=\"is-machine\"><span class=\"ds-mark\"></span><span><b>Semantic check</b><small>Software check</small></span></li></ol>",
-      "css": ".ds-custody { list-style: none; margin: 0; padding: 1.5rem; background: #d9bd84; } .ds-custody li { display: flex; gap: 1rem; padding: 0 0 1.25rem 1rem; margin-left: 0.4rem; } .ds-custody .is-machine { border-left: 2px solid #3b2db8; } .ds-custody .is-person { border-left: 1px dashed rgb(27 26 22 / 0.6); } .ds-mark { flex: none; width: 0.75rem; height: 0.75rem; margin: 0.4rem 0 0 calc(-1rem - 7px); } .is-machine .ds-mark { background: #3b2db8; } .is-person .ds-mark { background: #cdae6f; border: 1px solid #1b1a16; } .ds-custody b { display: block; font-family: var(--font-archivo), 'Arial Narrow', sans-serif; font-weight: 720; font-size: 1.25rem; color: #1b1a16; } .ds-custody small { display: block; margin-top: 0.25rem; font-family: var(--font-courier), 'Courier New', monospace; font-size: 0.8rem; color: #2f2b21; }"
+      "refersTo": "ribbon",
+      "description": "Pale celadon band with a thin evergreen centre line; the reading path between acts. Decorative.",
+      "html": "<svg class=\"ds-ribbon\" viewBox=\"0 0 1440 180\" preserveAspectRatio=\"none\" aria-hidden=\"true\"><path d=\"M -60 40 C 240 160, 520 -10, 800 90 S 1250 180, 1500 60\" class=\"ds-ribbon-band\" stroke-width=\"64\"/><path d=\"M -60 40 C 240 160, 520 -10, 800 90 S 1250 180, 1500 60\" class=\"ds-ribbon-line\" pathLength=\"100\"/></svg>",
+      "css": ".ds-ribbon{display:block;width:100%;height:120px;overflow:visible;} .ds-ribbon-band{fill:none;stroke:var(--color-paper-deep,#e9efe7);stroke-linecap:round;} .ds-ribbon-line{fill:none;stroke:var(--color-signal,#1d5347);stroke-width:2;stroke-linecap:round;vector-effect:non-scaling-stroke;stroke-dasharray:100 100;stroke-dashoffset:100;animation:ds-draw 2.4s cubic-bezier(.83,0,.17,1) .2s forwards;} @keyframes ds-draw{to{stroke-dashoffset:0;}} @media (prefers-reduced-motion:reduce){.ds-ribbon-line{animation:none;stroke-dashoffset:0;}}"
     },
     {
-      "name": "Accession Label",
-      "kind": "chip",
-      "refersTo": "accession-label",
-      "description": "Courier Prime label for tags, accession numbers and disclosures; violet for verified structure, muted for captions.",
-      "html": "<p class=\"ds-tag\">H1 · reading order 1</p><p class=\"ds-tag ds-tag-muted\">Illustrative example · nothing is uploaded or processed</p>",
-      "css": ".ds-tag { margin: 0 0 0.5rem; font-family: var(--font-courier), 'Courier New', monospace; font-size: 0.8125rem; line-height: 1.4; color: #3b2db8; } .ds-tag-muted { color: #4a3c1d; }"
+      "name": "Before / After Finding",
+      "kind": "custom",
+      "refersTo": "finding-before",
+      "description": "Report explorer quote panels: rust wash for what a listener hears now, evergreen wash after.",
+      "html": "<div class=\"ds-ba\"><p class=\"ds-before\"><span>Before, a listener hears</span>“Edit text. Edit text.”</p><p class=\"ds-after\"><span>After</span>“Your name, edit text. Your comment, edit text.”</p></div>",
+      "css": ".ds-ba{display:grid;gap:.75rem;grid-template-columns:1fr 1fr;max-width:36rem;font-family:var(--font-sans,'Hanken Grotesk',system-ui,sans-serif);font-size:.92rem;color:var(--color-ink,#17211d);} .ds-ba p{margin:0;border-radius:10px;padding:.75rem 1rem;} .ds-ba span{display:block;font-size:.78rem;font-weight:650;} .ds-before{background:var(--color-ember-wash,#fbe6d6);} .ds-before span{color:var(--color-ember,#a24a1c);} .ds-after{background:var(--color-signal-wash,#dcebe4);} .ds-after span{color:var(--color-signal,#1d5347);}"
     }
   ],
   "narrative": {
-    "northStar": "The Municipal Records Room",
-    "overview": "The site is a working records room that finally knows what is in it. The ground is the manila folder board itself: warm, matte, and committed, covering most of every light surface rather than sitting behind content as a tint. On that board sit index-card sheets, nearly white and lightly lifted, which carry the documents, findings and readouts. Verified structure is marked in stamp-pad violet; barriers and defects are marked in errata red; the long explanatory passages (lifecycle, closing invitation, footer) drop into the green-black of a steel filing cabinet.\n\nType does the filing. Archivo, with its width axis put to work, is the label maker: wide and heavy for headlines, condensed and uppercase for folder tabs, extra-wide for rubber stamps. Public Sans reads the body plainly. Courier Prime is the typewritten clerk's voice for accession numbers, field names, captions and every \"this is illustrative\" disclosure. The rhythm is a 12-column grid inside an 88rem container, with generous section breaks and hairline rules doing the dividing instead of boxes.\n\nThe world rejects the category's SaaS hero-plus-card-grid and the cream-serif editorial default. There are no decorative color gradients and no glow; depth is paper on board, not light on glass.",
+    "northStar": "The Path to Understanding",
+    "overview": "**Creative North Star: \"The Path to Understanding\"**\n\nSayable helps cities and counties make public documents usable by people who rely on screen readers. Its positioning is triage before remediation and documented checking afterwards, so the visual world has one job: to show what a screen reader actually goes through. The core idea is a single reading path through a public document. Where the structure is broken, the path tangles in apricot and snags on named problems. After Sayable's work it runs calm and evergreen through the content in order, one numbered node per block. The document is the product shot. The site shows the file itself, never a dashboard, and every claim is demonstrated on a page (docs/REFERENCES.md, principles 1 and 2).\n\nThe material is quiet and institutional, with some warmth. The ground is luminous porcelain. White document sheets sit on it with soft, layered paper shadows, sometimes turned a degree or two as if they had just been set down. Ink is a near-black green. Evergreen means resolved structure, and the same green, deepened, fills the night passages that hold the estimator, the footer and the supporting-page CTAs. Apricot appears only where the path snags. Rust is apricot's text-safe form. Density is editorial: one idea per act, large serif headings, and generous section padding (96–128px vertical).\n\nThe reading path recurs as a single mechanism (REFERENCES principle 1):\n- **Wordmark:** a filled sheet glyph with an S-curve path through it and an apricot terminal dot.\n- **Hero:** the hearing notice, tangled path, four snag chips, then the evergreen path redraws with nodes 1–7 and tag chips.\n- **Ribbons:** a wide pale band with a thin evergreen centre line that draws itself, carrying the path out of the hero and into the final CTA.\n- **Lifecycle:** the same notice, overlaid with numbered reading-order nodes.\n- **Verification:** the checks listed as a vertical line with nodes.\n- **Final CTA:** the notice resolved, with the path and nodes complete and the \"Checked · ready to post\" seal.\n\nThe world rejects both the generic SaaS template and the records-room costume it replaces. Folder boards, index cards, stamp-pad violet and steel-cabinet night are retired and must not return.",
     "keyCharacteristics": [
-      "Manila folder board as the dominant light ground; index-card white only where a document or record sits.",
-      "Stamp-pad violet means \"structure that was verified\"; errata red means \"barrier or finding\". Neither is decoration.",
-      "Archivo's width axis carries the hierarchy: wdth 112 display, 100 headline, 75 tabs, 125 stamps.",
-      "Courier Prime for every machine or clerk annotation: accession numbers, tags, disclosures.",
-      "Hairline rules divide; sheets lift softly; folders and tabs give the world its silhouette.",
-      "Steel-cabinet night passages for the long explanatory and closing sections."
+      "One mechanism everywhere: a reading path that tangles on broken structure, then resolves.",
+      "The document is the hero object: white 850×1100 sheets drawn in real SVG, with real paper shadows.",
+      "Evergreen marks resolved structure. Apricot marks a snag. Nothing else is accented.",
+      "Serif display with an italic turn, used only on the two bookends.",
+      "Value shown in plain arithmetic, with the assumptions next to the numbers (REFERENCES principle 3).",
+      "No borrowed proof: no logos, testimonials or counters (REFERENCES principle 5)."
     ],
     "rules": [
       {
-        "name": "The Two Inks Rule",
-        "body": "Violet is reserved for verified structure and red for barriers. If a violet or red mark does not mean \"checked\" or \"wrong\", it does not get the ink.",
+        "name": "The Snag Rule",
+        "body": "Apricot and rust appear only where something is wrong or a person has to act: snags, errors, human-work bars, severity. Evergreen is the colour of things that work. Never reverse them.",
         "section": "colors"
       },
       {
-        "name": "The Board Is The Ground Rule",
-        "body": "Light surfaces sit on the manila board. Index-card white appears only where a document, record or form sits on that board; never flood a whole page in sheet white to look \"clean\".",
+        "name": "The Text-Safe Warning Rule",
+        "body": "Apricot is a stroke, fill, underline or night-ground accent. Any warning text on a light ground uses rust.",
         "section": "colors"
       },
       {
-        "name": "The Width Axis Rule",
-        "body": "Hierarchy is carried by Archivo's width, not by switching families: 112 for display, 100 for headlines, 75 for tabs, 125 for stamps. Never fake width with letter-spacing or a second display face.",
+        "name": "The Night Swap Rule",
+        "body": "Inside `.on-night`, the accent becomes apricot: emphasis words, buttons (`btn-night`), focus outlines, ribbon lines and the seal all swap. Evergreen line work does not appear on night.",
+        "section": "colors"
+      },
+      {
+        "name": "The Two Bookends Rule",
+        "body": "The italic turn (Source Serif 4 italic, 360, colored evergreen) is allowed in exactly two places: the hero h1 (\"…*and still leave someone out.*\") and the final CTA h2 (\"See what your *documents need.*\"). Every other emphasis is upright and carried by color alone, as the `.headline em` style does.",
         "section": "typography"
       },
       {
-        "name": "The Upright Emphasis Rule",
-        "body": "Emphasis inside a heading stays upright at the heading's own weight and changes only to violet. No italics in headings, and never gradient-filled text.",
+        "name": "The Machine Voice Rule",
+        "body": "Mono means printed by software or measured. Never use it for prose, headings or buttons.",
         "section": "typography"
       },
       {
-        "name": "The Typed Annotation Rule",
-        "body": "Anything a clerk or a machine would write on the record (accession numbers, tag names, \"Illustrative example\", \"Preliminary\") is set in Courier Prime at label size, in sentence case.",
+        "name": "The Sentence Case Rule",
+        "body": "No uppercase tracked labels in site UI. The only uppercase is inside the fictional document's own letterhead (\"CITY OF ALDER CREEK\"), which belongs to the artifact.",
         "section": "typography"
       },
       {
-        "name": "The Hairline Divides Rule",
-        "body": "Group with space and a single translucent ink rule. Do not wrap sections or list items in bordered cards.",
+        "name": "The One Idea Per Act Rule",
+        "body": "Each home section carries one message and one artifact. The order is hero → two readers → inventory → lifecycle → estimator → verification → audit offer → final CTA. Don't add repeated three-up card rows between acts.",
         "section": "layout"
       },
       {
-        "name": "The Paper Not Light Rule",
-        "body": "Shadows are soft paper casts with a downward offset and negative spread. No glow, no colored halos, no hard offset block shadows.",
+        "name": "The Paper Only Rule",
+        "body": "Only paper casts shadows: sheets, pills, toggle thumbs and the seal. Shadows are always green-tinted and soft. No hard offset shadows, glows or glass.",
+        "section": "elevation"
+      },
+      {
+        "name": "The Set-Down Tilt Rule",
+        "body": "Sheets may turn slightly, as if set on a desk: hero `rotateX(4deg) rotateY(-7deg) rotateZ(-1.2deg)` with pointer parallax, final CTA `rotate(2deg)`, the audit stack 1.5° and 3°. Never more than about 3° in the plane.",
         "section": "elevation"
       }
     ],
     "dos": [
-      "**Do** keep the manila folder board as the light ground and put documents on index sheets that lift off it with the sheet-lift shadow.",
-      "**Do** use stamp-pad violet only for verified structure and errata red only for barriers and findings, with night violet on cabinet-night passages.",
-      "**Do** set headline emphasis upright, at the heading's weight, in violet.",
-      "**Do** carry hierarchy through Archivo's width axis: 112 display, 100 headline, 75 tabs, 125 stamps.",
-      "**Do** set accession numbers, tags, captions and \"illustrative\" or \"preliminary\" disclosures in Courier Prime at label size.",
-      "**Do** divide with hairline rules and space; use the custody line (solid machine, dashed person) whenever a sequence of checks is shown.",
-      "**Do** keep every motion optional: visible by default, collapsed under reduced motion."
+      "**Do** make the document the hero object of every act: a white sheet with the sheet shadow and 14px radius, drawn in the shared 850×1100 coordinate space.",
+      "**Do** carry the reading path wherever a new surface needs a signature: nodes for order, evergreen for resolved, apricot knots and rust chips for snags.",
+      "**Do** use the italic turn only on the hero h1 and the final CTA h2. Everywhere else, emphasis is an upright evergreen word (apricot on night).",
+      "**Do** use full pills for every action, with one evergreen primary per view (\"Request a Readiness Audit\").",
+      "**Do** give every illustration a text equivalent and every interactive demo keyboard operation: radiogroups, a range input for the lens, tabs with arrow keys.",
+      "**Do** keep focus visible: a 2px evergreen outline with a 3px offset, apricot on night, and touch targets of at least 2.75rem.",
+      "**Do** label illustrative data as illustrative (\"Illustrative collection for a fictional city. Not real data.\") and show the arithmetic behind every number.",
+      "**Do** respect `prefers-reduced-motion` by showing the end state, not a frozen midpoint."
     ],
     "donts": [
-      "**Don't** use decorative color gradients, gradient text, or glow. Linear gradients are allowed only as drawing tools for ruling, underlines and paper tooth.",
-      "**Don't** put eyebrows or kickers above headings; the accession label belongs to records and captions, not to section openers.",
-      "**Don't** build SaaS hero-plus-card-grid layouts or wrap sections in bordered cards.",
-      "**Don't** fall back to the cream-serif editorial look; there is no serif in this system.",
-      "**Don't** use hard offset block shadows or colored halos; shadows are soft paper casts.",
-      "**Don't** use text glyphs as icons; use the drawn single-stroke icon family.",
-      "**Don't** use a stamp as a heading or as decoration without a completed check behind it."
+      "**Don't** add eyebrows or kickers: no small labels above headings. The `eyebrow` prop on PageIntro is accepted but deliberately not rendered.",
+      "**Don't** use status dots: no pulsing or \"live\" dots and no colored dots standing in for state. Tone dashes are legend keys and always sit beside their text label.",
+      "**Don't** use gradient text, gradient washes, glows or glass. The only gradient in the build is the solid-colour underline on quiet links.",
+      "**Don't** build generic cards: no icon-title-text card grids and no three-up feature rows. Information sits in definition lists, hairline-ruled lists or on the document itself.",
+      "**Don't** use fake proof: no client logos, testimonials, counters, star ratings or invented metrics. Research benchmarks appear only when labeled preliminary.",
+      "**Don't** use apricot for text on light grounds. Use rust.",
+      "**Don't** reintroduce the records-room world: no folder board, index cards, stamp-pad violet, errata red or steel-cabinet night.",
+      "**Don't** set uppercase tracked labels, mono prose or system display faces.",
+      "**Don't** tilt sheets past about 3° in the plane, and don't give anything that is not paper a shadow."
     ]
   }
 }

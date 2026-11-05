@@ -17,7 +17,7 @@ OWN-WORLD: The ground is luminous porcelain (#F7F9F4), with white document sheet
 
 STORY: A resident meets a form that looks finished but cannot be used. A city faces thousands of such files. Sayable sorts them, repairs them, checks them and keeps watch. The estimator shows the avoidable work. The sample report shows the method. The Readiness Audit is the first step.
 
-FIRST VIEWPORT: The headline sits at left in Source Serif 4: "A document can look right / and still *leave someone out.*" Under it, one line of copy, the evergreen pill "Request a Readiness Audit" and a quiet "Watch the reading path" control. At right, a white notice sheet, slightly turned. A tangled apricot path snags on four problems, then a clean evergreen path redraws through the content in reading order. A pale ribbon carries the line out of the page.
+FIRST VIEWPORT: The headline sits at left in Source Serif 4: "A document can look right / and still *leave someone out.*" Under it, one line of copy, the evergreen pill "Request a Readiness Audit" and a segmented "As posted / After Sayable" control with "Replay the reading path". At right, a white notice sheet, slightly turned. A tangled apricot path snags on four problems, then a clean evergreen path redraws through the content in reading order. A pale ribbon carries the line out of the page.
 
 FORM: Brief-pinned direction ("THE PATH TO UNDERSTANDING", founder brief Nov 5 2026); the roll was not run, per new-work's pinned-direction rule. seed: none (unavailable)
 
