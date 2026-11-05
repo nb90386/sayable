@@ -36,19 +36,18 @@ test("internal links resolve", async ({ page, request }) => {
 test("signature interactions work by keyboard", async ({ page }) => {
   test.setTimeout(30_000);
   await page.goto("/");
-  // hero reading path: switch between states
-  const posted = page.getByRole("radio", { name: "As posted", exact: true });
-  await posted.click({ timeout: 5000 });
-  await expect(posted).toHaveAttribute("aria-checked", "true");
-  await page.getByRole("radio", { name: "After Sayable", exact: true }).click();
-  // two readers lens
-  const slider = page.getByLabel("Compare the visible page with its hidden structure");
-  await slider.focus({ timeout: 5000 });
-  const before = await slider.inputValue();
-  await page.keyboard.press("ArrowRight");
-  expect(await slider.inputValue()).not.toBe(before);
-  await page.getByRole("radio", { name: "After repair", exact: true }).click({ timeout: 5000 });
-  await expect(page.getByText("Heading level 1, Notice of Public Hearing.").first()).toBeVisible();
+  // audio demonstration: both players have named, keyboard-operable controls and transcripts
+  const problem = page.getByRole("button", { name: "Hear the problem" });
+  const difference = page.getByRole("button", { name: "Hear the difference" });
+  await expect(problem).toBeVisible();
+  await expect(difference).toBeVisible();
+  await problem.focus();
+  await expect(problem).toBeFocused();
+  await expect(page.getByRole("list", { name: "Transcript, as posted" })).toContainText("Edit text. Blank.");
+  await expect(page.getByRole("list", { name: "Transcript, after repair" })).toContainText("Applicant name. Edit text. Required.");
+  // audio file is served
+  const res = await page.request.get("/audio/permit-before.m4a");
+  expect(res.status()).toBe(200);
   // sample report: arrow keys move between findings
   const firstTab = page.getByRole("tab", { name: "Comment form fields have no names" });
   await firstTab.focus();

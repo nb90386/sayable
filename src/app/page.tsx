@@ -1,23 +1,23 @@
-import { AuditOffer } from "@/components/sections/AuditOffer";
-import { CostModel } from "@/components/sections/CostModel";
-import { FinalCta } from "@/components/sections/FinalCta";
-import { Hero } from "@/components/sections/Hero";
-import { Inventory } from "@/components/sections/Inventory";
-import { Lifecycle } from "@/components/sections/Lifecycle";
-import { TwoReaders } from "@/components/sections/TwoReaders";
-import { Verification } from "@/components/sections/Verification";
+import { Close } from "@/components/acts/Close";
+import { Journey } from "@/components/acts/Journey";
+import { Listen } from "@/components/acts/Listen";
+import { Scale } from "@/components/acts/Scale";
+import { Title } from "@/components/acts/Title";
+import { Trust } from "@/components/acts/Trust";
+import { Value } from "@/components/acts/Value";
+import { Divider } from "@/components/split/Divider";
 
 export default function Home() {
   return (
     <>
-      <Hero />
-      <TwoReaders />
-      <Inventory />
-      <Lifecycle />
-      <CostModel />
-      <Verification />
-      <AuditOffer />
-      <FinalCta />
+      <Divider />
+      <Title />
+      <Listen />
+      <Scale />
+      <Journey />
+      <Value />
+      <Trust />
+      <Close />
     </>
   );
 }

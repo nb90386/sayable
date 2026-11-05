@@ -1,0 +1,112 @@
+{
+  "voice": "macOS text-to-speech, voice \"Samantha\", rate 185",
+  "generated": "2026-11-05",
+  "before": {
+    "src": "/audio/permit-before.m4a",
+    "duration": 21.607,
+    "cues": [
+      {
+        "id": "footer",
+        "text": "Page 1 of 2.",
+        "start": 0.25,
+        "end": 1.444
+      },
+      {
+        "id": "title",
+        "text": "Residential permit application.",
+        "start": 1.894,
+        "end": 3.945
+      },
+      {
+        "id": "intro",
+        "text": "Complete all sections and sign below.",
+        "start": 4.395,
+        "end": 6.591
+      },
+      {
+        "id": "name",
+        "text": "Edit text. Blank.",
+        "start": 7.041,
+        "end": 8.721
+      },
+      {
+        "id": "phone",
+        "text": "Edit text. Blank.",
+        "start": 9.171,
+        "end": 10.852
+      },
+      {
+        "id": "address",
+        "text": "Edit text. Blank.",
+        "start": 11.302,
+        "end": 12.982
+      },
+      {
+        "id": "work",
+        "text": "Check box. Not checked. Check box. Not checked. Check box. Not checked.",
+        "start": 13.432,
+        "end": 19.027
+      },
+      {
+        "id": "signature",
+        "text": "Edit text. Blank.",
+        "start": 19.477,
+        "end": 21.157
+      }
+    ]
+  },
+  "after": {
+    "src": "/audio/permit-after.m4a",
+    "duration": 29.808,
+    "cues": [
+      {
+        "id": "title",
+        "text": "Residential Permit Application. Heading level 1.",
+        "start": 0.25,
+        "end": 3.532
+      },
+      {
+        "id": "intro",
+        "text": "Complete all sections and sign below.",
+        "start": 3.982,
+        "end": 6.177
+      },
+      {
+        "id": "name",
+        "text": "Applicant name. Edit text. Required.",
+        "start": 6.627,
+        "end": 9.713
+      },
+      {
+        "id": "phone",
+        "text": "Daytime phone. Edit text.",
+        "start": 10.163,
+        "end": 12.28
+      },
+      {
+        "id": "address",
+        "text": "Site address. Edit text. Required.",
+        "start": 12.73,
+        "end": 15.88
+      },
+      {
+        "id": "work",
+        "text": "Type of work. New construction, check box, not checked. Addition, check box. Repair, check box.",
+        "start": 16.33,
+        "end": 23.576
+      },
+      {
+        "id": "signature",
+        "text": "Applicant signature. Edit text. Required.",
+        "start": 24.026,
+        "end": 27.321
+      },
+      {
+        "id": "date",
+        "text": "Date. Edit text.",
+        "start": 27.771,
+        "end": 29.358
+      }
+    ]
+  }
+}
