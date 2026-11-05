@@ -108,7 +108,12 @@ The records-room world described in the previous section is retired. Recovery ta
   - Detector on `src/`: 0 anti-patterns.
   - Rendered detector: 9 findings at first, now 2. The remaining two are the italic turn on the two bookends, kept deliberately per the brief and documented here and in DESIGN.md.
   - Documenter rewrote DESIGN.md and `.impeccable/design.json`; the drift it reported is fixed.
-  - Finish reviewer: first pass returned "recapture" (invalid evidence). Recaptured, and a full review is in progress.
+  - Finish reviewer, in four rounds:
+    1. **Recapture.** The full-page desktop shot was a one-off blank capture artifact, and section shots were hidden under the header. Fixed by `scripts/sections.mjs`, which hides the header and captures after a scroll-through.
+    2. **Fix,** with 8 material items: honest FORM record; inventory as nested cards; path missing from the middle acts; repeated section openings; apricot misused in the estimator; status-dot nodes; lifecycle sheet framed and illegible on mobile; uncited adaptations.
+    3. **Verdict pass.** Seven resolved, one partial, plus two regressions from the fix batch (report detail column squeezed, mobile inventory line crossing the labels).
+    4. **Ship.** All fixes and regressions scored resolved. The ship covers the scored items, not a fresh whole-surface audit.
+  - Also fixed along the way: an inventory hydration mismatch, caused by float rounding in the tangle path. The console is now clean at 1440 and 390.
 - **Lighthouse** (production build, local):
   - Mobile: Performance 85–89 (varies between runs), Accessibility 100, Best Practices 96, SEO 100, CLS 0, **LCP 3.8 s** (over target).
   - Desktop: 100 / 100 / 96 / 100, LCP 0.8 s.
