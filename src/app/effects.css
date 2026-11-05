@@ -220,3 +220,7 @@
 .ld-leaf-hinge { fill: rgb(59 45 184 / 0.2); }
 .ld-leaf-punch { fill: #c9a663; }
 .living-doc:not([data-phase="0"]) .ld-leaf { opacity: 1; }
+@media (max-width: 639px) {
+  .tab-rail { gap: 2px; padding-left: 0.25rem; }
+  .tab-rail li { padding: 0.45rem 0.3rem 0.35rem; font-size: 0.62rem; letter-spacing: 0; text-overflow: clip; text-align: center; }
+}

@@ -95,8 +95,8 @@ export function LivingDocument() {
           {/* The hidden structure, lifted off the page */}
           <svg viewBox={VB} className="ld-structure absolute inset-0 h-full w-full overflow-visible" role="presentation">
             <g className="ld-leaf">
-              <rect x="-18" y="-18" width="886" height="1136" rx="2" className="ld-leaf-sheet" />
-              <rect x="-18" y="-18" width="886" height="30" className="ld-leaf-hinge" />
+              <rect x="-8" y="-18" width="866" height="1136" rx="2" className="ld-leaf-sheet" />
+              <rect x="-8" y="-18" width="866" height="30" className="ld-leaf-hinge" />
               <circle cx="150" cy="-3" r="6.5" className="ld-leaf-punch" />
               <circle cx="700" cy="-3" r="6.5" className="ld-leaf-punch" />
             </g>
