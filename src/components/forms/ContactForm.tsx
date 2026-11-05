@@ -160,7 +160,7 @@ export function ContactForm({ contactEmail, defaultInterest }: { contactEmail: s
           <input id={id("organization")} name="organization" autoComplete="organization" maxLength={LIMITS.organization} className={inputCls} {...err("organization")} />
         </Field>
         <Field label={LABELS.role} htmlFor={id("role")} error={errors.role} errId={id("role-err")}>
-          <select id={id("role")} name="role" defaultValue="" className={`${inputCls} appearance-none bg-[length:12px] bg-[right_1rem_center] bg-no-repeat pr-10`} style={{ backgroundImage: "url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' fill='none' stroke='%2317211d' stroke-width='1.5'/%3E%3C/svg%3E\")" }} {...err("role")}>
+          <select id={id("role")} name="role" defaultValue="" className={`${inputCls} appearance-none bg-[length:12px] bg-[right_1rem_center] bg-no-repeat pr-10`} style={{ backgroundImage: "url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' fill='none' stroke='%23121314' stroke-width='1.5'/%3E%3C/svg%3E\")" }} {...err("role")}>
             <option value="" disabled>
               Choose one
             </option>

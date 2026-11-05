@@ -1,5 +1,8 @@
+"use client";
+
+import { useEffect, useRef, useState } from "react";
 import { SplitAct } from "../split/SplitAct";
-import { PVB, PermitPage } from "../doc/permit";
+import { PVB, PermitPage, regions } from "../doc/permit";
 
 type Line = { t: string; mark?: "bad" | "fixed" | "person" | "check" };
 
@@ -72,7 +75,75 @@ const markClass: Record<string, string> = {
 };
 const markWord: Record<string, string> = { bad: "Issue", fixed: "Automatic", person: "Person", check: "Passed" };
 
+const names: Record<string, string> = {
+  title: "H1",
+  name: 'Field "Applicant name"',
+  phone: 'Field "Daytime phone"',
+  address: 'Field "Site address"',
+  work: 'Group "Type of work"',
+  signature: 'Field "Applicant signature"',
+  date: 'Field "Date"',
+};
+const fieldIds = ["name", "phone", "address", "work", "signature"];
+
+/** The hidden layer for each stage, drawn over the unchanged visible page. */
+function StageLayer({ stage }: { stage: string }) {
+  if (stage === "discover")
+    return (
+      <g>
+        {fieldIds.map((id) => {
+          const r = regions[id]!;
+          return <rect key={id} x={r.x - 6} y={r.y - 6} width={r.w + 12} height={r.h + 12} rx="6" fill="rgb(228 70 43 / 0.08)" stroke="#e4462b" strokeWidth="4" strokeDasharray="12 8" />;
+        })}
+        <g transform="translate(64 1000)">
+          <rect width="230" height="34" rx="17" fill="#e4462b" />
+          <text x="16" y="23" fontFamily="var(--font-mono)" fontSize="15" fill="#fff">read first: footer</text>
+        </g>
+      </g>
+    );
+  if (stage === "repair" || stage === "verify" || stage === "publish" || stage === "monitor")
+    return (
+      <g>
+        {Object.entries(names).map(([id, l]) => {
+          const r = regions[id]!;
+          const w = l.length * 9.4 + 26;
+          return (
+            <g key={id}>
+              <rect x={r.x - 6} y={r.y - 6} width={r.w + 12} height={r.h + 12} rx="6" fill="rgb(18 19 20 / 0.03)" stroke="#121314" strokeWidth="2" />
+              <g transform={`translate(${r.x + r.w - w + 6} ${r.y - 20})`} className="tagchip">
+                <rect width={w} height="28" rx="14" />
+                <text x="12" y="19.5">{l}</text>
+              </g>
+            </g>
+          );
+        })}
+        {stage !== "repair" ? (
+          <g transform="translate(560 960)">
+            <rect width="226" height="40" rx="20" fill="#121314" />
+            <text x="22" y="26" fontFamily="var(--font-sans)" fontWeight="700" fontSize="17" fill="#fff">
+              {stage === "verify" ? "3 checks passed" : stage === "publish" ? "Version 2 · report" : "Watching new uploads"}
+            </text>
+          </g>
+        ) : null}
+      </g>
+    );
+  return null;
+}
+
 export function Journey() {
+  const [active, setActive] = useState("discover");
+  const listRef = useRef<HTMLOListElement>(null);
+  useEffect(() => {
+    const items = Array.from(listRef.current?.querySelectorAll<HTMLElement>("li[id]") ?? []);
+    const io = new IntersectionObserver(
+      (entries) => entries.forEach((e) => e.isIntersecting && setActive(e.target.id)),
+      { rootMargin: "-40% 0px -50% 0px" },
+    );
+    items.forEach((el) => io.observe(el));
+    return () => io.disconnect();
+  }, []);
+  const current = stages.find((s) => s.id === active)!;
+
   return (
     <SplitAct
       act="journey"
@@ -90,22 +161,24 @@ export function Journey() {
               Sayable fixes tags, order and names. It never invents text or alters what residents see.
             </p>
             <figure className="mt-8 lg:ml-auto lg:max-w-[26rem]">
-              <svg viewBox={PVB} className="doc-sheet" role="img" aria-label="The same permit application, visually unchanged through every stage">
+              <svg viewBox={PVB} className="doc-sheet" role="img" aria-label={`The same permit application, visually unchanged. Hidden layer shown for the ${current.name} stage.`}>
                 <PermitPage />
+                <StageLayer stage={active} />
               </svg>
-              <figcaption className="mt-3 text-[0.85rem] text-muted lg:text-right">Visible content: identical at every stage.</figcaption>
+              <figcaption className="mt-3 text-[0.85rem] text-muted lg:text-right" aria-live="polite">
+                {current.name}. Visible content: identical at every stage.
+              </figcaption>
             </figure>
           </div>
         </div>
       }
       right={
-        <ol className="space-y-16 lg:space-y-24" aria-label="Stages">
-          {stages.map((s, i) => (
+        <ol ref={listRef} className="space-y-16 lg:space-y-24" aria-label="Stages">
+          {stages.map((s) => (
             <li key={s.id} id={s.id} className="scroll-mt-28">
-              <p className="font-[700] text-[color:var(--color-signal-night)]">
-                {i + 1}. {s.name}
-              </p>
-              <h3 className="title mt-2 text-[length:var(--step-2)] text-moon">{s.title}</h3>
+              <h3 className="title text-[length:var(--step-2)] text-moon">
+                {s.name}: {s.title.charAt(0).toLowerCase() + s.title.slice(1)}
+              </h3>
               <p className="mt-3 max-w-[48ch] text-moon-muted">{s.body}</p>
               <ul className="mono mt-6 border-t text-[0.9rem]" style={{ borderColor: "var(--rule-night)" }}>
                 {s.lines.map((l) => (

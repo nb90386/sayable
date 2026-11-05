@@ -17,13 +17,13 @@ function RegionThumb({ id }: { id: string }) {
   const first = rs[0]!;
   const cy = first.y + first.h / 2;
   return (
-    <svg viewBox={VB} className="block h-auto w-full rounded-[8px] bg-sheet shadow-[0_1px_2px_rgb(23_50_40/0.1),0_8px_20px_-10px_rgb(23_50_40/0.35)]" aria-hidden="true">
+    <svg viewBox={VB} className="block h-auto w-full rounded-[4px] bg-sheet shadow-[0_1px_2px_rgb(0_0_0/0.08),0_8px_20px_-10px_rgb(0_0_0/0.35)]" aria-hidden="true">
       <NoticePage />
-      <rect width="850" height="1100" fill="rgb(247 249 244 / 0.7)" />
+      <rect width="850" height="1100" fill="rgb(246 245 241 / 0.6)" />
       {rs.map((r, i) => (
-        <rect key={id + i} x={r.x - 8} y={r.y - 8} width={r.w + 16} height={r.h + 16} rx="10" fill="rgb(240 174 113 / 0.35)" stroke="#a24a1c" strokeWidth="9" />
+        <rect key={id + i} x={r.x - 8} y={r.y - 8} width={r.w + 16} height={r.h + 16} rx="10" fill="rgb(228 70 43 / 0.16)" stroke="#e4462b" strokeWidth="9" />
       ))}
-      <path d={`M -40 ${cy} C 10 ${cy}, ${first.x - 70} ${cy}, ${first.x - 10} ${cy}`} fill="none" stroke="#1d5347" strokeWidth="11" strokeLinecap="round" />
+      <path d={`M -40 ${cy} C 10 ${cy}, ${first.x - 70} ${cy}, ${first.x - 10} ${cy}`} fill="none" stroke="#121314" strokeWidth="11" strokeLinecap="round" />
     </svg>
   );
 }
@@ -120,7 +120,7 @@ export function ReportExplorer() {
                   setSel(findings[n]!.id);
                   document.getElementById(`${base}-tab-${findings[n]!.id}`)?.focus();
                 }}
-                className={`flex w-full items-start gap-3 rounded-[10px] px-3 py-3 text-left transition-colors ${on ? "bg-signal-wash" : "hover:bg-paper"}`}
+                className={`flex w-full items-start gap-3 rounded-[6px] px-3 py-3 text-left transition-colors ${on ? "bg-signal-wash" : "hover:bg-paper"}`}
               >
                 <span aria-hidden="true" className={`mt-1.5 h-1.5 w-4 shrink-0 rounded-full ${x.severity === "major" ? "bg-ember" : "bg-warm"}`} />
                 <span className="text-[0.92rem] font-[600] leading-snug">{x.title}</span>
@@ -152,10 +152,10 @@ export function ReportExplorer() {
             <dd>veraPDF 1.28, PDF/UA-1 profile: passed. Semantic check: no major findings.</dd>
           </dl>
           <div className="mt-6 grid gap-3 sm:grid-cols-2">
-            <p className="rounded-[10px] bg-ember-wash px-4 py-3 text-[0.92rem]">
+            <p className="rounded-[6px] bg-ember-wash px-4 py-3 text-[0.92rem]">
               <span className="block text-[0.78rem] font-[650] text-ember">Before, a listener hears</span>“{f.before}”
             </p>
-            <p className="rounded-[10px] bg-signal-wash px-4 py-3 text-[0.92rem]">
+            <p className="rounded-[6px] bg-signal-wash px-4 py-3 text-[0.92rem]">
               <span className="block text-[0.78rem] font-[650] text-signal">After</span>“{f.after}”
             </p>
           </div>

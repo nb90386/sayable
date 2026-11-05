@@ -83,7 +83,7 @@ export function Footer() {
       <p
         aria-hidden="true"
         className="pointer-events-none select-none whitespace-nowrap px-[var(--gutter)] pb-4 font-serif leading-[0.8] tracking-[-0.05em] text-transparent"
-        style={{ fontSize: "clamp(5rem, 22vw, 22rem)", WebkitTextStroke: "1px rgb(228 70 43 / 0.55)", fontWeight: 300 }}
+        style={{ fontSize: "clamp(5rem, 22vw, 22rem)", WebkitTextStroke: "1px rgb(242 241 236 / 0.3)", fontWeight: 300 }}
       >
         Sayable
       </p>

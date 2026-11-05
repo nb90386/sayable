@@ -29,6 +29,6 @@ FIRST VIEWPORT:
 - Right: the file's broken structure list.
 - The tangled vermilion divider runs between the columns, with a pill label at the bottom of the viewport.
 
-FORM: Scroll Craft grammar 2.7 "Split stage" (scrollcraft/builds/sayable/BRIEF.md). The direction is brief-pinned ("THE DOCUMENT HAS TWO STORIES", founder brief Nov 5 2026), so the Impeccable concept roll was not run; per new-work, "A user- or brief-pinned decision beats the roll, always". There is no seed.
+FORM: Scroll Craft grammar 2.7 "Split stage" (scrollcraft/builds/sayable/BRIEF.md). The direction is brief-pinned ("THE DOCUMENT HAS TWO STORIES", founder brief Nov 5 2026), so the Impeccable concept roll was not run; per new-work, "A user- or brief-pinned decision beats the roll, always". seed: none (roll skipped: brief-pinned direction; `impeccable concept-seed --check-seed none` reports "none means the roll was skipped").
 
 FINISH: unreviewed and undocumented is unfinished; this build ends with the finish review, the verdict, DESIGN.md, and every shipping raster carrying its provenance

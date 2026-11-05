@@ -47,10 +47,11 @@
   .divider-sides span:last-child { background: var(--color-night); color: var(--color-moon); padding: 7px 16px 7px 14px; box-shadow: inset 1px 0 0 var(--color-warm); }
   .divider-act { font-size: 0.78rem; font-weight: 700; color: var(--color-ink); background: var(--color-paper); padding: 3px 10px; border-radius: 999px; box-shadow: 0 4px 12px -8px rgb(0 0 0 / 0.5); }
   .divider.is-collapsed .divider-desk { transform: translateX(50vw); opacity: 0; }
-  .divider.is-collapsed .divider-chrome { opacity: 0; }
+  .divider.is-collapsed .divider-chrome, .divider:not(.at-title) .divider-chrome { opacity: 0; }
 }
-/* resolved: once straight, the line reads as ink-calm, not red */
+/* resolved: once straight, the red pen retreats and the line is ink */
 .divider-line { transition: stroke 0.6s; }
+.divider.is-calm .divider-line { stroke: var(--color-ink); }
 
 /* ─── Documents ──────────────────────────────────────────── */
 .doc-sheet { display: block; width: 100%; height: auto; background: #fff; border-radius: var(--radius-sheet); box-shadow: var(--shadow-sheet); }

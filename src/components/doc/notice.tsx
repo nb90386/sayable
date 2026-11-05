@@ -50,45 +50,45 @@ export function NoticePage() {
     <g>
       <rect width="850" height="1100" fill="var(--color-sheet)" />
       {/* letterhead */}
-      <text x="64" y="86" fontFamily={sans} fontSize="15" letterSpacing="3.2" fontWeight="600" fill="#34423c">
+      <text x="64" y="86" fontFamily={sans} fontSize="15" letterSpacing="3.2" fontWeight="600" fill="#3a3d42">
         CITY OF ALDER CREEK
       </text>
-      <text x="64" y="110" fontFamily={sans} fontSize="14" fill="#56655d">
+      <text x="64" y="110" fontFamily={sans} fontSize="14" fill="#5b5e63">
         Planning Division · 410 Main Street
       </text>
-      <g transform="translate(760 96)" fill="none" stroke="#34423c" strokeWidth="1.4">
+      <g transform="translate(760 96)" fill="none" stroke="#3a3d42" strokeWidth="1.4">
         <circle r="34" />
         <circle r="27" strokeDasharray="2 3" />
         <path d="M-12 8 L0 -14 L12 8 Z M-16 12 H16" />
       </g>
-      <line x1="64" y1="140" x2="786" y2="140" stroke="#17211d" strokeOpacity="0.5" />
+      <line x1="64" y1="140" x2="786" y2="140" stroke="#121314" strokeOpacity="0.5" />
 
-      <text x="64" y="216" fontFamily={serif} fontSize="50" fill="#17211d" letterSpacing="-1">
+      <text x="64" y="216" fontFamily={serif} fontSize="50" fill="#121314" letterSpacing="-1">
         Notice of Public Hearing
       </text>
-      <text x="64" y="258" fontFamily={serif} fontStyle="italic" fontSize="23" fill="#34423c">
+      <text x="64" y="258" fontFamily={serif} fontStyle="italic" fontSize="23" fill="#3a3d42">
         Proposed changes to residential permit fees
       </text>
 
-      <g fontFamily={sans} fontSize="18" fill="#34423c">
+      <g fontFamily={sans} fontSize="18" fill="#3a3d42">
         <text x="64" y="314">The Planning Commission will hold a public hearing on Tuesday,</text>
         <text x="64" y="342">December 8 at 6:00 p.m. in Council Chambers to consider the</text>
         <text x="64" y="370">fee schedule below. Anyone may comment in person or in writing.</text>
       </g>
 
-      <text x="64" y="442" fontFamily={serif} fontSize="28" fill="#17211d">
+      <text x="64" y="442" fontFamily={serif} fontSize="28" fill="#121314">
         Proposed fee schedule
       </text>
 
       {/* table */}
       <g fontFamily={sans} fontSize="16.5">
-        <rect x="64" y="466" width="722" height="44" fill="#e3ebe4" />
-        <g fill="#17211d" fontWeight="600">
+        <rect x="64" y="466" width="722" height="44" fill="#eceae3" />
+        <g fill="#121314" fontWeight="600">
           <text x="80" y="494">Permit type</text>
           <text x="410" y="494">Current</text>
           <text x="606" y="494">Proposed</text>
         </g>
-        <g fill="#34423c">
+        <g fill="#3a3d42">
           <text x="80" y="540">Building, residential</text>
           <text x="410" y="540">$85</text>
           <text x="606" y="540">$92</text>
@@ -99,7 +99,7 @@ export function NoticePage() {
           <text x="410" y="636">$40</text>
           <text x="606" y="636">$44</text>
         </g>
-        <g stroke="#17211d" strokeOpacity="0.2">
+        <g stroke="#121314" strokeOpacity="0.2">
           <line x1="64" y1="558" x2="786" y2="558" />
           <line x1="64" y1="606" x2="786" y2="606" />
           <line x1="64" y1="658" x2="786" y2="658" strokeOpacity="0.5" />
@@ -108,8 +108,8 @@ export function NoticePage() {
 
       {/* map figure */}
       <g>
-        <rect x="64" y="700" width="340" height="212" fill="#eef2ec" />
-        <g stroke="#17211d" strokeOpacity="0.28" strokeWidth="9" fill="none" strokeLinecap="round">
+        <rect x="64" y="700" width="340" height="212" fill="#f1f0eb" />
+        <g stroke="#121314" strokeOpacity="0.28" strokeWidth="9" fill="none" strokeLinecap="round">
           <path d="M64 780 H404" />
           <path d="M200 700 V912" />
           <path d="M64 870 C150 860 260 900 404 840" strokeWidth="5" />
@@ -118,34 +118,34 @@ export function NoticePage() {
           <path d="M64 780 H404" />
           <path d="M200 700 V912" />
         </g>
-        <rect x="248" y="724" width="70" height="40" fill="#c7d3cb" />
-        <circle cx="283" cy="744" r="9" fill="#17211d" />
-        <text x="64" y="938" fontFamily={sans} fontSize="14" fill="#56655d">
+        <rect x="248" y="724" width="70" height="40" fill="#d6d4cc" />
+        <circle cx="283" cy="744" r="9" fill="#121314" />
+        <text x="64" y="938" fontFamily={sans} fontSize="14" fill="#5b5e63">
           Council Chambers, 410 Main Street
         </text>
       </g>
 
       {/* comment form */}
       <g fontFamily={sans}>
-        <text x="446" y="722" fontSize="19" fontWeight="600" fill="#17211d">
+        <text x="446" y="722" fontSize="19" fontWeight="600" fill="#121314">
           Submit a written comment
         </text>
-        <text x="470" y="776" fontSize="14" fill="#56655d">
+        <text x="470" y="776" fontSize="14" fill="#5b5e63">
           Name
         </text>
-        <rect x="470" y="790" width="292" height="40" fill="#fff" stroke="#17211d" strokeOpacity="0.4" />
-        <text x="470" y="852" fontSize="14" fill="#56655d">
+        <rect x="470" y="790" width="292" height="40" fill="#fff" stroke="#121314" strokeOpacity="0.4" />
+        <text x="470" y="852" fontSize="14" fill="#5b5e63">
           Comment
         </text>
-        <rect x="470" y="862" width="292" height="62" fill="#fff" stroke="#17211d" strokeOpacity="0.4" />
-        <rect x="446" y="700" width="340" height="250" fill="none" stroke="#17211d" strokeOpacity="0.16" />
+        <rect x="470" y="862" width="292" height="62" fill="#fff" stroke="#121314" strokeOpacity="0.4" />
+        <rect x="446" y="700" width="340" height="250" fill="none" stroke="#121314" strokeOpacity="0.16" />
       </g>
 
-      <line x1="64" y1="1012" x2="786" y2="1012" stroke="#17211d" strokeOpacity="0.2" />
-      <text x="64" y="1040" fontFamily={mono} fontSize="13" fill="#56655d">
+      <line x1="64" y1="1012" x2="786" y2="1012" stroke="#121314" strokeOpacity="0.2" />
+      <text x="64" y="1040" fontFamily={mono} fontSize="13" fill="#5b5e63">
         Example document · fictional city
       </text>
-      <text x="786" y="1040" fontFamily={mono} fontSize="13" fill="#56655d" textAnchor="end">
+      <text x="786" y="1040" fontFamily={mono} fontSize="13" fill="#5b5e63" textAnchor="end">
         Page 1 of 2
       </text>
     </g>

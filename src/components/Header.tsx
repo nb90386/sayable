@@ -107,7 +107,7 @@ export function Header() {
         </nav>
 
         <div className="flex items-center gap-2">
-          <Link href={cta.href} className={`btn hidden !min-h-10 !px-4 text-sm sm:inline-flex ${home ? "btn-night" : ""}`}>
+          <Link href={cta.href} className={`btn hidden !min-h-10 !px-4 text-sm sm:inline-flex ${home ? "btn-home" : ""}`}>
             {cta.label}
           </Link>
           <button
@@ -152,7 +152,6 @@ export function Header() {
                   style={{ ["--i" as string]: i }}
                 >
                   {item.label}
-                  <span className="tag !text-muted">{String(i + 1).padStart(2, "0")}</span>
                 </Link>
               </li>
             ))}

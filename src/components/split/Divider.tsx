@@ -99,7 +99,7 @@ export function Divider() {
   return (
     <div
       aria-hidden="true"
-      className={`divider ${collapsed ? "is-collapsed" : ""}`}
+      className={`divider ${collapsed ? "is-collapsed" : ""} ${act === "title" ? "at-title" : ""} ${desk.amp < 0.15 ? "is-calm" : ""}`}
       data-sc-verify-state={`${desk.amp.toFixed(2)}|${act}|${collapsed ? 1 : 0}`}
       data-sc-verify-hold={collapsed ? "true" : undefined}
     >

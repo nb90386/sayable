@@ -61,9 +61,14 @@ export function Close() {
             <path
               d={order.reduce((d, id, i) => {
                 const r = regions[id]!;
-                const x = 30;
+                const x = r.x - 26;
                 const y = r.y + 16;
-                return d + (i === 0 ? `M ${x} ${y}` : ` L ${x} ${y}`);
+                if (i === 0) return `M ${x} ${y}`;
+                const prev = regions[order[i - 1]!]!;
+                const px = prev.x - 26;
+                const py = prev.y + 16;
+                const my = (py + y) / 2;
+                return d + (Math.abs(py - y) < 4 ? ` C ${px + 120} ${py - 60}, ${x - 120} ${y - 60}, ${x} ${y}` : ` C ${px - 18} ${my}, ${x - 18} ${my}, ${x} ${y}`);
               }, "")}
               fill="none"
               stroke="#121314"
@@ -74,7 +79,7 @@ export function Close() {
               return (
                 <g key={id}>
                   <rect x={r.x - 8} y={r.y - 8} width={r.w + 16} height={r.h + 16} rx="8" fill="rgb(18 19 20 / 0.03)" stroke="#121314" strokeWidth="2" />
-                  <g transform={`translate(30 ${r.y + 16})`}>
+                  <g transform={`translate(${r.x - 26} ${r.y + 16})`}>
                     <circle r="15" fill="#121314" />
                     <text y="5.5" textAnchor="middle" fontFamily="var(--font-sans)" fontWeight="700" fontSize="15" fill="#fff">
                       {i + 1}

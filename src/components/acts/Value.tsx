@@ -89,6 +89,19 @@ export function Value() {
       }
       left={
         <form onSubmit={(e) => e.preventDefault()} aria-label="Workload estimator inputs">
+          {/* phones: the result stays in view while the sliders move */}
+          <div className="sticky top-0 z-20 -mx-[var(--gutter)] mb-6 grid grid-cols-3 gap-2 border-b bg-night px-[var(--gutter)] py-3 text-moon lg:hidden" aria-hidden="true">
+            {[
+              ["By hand", baseline],
+              ["Sort first", sorted],
+              ["Sort + automate", mixed],
+            ].map(([l, val]) => (
+              <span key={l as string} className="block">
+                <span className="block text-[0.72rem] text-moon-muted">{l as string}</span>
+                <Money value={val as number} className="title block text-[1.05rem]" />
+              </span>
+            ))}
+          </div>
           <p className="max-w-[40ch] text-ink-soft lg:ml-auto lg:text-right">Move the numbers to match your site. Every result on the right is computed from them.</p>
           <ul className="mt-8 border-t hairline">
             {fields.map((f) => {
@@ -115,10 +128,6 @@ export function Value() {
       }
       right={
         <div aria-live="polite">
-          <div className="sticky top-0 z-10 -mx-[var(--gutter)] mb-6 flex items-baseline justify-between gap-3 border-b bg-night px-[var(--gutter)] py-3 lg:hidden" style={{ borderColor: "var(--rule-night)" }} aria-hidden="true">
-            <span className="text-[0.85rem] text-moon-muted">Sort, then automate</span>
-            <Money value={mixed} className="title text-[1.5rem]" />
-          </div>
           <dl className="grid grid-cols-2 gap-6 border-b pb-6" style={{ borderColor: "var(--rule-night)" }}>
             <div>
               <dt className="text-[0.9rem] text-moon-muted">Pages to review</dt>
@@ -176,7 +185,7 @@ export function Value() {
             A hypothetical estimate from the numbers you entered, not a quote or a measured result. The automation share is one average; real documents vary, and tables, forms and scans usually need a person. Sayable does not decide which documents your organization must remediate.
           </p>
           <Link href="/contact?topic=audit" className="btn btn-night mt-8">
-            Find out what your inventory actually requires <span className="arrow" aria-hidden="true" data-icon="arrow-r"></span>
+            Find out what your document inventory could actually require <span className="arrow" aria-hidden="true" data-icon="arrow-r"></span>
           </Link>
         </div>
       }

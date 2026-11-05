@@ -10,7 +10,7 @@ export type Region = { x: number; y: number; w: number; h: number };
 
 export const regions: Record<string, Region> = {
   seal: { x: 700, y: 52, w: 84, h: 84 },
-  title: { x: 64, y: 118, w: 560, h: 64 },
+  title: { x: 64, y: 118, w: 618, h: 64 },
   intro: { x: 64, y: 200, w: 520, h: 30 },
   name: { x: 64, y: 318, w: 722, h: 82 },
   phone: { x: 64, y: 418, w: 350, h: 82 },
