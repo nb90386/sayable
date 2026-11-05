@@ -43,7 +43,7 @@ export function Lifecycle() {
           if (e.isIntersecting) setActive(Number((e.target as HTMLElement).dataset.i));
         });
       },
-      { rootMargin: "-45% 0px -45% 0px" },
+      { rootMargin: "-62% 0px -30% 0px" },
     );
     refs.current.forEach((el) => el && io.observe(el));
     return () => io.disconnect();
@@ -66,8 +66,8 @@ export function Lifecycle() {
 
       <div className="wrap grid-12 pb-28 pt-16 sm:pb-36">
         {/* Sticky artifact */}
-        <div className="col-span-12 md:col-span-6 lg:col-span-7">
-          <div className="sticky top-[calc(var(--header-h)+1rem)] z-10 pb-6 md:top-[calc(var(--header-h)+3rem)]">
+        <div className="max-md:contents md:col-span-6 lg:col-span-7">
+          <div className="sticky top-[var(--header-h)] z-10 col-span-12 self-start bg-night pb-4 pt-3 max-md:-mx-[var(--gutter)] max-md:px-[var(--gutter)] md:top-[calc(var(--header-h)+3rem)] md:bg-transparent md:pb-6 md:pt-0">
             <ol className="mb-5 grid grid-cols-5 gap-1.5" aria-hidden="true">
               {stages.map((s, i) => (
                 <li key={s.id}>
@@ -94,7 +94,7 @@ export function Lifecycle() {
                   refs.current[i] = el;
                 }}
                 data-i={i}
-                className="flex min-h-[70vh] flex-col justify-center py-12 md:min-h-[85vh]"
+                className="flex min-h-[60vh] flex-col justify-center py-12 md:min-h-[85vh]"
               >
                 <p className="tag !text-signal-night">
                   {s.n} · {s.name}
@@ -127,7 +127,7 @@ function StageArtifact({ stage }: { stage: string }) {
           className="relative transition-transform duration-[1200ms] ease-[var(--ease-out-expo)]"
           style={{ transform: stage === "publish" ? "translateY(-2%) rotateX(4deg)" : stage === "monitor" ? "scale(0.82) translateX(-8%)" : "none" }}
         >
-          <svg viewBox={VB} className="sheet block h-auto max-h-[58vh] w-full md:max-h-[70vh]" preserveAspectRatio="xMidYMin meet">
+          <svg viewBox={VB} className="sheet mx-auto block h-auto max-h-[34vh] w-auto md:max-h-[70vh] md:w-full" preserveAspectRatio="xMidYMin meet">
             <NoticePage />
             {/* DISCOVER: barriers flagged */}
             <g className={on("discover")}>
