@@ -35,10 +35,10 @@
 .opening-xray .sheet-path { stroke-dasharray: 100 100; stroke-dashoffset: calc(100 - var(--s) * 100); }
 .opening-scan { position: absolute; left: -2%; right: -2%; top: calc(var(--s) * 100%); height: 2px; background: var(--color-signal); opacity: clamp(0, calc(var(--s) * 20), 1); }
 .opening-scan span { position: absolute; right: 0; top: -13px; font-size: 12px; line-height: 1; color: #fff; background: var(--color-signal); padding: 6px 10px; border-radius: 999px; }
-.opening-caption { position: absolute; bottom: clamp(1.5rem, 5vh, 3rem); left: 0; right: 0; z-index: 3; font-size: var(--step-1); font-weight: 560; letter-spacing: -0.02em; opacity: clamp(0, calc((var(--p) - 0.6) * 5), 1); }
-.opening-caption::before { content: ""; position: absolute; inset: -150px 0 -80px; background: linear-gradient(to top, var(--color-paper) 62%, rgb(248 249 251 / 0)); z-index: -1; }
+.opening-caption { position: relative; z-index: 3; margin-top: 0; padding-top: clamp(1.5rem, 4vh, 3rem); padding-bottom: clamp(3rem, 8vh, 5rem); font-size: var(--step-1); font-weight: 560; letter-spacing: -0.02em; }
+
 @media (max-width: 767px) {
-  .opening { height: 210vh; }
+  .opening { height: 185vh; }
   .opening-tilt { transform: translateY(calc(var(--p) * -58svh)) rotateX(max(0deg, calc(14deg - var(--p) * 24deg))); }
   .opening-scan span { display: none; }
 }
@@ -47,17 +47,18 @@
   .opening-stage { position: relative; height: auto; overflow: visible; padding-bottom: 4rem; }
   .opening-copy { transform: none; opacity: 1; }
   .opening-tilt { transform: none; }
-  .opening-caption { position: relative; bottom: auto; margin-top: 2rem; opacity: 1; }
-  .opening-caption::before { display: none; }
+  .opening-caption { margin-top: 2rem; }
   .opening-scan { display: none; }
 }
 
 /* ─── Dark scenes with soft edges (filmic: no hard cuts) ── */
 .scene-dark { position: relative; background: var(--color-night); color: var(--color-moon); }
-.scene-dark::before, .scene-dark::after { content: ""; position: absolute; left: 0; right: 0; height: clamp(5rem, 14vh, 10rem); pointer-events: none; }
-.scene-dark::before { top: 0; background: linear-gradient(var(--color-paper), var(--color-night)); }
-.scene-dark::after { bottom: 0; background: linear-gradient(var(--color-night), var(--color-paper)); }
+.scene-dark::before, .scene-dark::after { content: ""; position: absolute; left: 0; right: 0; height: clamp(4rem, 9vh, 6.5rem); pointer-events: none; }
+.scene-dark::before { top: 0; background: linear-gradient(var(--color-paper), color-mix(in oklab, var(--color-paper), var(--color-night) 70%) 45%, var(--color-night)); }
+.scene-dark::after { bottom: 0; background: linear-gradient(var(--color-night), color-mix(in oklab, var(--color-paper), var(--color-night) 70%) 55%, var(--color-paper)); }
 .scene-dark > * { position: relative; z-index: 1; }
+.scene-dark.from-deep::before { background: linear-gradient(var(--color-paper-deep), color-mix(in oklab, var(--color-paper-deep), var(--color-night) 70%) 45%, var(--color-night)); }
+.scene-dark.to-night::after { display: none; }
 
 /* ─── Segmented control ───────────────────────────────── */
 .seg { display: inline-flex; padding: 4px; border-radius: 999px; background: rgb(18 21 27 / 0.06); }
@@ -98,3 +99,17 @@
 @keyframes menu-in { from { opacity: 0; transform: translateY(12px); } }
 
 @media (max-width: 480px) { .wave i:nth-child(n+25) { display: none; } .player-btn { padding: 0 1rem; } }
+
+/* annotations: legible on every screen */
+@media (max-width: 767px) { .ann-chip { display: none; } .sheet-legend { display: grid; } }
+@media (min-width: 768px) { .sheet-legend { display: none; } }
+.sheet-legend { gap: 0.45rem; margin-top: 1.25rem; text-align: left; font-size: 0.95rem; }
+.sheet-legend li { display: flex; align-items: center; gap: 0.6rem; }
+.sheet-legend span { display: inline-flex; flex: none; width: 1.5rem; height: 1.5rem; align-items: center; justify-content: center; border-radius: 999px; color: #fff; font-size: 0.8rem; font-weight: 600; }
+.on-night .sheet-legend span.bg-ink { background: var(--color-moon); color: var(--color-night); }
+/* the resolved path draws itself when it appears */
+@media (prefers-reduced-motion: no-preference) {
+  .sheet-path { stroke-dasharray: 100 100; animation: path-draw 1.6s var(--ease-in-out-quint) both; }
+  .opening-xray .sheet-path { animation: none; }
+}
+@keyframes path-draw { from { stroke-dashoffset: 100; } to { stroke-dashoffset: 0; } }

@@ -2,7 +2,7 @@
 
 import { useId, useState } from "react";
 import { PVB, PermitPage, regions } from "../doc/permit";
-import { BrokenLayer, FixedLayer } from "../doc/PermitSheet";
+import { BrokenLayer, FixedLayer, SheetLegend } from "../doc/PermitSheet";
 
 type Row = { t: string; k: "issue" | "auto" | "person" | "pass" | "info" };
 const stages: { id: string; name: string; line: string; rows: Row[]; status: string }[] = [
@@ -90,7 +90,7 @@ export function Product() {
           document.
         </p>
 
-        <div role="tablist" aria-label="Stages" className="seg mt-10 max-w-full overflow-x-auto">
+        <div role="tablist" aria-label="Stages" className="seg mt-10 max-w-full flex-wrap justify-center !rounded-[1.6rem]">
           {stages.map((st, n) => (
             <button
               key={st.id}
@@ -128,13 +128,16 @@ export function Product() {
           </div>
           <div className="grid md:grid-cols-[17rem_1fr]">
             <aside className="border-b p-5 text-left hairline md:border-b-0 md:border-r" aria-label={`${s.name} details`}>
-              <p className="text-[0.8rem] font-[600] text-muted">{s.name}</p>
-              <p className="title mt-1 text-[1.15rem]">{s.status}</p>
+              <p className="title text-[1.15rem]">
+                {s.name}: {s.status.charAt(0).toLowerCase() + s.status.slice(1)}
+              </p>
               <ul className="mt-5 space-y-3">
                 {s.rows.map((r) => (
                   <li key={r.t} className="text-[0.92rem] leading-snug">
-                    {mark[r.k][0] ? <span className={`block text-[0.75rem] font-[600] ${mark[r.k][1]}`}>{mark[r.k][0]}</span> : null}
-                    <span className={r.k === "issue" ? "text-ember" : "text-ink"}>{r.t}</span>
+                    <span className={r.k === "issue" ? "text-ember" : "text-ink"}>
+                      {mark[r.k][0] ? <span className={`font-[600] ${mark[r.k][1]}`}>{mark[r.k][0]}: </span> : null}
+                      {r.t}
+                    </span>
                   </li>
                 ))}
               </ul>
@@ -143,7 +146,7 @@ export function Product() {
               <div className="mx-auto max-w-[520px]">
                 <svg viewBox={PVB} className="permit-page" aria-label={`The permit application during ${s.name}. Visible content unchanged.`} role="img">
                   <PermitPage />
-                  {layer === "broken" ? <BrokenLayer /> : <FixedLayer />}
+                  {layer === "broken" ? <BrokenLayer key="b" /> : <FixedLayer key={s.id} />}
                   {s.id !== "discover" && s.id !== "repair" ? (
                     <g transform={`translate(${regions.date!.x - 40} 960)`}>
                       <rect width="266" height="40" rx="20" fill="#12151b" />
@@ -153,6 +156,7 @@ export function Product() {
                     </g>
                   ) : null}
                 </svg>
+                <SheetLegend layer={layer} />
               </div>
             </div>
           </div>

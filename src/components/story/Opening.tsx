@@ -4,7 +4,7 @@ import Link from "next/link";
 import { useEffect } from "react";
 import { useScrollVars } from "@/lib/useScrollVars";
 import { PVB } from "../doc/permit";
-import { BrokenLayer, PermitSheet } from "../doc/PermitSheet";
+import { BrokenLayer, PermitSheet, SheetLegend } from "../doc/PermitSheet";
 
 /**
  * Chapter 1. A centred claim over a large pinned document. Scrolling moves a
@@ -28,15 +28,15 @@ export function Opening() {
   // Scroll Craft verification harness waits for this marker before sampling.
   useEffect(() => document.documentElement.classList.add("sc-ready"), []);
   return (
+    <>
     <section ref={ref} data-sc-act="opening" aria-labelledby="hero-title" className="opening relative">
       <div className="opening-stage">
         <div className="opening-copy wrap text-center">
           <h1 id="hero-title" className="display mx-auto text-[length:clamp(2.5rem,1.4rem+4.2vw,5.4rem)]">
             <span className="block">Public documents,</span> <span className="block">readable by everyone.</span>
           </h1>
-          <p className="lede mx-auto mt-5 !max-w-[42ch]">
-            Sayable finds the documents residents rely on, repairs the structure screen readers depend on, and shows exactly
-            what was checked.
+          <p className="lede mx-auto mt-5 !max-w-[44ch]">
+            Find what needs fixing, fix it, and show exactly what was checked.
           </p>
           <div className="mt-7 flex flex-wrap items-center justify-center gap-x-6 gap-y-2">
             <Link href="/contact?topic=audit" className="btn">
@@ -63,11 +63,14 @@ export function Opening() {
           </div>
         </div>
 
-        <p className="opening-caption wrap text-center" aria-hidden="true">
-          Under the paper: five fields with no name, a title that is not a heading, and a footer read first.
-          <span className="mt-1 block text-[0.85rem] text-muted">Illustrative sample. Fictional city.</span>
-        </p>
+
       </div>
     </section>
+      <div className="opening-caption wrap text-center">
+        <p>Under the paper: five fields with no name, a title that is not a heading, and a footer read first.</p>
+        <p className="mt-1 text-[0.85rem] font-[450] text-muted">Illustrative sample. Fictional city.</p>
+        <SheetLegend layer="broken" className="mx-auto mt-6 max-w-[22rem] !text-[0.92rem] !font-[450]" />
+      </div>
+    </>
   );
 }

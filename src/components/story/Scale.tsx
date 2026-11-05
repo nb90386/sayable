@@ -72,7 +72,7 @@ export function Scale() {
 
       {/* desktop and tablet: one full-width field */}
       <div className="wrap mt-14 hidden md:block">
-        <div ref={ref} className="relative h-[620px]" aria-hidden="true">
+        <div ref={ref} className="relative h-[700px]" aria-hidden="true">
           {lanes.map((l, i) => (
             <div key={l.name} className={`absolute left-0 w-[22%] transition-opacity duration-700 ${sorted ? "opacity-100" : "opacity-0"}`} style={{ top: `${i * 20 + 3}%` }}>
               <p className="font-[600] leading-snug">{l.name}</p>
@@ -92,7 +92,7 @@ export function Scale() {
               }}
             >
               <span className={`mb-1.5 block h-[3px] w-5 rounded-full ${sorted ? (d.g === 1 ? "bg-warm" : d.g === 4 ? "bg-ink" : d.g === 3 ? "bg-muted" : "bg-signal") : "bg-ink/15"}`} />
-              <span className="block truncate text-[0.7rem] font-[600] leading-tight">{d.t}</span>
+              <span className="line-clamp-2 block text-[0.72rem] font-[600] leading-[1.2]">{d.t}</span>
               <span className="mono block truncate text-[0.6rem] text-muted">{d.m}</span>
             </div>
           ))}
@@ -110,6 +110,11 @@ export function Scale() {
                 <span className="numeral text-[1.1rem] text-muted">{files.filter((f) => f.g === gi).length}</span>
               </div>
               <p className="mt-1 text-[0.95rem] text-muted">{l.why}</p>
+              <ul className="mt-3 flex flex-wrap gap-1.5">
+                {files.filter((f) => f.g === gi).map((f) => (
+                  <li key={f.t} className="rounded-[4px] bg-sheet px-2 py-1 text-[0.8rem] shadow-[0_1px_2px_rgb(16_20_28/0.08)]">{f.t}</li>
+                ))}
+              </ul>
             </li>
           ))}
         </ol>

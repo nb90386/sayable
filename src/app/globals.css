@@ -147,7 +147,6 @@
   .btn-night:hover { background: #fff; }
   .btn-quiet { --btn-bg: transparent; --btn-fg: currentColor; box-shadow: inset 0 0 0 1.5px var(--rule-strong); }
   .btn-quiet:hover { background: color-mix(in oklab, currentColor, transparent 94%); }
-  .btn-home { }
 
   .link-quiet { display: inline-flex; align-items: center; gap: 0.35rem; min-height: 3rem; font-weight: 520; font-size: 1.02rem; color: var(--color-signal); text-decoration: none; }
   .link-quiet:hover { text-decoration: underline; text-underline-offset: 0.22em; }

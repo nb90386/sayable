@@ -105,13 +105,9 @@ export function Value() {
 
       <div className="wrap mt-14" aria-live="polite">
         <div className="mx-auto max-w-[1100px] border-t border-ink/20 pt-10">
-          <dl className="grid grid-cols-2 gap-6 border-b pb-8 hairline md:grid-cols-4">
+          <dl className="grid grid-cols-1 gap-6 border-b pb-8 hairline sm:grid-cols-3">
             <div>
-              <dt className="text-[0.88rem] text-muted">Pages to review</dt>
-              <dd className="numeral mt-1 text-[clamp(1.8rem,1.4rem+1.4vw,2.6rem)]">{num(review)}</dd>
-            </div>
-            <div>
-              <dt className="text-[0.88rem] text-muted">Needing remediation</dt>
+              <dt className="text-[0.88rem] text-muted">Pages needing remediation</dt>
               <dd className="numeral mt-1 text-[clamp(1.8rem,1.4rem+1.4vw,2.6rem)]">{num(work)}</dd>
             </div>
             <div>

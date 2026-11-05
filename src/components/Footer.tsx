@@ -25,7 +25,7 @@ export function Footer() {
             <ul className="mt-5 space-y-1">
               {[...nav, { href: "/contact", label: "Contact" }].map((item) => (
                 <li key={item.href}>
-                  <Link href={item.href} className="inline-flex min-h-10 items-center text-moon no-underline hover:text-signal-night">
+                  <Link href={item.href} className="inline-flex min-h-10 items-center text-moon no-underline hover:text-signal-light">
                     {item.label}
                   </Link>
                 </li>
@@ -40,7 +40,7 @@ export function Footer() {
                 <li key={s.id}>
                   <Link
                     href={`/how-it-works#${s.id}`}
-                    className="inline-flex min-h-10 items-center gap-3 text-moon no-underline hover:text-signal-night"
+                    className="inline-flex min-h-10 items-center gap-3 text-moon no-underline hover:text-signal-light"
                   >
                                         {s.name}
                   </Link>
@@ -66,12 +66,12 @@ export function Footer() {
           </p>
           <ul className="flex flex-wrap gap-x-6 gap-y-1">
             <li>
-              <Link href="/accessibility" className="inline-flex min-h-10 items-center text-moon no-underline hover:text-signal-night">
+              <Link href="/accessibility" className="inline-flex min-h-10 items-center text-moon no-underline hover:text-signal-light">
                 Accessibility statement
               </Link>
             </li>
             <li>
-              <Link href="/privacy" className="inline-flex min-h-10 items-center text-moon no-underline hover:text-signal-night">
+              <Link href="/privacy" className="inline-flex min-h-10 items-center text-moon no-underline hover:text-signal-light">
                 Privacy
               </Link>
             </li>
@@ -83,7 +83,7 @@ export function Footer() {
       <p
         aria-hidden="true"
         className="pointer-events-none select-none whitespace-nowrap px-[var(--gutter)] pb-4 font-serif leading-[0.8] tracking-[-0.05em] text-transparent"
-        style={{ fontSize: "clamp(5rem, 22vw, 22rem)", WebkitTextStroke: "1px rgb(242 241 236 / 0.3)", fontWeight: 300 }}
+        style={{ fontSize: "clamp(5rem, 22vw, 22rem)", WebkitTextStroke: "1px rgb(243 245 248 / 0.28)", fontWeight: 300 }}
       >
         Sayable
       </p>

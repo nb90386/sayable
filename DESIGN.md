@@ -1,349 +1,396 @@
 ---
 name: Sayable
-description: The document has two stories. What you see on porcelain, what a screen reader gets on graphite, and a vermilion reading path between them that straightens as the structure is repaired.
+description: Make document accessibility visible. The permit form is the product, shown large, centred and well lit, and the reader's scroll moves a blue scan line down it to reveal the hidden structure.
 colors:
-  paper: "#f6f5f1"
-  paper-deep: "#eceae3"
+  paper: "#f8f9fb"
+  paper-deep: "#eef1f5"
   sheet: "#ffffff"
-  ink: "#121314"
-  ink-soft: "#3a3d42"
-  muted: "#5b5e63"
-  signal: "#121314"
-  signal-wash: "#e6e4dc"
-  signal-light: "#f2f1ec"
-  warm: "#e4462b"
-  warm-wash: "#fbe3dc"
-  ember: "#a32d17"
-  ember-wash: "#fbe3dc"
-  night: "#111418"
-  night-raise: "#1b1f24"
-  moon: "#f2f1ec"
-  moon-muted: "#b4b7bd"
-  signal-night: "#ff7a5c"
+  surface: "#e7ebf1"
+  ink: "#12151b"
+  ink-soft: "#3a414d"
+  muted: "#535b69"
+  signal: "#2458e8"
+  signal-deep: "#1a44c2"
+  signal-wash: "#e6edfd"
+  signal-light: "#8fb0ff"
+  warm: "#e5521f"
+  ember: "#b53d12"
+  ember-wash: "#fdebe3"
+  night: "#10141c"
+  moon: "#f3f5f8"
+  moon-muted: "#a9b1bf"
 typography:
   display:
-    fontFamily: "Bricolage Grotesque, ui-sans-serif, system-ui, sans-serif"
-    fontSize: "clamp(2.5rem, 1.4rem + 3.6vw, 5rem)"
-    fontWeight: 640
-    lineHeight: 0.95
-    letterSpacing: "-0.022em"
-    fontVariation: "\"wdth\" 88, \"opsz\" 96"
-  display-close:
-    fontFamily: "Bricolage Grotesque, ui-sans-serif, system-ui, sans-serif"
-    fontSize: "clamp(3rem, 1.9rem + 5vw, 6.5rem)"
-    fontWeight: 640
-    lineHeight: 0.95
-    letterSpacing: "-0.022em"
-    fontVariation: "\"wdth\" 88, \"opsz\" 96"
-  headline:
-    fontFamily: "Bricolage Grotesque, ui-sans-serif, system-ui, sans-serif"
-    fontSize: "clamp(2.5rem, 1.8rem + 3.2vw, 4.75rem)"
-    fontWeight: 620
+    fontFamily: "Onest, ui-sans-serif, system-ui, sans-serif"
+    fontSize: "clamp(2.5rem, 1.4rem + 4.2vw, 5.4rem)"
+    fontWeight: 650
     lineHeight: 0.98
-    letterSpacing: "-0.02em"
-    fontVariation: "\"wdth\" 90, \"opsz\" 72"
+    letterSpacing: "-0.042em"
+    fontFeature: "\"ss01\" 1"
+  display-close:
+    fontFamily: "Onest, ui-sans-serif, system-ui, sans-serif"
+    fontSize: "clamp(2.9rem, 1.9rem + 4.4vw, 6rem)"
+    fontWeight: 650
+    lineHeight: 0.98
+    letterSpacing: "-0.042em"
+    fontFeature: "\"ss01\" 1"
+  headline:
+    fontFamily: "Onest, ui-sans-serif, system-ui, sans-serif"
+    fontSize: "clamp(2.5rem, 1.8rem + 3.1vw, 4.6rem)"
+    fontWeight: 640
+    lineHeight: 1.02
+    letterSpacing: "-0.036em"
+    fontFeature: "\"ss01\" 1"
+  caption-line:
+    fontFamily: "Onest, ui-sans-serif, system-ui, sans-serif"
+    fontSize: "clamp(1.5rem, 1.3rem + 0.9vw, 2.15rem)"
+    fontWeight: 560
+    lineHeight: 1.3
+    letterSpacing: "-0.025em"
   title:
-    fontFamily: "Bricolage Grotesque, ui-sans-serif, system-ui, sans-serif"
-    fontSize: "clamp(1.5rem, 1.3rem + 0.9vw, 2.1rem)"
+    fontFamily: "Onest, ui-sans-serif, system-ui, sans-serif"
+    fontSize: "1.15rem"
     fontWeight: 600
-    lineHeight: 1.1
-    letterSpacing: "-0.015em"
-    fontVariation: "\"wdth\" 88"
+    lineHeight: 1.15
+    letterSpacing: "-0.022em"
   lede:
-    fontFamily: "Atkinson Hyperlegible Next, ui-sans-serif, system-ui, sans-serif"
+    fontFamily: "Onest, ui-sans-serif, system-ui, sans-serif"
     fontSize: "clamp(1.2rem, 1.12rem + 0.4vw, 1.45rem)"
     fontWeight: 400
-    lineHeight: 1.48
+    lineHeight: 1.45
+    letterSpacing: "-0.012em"
   body:
-    fontFamily: "Atkinson Hyperlegible Next, ui-sans-serif, system-ui, sans-serif"
-    fontSize: "clamp(1.0625rem, 1.03rem + 0.18vw, 1.1875rem)"
+    fontFamily: "Onest, ui-sans-serif, system-ui, sans-serif"
+    fontSize: "clamp(1.0625rem, 1.03rem + 0.16vw, 1.1875rem)"
     fontWeight: 400
-    lineHeight: 1.6
+    lineHeight: 1.58
+    letterSpacing: "-0.006em"
+    fontFeature: "\"ss01\" 1"
+  numeral:
+    fontFamily: "Onest, ui-sans-serif, system-ui, sans-serif"
+    fontSize: "clamp(1.8rem, 1.4rem + 1.4vw, 2.6rem)"
+    fontWeight: 600
+    lineHeight: 1
+    letterSpacing: "-0.04em"
+    fontFeature: "\"tnum\" 1"
+  button:
+    fontFamily: "Onest, ui-sans-serif, system-ui, sans-serif"
+    fontSize: "1.02rem"
+    fontWeight: 560
+    lineHeight: 1
+    letterSpacing: "-0.01em"
   label:
-    fontFamily: "Atkinson Hyperlegible Next, ui-sans-serif, system-ui, sans-serif"
+    fontFamily: "Onest, ui-sans-serif, system-ui, sans-serif"
     fontSize: "0.85rem"
-    fontWeight: 700
-    lineHeight: 1.3
-  structure:
-    fontFamily: "Atkinson Hyperlegible Mono, ui-monospace, SF Mono, Menlo, monospace"
+    fontWeight: 600
+    lineHeight: 1.4
+  small:
+    fontFamily: "Onest, ui-sans-serif, system-ui, sans-serif"
+    fontSize: "0.88rem"
+    fontWeight: 400
+    lineHeight: 1.5
+  annotation:
+    fontFamily: "JetBrains Mono, ui-monospace, SF Mono, Menlo, monospace"
     fontSize: "0.8rem"
     fontWeight: 400
     lineHeight: 1.45
-    letterSpacing: "0em"
+    letterSpacing: "-0.01em"
     fontFeature: "\"zero\" 1"
 rounded:
-  sheet: "4px"
-  control: "10px"
+  thumb: "4px"
+  sheet: "6px"
+  field: "10px"
+  ui: "14px"
+  workspace: "18px"
   pill: "999px"
 spacing:
-  gutter: "clamp(1rem, 0.5rem + 2.4vw, 2.75rem)"
-  stage-block: "clamp(3rem, 6vw, 6.5rem)"
-  stage-inner: "clamp(2.5rem, 4vw, 4.5rem)"
-  column: "40rem"
-  max: "90rem"
-  header: "4.25rem"
+  gutter: "clamp(1.1rem, 0.5rem + 2.6vw, 3rem)"
+  max: "82rem"
+  header: "3.5rem"
+  chapter: "clamp(7rem, 14vh, 11rem)"
+  scene: "clamp(9rem, 18vh, 13rem)"
+  stack-sm: "1.5rem"
+  stack-md: "2.5rem"
+  stack-lg: "3.5rem"
+  stack-xl: "4rem"
 components:
   button-primary:
-    backgroundColor: "{colors.ink}"
-    textColor: "{colors.paper}"
+    backgroundColor: "{colors.signal}"
+    textColor: "{colors.sheet}"
+    typography: "{typography.button}"
     rounded: "{rounded.pill}"
-    padding: "0 1.45rem"
-    height: "3.1rem"
+    padding: "0 1.4rem"
+    height: "3rem"
   button-night:
     backgroundColor: "{colors.moon}"
     textColor: "{colors.night}"
+    typography: "{typography.button}"
     rounded: "{rounded.pill}"
-    padding: "0 1.45rem"
-    height: "3.1rem"
+    padding: "0 1.4rem"
+    height: "3rem"
+  button-night-hover:
+    backgroundColor: "{colors.sheet}"
+    textColor: "{colors.night}"
   button-quiet:
-    backgroundColor: "transparent"
+    textColor: "{colors.ink}"
+    typography: "{typography.button}"
+    rounded: "{rounded.pill}"
+    padding: "0 1.4rem"
+    height: "2.75rem"
+  link-quiet:
+    textColor: "{colors.signal}"
+    typography: "{typography.button}"
+    height: "3rem"
+  link-quiet-night:
+    textColor: "{colors.signal-light}"
+  segmented-option:
     textColor: "{colors.ink}"
     rounded: "{rounded.pill}"
-    padding: "0 1.45rem"
-    height: "3.1rem"
-  player-button:
-    backgroundColor: "{colors.ink}"
-    textColor: "{colors.paper}"
+    padding: "0 1.15rem"
+    height: "2.6rem"
+  segmented-option-selected:
+    backgroundColor: "{colors.sheet}"
+    textColor: "{colors.ink}"
     rounded: "{rounded.pill}"
-    padding: "0 1.3rem"
-    height: "3.1rem"
-  player-button-night:
+  player-button:
     backgroundColor: "{colors.moon}"
     textColor: "{colors.night}"
     rounded: "{rounded.pill}"
     padding: "0 1.3rem"
-    height: "3.1rem"
+    height: "3rem"
   stamp:
     backgroundColor: "{colors.signal-wash}"
-    textColor: "{colors.ink}"
+    textColor: "{colors.signal-deep}"
     rounded: "{rounded.pill}"
-    padding: "0.4em 0.95em"
-  document-sheet:
-    backgroundColor: "{colors.sheet}"
-    rounded: "{rounded.sheet}"
+    padding: "0.4em 0.9em"
+  stamp-night:
+    backgroundColor: "{colors.moon}"
+    textColor: "{colors.night}"
+    rounded: "{rounded.pill}"
   text-field:
     backgroundColor: "{colors.sheet}"
     textColor: "{colors.ink}"
-    rounded: "{rounded.control}"
+    typography: "{typography.body}"
+    rounded: "{rounded.field}"
     padding: "0.75rem 0.875rem"
-  divider-chip-seen:
-    backgroundColor: "{colors.paper}"
+  permit-sheet:
+    backgroundColor: "{colors.sheet}"
+    rounded: "{rounded.sheet}"
+    width: "min(880px, 92vw)"
+  workspace:
+    backgroundColor: "{colors.sheet}"
     textColor: "{colors.ink}"
-    rounded: "{rounded.pill}"
-    padding: "7px 14px 7px 16px"
-  divider-chip-heard:
-    backgroundColor: "{colors.night}"
-    textColor: "{colors.moon}"
-    rounded: "{rounded.pill}"
-    padding: "7px 16px 7px 14px"
+    rounded: "{rounded.workspace}"
+    width: "1100px"
+  report-sheet:
+    backgroundColor: "{colors.sheet}"
+    textColor: "{colors.ink}"
+    rounded: "{rounded.ui}"
+    width: "960px"
+  finding-before:
+    backgroundColor: "{colors.ember-wash}"
+    textColor: "{colors.ink}"
+    rounded: "{rounded.sheet}"
+    padding: "0.75rem 1rem"
+  finding-after:
+    backgroundColor: "{colors.signal-wash}"
+    textColor: "{colors.ink}"
+    rounded: "{rounded.sheet}"
+    padding: "0.75rem 1rem"
 ---
 
 # Design System: Sayable
 
 ## Overview
 
-**Creative North Star: "The Document Has Two Stories"**
+**Creative North Star: "The Object on Seamless Paper"**
 
-Sayable sells triage and documented verification of public documents to cities and counties. The buyers are skeptical, procurement-minded and tired of "AI makes it compliant". So the site does not pitch. It shows one document twice. Every surface is a split stage: the visible story on porcelain at left ("What you see"), the accessible story on graphite at right ("What a screen reader gets"). Both halves always carry real content, and the comparison is the argument.
+Sayable presents a public document the way a hardware company presents a device: one object, large, centred and lit on a luminous cool-white ground, with nothing competing for it. The object is a fictional city's residential permit application, drawn as a white sheet with a second page just visible beneath and a deep soft shadow. Every claim the site makes is demonstrated on that sheet. Positioning carries straight into the visuals. Sayable is about triage and evidence, so the system shows structure and reports what was checked. It never decorates with "compliance" imagery.
 
-The signature is the divider, and **the divider is the reading path**. It is a fixed vermilion line between the two stories. At the top of the page it kinks, doubles back and carries knots where the reading order breaks. Every act straightens it a little. At the close it runs true, slides to the edge and fades out, and one porcelain page asks for one action: the collapse. On phones it becomes a thin line in the left gutter that straightens the same way.
+The signature is **the structure scan**. In the opening, the sheet sits tilted in a pinned stage below a centred two-line claim. Scrolling flattens it and moves a thin blue scan line down the page. Above the line the paper looks as residents see it. Below the line the hidden structure shows through: dashed ember boxes on five unnamed fields, a pill saying the title is "tagged as text, not H1", and a tangled ember reading path that starts at the footer. The same sheet returns at the close with its structure repaired: a straight blue reading path, numbered order, named fields and a "Checked" stamp. The page is a filmic one-shot. Chapters are centred or full width, and the ground drifts between light and dark through soft gradients, never hard cuts.
 
-The look is printed and practical. Porcelain paper, graphite night, ink pills and white US Letter sheets drawn in SVG. There is no photography, no generated imagery, no dashboard mockups. The only chromatic colour is a proofreader's vermilion, and it marks what is broken. Type is a condensed, optical-sized grotesque for claims, a low-vision reading face for everything else, and a mono that appears only where it shows document structure.
+The mood is calm, premium, precise and human. Density is low in the story chapters and tighter inside product surfaces (the workspace, the report, the estimator), where the UI is allowed to look like software.
 
 **Key Characteristics:**
-- A two-ground split stage (porcelain and graphite) carries every homepage act. Supporting pages use the same grounds as one column.
-- One signature: the divider is the reading path, tangled at the top, straight by the close, then gone.
-- Vermilion is the red pen. It means broken structure, and the colour retreats as the page resolves.
-- The document is the product shot: a fictional city's permit form, drawn as an SVG sheet and shown before and after.
-- Honest proof: labelled text-to-speech audio, a calculator that shows its arithmetic, preliminary benchmarks presented as preliminary.
-- Accessibility is designed in, not added on: Atkinson Hyperlegible, transcripts, keyboard-operable demos and full reduced-motion paths.
+- One hero object, the permit sheet, recurs from the opening to the close.
+- One accent, structure blue. Ember appears only where a relationship is broken.
+- Onest in every role. JetBrains Mono appears only where the text is document structure or computed data.
+- Centred chapter heads over full-width demonstrations. No chapter is a 50/50 split.
+- Pill-shaped actions and controls. Shadows only on paper and product windows.
+- Every illustration, sample and voice is labelled for what it is.
 
 ## Colors
 
-Two neutral grounds, one ink and one red pen. Primary emphasis is ink, not a colour.
+The palette is luminous cool white and ink, with one structure blue and a sparse, functional ember. Dark scenes use a blue-black night with moonlight text.
 
 ### Primary
-- **Proof Ink** (`ink`, also exposed as `signal`): every primary action pill on porcelain, headings, the repaired document's reading-order spine and numbered circles, the "fixed" highlight stroke, the active-nav underline and the range-input accent. Wherever the system says "this is right", it says it in ink.
+- **Structure Blue** (#2458e8): structure made visible. Used for the scan line and its label pill, repaired reading paths, region outlines and name pills on the fixed layer, primary pill buttons, quiet links, the active nav underline, focus rings, selection, caret and range accents, "Automatic" and "Passed" marks in the workspace, the method line in Trust, and the automated share of the cost bar. White on blue is 5.78:1.
+- **Deep Structure Blue** (#1a44c2): text on the blue wash, as in the "Checked" stamp (6.75:1).
+- **Blue Wash** (#e6edfd): the selected finding row, the "After" listener line, and the stamp ground. Blue text on the wash is 4.92:1.
+- **Moonlit Blue** (#8fb0ff): blue on night, used for display emphasis, links and focus rings in dark scenes (8.62:1 on night). On light ground it marks the person-remediated share of the cost bar.
 
 ### Secondary
-- **Proofreader's Vermilion** (`warm`): the divider line and its knots, the 4px highlight stroke and 16% fill on a broken element during narration, dashed outlines and "no accessible name" chips on unnamed fields, the minor-severity dot in the report, and the underline under a headline's emphasised words. Never body text: on porcelain it is a stroke and fill colour only.
-- **Deep Ember** (`ember`): the text-safe vermilion for porcelain. Display-type emphasis (`em` in display headlines), report severity labels, "Before, a listener hears" labels, form error text and error borders. It is also the global focus ring and the caret.
-- **Night Vermilion** (`signal-night`): vermilion's graphite-side form. Broken-structure items in the right-hand lists ("Field · no name", "Issue" rows), the title's numbered reading order, `em` in night-side headlines, and the focus ring on graphite.
-- **Pen Wash** (`warm-wash`, `ember-wash`, the same value): the soft pink behind the currently spoken line in the "as posted" transcript and behind "Before" quotes in the report.
+- **Ember** (#e5521f): a broken relationship, as a graphic. Used for dashed outlines on unnamed fields, the tangled reading path, filled "no accessible name" pills, the highlight that follows the spoken element in the "As posted" audio, minor-severity dots, and the "Needs accessibility repair" lane marker. It is 3.78:1 on white, so it is not a text colour for small type.
+- **Ember Text** (#b53d12): ember used as text. Used for "tagged as text, not H1" and "read first: footer" pill labels, issue rows in the workspace, the severity and category line in a finding, form error messages, invalid-field borders, and major-severity dots (5.77:1 on white).
+- **Ember Wash** (#fdebe3): the "Before, a listener hears" line and the error summary ground.
 
 ### Neutral
-- **Porcelain** (`paper`): the visible story's ground, the close, every supporting page, the browser theme colour.
-- **Porcelain Deep** (`paper-deep`): reserved deeper paper tone; rarely used.
-- **Sheet White** (`sheet`): documents, inventory tiles, the report and the contact form. White is always paper, never the page.
-- **Graphite** (`night`): the accessible story's ground, the footer and the supporting-page CTA band.
-- **Graphite Raised** (`night-raise`): estimator bar tracks on graphite.
-- **Moon** (`moon`): text on graphite and the night-side action pill. Doubles as `signal-light`.
-- **Moon Muted** (`moon-muted`): secondary text, story labels and honesty notes on graphite.
-- **Ink Soft** (`ink-soft`) and **Muted** (`muted`): secondary text and captions on porcelain (muted measures about 6:1 on porcelain).
-- **Ink Wash** (`signal-wash`): the "Checked" stamp, the selected report tab and "After" quotes.
-- **Rules**: hairlines at ink 13% (`rgb(18 19 20 / 0.13)`), strong rules at ink 32%, night rules at moon 16%.
+- **Luminous Paper** (#f8f9fb): the page ground, the header, the mobile menu, and the colour every dark scene fades back to.
+- **Cool Band** (#eef1f5): alternating chapter bands (the estimator and the offer) and the stage behind the sheet in the workspace.
+- **Sheet White** (#ffffff): documents, product windows, form surfaces and the selected segment.
+- **Cool Track** (#e7ebf1): empty tracks, such as the cost-bar trough.
+- **Ink** (#12151b): primary text, numbered order markers on the repaired sheet, step numerals, and the "Person" mark.
+- **Soft Ink** (#3a414d): secondary body text, nav links at rest, and the stage line in the workspace.
+- **Muted** (#535b69): ledes, hints, captions, honesty labels, and secondary headline clauses (6.5:1 on paper, 6.04:1 on the band).
+- **Night** (#10141c): the ground of cinematic scenes (the audio chapter and the close) and the footer.
+- **Moon** (#f3f5f8): text and buttons on night.
+- **Moon Muted** (#a9b1bf): secondary text on night (8.54:1).
+- Hairlines are ink at 10% (`rgb(18 21 27 / 0.1)`), strong rules ink at 24%, and night rules moon at 14%.
 
 ### Named Rules
-**The Red Pen Rule.** Vermilion (in any of its three tones) marks broken structure: an unnamed field, a missing heading, reading order that starts at the footer, a finding's severity, an error. If nothing is broken, nothing is red. The interaction layer (focus ring, text selection, caret) borrows the pen because it marks where the reader is working. That is the only exception.
+**The Blue Is Structure Rule.** Blue marks structure that has been made visible: the scan, a named field, a reading order, a passed check, the next action. If an element is decorative and not structural or actionable, it is not blue.
 
-**The Retreating Pen Rule.** Red diminishes as the story resolves. The divider's knots fade with its amplitude, repaired sheets use ink highlights instead of vermilion, and the close is ink on porcelain.
+**The Ember Is a Broken Relationship Rule.** Ember marks a relationship that is broken: a field with no name, a title that is not a heading, a footer read first, a finding's severity, a form error. If nothing is broken, nothing is ember. The one exception is the reading-path knot in the logo. Ember never fills a button and is never used for hover.
 
-**The Ink Is Primary Rule.** Calls to action are ink pills on porcelain and moon pills on graphite. There is no brand-coloured button.
+**The Wash Pairing Rule.** A wash always carries its own family's text: ember text on the ember wash, deep blue or blue on the blue wash.
 
 ## Typography
 
-**Display Font:** Bricolage Grotesque, a variable font loaded with its `wdth` and `opsz` axes (fallback ui-sans-serif, system-ui). It is exposed as `--font-serif` for historical reasons, but it is a grotesque.
-**Body Font:** Atkinson Hyperlegible Next, from the Braille Institute, designed for low-vision readers (fallback ui-sans-serif, system-ui).
-**Structure Font:** Atkinson Hyperlegible Mono with slashed zero (`"zero" 1`), not preloaded (fallback ui-monospace, SF Mono, Menlo).
+**Display Font:** Onest (with ui-sans-serif, system-ui)
+**Body Font:** Onest
+**Label/Mono Font:** JetBrains Mono, 400 and 500, for document annotations and computed data only
 
-**Character:** A condensed, slightly quirky grotesque makes the claims. The reading face does the work. The mono shows up only when the content is structure (tags, field names, file paths, timings, arithmetic), so the mono reads as the voice of the file.
-
-### Fluid scale
-Seven steps, all `clamp()`: step -1 `0.85→0.9rem`, step 0 `1.0625→1.1875rem` (body), step 1 `1.2→1.45rem` (lede), step 2 `1.5→2.1rem` (stage titles), step 3 `2→3.3rem` (supporting-page row headings), step 4 `2.5→4.75rem` (act headlines), step 5 `3→6.5rem` (the close).
+**Character:** One humanist grotesk for every role. It feels warm at 650 weight with tight tracking at display sizes, and stays very clear at body size with stylistic set 01 on. The mono reads as the machine's voice: what the file says about itself.
 
 ### Hierarchy
-- **Display** (640, `wdth` 88, `opsz` 96, line-height 0.95, -0.022em): the homepage title across the split (`clamp(2.5rem, 1.4rem + 3.6vw, 5rem)`), the close at step 5 and supporting-page intros (`clamp(2.6rem, 1.4rem + 4.4vw, 5.6rem)`). `em` inside display is upright, not italic, and turns ember (night vermilion on graphite).
-- **Headline** (620, `wdth` 90, `opsz` 72, step 4, line-height 0.98, -0.02em): every act heading, split across both stories. `em` keeps its colour and gets a vermilion underline (0.06em thick, offset 0.12em).
-- **Title** (600, `wdth` 88, line-height 1.1, -0.015em): stage titles at step 2, group and check names at 1.35–1.45rem, and estimator figures at 1.5–2.6rem with tabular numerals.
-- **Lede** (400, step 1, line-height 1.48, max 38ch): one framing sentence per opening. It is ink-soft on porcelain and moon-muted on graphite.
-- **Body** (400, step 0, line-height 1.6): paragraphs at 38–48ch inside a column, `text-wrap: pretty`.
-- **Label** (700, 0.78–0.9rem, sentence case): story labels, divider chips, the stamp, form labels (560) and report field names (600). Never uppercase and never tracked.
-- **Structure** (mono 400, 0.75–0.95rem): tag lists, file metadata, player timings, estimator outputs and arithmetic, report filenames.
+- **Display** (650, clamp(2.5rem → 5.4rem), 0.98, -0.042em): the opening claim only, on two lines: "Public documents, / readable by everyone." Supporting-page H1s use the same role at clamp(2.6rem → 5.6rem).
+- **Display Close** (650, clamp(2.9rem → 6rem)): the closing claim in the final dark scene.
+- **Headline** (640, clamp(2.5rem → 4.6rem), 1.02, -0.036em): every chapter head, centred, held to 14–17ch. A second clause in `<em>` turns Muted (Moon Muted on night) and stays upright.
+- **Caption Line** (560, clamp(1.5rem → 2.15rem), 1.3): the live line of spoken text under the audio player.
+- **Title** (600, 1.05–1.45rem, 1.15, -0.022em): stage statuses, finding titles, method steps, deliverables and sub-section heads.
+- **Lede** (400, clamp(1.2rem → 1.45rem), 1.45): one paragraph under each chapter head, Muted, centred, 42–50ch.
+- **Body** (400, clamp(1.0625rem → 1.1875rem), 1.58, -0.006em): running text, 54–72ch.
+- **Numeral** (600, -0.04em, tabular figures): estimator results, research benchmarks and audit cover counts.
+- **Label** (600, 0.75–0.88rem): definition terms ("Evidence", "Change", "Made by"), workspace marks, and lane names.
+- **Annotation** (JetBrains Mono 400, 0.8rem, -0.01em, slashed zero): file names, structure pills on the sheet ("no accessible name", "Field \"Applicant name\""), the scan label "Reading structure", finding categories, URL paths in the inventory, estimator formulas and slider outputs.
 
 ### Named Rules
-**The Mono Means Structure Rule.** Mono appears only where the text is document structure or computed data. Labels that carry no data are set in the reading face.
+**The One Family Rule.** Onest sets every reading role, from 5.4rem display down to 0.75rem labels. Hierarchy comes from size, weight (400, 560, 600, 640, 650) and tracking, never from a second display face. The only other typefaces live inside the drawn document, which uses Georgia for its title and Helvetica for its fields because it is a city's own form.
 
-**The Upright Emphasis Rule.** Emphasis in display type is colour or underline, never italic.
+**The Mono Is the File Talking Rule.** Mono appears only where the text is something the file or the computation says: a tag, a field name, a path, a formula, a computed value. Headings, section labels and UI copy are never mono.
 
-**The Condensed Claim Rule.** Display and headline always carry their `wdth` setting (88–90). A Bricolage headline at default width is off-system.
+**The Upright Emphasis Rule.** Emphasis in display and headline type is colour, never italic. It is blue in the opening, Muted in chapter heads, and ember (`em.broken`) for a broken word.
 
 ## Layout
 
-**The split stage.** Every homepage act is a `section` with two halves: a porcelain left and a graphite right. At 1024px and wider they sit side by side as equal columns (`1fr 1fr`). Below 1024px they stack: the left story first, then the right, each opened by a story label ("What you see" / "What a screen reader gets") with a hairline running to the edge.
+The spatial model is a centred column over full-width stages. The content wrap is 82rem wide with a fluid gutter of clamp(1.1rem → 3rem). Every story chapter opens the same way: a centred headline, a centred lede, and at most one centred control or action row. A single demonstration follows at a fixed, generous measure: the sheet at up to 880px in the opening, 760px in the audio chapter and 680px at the close; the workspace and estimator at 1100px; the report at 960px; and the inventory field at the full wrap width.
 
-- Halves are padded `clamp(3rem, 6vw, 6.5rem)` vertically and by the gutter horizontally. On desktop the inner edge (toward the divider) gets an extra `clamp(2.5rem, 4vw, 4.5rem)` so content never touches the line.
-- Children of each half are capped at 40rem. On desktop the left half's content is pushed to the divider (`margin-left: auto`) and its text is usually right-aligned, so both stories read toward the centre line.
-- **One heading, two halves.** An act's heading is a single `h1`/`h2` whose two `span`s sit on the two grounds: "Same form." | "Two very different readings." It reads as one sentence to assistive technology and as two claims to the eye. On desktop the left span is right-aligned. The title variant clears the header height plus `clamp(2.5rem, 1rem + 4vw, 5.5rem)`.
-- Act order is fixed by the story: Title, Listen, Scale, Journey, Value, Trust, Close. Each act declares `data-sc-act`, which feeds the divider's chapter label.
-- **The close is not split.** It is one porcelain `wrap` on the 12-column grid (copy in 6 columns, the repaired sheet in 5 starting at column 8).
+Vertical rhythm is set by chapter padding: clamp(7rem, 14vh, 11rem) for light chapters and clamp(9rem, 18vh, 13rem) for dark scenes, to leave room for their soft edges. Head-to-demonstration gaps step at 2.5rem, 3.5rem and 4rem. The fixed header is 3.5rem tall, and anchors account for it with scroll padding.
 
-**Supporting pages** use the 12-column grid inside `wrap` (max 90rem, fluid gutter `clamp(1rem, 0.5rem + 2.4vw, 2.75rem)`, column gap `clamp(1rem, 2vw, 2rem)`): an intro with the display title at 9 columns and the lede below a hairline, offset to column 5. Editorial rows put the heading in 5 columns and the body in 7 (max 62ch). A graphite CTA band closes each page.
+Chapter order follows the story: opening scan; hear the form twice (dark); the collection sorted; one file through five stages; the estimator (band); method and sample report; the audit offer (band); the resolved form (dark). Bands on #eef1f5 alternate with paper. Dark scenes enter and leave through 5–10rem gradients.
 
-**Breakpoints:** 640px (`sm`, two-column fields and grids), 768px (`md`, footer columns), 1024px (`lg`, the split opens, the divider switches from gutter to centre), 1280px (`xl`, the homepage header shows its nav).
-
-**Responsive behaviour.** Phones get a composed stack, not a squeezed desktop. Story labels name each half. The estimator pins a running total ("Sort, then automate") to the top of the graphite half. The report explorer moves its region thumbnail above the panel. The inventory drops from 3 to 2 columns. `overflow-x: clip` on body guarantees no sideways scroll.
+**Responsive:** breakpoints are 480px, 640px (sm), 768px (md) and 1024px (lg). Below 768px the opening stage shortens to 210vh, the sheet travels by svh units with a gentler 14° tilt, and the scan label pill is hidden. On phones the inventory field becomes a readable ordered list of the five lanes with counts. The estimator pins a three-figure result bar under the header while the sliders move. The workspace stacks its side panel above the sheet. The player drops waveform bars beyond 24 below 480px. Primary nav collapses into a full-screen menu below 1024px.
 
 ### Named Rules
-**The Both Halves Carry Content Rule.** Neither half is ever decoration or empty. If a point has no accessible-story counterpart, it does not belong in a split act.
+**The Centred Chapter Rule.** Story chapters are centred heads over full-width or centred demonstrations. No story chapter is a 50/50 split with a divider. Two equal columns appear only inside a component, to set a before and after side by side (transcripts, listener lines). Asymmetric 12-column rows remain on supporting pages and the contact form, which are task layouts, not storytelling.
 
-**The Story Order Rule.** Visible first, accessible second, on every viewport.
+**The One Object per Chapter Rule.** Each chapter has one demonstration. The permit sheet is the only hero object; the workspace, the report and the audit cover are product surfaces that hold it or describe it.
+
+**The No Visible Sequence Rule.** The homepage carries no chapter numbers or progress readout. Numbers appear only where order is the content: the repaired reading order on the sheet and the three buying steps.
 
 ## Elevation & Depth
 
-Depth is mostly tonal: porcelain against graphite, white sheets against both. Shadows belong only to paper objects (things that could be printed) and to the divider's floating chips.
+Depth means paper and product windows on a lit ground. Only objects cast shadows: the sheet, its under-page, the workspace, the inventory sheets, the selected segment and report thumbnails. Buttons, inputs, list rows and chapter backgrounds are flat. In dark scenes the sheet takes a heavier, near-black shadow and its under-page turns cool grey (#dfe3ea).
 
 ### Shadow Vocabulary
-- **Sheet** (`0 1px 1px rgb(18 19 20 / 0.06), 0 18px 40px -22px rgb(18 19 20 / 0.45)`): documents, the report and the contact form on porcelain.
-- **Sheet on night** (`0 1px 0 rgb(255 255 255 / 0.04), 0 24px 50px -24px rgb(0 0 0 / 0.8)`): documents on graphite.
-- **Tile** (`0 1px 1px rgb(0 0 0 / 0.05), 0 10px 22px -14px rgb(0 0 0 / 0.4)`): inventory file tiles.
-- **Chip float** (`0 6px 18px -10px rgb(0 0 0 / 0.5)`, act chip `0 4px 12px -8px`): the divider's side labels and chapter label.
+- **Sheet** (`0 0.5px 0 rgb(255 255 255 / 0.9) inset, 0 1px 2px rgb(16 20 28 / 0.06), 0 18px 36px -18px rgb(16 20 28 / 0.22), 0 60px 110px -50px rgb(16 20 28 / 0.38)`): the permit page, the audit cover stack, the report and the form surface.
+- **Under-page** (`0 1px 2px rgb(16 20 28 / 0.06), 0 20px 40px -24px rgb(16 20 28 / 0.3)`, rotated 1.1°): page 2 beneath the permit.
+- **Sheet on Night** (`0 1px 0 rgb(255 255 255 / 0.05), 0 40px 90px -40px rgb(0 0 0 / 0.9), 0 2px 6px rgb(0 0 0 / 0.4)`): the permit in dark scenes.
+- **Workspace** (`0 0.5px 0 rgb(255 255 255 / 0.9) inset, 0 2px 4px rgb(16 20 28 / 0.06), 0 40px 90px -40px rgb(16 20 28 / 0.45)`): the product window.
+- **Loose Sheet** (`0 1px 1px rgb(16 20 28 / 0.06), 0 10px 22px -12px rgb(16 20 28 / 0.32)`): file cards in the inventory field.
+- **Selected Segment** (`0 1px 2px rgb(0 0 0 / 0.12), 0 4px 12px -6px rgb(0 0 0 / 0.25)`): the chosen option in a segmented control.
 
 ### Named Rules
-**The Only Paper Casts Shadows Rule.** Buttons, inputs, list rows and panels on the page ground are flat. A shadow says "this is a sheet of paper".
+**The Only Objects Cast Shadows Rule.** A shadow says "this is a sheet or a window you could pick up". Nothing else is lifted.
+
+**The Soft Edge Rule.** Ground changes between paper and night are gradients 5–10rem tall (clamp(5rem, 14vh, 10rem)), never a hard horizontal cut.
 
 ## Shapes
 
-- **Documents** have a 4px corner (`rounded.sheet`), nearly square like real paper. Hero sheets tilt slightly (-1.5° visible, 1.2° accessible). Inventory tiles tilt pseudo-randomly between -3° and 3°, rounded so server and client agree.
-- **Actions, stamps, chips and divider labels** are full pills (999px).
-- **Controls** (text fields, radio cards, report tabs and quote panels) use a 10px corner (`rounded.control`).
-- **Rules, not boxes.** Lists are separated by top and bottom hairlines. Cards are not a structural device.
-- **Drawn icons** are mask-image SVGs coloured with `currentColor`: arrow right, arrow down, play, pause and check. 2px round-cap strokes, about 1em. No icon fonts, no glyph icons.
-- **The wordmark**: a 20×26 ink sheet (4px corner) with a porcelain S-shaped reading path through it, ending in a vermilion knot. Set beside "Sayable" in Bricolage 500 at 1.5rem, -0.02em.
+Documents have gently rounded corners (6px) because they are paper. Product windows are softer: the report and form surfaces use 14px and the workspace 18px. Fields use 10px. Every action and control is a full pill (999px): buttons, segmented controls, the player, stamps and the structure pills drawn on the sheet. Small file cards and thumbnails use 4px. Region outlines drawn on the sheet use a 10px radius in document units. Broken regions are dashed (10 7) and repaired regions solid.
+
+**The Pill Means Interactive or Labelled Rule.** A full pill is either something you press or a label the system attaches (a stamp, a structure pill). Containers are never pills.
 
 ## Components
 
 ### Buttons
-Ink and moon pills, confident and plain.
-- **Shape:** full pill (999px), min height 3.1rem, 0 1.45rem padding, 700 at 1rem. A trailing drawn arrow is 0.7rem from the label.
-- **Primary:** ink on porcelain. **Night:** moon pill with graphite text on graphite grounds. **Quiet:** transparent with a 1.5px inset `currentColor` ring.
-- **Hover:** background mixes 14% toward the foreground (quiet: 8% `currentColor` wash). The arrow nudges 3px right on `ease-out-expo` over 0.4s. **Active:** 1px press down. **Focus:** the global ring.
-- **Quiet link:** a 700 text link with a 1.5px underline at 45% opacity, offset 0.28em, going solid on hover. Min height 3rem. Used for the secondary action beside a pill ("Hear the difference", "Discuss a pilot").
-- One primary action, one destination: Request a Readiness Audit (`/contact?topic=audit`).
+- **Shape:** full pill (999px), 3rem minimum height, 1.4rem side padding, 1.02rem at 560 weight.
+- **Primary:** white on Structure Blue. Hover mixes 12% black into the blue in OKLab, press scales to 0.98, and a trailing arrow nudges 2px on hover. Used for "Request a Readiness Audit" and form submission.
+- **Night:** Night text on a Moon pill, turning pure white on hover. This is the primary action inside dark scenes.
+- **Quiet:** transparent with a 1.5px inset rule at ink 24% and a 6% current-colour wash on hover. Used for in-chapter toggles such as "Sort the collection".
+- **Quiet link:** blue text with a small chevron, 3rem tall, underlined on hover. It sits beside a primary button as the secondary action ("Hear the difference", "Discuss a pilot").
 
-### Navigation
-- **Header:** 4.25rem tall. On the homepage it is absolute and transparent over the split, the nav appears at 1280px+ and the CTA is a moon pill. On other pages it is fixed, turning porcelain with a hairline after 8px of scroll, and the nav appears at 1024px+.
-- **Links:** 480 at 0.95rem in ink-soft, going ink on hover. A 1px ink underline grows from the left on hover and stays on the current page (`aria-current`). 44px targets.
-- **Mobile:** a two-line toggle that morphs to a cross. A full-height porcelain panel lists Bricolage links at 2rem, separated by hairlines, with the CTA pill pinned at the bottom. Escape closes it, focus is trapped, scroll is locked and items stagger in by 40ms.
-- **Footer:** graphite, with the wordmark, a Bricolage line ("Public documents that read as clearly as they look."), site and stage link columns, and the disclaimer that Sayable does not certify legal compliance.
+### Segmented Control
+A pill track (ink at 6% on light, white at 10% on night) with 4px padding holds pill options 2.6rem tall. The selected option is a white pill with ink text and the selected-segment shadow. It is a radiogroup for "As posted / After repair" and a tablist with arrow-key roving for the five workspace stages.
 
-### Inputs / Fields
-- **Style:** white field, hairline border, 10px corner, 0.75rem × 0.875rem padding, 1rem ink text. Labels at 560 above, hints in muted at 0.85rem, "(optional)" in muted.
-- **Focus:** border goes ink with a 2px ink ring at 25%.
-- **Error:** ember border and `aria-invalid`. Ember error text is linked by `aria-describedby`, and an error summary with jump links sits on an ember-wash panel.
-- **Radio cards:** a hairline 10px card with the ink-accent radio; when checked, an ink border on a half ink-wash.
-- **Range (estimator):** native range with an ink accent, 1.75rem hit height, value echoed in a mono `output`.
+### Audio Player (signature)
+One player under one sheet in the dark audio chapter. It is a translucent pill (white at 8%) holding a Moon pill button (play/pause with a drawn icon, labelled "Hear the problem" or "Hear the difference"), a waveform of 44 rounded bars driven by an analyser (played bars at full opacity, unplayed at 38%), and a round replay button. As the narration plays, the spoken region on the sheet lights up: ember for "As posted", blue for "After repair". The spoken words appear in the caption line beneath.
 
-### The Divider (signature)
-The reading path. A fixed, `aria-hidden` SVG layer above the stage.
-- **Desktop (1024px+):** a 40px-wide band at the page's centre, viewBox `0 0 40 1000` stretched to full height. A 2px vermilion stroke (non-scaling, round caps) runs through 27 points. The amplitude is `max(0, 1 - 1.12p)^1.35` of scroll progress p, so it reaches straight at about 89% of the page. Every third point kinks 2.2× harder, and while amplitude is above 0.35 the worst segments double back. Vermilion knots (r 3.2) sit at the most displaced points, and their opacity follows the amplitude.
-- **Chrome:** at the bottom of the viewport, a split pill reads "What you see" (porcelain) | "What a screen reader gets" (graphite, with a 1px vermilion seam). Above it sits a porcelain chip naming the current act: As posted, Listen, The inventory, One document, five stages, What it would take, What is checked, Both stories match.
-- **Collapse:** when the close reaches mid-viewport, the line translates 50vw to the edge over 1.1s (`ease-in-out-quint`) and fades out, and the chrome fades over 0.6s. Scrolling back reverses it.
-- **Phones:** the same geometry in a 9px-wide line in the left gutter (x = 1px). No knots and no chrome; story labels do the naming.
+**Honesty labels are part of the component and are never removed:** a footnote under the player reads "Illustrative narration made with macOS text-to-speech. It is not a recording of VoiceOver, NVDA or any screen reader, and the form is a sample, not a customer document." Both transcripts are available in a "Read both transcripts" disclosure. Under reduced motion the waveform is replaced by a plain progress bar.
 
-### Split Act
-A section that takes a split heading, a left node and a right node, and renders the two grounds with phone story labels. The right half always carries `on-night`, which flips focus ring, lede, hairline and emphasis colours to their graphite forms.
+### The Permit Sheet (signature)
+The hero object, drawn as SVG in an 850×1100 space (US Letter at 100 dpi), with named regions for every element the narration speaks. It has three layers:
+- **Paper:** the form as residents see it.
+- **Broken:** dashed ember outlines, filled ember "no accessible name" pills, outlined ember pills with ember text, and a tangled ember reading path.
+- **Fixed:** solid blue outlines, blue name pills in mono, a straight blue reading path, and ink order circles numbered 1–8.
 
-### Document illustration language
-- **The artifact:** one recurring document, a "Residential Permit Application" from the fictional City of Alder Creek, Building Division (Form BD-12). It is drawn in an 850×1100 viewBox (US Letter at 100dpi), with every spoken element held in a named region (seal, title, intro, name, phone, address, work, signature, date, footer). A second document, a "Notice of Public Hearing", serves the report.
-- **Inside the sheet, the document keeps its own type:** Georgia for its title, Helvetica/Arial for its labels, grey #9a9da2 field strokes with 3px corners. Brand fonts never appear inside a city's file.
-- **Broken (as posted):** dashed vermilion outlines (4px, `12 8`) around unnamed fields with vermilion "no accessible name" chips. On the night side a 12% graphite veil at 0.9 opacity is added. During narration a vermilion highlight (16% fill, 4px stroke, 0.25s fade) follows the spoken element.
-- **Repaired:** ink highlights (6% fill, 4px stroke), ink tag chips in mono 15px white ("H1", `Field "Applicant name"`), and in the close numbered ink circles (r 15) joined by a 3px ink spine down the margin: the reading order made visible.
-- **Every sheet is captioned as an example:** "Example document, fictional city". Visible content is identical before and after; only structure changes.
+The sheet always sits on its rotated under-page. Every instance has a text equivalent describing what the structure shows.
 
-### Audio demonstration (the peak)
-- **Two players, one per story:** "Hear the problem" (ink pill, porcelain) and "Hear the difference" (moon pill, graphite), each with a quiet "Play from the start". Only one story speaks at a time. Buttons expose `aria-pressed` and swap play/pause icons and labels.
-- **Waveform:** 36 bars driven by a live Web Audio analyser, `currentColor` at 28% with played bars at full opacity. With reduced motion it becomes a 6px progress bar. A mono line shows elapsed time, duration and the number of spoken elements.
-- **Synchronised evidence:** the spoken region highlights on the sheet, and the matching line highlights in a numbered transcript (pen wash on porcelain, moon at 12% on graphite).
-- **Honesty labels (required, verbatim in spirit):** "Illustrative narration generated with macOS text-to-speech. It is not a recording of VoiceOver, NVDA or any screen reader, and the form is a sample, not a customer document." Audio loads with `preload="none"`. Transcripts carry the same content as text.
+### Structure Scan (signature)
+The opening section is 220vh tall (210vh on phones) with a sticky 100svh stage. Scroll progress `--p` drives everything in CSS, with no per-frame React render. The copy rises and fades out by 25% progress. The sheet untilts from 22° rotateX to flat and rises by 46% of its height. The scan line (2px blue, full sheet width plus 2% each side) travels from top to bottom between 6% and 80% progress. Above it, a clip-path reveals the broken layer under a 3.5% blue tint, and the reading path draws on via dash offset. A blue mono pill rides the line reading "Reading structure". From 60% a caption fades in over a paper gradient, stating what the scan found and labelled "Illustrative sample. Fictional city."
 
-### Estimator
-Inputs on porcelain (nine labelled ranges with mono outputs and sourced hints). Results on graphite: two headline counts, three numbered scenarios with tween-animated dollar figures (480ms expo, instant with reduced motion), 10px pill bars (`cost-bar`, 0.6s width transition) and the arithmetic in mono beneath each figure. The results sit in an `aria-live="polite"` region and end with the label "A hypothetical estimate … not a quote or a measured result."
+### Workspace
+An 18px-radius white window (max 1100px) with a hairline title bar showing the file name in mono and "Illustrative interface · sample data". A 17rem side panel holds the stage name, its status as a title, and marked rows (Issue in ember text; Automatic and Passed in blue; Person in ink). The sheet sits on the cool band at the right. Stages are switched by the segmented tablist above. The sheet's visible content never changes; only its structure layer does.
 
 ### Report Explorer
-A white sheet with a mono filename header, a vertical tablist of findings (arrow-key navigation, severity dot: ember major, vermilion minor) and a panel with the mono severity·category label, the title, an Evidence/Change/Made by/Re-checked list, Before (ember wash) and After (ink wash) quotes, and the "Checked" stamp. The caption states that the entries are illustrative and that listener lines are simulated.
+A white 14px sheet (max 960px). The header shows the file name and "Sample report · fictional city" in mono. A vertical tablist of findings uses a severity dot (ember for major, warm ember for minor) and a blue-wash selected state. A thumbnail of the page highlights the named region in ember, with a blue leader line pointing into it. The panel shows the finding title, then an evidence, change, made-by and re-checked definition list, then a pair of ember-wash "Before, a listener hears" and blue-wash "After" lines, then the "Checked" stamp. The caption states that listener lines are simulated and that every report "is not a legal certification of compliance."
+
+### Estimator
+Full-width results come first: four large numerals, then three cost rows with pill bars (ink at 70% for by hand, ink at 35% for sort first, and blue split from moonlit blue for sort plus automate). The formula under each row is set in mono. A three-column grid of native range inputs with blue accents follows, each with a mono blue output and a hint. Bars ease over 0.6s and figures tween over 480ms, with no tween under reduced motion. A muted disclaimer sits beside the final call to action.
 
 ### Stamp
-An ink-wash pill (700 at 0.9rem) with a drawn check: "Checked". It is inverted to moon on graphite. It marks a verified result, and it is the only celebratory device.
+A pill reading "Checked" with a drawn check, deep blue on the blue wash (night on moon in dark scenes). It marks a verified result only.
 
-### Usage examples
-- **A new split act:** `SplitAct` with `act="…"`, a `split-head headline` `h2` whose left span states what is seen and whose right span states what is heard; the left half right-aligned toward the divider; the right half carrying the structural truth in mono lists with night rules; any broken item in night vermilion.
-- **Showing a defect:** draw it on a sheet (vermilion dashed outline plus a vermilion chip), list it on graphite in night vermilion, and show its repaired form in ink. Never colour the explanatory prose.
-- **A supporting page:** `PageIntro` (display title, lede and optional mono margin note), `Row`s on hairlines, then `PageCta` on graphite with a moon pill.
-- **A claim with a number:** a title-weight figure with tabular numerals, the source or limit in a muted line beside it, and "preliminary" wherever it applies.
+### Inputs / Fields
+White fields with a 10px radius, a hairline border and 0.75rem × 0.875rem padding. Focus turns the border blue and adds a 2px blue ring at 25%. Invalid fields take an ember-text border, with the error in ember text below and an ember-wash summary at the top listing links to each field. Radio choices are 10px hairline tiles that turn blue-bordered on a half wash when checked.
+
+### Navigation
+A fixed 3.5rem paper bar that gains a hairline when scrolled. It holds the wordmark (a small ink sheet with a paper reading path and an ember knot, beside "Sayable" at 500 weight) and nav links in Soft Ink at 0.95rem/480, each with a 1px blue underline that grows from the left on hover and stays for the current page. A compact primary pill sits at right. Below 1024px a two-line toggle opens a full-screen paper menu with 2rem links staggered in at 40ms, a focus trap, Escape to close, and scroll lock.
+
+### Footer
+A night block with the wordmark, a one-line promise, site and stage links in Moon, the non-certification line, and an oversized outlined "Sayable" wordmark at moon 30% as the closing signature.
 
 ## Do's and Don'ts
 
 ### Do:
-- **Do** keep every homepage act split: porcelain (#f6f5f1) visible story left, graphite (#111418) accessible story right, both carrying real content.
-- **Do** let the divider be the only signature. It straightens with scroll, collapses at the close and becomes a gutter line on phones.
-- **Do** reserve vermilion for broken structure. Use `warm` for strokes and fills, `ember` for text on porcelain and `signal-night` on graphite.
-- **Do** set display and headline in Bricolage with `wdth` 88–90 and `opsz` set, weights 600–640, and upright colour emphasis.
-- **Do** use the mono only for tags, field names, paths, timings and arithmetic.
-- **Do** draw documents as SVG sheets at 850×1100, white with a 4px corner and the sheet shadow, captioned as examples from a fictional city.
-- **Do** label every simulated thing as simulated: TTS audio, sample reports, illustrative inventories, hypothetical estimates, preliminary benchmarks.
-- **Do** give every demo a text equivalent (transcripts, structure lists, live-region results) and a keyboard path.
-- **Do** honour reduced motion: transitions collapse to near-zero, waveforms become progress bars, tweens jump, smooth scroll and menu entrances are off, and content is visible by default.
-- **Do** keep targets at least 44px for primary controls (pills 3.1rem, nav 2.75rem) and the focus ring at 2.5px ember with a 3px offset (night vermilion on graphite).
+- **Do** present the permit sheet large and centred, on its under-page with the sheet shadow, as the subject of every story chapter that demonstrates something.
+- **Do** use Structure Blue (#2458e8) for structure made visible and for the next action, and Moonlit Blue (#8fb0ff) for both on night.
+- **Do** use ember only where a relationship is broken: Ember (#e5521f) for graphics, Ember Text (#b53d12) for type.
+- **Do** open every story chapter with a centred headline (640, held to 14–17ch), a centred Muted lede, and one demonstration.
+- **Do** enter and leave every dark scene through a 5–10rem gradient from paper.
+- **Do** label every sample, illustration and voice where it appears: "Illustrative sample. Fictional city.", "Illustrative interface · sample data", "Sample report · fictional city", and the text-to-speech disclaimer.
+- **Do** give every drawn document a text equivalent describing its structure, and every audio demonstration a transcript.
+- **Do** drive scroll scenes from a single `--p` progress variable in CSS, and give each a reduced-motion state that shows the resolved frame statically.
+- **Do** keep pill shapes for actions, controls and system labels, and 6px corners for paper.
 
 ### Don't:
-- **Don't** use vermilion as decoration: no red links, red hovers, red numerals on healthy items, red outlines on the wordmark, red section accents.
-- **Don't** add a second accent colour, gradients, glows or glass. Primary emphasis is ink.
-- **Don't** use a split hero followed by a feature row: the split is the whole page or nothing.
-- **Don't** repeat card grids or give every object the same rounded card. Separate content with hairlines; only paper gets a shadow.
-- **Don't** set italic serif display or italic emphasis turns (the previous world's pattern).
-- **Don't** set kickers, eyebrows or uppercase tracked labels above headings, and don't number section labels.
-- **Don't** set labels that carry no data in mono.
-- **Don't** use photography, generated imagery, stock illustration, product dashboards that do not exist, logo walls, testimonials or invented metrics.
-- **Don't** imply a screen-reader recording, a customer document or a compliance certificate. Never write "compliant", "certified" or "100% accessible".
-- **Don't** add decorative motion: no drifting ribbons, spotlights, magnets, auto-playing loops or reveal masks that hide headlines.
-- **Don't** use glyph or emoji icons or icon fonts; icons are drawn masks in `currentColor`.
+- **Don't** split a story chapter 50/50 or bring back a fixed divider between halves.
+- **Don't** add chapter numbers, progress readouts or eyebrow labels above headlines.
+- **Don't** use ember for hover, emphasis, branding or a button.
+- **Don't** set headings, section labels or UI copy in JetBrains Mono.
+- **Don't** introduce a second display face. Onest carries every role; only the drawn city form keeps its own Georgia and Helvetica.
+- **Don't** italicise emphasis in display or headline type.
+- **Don't** put white small text on Ember (#e5521f), which is 3.78:1. Use Ember Text (#b53d12) on white instead.
+- **Don't** cast shadows from buttons, inputs, rows or bands.
+- **Don't** cut hard between paper and night.
+- **Don't** show compliance badges, testimonials, client logos or invented metrics. The "Checked" stamp marks a reported check, never a certification.

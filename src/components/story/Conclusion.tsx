@@ -4,7 +4,7 @@ import { PermitSheet } from "../doc/PermitSheet";
 /** Chapter 8. The opening document returns, its structure now readable in order. */
 export function Conclusion() {
   return (
-    <section data-sc-act="close" aria-labelledby="close-title" className="scene-dark on-night pb-[clamp(9rem,18vh,13rem)] pt-[clamp(9rem,18vh,13rem)]">
+    <section data-sc-act="close" aria-labelledby="close-title" className="scene-dark from-deep to-night on-night pb-[clamp(9rem,18vh,13rem)] pt-[clamp(9rem,18vh,13rem)]">
       <div className="wrap text-center">
         <h2 id="close-title" className="display mx-auto max-w-[14ch] text-[length:var(--step-5)]">
           See what your documents need.

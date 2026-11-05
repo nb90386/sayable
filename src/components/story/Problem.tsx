@@ -3,7 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import data from "@/content/audio-cues.json";
 import { usePrefersReducedMotion } from "@/lib/useInView";
-import { PermitSheet } from "../doc/PermitSheet";
+import { PermitSheet, SheetLegend } from "../doc/PermitSheet";
 import { regions } from "../doc/permit";
 
 type Mode = "before" | "after";
@@ -143,6 +143,7 @@ export function Problem() {
               />
             ))}
           </PermitSheet>
+          <SheetLegend layer={mode === "before" ? "broken" : "fixed"} className="text-moon" />
         </div>
 
         <div className="mx-auto mt-10 max-w-[760px]">

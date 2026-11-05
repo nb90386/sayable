@@ -136,10 +136,8 @@ export function ReportExplorer() {
           <div className="mb-4 w-[9rem] sm:hidden">
             <RegionThumb id={f.id} />
           </div>
-          <p className="mono text-[0.8rem] text-ember">
-            {f.severity} · {f.category}
-          </p>
-          <h3 className="title mt-2 text-[1.45rem]">{f.title}</h3>
+          <h3 className="title text-[1.45rem]">{f.title}</h3>
+          <p className="mt-1 text-[0.85rem] text-ember">{f.severity === "major" ? "Major finding" : "Minor finding"}, {f.category.replace("_", " ")}</p>
           <dl className="mt-5 grid grid-cols-1 gap-y-1 text-[0.95rem] sm:grid-cols-[7.5rem_1fr] sm:gap-y-3">
             <dt className="text-[0.85rem] font-[600] text-muted">Evidence</dt>
             <dd className="mb-2 sm:mb-0">{f.evidence}</dd>

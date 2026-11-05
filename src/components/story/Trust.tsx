@@ -34,9 +34,9 @@ export function Trust() {
         <ol className="relative mx-auto grid max-w-[1100px] gap-y-8 sm:grid-cols-3 lg:grid-cols-6" aria-label="How every file is checked">
           <span aria-hidden="true" className="absolute left-0 right-0 top-[7px] hidden h-[2px] bg-signal/25 lg:block" />
           {method.map((m) => (
-            <li key={m.t} className="relative pr-4">
-              <span aria-hidden="true" className="relative block h-4 w-4 rounded-full border-[3px] border-paper bg-signal" />
-              <h3 className="title mt-4 text-[1.05rem]">{m.t}</h3>
+            <li key={m.t} className="relative border-t pt-4 hairline pr-4 lg:border-t-0 lg:pt-0">
+              <span aria-hidden="true" className="relative hidden h-4 w-4 rounded-full border-[3px] border-paper bg-signal lg:block" />
+              <h3 className="title text-[1.05rem] lg:mt-4">{m.t}</h3>
               <p className="mt-1.5 text-[0.9rem] leading-snug text-muted">{m.d}</p>
               <p className="mt-2 text-[0.78rem] font-[600] text-signal">{m.who}</p>
             </li>

@@ -1,6 +1,6 @@
 /**
  * Sayable wordmark: a document sheet with the reading path running through it,
- * set beside the name in the display serif.
+ * set beside the name in the display face.
  */
 export function Wordmark({ className = "" }: { className?: string }) {
   return (
