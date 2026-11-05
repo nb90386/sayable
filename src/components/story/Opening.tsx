@@ -35,7 +35,7 @@ export function Opening() {
           <h1 id="hero-title" className="display mx-auto text-[length:clamp(2.5rem,1.4rem+4.2vw,5.4rem)]">
             <span className="block">Public documents,</span> <span className="block">readable by everyone.</span>
           </h1>
-          <p className="lede mx-auto mt-5 !max-w-[44ch]">
+          <p className="lede mx-auto mt-5 !max-w-[44ch] lg:!max-w-none">
             Find what needs fixing, fix it, and show exactly what was checked.
           </p>
           <div className="mt-7 flex flex-wrap items-center justify-center gap-x-6 gap-y-2">

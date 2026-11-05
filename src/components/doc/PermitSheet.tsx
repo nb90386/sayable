@@ -31,9 +31,9 @@ function orderedPath(ids: string[], tangled: boolean) {
     const prevId = ids[i - 1]!;
     const q = anchor(prevId);
     if (tangled) {
-      // a wrong-order jump bows out into the page, so each leap is visible
-      const bow = 300 + (i % 3) * 90;
-      d += ` C ${q.x + bow} ${q.y}, ${p.x + bow} ${p.y}, ${p.x} ${p.y}`;
+      // wrong-order jumps loop through the left margin gutter, never across the form's text
+      const gx = 4 + (i % 3) * 7;
+      d += ` C ${gx} ${q.y}, ${gx} ${p.y}, ${p.x} ${p.y}`;
     } else if (Math.abs(q.y - p.y) < 4) {
       d += ` C ${q.x} ${q.y - 64}, ${q.x} ${q.y - 64}, ${q.x + 52} ${q.y - 64} L ${p.x - 44} ${p.y - 64} C ${p.x} ${p.y - 64}, ${p.x} ${p.y - 64}, ${p.x} ${p.y}`;
     } else {
