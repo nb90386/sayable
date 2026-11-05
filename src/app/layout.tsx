@@ -10,7 +10,6 @@ import "./effects.css";
 const newsreader = Newsreader({
   subsets: ["latin"],
   style: ["normal", "italic"],
-  axes: ["opsz"],
   variable: "--font-newsreader",
   display: "swap",
 });

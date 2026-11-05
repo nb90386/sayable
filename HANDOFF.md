@@ -53,7 +53,7 @@ In the Claude Code sandbox the dev server must run unsandboxed (Turbopack's FSEv
   - scroll-reveals could hide headings, so reveals are now limited to the hero.
 
 ## Not verified / known limitations
-- Lighthouse (mobile, production build, local): Performance 85–87, Accessibility 100, Best Practices 96, SEO 100; CLS 0, TBT 10–90 ms, FCP 0.9 s. **LCP 4.1–4.4 s** (simulated throttling): almost all of it is render delay on the hero paragraph. Not preloading the fonts didn't help, so the likely next suspects are the two ~140 KB Newsreader files (opsz axis + italic) and render-blocking CSS.
+- Lighthouse (mobile, production build, local), final run: **Performance 92**, LCP 3.4 s (simulated throttling; was 4.4 s before dropping Newsreader's opsz axis, which halved the font files). Earlier full run: Accessibility 100, Best Practices 96, SEO 100, CLS 0, TBT ≤ 90 ms. LCP is still above the 2.5 s target; next try is inlining critical CSS or subsetting the italic.
 - No real screen-reader pass (VoiceOver or NVDA); 1024 and 768 checked for overflow (none) and the 1024 homepage reviewed; no Safari or Firefox runs.
 - On mobile the lifecycle artifact scrolls with the page instead of sticking.
 - The screen-reader output on the site is simulated and labeled as such.
@@ -62,7 +62,7 @@ In the Claude Code sandbox the dev server must run unsandboxed (Turbopack's FSEv
 
 ## Next session
 1. Lighthouse on a production build, plus a VoiceOver pass over the lens, the repair bench and the contact form.
-2. Bring LCP under 2.5 s (subset or drop the Newsreader opsz axis, inline critical CSS); consider a mobile-specific sticky treatment for the lifecycle.
+2. Bring LCP under 2.5 s (inline critical CSS, subset fonts); consider a mobile-specific sticky treatment for the lifecycle.
 3. Configure the webhook and inbox, then deploy a Vercel preview.
 4. Re-check the Title II compliance dates against the Federal Register before adding any date copy (the site currently avoids specific dates).
 
