@@ -22,7 +22,7 @@ export function Verification() {
         <div className="grid-12 gap-y-14">
           <div className="col-span-12 lg:col-span-5 lg:pr-6">
             <h2 id="ver-title" className="headline">
-              No single check is enough. <em>So we layer them.</em>
+              No single check is enough. So we layer them.
             </h2>
             <p className="mt-6 max-w-[44ch] text-ink-soft">
               A validator can pass a file whose headings are in the wrong place. A careful reviewer can miss a missing
@@ -41,12 +41,12 @@ export function Verification() {
                         }`}
                       />
                     ) : null}
-                    <span className={`relative mt-1.5 h-3 w-3 rounded-full ${c.who === "machine" ? "bg-signal" : "border-2 border-signal bg-paper"}`} />
+                    <span className="relative mt-1.5 h-3 w-3 rounded-full bg-signal" />
                   </span>
                   <span>
                     <span className="title block text-[1.25rem]">{c.t}</span>
                     <span className="mt-1 block text-[0.95rem] text-ink-soft">{c.d}</span>
-                    <span className="mono mt-1 block text-[0.8rem] text-ink-soft">{c.who === "machine" ? "Software check" : "Person"}</span>
+                    <span className="mt-1 block text-[0.82rem] font-[600] text-signal">{c.who === "machine" ? "Software check" : "Person"}</span>
                   </span>
                 </li>
               ))}

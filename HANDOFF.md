@@ -87,6 +87,36 @@ In the Claude Code sandbox the dev server must run unsandboxed (Turbopack's FSEv
 - **Lighthouse** (mobile, production build): Performance 94, Accessibility 100, Best Practices 96, SEO 100. LCP 3.0 s, CLS 0, TBT 0 ms.
 - **Founder must confirm**: the "Washington State cooperative contract 02024 … $3.34 / $4.60" figure in the cost model hint (from spec §1).
 
+
+## Renaissance redesign (Nov 5 2026), current
+The records-room world described in the previous section is retired. Recovery tag for the version before this redesign: `pre-renaissance`.
+- **Concept: The Path to Understanding.** A reading path runs through the hero notice. It tangles on broken structure (apricot snags: footer read first, title as plain text, no table headers, unnamed fields), then redraws in order (evergreen) when the visitor picks "After Sayable". It recurs in the wordmark, the section ribbons, the lifecycle nodes, the custody line and the closing sheet.
+- **Palette:** porcelain #F7F9F4, white sheets, ink #17211D, evergreen #1D5347 (deep passages #13362E), apricot #F0AE71 for snags, rust #A24A1C for text-safe warnings.
+- **Type:** Source Serif 4 (display optical sizes; the italic turn appears only on the hero h1 and the closing h2) with Hanken Grotesk and Fragment Mono. Chosen from rendered auditions of three palettes and three pairings on the same hero.
+- **Narrative:**
+  1. Hero.
+  2. Two Readers lens.
+  3. The collection sorting into five work groups (the customer decides exceptions).
+  4. Pinned five-stage lifecycle.
+  5. Evergreen workload estimator: page inventory, share needing attention, vendor cost, automation share, review minutes, staff cost, monthly volume. Every scenario shows its arithmetic.
+  6. Trust: a six-layer custody line and an explorable sample report.
+  7. Readiness Audit offer: what you receive, how cost is set, what comes after.
+  8. Close: "See what your documents need."
+- **Research:** `docs/REFERENCES.md` (reference matrix; says which sites were inspected and how deeply). Before and after screenshots are in `docs/screens/`, which is gitignored.
+- **Impeccable:**
+  - Direction contract updated (brief-pinned, so no roll).
+  - Detector on `src/`: 0 anti-patterns.
+  - Rendered detector: 9 findings at first, now 2. The remaining two are the italic turn on the two bookends, kept deliberately per the brief and documented here and in DESIGN.md.
+  - Documenter rewrote DESIGN.md and `.impeccable/design.json`; the drift it reported is fixed.
+  - Finish reviewer: first pass returned "recapture" (invalid evidence). Recaptured, and a full review is in progress.
+- **Lighthouse** (production build, local):
+  - Mobile: Performance 85–89 (varies between runs), Accessibility 100, Best Practices 96, SEO 100, CLS 0, **LCP 3.8 s** (over target).
+  - Desktop: 100 / 100 / 96 / 100, LCP 0.8 s.
+  - Not preloading the serif did not help mobile LCP; the italic now loads separately without a preload.
+- **Founder to confirm before launch:**
+  - The "Washington State cooperative contract 02024 … $3.34 / $4.60" hint in the estimator.
+  - Whether to publish audit prices. The spec's $1,500–5,000 range is not shown; the site says "flat fee set by the size of your site, quoted in writing".
+
 ## Next session
 1. Lighthouse on a production build, plus a VoiceOver pass over the lens, the repair bench and the contact form.
 2. Bring LCP under 2.5 s (inline critical CSS, subset fonts).

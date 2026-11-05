@@ -21,7 +21,7 @@ export function Footer() {
           </div>
 
           <nav aria-label="Footer" className="col-span-6 md:col-span-3">
-            <h2 className="tag !text-moon-muted">Site</h2>
+            <h2 className="text-[0.85rem] font-[600] text-moon-muted">Site</h2>
             <ul className="mt-5 space-y-1">
               {[...nav, { href: "/contact", label: "Contact" }].map((item) => (
                 <li key={item.href}>
@@ -34,7 +34,7 @@ export function Footer() {
           </nav>
 
           <div className="col-span-6 md:col-span-3">
-            <h2 className="tag !text-moon-muted">The work</h2>
+            <h2 className="text-[0.85rem] font-[600] text-moon-muted">The work</h2>
             <ol className="mt-5 space-y-1">
               {stages.map((s) => (
                 <li key={s.id}>

@@ -77,78 +77,101 @@ export function Inventory() {
         ...d,
         i,
         col,
-        sx: col * 20 + 0.6,
-        sy: 13 + row * 13.5,
-        rx: 2 + rand(i) * 76,
-        ry: 3 + rand(i + 40) * 78,
-        rot: (rand(i + 9) - 0.5) * 26,
+        sx: col * 20 + 0.8,
+        sy: 9 + row * 12.5,
+        srot: row % 2 ? 1.2 : -1,
+        rx: 1 + rand(i) * 78,
+        ry: 2 + rand(i + 40) * 80,
+        rot: (rand(i + 9) - 0.5) * 24,
       };
     });
   }, []);
+
+  // the reading path through the collection: tangled across scattered files, then calm along the five piles
+  const tangle = useMemo(() => {
+    const r2 = (n: number) => Math.round(n * 100) / 100;
+    const pts = placed.map((d) => ({ x: r2(d.rx + 9), y: r2(d.ry + 5) }));
+    let path = `M ${pts[0]!.x} ${pts[0]!.y}`;
+    for (let k = 1; k < pts.length; k++) {
+      const p0 = pts[k - 1]!;
+      const p1 = pts[k]!;
+      const sgn = k % 2 ? 1 : -1;
+      path += ` C ${r2(p0.x + sgn * 14)} ${r2(p0.y - 10)}, ${r2(p1.x - sgn * 16)} ${r2(p1.y + 12)}, ${p1.x} ${p1.y}`;
+    }
+    return path;
+  }, [placed]);
+  const calm = "M 0 4 C 6 1, 14 7, 20 4 S 34 1, 40 4 S 54 7, 60 4 S 74 1, 80 4 S 94 7, 100 4";
 
   return (
     <section aria-labelledby="inv-title" className="relative pb-24 pt-6 sm:pb-32">
       <Ribbon className="mb-10 h-[80px] sm:h-[120px]" d="M -60 30 C 300 150, 620 10, 900 80 S 1260 150, 1500 40" viewBox="0 0 1440 160" band={48} />
       <div className="wrap">
-        <div className="grid-12 items-end gap-y-6">
-          <h2 id="inv-title" className="headline col-span-12 lg:col-span-7">
-            Thousands of files. <em>Not all of them need the same work.</em>
-          </h2>
-          <div className="col-span-12 lg:col-span-4 lg:col-start-9">
-            <p className="max-w-[44ch] text-ink-soft">
-              Sayable reads every publicly linked document and sorts it by what it is and how residents use it. The value
-              is knowing what needs attention, and why, before anyone pays to remediate it.
-            </p>
-            <button type="button" className="btn btn-quiet mt-6 !min-h-11 text-[0.95rem]" onClick={() => setManual(!sorted)} aria-pressed={sorted}>
-              {sorted ? "Show it unsorted" : "Sort the collection"}
-            </button>
-          </div>
+        <h2 id="inv-title" className="headline max-w-[18ch] !text-[length:clamp(2.6rem,1.6rem+4vw,5.4rem)]">
+          Thousands of files. Not all of them need the same work.
+        </h2>
+        <div className="mt-8 flex flex-wrap items-end justify-between gap-6">
+          <p className="max-w-[52ch] text-[length:var(--step-1)] leading-relaxed text-ink-soft">
+            Sayable reads every publicly linked document and sorts it by what it is and how residents use it. The value is
+            knowing what needs attention, and why, before anyone pays to remediate it.
+          </p>
+          <button type="button" className="btn btn-quiet !min-h-11 text-[0.95rem]" onClick={() => setManual(!sorted)} aria-pressed={sorted}>
+            {sorted ? "Show it unsorted" : "Sort the collection"}
+          </button>
         </div>
 
-        <div ref={ref} className="relative mt-12 overflow-hidden rounded-[22px] bg-paper-deep p-3 sm:p-5" aria-hidden="true">
-          <div className="relative h-[430px] w-full sm:h-[460px] lg:h-[440px]">
-            <div className={`absolute inset-x-0 top-0 grid grid-cols-5 gap-2 transition-opacity duration-700 ${sorted ? "opacity-100" : "opacity-0"}`}>
-              {groups.map((g) => (
-                <p key={g.key} className="flex items-center gap-2 text-[0.78rem] font-[650] leading-tight text-ink sm:text-[0.85rem]">
-                  <span className={`h-1.5 w-5 shrink-0 rounded-full ${toneClass[g.tone]}`} />
-                  <span className="sm:hidden">{g.short}</span>
-                  <span className="hidden sm:inline">{g.name}</span>
-                </p>
-              ))}
-            </div>
-            {placed.map((d) => (
-              <div
-                key={d.i}
-                className="inv-sheet w-[19%] rounded-[8px] bg-sheet px-2 py-1.5 shadow-[0_1px_2px_rgb(23_50_40/0.08),0_6px_14px_-8px_rgb(23_50_40/0.25)] sm:px-3 sm:py-2"
-                style={{
-                  left: `${(sorted ? d.sx : d.rx).toFixed(2)}%`,
-                  top: `${(sorted ? d.sy : d.ry).toFixed(2)}%`,
-                  transform: `rotate(${(sorted ? 0 : d.rot).toFixed(2)}deg)`,
-                  ["--dl" as string]: `${Math.round(rand(d.i + 3) * 320)}ms`,
-                }}
-              >
-                <span className={`mb-1 block h-1 w-6 rounded-full ${sorted ? toneClass[groups[d.col]!.tone] : "bg-ink/15"}`} />
-                <span className="block truncate text-[0.62rem] font-[650] leading-tight sm:text-[0.78rem]">{d.t}</span>
-                <span className="mono block truncate text-[0.55rem] text-muted sm:text-[0.68rem]">{d.m}</span>
+        <div className="mt-14 flex flex-col">
+          {/* pile heads: the groups and their reasons (real content) */}
+          <dl className="order-2 mt-12 grid gap-x-8 gap-y-7 sm:grid-cols-2 lg:order-none lg:mt-0 lg:grid-cols-5">
+            {groups.map((g) => (
+              <div key={g.key} className="lg:pr-2">
+                <dt className="flex items-center gap-2.5 font-[650] leading-snug">
+                  <span aria-hidden="true" className={`h-1.5 w-5 shrink-0 rounded-full ${toneClass[g.tone]}`} />
+                  {g.name}
+                </dt>
+                <dd className="mt-2 text-[0.9rem] leading-relaxed text-ink-soft">{g.why}</dd>
               </div>
             ))}
+          </dl>
+
+          <div ref={ref} className="relative order-1 mt-0 lg:order-none lg:mt-6" aria-hidden="true">
+            <div className="relative h-[440px] w-full lg:h-[430px]">
+              <div className={`absolute inset-x-0 top-0 grid grid-cols-5 gap-2 transition-opacity duration-700 lg:hidden ${sorted ? "opacity-100" : "opacity-0"}`}>
+                {groups.map((g) => (
+                  <p key={g.key} className="flex items-center gap-1.5 text-[0.72rem] font-[650] leading-tight text-ink">
+                    <span className={`h-1 w-3 shrink-0 rounded-full ${toneClass[g.tone]}`} />
+                    {g.short}
+                  </p>
+                ))}
+              </div>
+              <svg viewBox="0 0 100 100" preserveAspectRatio="none" className="pointer-events-none absolute inset-0 h-full w-full overflow-visible">
+                <path
+                  key={sorted ? "calm" : "tangle"}
+                  d={sorted ? calm : tangle}
+                  className={sorted ? "inv-path inv-path-calm" : "inv-path inv-path-tangle"}
+                />
+              </svg>
+              {placed.map((d) => (
+                <div
+                  key={d.i}
+                  className="inv-sheet w-[18.4%] rounded-[6px] bg-sheet px-2 py-1.5 sm:px-3 sm:py-2"
+                  style={{
+                    left: `${(sorted ? d.sx : d.rx).toFixed(2)}%`,
+                    top: `${(sorted ? d.sy : d.ry).toFixed(2)}%`,
+                    transform: `rotate(${(sorted ? d.srot : d.rot).toFixed(2)}deg)`,
+                    ["--dl" as string]: `${Math.round(rand(d.i + 3) * 320)}ms`,
+                  }}
+                >
+                  <span className={`mb-1 block h-1 w-6 rounded-full ${sorted ? toneClass[groups[d.col]!.tone] : "bg-ink/15"}`} />
+                  <span className="block truncate text-[0.62rem] font-[650] leading-tight sm:text-[0.78rem]">{d.t}</span>
+                  <span className="mono block truncate text-[0.55rem] text-muted sm:text-[0.68rem]">{d.m}</span>
+                </div>
+              ))}
+            </div>
+            <p className="mt-3 text-[0.8rem] text-muted">Illustrative collection for a fictional city. Not real data.</p>
           </div>
-          <p className="mono mt-2 px-1 text-[0.75rem] text-muted">Illustrative collection for a fictional city. Not real data.</p>
         </div>
 
-        <dl className="mt-12 grid gap-x-10 gap-y-7 sm:grid-cols-2 lg:grid-cols-5">
-          {groups.map((g) => (
-            <div key={g.key}>
-              <dt className="flex items-center gap-2.5 font-[650] leading-snug">
-                <span aria-hidden="true" className={`h-1.5 w-5 shrink-0 rounded-full ${toneClass[g.tone]}`} />
-                {g.name}
-              </dt>
-              <dd className="mt-2 text-[0.92rem] leading-relaxed text-ink-soft">{g.why}</dd>
-            </div>
-          ))}
-        </dl>
-
-        <p className="mt-14 max-w-[60ch] font-serif text-[length:var(--step-2)] leading-snug">
+        <p className="mt-16 max-w-[60ch] font-serif text-[length:var(--step-2)] leading-snug">
           Stop guessing which documents need attention.{" "}
           <Link href="#estimator" className="text-link">
             Estimate what sorting first could save

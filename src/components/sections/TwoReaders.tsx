@@ -53,8 +53,8 @@ export function TwoReaders() {
           <div className="col-span-12 lg:col-span-7">
             <div className="lens-wrap relative select-none">
               <div className="mb-3 flex justify-between gap-4" aria-hidden="true">
-                <span className="tag !text-ink-soft">What you see</span>
-                <span className="tag text-right !text-ink-soft">What the screen reader gets</span>
+                <span className="text-[0.85rem] font-[600] text-ink-soft">What you see</span>
+                <span className="text-right text-[0.85rem] font-[600] text-ink-soft">What the screen reader gets</span>
               </div>
               <div className="sheet relative overflow-hidden" aria-hidden="true">
                 <svg viewBox={VB} className="block h-auto w-full">

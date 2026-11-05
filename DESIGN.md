@@ -352,3 +352,17 @@ A sheet with a mono file-name header, vertical tabs (10px radius, evergreen-wash
 - **Don't** reintroduce the records-room world: no folder board, index cards, stamp-pad violet, errata red or steel-cabinet night.
 - **Don't** set uppercase tracked labels, mono prose or system display faces.
 - **Don't** tilt sheets past about 3° in the plane, and don't give anything that is not paper a shadow.
+
+## Revision notes (finish-review fix round, Nov 5 2026)
+- **Deep passages are #13362E, not #1D5347.** On dark ground, apricot and moon text keep at least 7:1 contrast, and the evergreen #1D5347 stays reserved for structure and actions. This is recorded in the direction contract as adaptation 1.
+- **Hero controls.** "See why it matters" sits beside the primary CTA. Under the sheet is the "As posted / After Sayable" segmented control with "Replay the reading path". This is adaptation 2.
+- **Apricot means a snag, nowhere else.** On the evergreen estimator, values, sliders and the CTA use moon and signal-light (#9FD3BF, token `--color-signal-light`). `.btn-night` is a moon pill with night text. Apricot appears only in the "remediated by a person" bar segment.
+- **The reading path threads the middle acts.**
+  - Inventory: an apricot tangle across the scattered files becomes a calm evergreen line along five paper piles.
+  - Estimator: the three scenarios are numbered reading-order nodes on one line.
+  - Report explorer: each finding draws a leader line into the region it names on a thumbnail of the notice.
+- **Inventory.** Files are paper sheets with a paper shadow and a slight turn, set directly on porcelain with no panel. Pile heads carry the group descriptions, so there is no duplicate legend.
+- **Custody line.** Every node is the same evergreen disc. Software steps get a solid line and person steps a dashed one, so there is no fill-based status encoding.
+- **Lifecycle sheet.** The sheet is the object, with no surrounding panel. On phones it crops to the region each stage acts on.
+- **Section openings vary.** Only Two Readers and the Readiness Audit use a recoloured clause. Inventory opens with an oversized full-width headline.
+- **Mono is for data only.** Labels such as "What you see" and the footer column heads are set in Hanken.

@@ -99,7 +99,7 @@ export function CostModel() {
       <div className="wrap">
         <div className="grid-12 items-end gap-y-6">
           <h2 id="cost-title" className="headline col-span-12 lg:col-span-7">
-            The cheapest page to fix is <em>the one you never had to.</em>
+            The cheapest page to fix is the one you never had to.
           </h2>
           <p className="col-span-12 max-w-[46ch] text-moon-muted lg:col-span-4 lg:col-start-9">
             Move the numbers to match your site. The estimator shows where the work goes when you sort first, what software
@@ -131,7 +131,7 @@ export function CostModel() {
                         <label htmlFor={id} className="font-[600] leading-snug">
                           {f.label}
                         </label>
-                        <output htmlFor={id} className="mono shrink-0 text-[1rem] tabular-nums text-warm">
+                        <output htmlFor={id} className="mono shrink-0 text-[1rem] tabular-nums text-moon">
                           {f.fmt(v[f.key])}
                         </output>
                       </div>
@@ -159,9 +159,13 @@ export function CostModel() {
               <p className="mono text-[0.9rem] text-moon-muted">
                 {num(v.pages)} pages, {pct(v.attention)} need attention = <strong className="text-moon">{num(attnPages)} pages</strong>
               </p>
-              <ol className="mt-7 space-y-8">
-                {rows.map((r) => (
-                  <li key={r.id}>
+              <ol className="relative mt-7 space-y-8 pl-11">
+                <span aria-hidden="true" className="absolute bottom-6 left-[13px] top-3 border-l-2 border-signal-light/50" />
+                {rows.map((r, i) => (
+                  <li key={r.id} className="relative">
+                    <span aria-hidden="true" className="absolute -left-11 top-0 flex h-7 w-7 items-center justify-center rounded-full bg-signal-light text-[0.8rem] font-[700] text-night">
+                      {i + 1}
+                    </span>
                     <div className="flex items-baseline justify-between gap-4">
                       <span className="max-w-[28ch] font-[600] leading-snug">{r.name}</span>
                       <Money value={r.value} className="shrink-0 font-serif text-[clamp(1.7rem,1.2rem+1.5vw,2.6rem)] leading-none" />

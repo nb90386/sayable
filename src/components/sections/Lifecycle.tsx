@@ -55,7 +55,7 @@ export function Lifecycle() {
     <section aria-labelledby="lc-title" className="relative bg-paper-deep">
       <div className="wrap pt-28 sm:pt-36">
         <h2 id="lc-title" className="headline mt-6 max-w-[18ch]">
-          One document, <em>start to finish.</em>
+          One document, start to finish.
         </h2>
         <p className="lede mt-6 !max-w-[48ch]">
           Five stages, one system. Follow the same hearing notice from the day it is found to the day it is posted, and
@@ -116,7 +116,29 @@ export function Lifecycle() {
   );
 }
 
+/** On phones the sheet crops to the region each stage acts on, so its annotations stay legible. */
+const mobileCrop: Record<string, string> = {
+  discover: "20 20 810 700",
+  repair: "20 400 810 600",
+  verify: "160 340 530 300",
+  publish: "380 10 450 300",
+  monitor: "20 20 810 1060",
+};
+
+function useNarrow() {
+  const [narrow, setNarrow] = useState(false);
+  useEffect(() => {
+    const mq = window.matchMedia("(max-width: 767px)");
+    const on = () => setNarrow(mq.matches);
+    on();
+    mq.addEventListener("change", on);
+    return () => mq.removeEventListener("change", on);
+  }, []);
+  return narrow;
+}
+
 function StageArtifact({ stage }: { stage: string }) {
+  const narrow = useNarrow();
   const on = (s: string | string[]) => ((Array.isArray(s) ? s : [s]).includes(stage) ? "lc-layer is-on" : "lc-layer");
   const ordered = blocks.filter((b) => b.order);
   return (
@@ -126,7 +148,11 @@ function StageArtifact({ stage }: { stage: string }) {
           className="relative transition-transform duration-[1200ms] ease-[var(--ease-out-expo)]"
           style={{ transform: stage === "publish" ? "translateY(-2%) rotateX(4deg)" : stage === "monitor" ? "scale(0.82) translateX(-8%)" : "none" }}
         >
-          <svg viewBox={VB} className="sheet mx-auto block h-auto max-h-[34vh] w-auto md:max-h-[70vh] md:w-full" preserveAspectRatio="xMidYMin meet">
+          <svg
+            viewBox={narrow ? mobileCrop[stage] ?? VB : VB}
+            className="mx-auto block h-[38vh] w-full rounded-[14px] bg-sheet shadow-[var(--shadow-sheet)] transition-[height] md:aspect-[850/1100] md:h-auto md:w-full md:max-w-[calc(72vh*0.7727)]"
+            preserveAspectRatio="xMidYMid meet"
+          >
             <NoticePage />
             {/* DISCOVER: barriers flagged */}
             <g className={on("discover")}>

@@ -121,7 +121,7 @@
     font-size: var(--step-4);
   }
   .headline em { font-style: normal; font-weight: inherit; color: var(--color-signal); }
-  .on-night .headline em, .on-night .display em { color: var(--color-warm); }
+  .on-night .headline em, .on-night .display em { color: var(--color-signal-light); }
   .title { font-family: var(--font-serif); font-weight: 450; letter-spacing: -0.012em; line-height: 1.12; }
   .lede { font-size: var(--step-1); line-height: 1.5; color: var(--color-ink-soft); max-width: 36ch; }
   .on-night .lede { color: var(--color-moon-muted); }
@@ -153,7 +153,7 @@
   .btn:active { transform: translateY(0); }
   .btn .arrow { transition: transform 0.45s var(--ease-out-expo); }
   .btn:hover .arrow { transform: translateX(3px); }
-  .btn-night { --btn-bg: var(--color-warm); --btn-fg: var(--color-ink); }
+  .btn-night { --btn-bg: var(--color-moon); --btn-fg: var(--color-night); }
   .btn-quiet { --btn-bg: var(--color-sheet); --btn-fg: var(--color-ink); box-shadow: inset 0 0 0 1px var(--rule-strong); }
   .btn-quiet:hover { background: var(--color-sheet); box-shadow: inset 0 0 0 1.5px var(--color-signal); }
 

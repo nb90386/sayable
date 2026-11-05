@@ -1,6 +1,32 @@
 "use client";
 
 import { useId, useState } from "react";
+import { NoticePage, VB, blocks, fields, thCells } from "../doc/notice";
+
+const b = (id: string) => blocks.find((x) => x.id === id)!;
+const regions: Record<string, { x: number; y: number; w: number; h: number }[]> = {
+  fields,
+  table: thCells,
+  heading: [b("h1"), b("h2")],
+  alt: [b("figure")],
+};
+
+/** The page, with the region a finding names highlighted and a leader line into it. */
+function RegionThumb({ id }: { id: string }) {
+  const rs = regions[id] ?? [];
+  const first = rs[0]!;
+  const cy = first.y + first.h / 2;
+  return (
+    <svg viewBox={VB} className="block h-auto w-full rounded-[8px] bg-sheet shadow-[0_1px_2px_rgb(23_50_40/0.1),0_8px_20px_-10px_rgb(23_50_40/0.35)]" aria-hidden="true">
+      <NoticePage />
+      <rect width="850" height="1100" fill="rgb(247 249 244 / 0.55)" />
+      {rs.map((r, i) => (
+        <rect key={id + i} x={r.x - 8} y={r.y - 8} width={r.w + 16} height={r.h + 16} rx="10" fill="rgb(240 174 113 / 0.18)" stroke="#a24a1c" strokeWidth="5" />
+      ))}
+      <path d={`M -40 ${cy} C 10 ${cy}, ${first.x - 70} ${cy}, ${first.x - 10} ${cy}`} fill="none" stroke="#1d5347" strokeWidth="6" strokeLinecap="round" />
+    </svg>
+  );
+}
 
 type Finding = {
   id: string;
@@ -104,6 +130,9 @@ export function ReportExplorer() {
         </div>
 
         <div id={`${base}-panel`} role="tabpanel" aria-labelledby={`${base}-tab-${f.id}`} className="px-5 pb-7 pt-5 sm:px-7">
+          <div className="float-right mb-3 ml-5 w-[6.5rem] sm:w-[9.5rem]">
+            <RegionThumb id={f.id} />
+          </div>
           <p className="mono text-[0.8rem] text-ember">
             {f.severity} · {f.category}
           </p>
