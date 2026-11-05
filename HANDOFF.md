@@ -117,7 +117,7 @@ The "Path to Understanding" world is retired. Recovery tag for the version befor
 - **REA:** see `docs/REA-EVIDENCE.md`. CLI-only, passive CDP inspection; `setup` (MCP registration) was not run.
 - **Impeccable:**
   - Source detector: 0. Rendered detector: 1 (oversized-h1, fixed), then 0.
-  - Finish reviewer: first verdict **fix**, with 8 items, all applied; verdict pass pending or recorded below.
+  - Finish reviewer: first verdict **fix** (8 items). Verdict passes: 6 resolved, then the remaining 2 plus 3 regressions resolved. Final verdict **ship**, scoped to the scored items, not a fresh whole-surface audit. Fix 6 (divider chrome timing) was checked at 1440 only, not 1024.
   - DESIGN.md and design.json rewritten by the documenter.
 - **Lighthouse** (production build, local): mobile 96 / 100 / 100 / 100 with LCP 2.7 s and CLS 0; desktop 100 / 100 / 100 / 100 with LCP 0.7 s.
 - **Audit of the previous version:** `REDESIGN-AUDIT.md`.
