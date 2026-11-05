@@ -56,22 +56,21 @@ export default function SolutionsPage() {
       />
       <div className="wrap pb-24">
         <ol>
-          {audiences.map((a, i) => (
+          {audiences.map((a) => (
             <li key={a.id} id={a.id} className="grid-12 gap-y-6 border-t py-14 hairline sm:py-20">
               <div className="col-span-12 lg:col-span-4">
-                <p className="tag !text-muted">{String(i + 1).padStart(2, "0")} / 04</p>
-                <h2 className="mt-4 font-serif text-[length:var(--step-3)] leading-[1.02] tracking-[-0.02em]">{a.who}</h2>
+                <h2 className="font-serif text-[length:var(--step-3)] leading-[1.02] tracking-[-0.02em]">{a.who}</h2>
               </div>
               <blockquote className="col-span-12 font-serif text-[length:var(--step-2)] leading-[1.25] text-ink-soft lg:col-span-5">
                 <p>{a.moment}</p>
               </blockquote>
               <dl className="col-span-12 grid content-start gap-5 text-[0.975rem] lg:col-span-3">
                 <div>
-                  <dt className="tag !text-muted">What they need</dt>
+                  <dt className="text-[0.85rem] font-[700] text-muted">What they need</dt>
                   <dd className="mt-1.5">{a.need}</dd>
                 </div>
                 <div>
-                  <dt className="tag !text-muted">Where we start</dt>
+                  <dt className="text-[0.85rem] font-[700] text-muted">Where we start</dt>
                   <dd className="mt-1.5">
                     <Link href={a.href} className="text-link">
                       {a.offer}

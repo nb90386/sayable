@@ -42,8 +42,7 @@ export default async function ContactPage({ searchParams }: { searchParams: Prom
           <h2 className="tag mt-14 !text-muted">What happens after you write</h2>
           <ol className="mt-4 border-t hairline">
             {steps.map((s) => (
-              <li key={s.n} className="grid grid-cols-[2.5rem_1fr] gap-x-3 border-b py-6 hairline">
-                <span className="tag pt-1.5">{s.n}</span>
+              <li key={s.n} className="border-b py-6 hairline">
                 <div>
                   <h3 className="font-serif text-[1.35rem] leading-snug tracking-[-0.01em]">{s.title}</h3>
                   <p className="mt-2 text-[0.975rem] text-ink-soft">{s.body}</p>

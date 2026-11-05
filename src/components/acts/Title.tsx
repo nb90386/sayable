@@ -8,7 +8,7 @@ export function Title() {
       <h1 id="hero-title" className="split-head is-title display text-[length:clamp(2.5rem,1.4rem+3.6vw,5rem)]">
         <span className="pb-6 lg:pb-10">A document can look right.</span>
         <span className="pb-6 lg:pb-10">
-          And still <em>leave someone out.</em>
+          And still <em className="broken">leave someone out.</em>
         </span>
       </h1>
       <div className="split-grid">

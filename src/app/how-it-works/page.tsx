@@ -73,7 +73,7 @@ export default function HowItWorksPage() {
           {stages.map((s) => (
             <li key={s.id}>
               <a href={`#${s.id}`} className="inline-flex min-h-10 items-center gap-2 no-underline hover:text-signal">
-                <span className="tag !text-muted">{s.n}</span> {s.name}
+                {s.name}
               </a>
             </li>
           ))}
@@ -86,14 +86,11 @@ export default function HowItWorksPage() {
           return (
             <section key={s.id} id={s.id} aria-labelledby={`${s.id}-title`} className="grid-12 gap-y-6 border-b py-16 hairline sm:py-24">
               <div className="col-span-12 md:col-span-4">
-                <p className="font-serif text-[clamp(4rem,10vw,8rem)] leading-[0.8] tracking-[-0.05em] text-signal" aria-hidden="true">
-                  {s.n}
-                </p>
-                <p className="tag mt-6 !text-muted">{d.who}</p>
+                <p className="title text-[length:var(--step-2)]">{s.name}</p>
+                <p className="mt-2 font-[700] text-ink-soft">{d.who}</p>
               </div>
               <div className="col-span-12 md:col-span-7 md:col-start-6">
-                <h2 id={`${s.id}-title`} className="font-serif text-[length:var(--step-3)] leading-[1.05] tracking-[-0.02em]">
-                  <span className="block text-[0.45em] tracking-normal text-muted">{s.name}</span>
+                <h2 id={`${s.id}-title`} className="headline !text-[length:var(--step-3)]">
                   {d.title}
                 </h2>
                 <div className="prose-tight mt-6 max-w-[62ch] text-ink-soft">

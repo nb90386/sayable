@@ -104,8 +104,10 @@
     letter-spacing: -0.022em;
     line-height: 0.95;
   }
-  .display em, .display i { font-style: normal; color: var(--color-ember); }
-  .on-night .display em { color: var(--color-signal-night); }
+  /* emphasis resolves to an ink underline; vermilion only where structure is broken (.broken) */
+  .display em, .display i { font-style: normal; color: inherit; text-decoration: underline; text-decoration-thickness: 0.06em; text-underline-offset: 0.1em; text-decoration-color: currentColor; }
+  .display em.broken { color: var(--color-ember); text-decoration: none; }
+  .on-night .display em.broken { color: var(--color-signal-night); }
   .headline {
     font-family: var(--font-serif);
     font-weight: 620;
