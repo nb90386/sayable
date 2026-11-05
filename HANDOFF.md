@@ -89,7 +89,33 @@ In the Claude Code sandbox the dev server must run unsandboxed (Turbopack's FSEv
 
 
 
-## Zero Compromise rebuild (Nov 5 2026), current
+
+## Apple Standard rebuild (Nov 5 2026), current
+The split-stage world is retired; recovery tag `pre-apple-standard`. `SPLIT-INVENTORY.md` lists every split that was replaced.
+- **Grammar:** Scroll Craft filmic one-shot (`scrollcraft/builds/sayable-apple/BRIEF.md`). Every homepage chapter is centred or full-width; there are no 50/50 sections.
+- **Type:** Onest for every role, chosen over Hanken Grotesk and General Sans from rendered auditions on the same hero. JetBrains Mono for document annotations only.
+- **Palette:** #F8F9FB ground, #12151B ink, #2458E8 structure blue, ember #E5521F (#B53D12 for text and badges) for broken relationships, #10141C dark scenes.
+- **Signature:** the structure scan. A pinned permit sheet flattens as you scroll while a blue scan line reveals its numbered, wrong-order reading path and its missing names.
+- **Chapters:**
+  1. Opening.
+  2. Problem: one sheet, As posted / After repair, a single player with a caption line and transcripts, labelled as text-to-speech.
+  3. Scale: a full-width inventory sorting into five lanes.
+  4. Product: an illustrative workspace with five stage tabs.
+  5. Value: the estimator.
+  6. Trust: method plus a sample report.
+  7. Offer: the Readiness Audit.
+  8. Conclusion: the resolved sheet, with the path drawing itself.
+- **Verification:**
+  - typecheck, lint and build clean;
+  - 23/23 Playwright + axe;
+  - no overflow at 360–1440;
+  - Impeccable source and rendered detectors 0;
+  - audio playback, caption and highlight checked by `scripts/audio-check.mjs`;
+  - Lighthouse mobile 97/100/100/100 (LCP 2.6 s), desktop 100 ×4.
+- **Finish reviewer:** fix (8 items) → 7 resolved, plus 1 partial and 1 regression → **ship**. The ship covers only the scored items; the ceiling notes (sheet lighting, the repeated chapter-head template) were not re-reviewed.
+- **Scroll Craft harness:** the opening reports no dead scroll. It flags the ordinary flow chapters as dead because they carry no engine cues, so they were judged from screenshots.
+
+## Zero Compromise rebuild (superseded) (Nov 5 2026), current
 The "Path to Understanding" world is retired. Recovery tag for the version before this rebuild: `pre-zero-compromise`.
 - **Concept: the document has two stories.** The home page is a Scroll Craft *split stage*. The left column is "what you see" (porcelain #F6F5F1); the right is "what a screen reader gets" (graphite #111418).
   - **Signature move:** the divider is the document's reading path (`src/components/split/Divider.tsx`). It starts kinked, with vermilion knots where the order breaks, straightens act by act, turns ink once straight, then collapses at the close so the page becomes one story. On phones it is a gutter line.
