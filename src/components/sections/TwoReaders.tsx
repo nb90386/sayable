@@ -149,7 +149,7 @@ function StructureView({ mode }: { mode: Mode }) {
       {blocks.map((b) => {
         const p = pos.get(b.id);
         const skipped = !p;
-        const color = skipped ? "#55586a" : bad ? "#ff8a5c" : "#a99dff";
+        const color = skipped ? "#4a3c1d" : bad ? "#ff8a5c" : "#b7adff";
         return (
           <g key={b.id}>
             <rect
@@ -158,7 +158,7 @@ function StructureView({ mode }: { mode: Mode }) {
               width={b.w + 12}
               height={b.h + 12}
               rx="3"
-              fill={skipped ? "none" : bad ? "rgb(255 138 92 / 0.07)" : "rgb(169 157 255 / 0.08)"}
+              fill={skipped ? "none" : bad ? "rgb(255 138 92 / 0.07)" : "rgb(183 173 255 / 0.08)"}
               stroke={color}
               strokeWidth="1.5"
               strokeDasharray={skipped ? "4 5" : undefined}

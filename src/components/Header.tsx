@@ -141,7 +141,6 @@ export function Header() {
         className="fixed inset-x-0 bottom-0 top-[var(--header-h)] overflow-y-auto bg-paper lg:hidden"
       >
         <nav aria-label="Mobile" className="wrap flex min-h-full flex-col pb-10 pt-6">
-          <p className="tag mb-4 !text-muted">Document › Navigation</p>
           <ul className="border-t hairline">
             {[{ href: "/", label: "Home" }, ...nav].map((item, i) => (
               <li key={item.href} className="border-b hairline">

@@ -88,9 +88,7 @@ export function Spec({ items }: { items: string[] }) {
     <ul className="mt-6 border-t hairline">
       {items.map((it) => (
         <li key={it} className="flex gap-4 border-b py-3 text-[0.95rem] hairline">
-          <span aria-hidden="true" className="tag pt-1">
-            ›
-          </span>
+          <span aria-hidden="true" className="mt-[0.55em] h-2 w-2 shrink-0 bg-signal" />
           <span>{it}</span>
         </li>
       ))}

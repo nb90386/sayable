@@ -133,9 +133,9 @@ function StageArtifact({ stage }: { stage: string }) {
               <rect width="850" height="1100" fill="rgb(11 12 23 / 0.04)" />
               {[blocks[1]!, blocks[5]!, blocks[7]!].map((b, i) => (
                 <g key={b.id}>
-                  <rect x={b.x - 8} y={b.y - 8} width={b.w + 16} height={b.h + 16} fill="rgb(178 58 12 / 0.06)" stroke="#b23a0c" strokeWidth="2" strokeDasharray="7 6" />
+                  <rect x={b.x - 8} y={b.y - 8} width={b.w + 16} height={b.h + 16} fill="rgb(143 25 21 / 0.06)" stroke="#8f1915" strokeWidth="2" strokeDasharray="7 6" />
                   <g transform={`translate(${b.x + b.w - 190} ${b.y - 34})`}>
-                    <rect width="198" height="26" fill="#b23a0c" />
+                    <rect width="198" height="26" fill="#8f1915" />
                     <text x="10" y="18" fontFamily="var(--font-mono)" fontSize="14" fill="#fff">
                       {["no heading tag", "no table headers", "2 fields unnamed"][i]}
                     </text>
@@ -143,7 +143,7 @@ function StageArtifact({ stage }: { stage: string }) {
                 </g>
               ))}
               <g transform="translate(470 30)">
-                <rect width="316" height="34" fill="#0e1020" />
+                <rect width="316" height="34" fill="#1b1a16" />
                 <text x="14" y="23" fontFamily="var(--font-mono)" fontSize="15" fill="#fff">
                   TRIAGE · MUST FIX · form + service link
                 </text>
@@ -152,19 +152,19 @@ function StageArtifact({ stage }: { stage: string }) {
             {/* REPAIR + VERIFY: structure in place */}
             <g className={on(["repair", "verify", "publish", "monitor"])}>
               {blocks.map((b) => (
-                <rect key={b.id} x={b.x - 8} y={b.y - 8} width={b.w + 16} height={b.h + 16} rx="3" fill="none" stroke={b.order ? "#4433d6" : "#8c8fa3"} strokeWidth="1.6" strokeDasharray={b.order ? undefined : "3 4"} />
+                <rect key={b.id} x={b.x - 8} y={b.y - 8} width={b.w + 16} height={b.h + 16} rx="3" fill="none" stroke={b.order ? "#3b2db8" : "#8a7a55"} strokeWidth="1.6" strokeDasharray={b.order ? undefined : "3 4"} />
               ))}
               {thCells.map((c, i) => (
-                <rect key={i} x={c.x + 4} y={c.y + 4} width={c.w - 8} height={c.h - 8} fill="rgb(68 51 214 / 0.1)" />
+                <rect key={i} x={c.x + 4} y={c.y + 4} width={c.w - 8} height={c.h - 8} fill="rgb(59 45 184 / 0.1)" />
               ))}
               {fields.map((f, i) => (
-                <text key={i} x={f.x + 8} y={f.y + 24} fontFamily="var(--font-mono)" fontSize="14" fill="#4433d6">
+                <text key={i} x={f.x + 8} y={f.y + 24} fontFamily="var(--font-mono)" fontSize="14" fill="#3b2db8">
                   {f.name}
                 </text>
               ))}
               {ordered.map((b) => (
                 <g key={b.id} transform={`translate(${b.x - 26} ${b.y + 20})`}>
-                  <circle r="14" fill="#0e1020" />
+                  <circle r="14" fill="#1b1a16" />
                   <text textAnchor="middle" y="5" fontFamily="var(--font-mono)" fontSize="14" fill="#fff">
                     {b.order}
                   </text>
@@ -173,7 +173,7 @@ function StageArtifact({ stage }: { stage: string }) {
             </g>
             <g className={on("repair")}>
               <g transform="translate(560 640)">
-                <rect width="226" height="34" fill="#0e1020" />
+                <rect width="226" height="34" fill="#1b1a16" />
                 <text x="14" y="23" fontFamily="var(--font-mono)" fontSize="14.5" fill="#fff">
                   PERSON · table headers
                 </text>
@@ -181,15 +181,15 @@ function StageArtifact({ stage }: { stage: string }) {
             </g>
             {/* VERIFY: three checks */}
             <g className={on("verify")}>
-              <rect x="200" y="380" width="450" height="236" fill="#0e1020" />
+              <rect x="200" y="380" width="450" height="236" fill="#1b1a16" />
               {["veraPDF  PDF/UA-1", "Semantic review", "Human review"].map((t, i) => (
                 <g key={t} transform={`translate(230 ${430 + i * 62})`}>
-                  <circle r="14" cx="10" cy="-6" fill="none" stroke="#a99dff" strokeWidth="2" />
-                  <path d="M3 -6 l5 5 l9 -10" stroke="#a99dff" strokeWidth="2.4" fill="none" />
+                  <circle r="14" cx="10" cy="-6" fill="none" stroke="#b7adff" strokeWidth="2" />
+                  <path d="M3 -6 l5 5 l9 -10" stroke="#b7adff" strokeWidth="2.4" fill="none" />
                   <text x="44" fontFamily="var(--font-mono)" fontSize="19" fill="#fff">
                     {t}
                   </text>
-                  <text x="390" textAnchor="end" fontFamily="var(--font-mono)" fontSize="15" fill="#a6a8bf">
+                  <text x="390" textAnchor="end" fontFamily="var(--font-mono)" fontSize="15" fill="#b9b6a6">
                     passed
                   </text>
                 </g>
@@ -198,7 +198,7 @@ function StageArtifact({ stage }: { stage: string }) {
             {/* PUBLISH: ready stamp */}
             <g className={on("publish")}>
               <g transform="translate(520 30)">
-                <rect width="266" height="38" fill="#4433d6" />
+                <rect width="266" height="38" fill="#3b2db8" />
                 <text x="16" y="26" fontFamily="var(--font-mono)" fontSize="16" fill="#fff">
                   READY TO POST · report.pdf
                 </text>
@@ -209,10 +209,10 @@ function StageArtifact({ stage }: { stage: string }) {
           {/* MONITOR: stream of new documents */}
           <div className={`${on("monitor")} absolute -right-3 top-[8%] hidden w-[46%] space-y-3 md:block`}>
             {[
-              ["Agenda packet · Dec 8", "checked", "#a99dff"],
+              ["Agenda packet · Dec 8", "checked", "#b7adff"],
               ["Fee schedule · v2", "needs attention", "#ff8a5c"],
-              ["Minutes · Nov 17", "checked", "#a99dff"],
-              ["Bid notice · Water main", "checked", "#a99dff"],
+              ["Minutes · Nov 17", "checked", "#b7adff"],
+              ["Bid notice · Water main", "checked", "#b7adff"],
             ].map(([n, s, c]) => (
               <div key={n} className="border bg-night-raise px-4 py-3" style={{ borderColor: "var(--rule-night)" }}>
                 <p className="text-[0.85rem] text-moon">{n}</p>

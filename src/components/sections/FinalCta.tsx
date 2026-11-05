@@ -75,7 +75,7 @@ function useOrderCanvas(ref: React.RefObject<HTMLCanvasElement | null>) {
         }
         const d = Math.min(1, (Math.abs(p.tx - p.x) + Math.abs(p.ty - p.y)) / 120);
         ctx.globalAlpha = p.a * (0.35 + 0.65 * (1 - d));
-        ctx.fillStyle = p.hot ? "#a99dff" : "#ecebf5";
+        ctx.fillStyle = p.hot ? "#b7adff" : "#f1ede2";
         if (d < 0.05) ctx.fillRect(p.x, p.y - 3, p.hot ? 5 : 5.5, p.hot ? 3 : 2);
         else ctx.fillText(p.g, p.x, p.y);
       }

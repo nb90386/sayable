@@ -134,8 +134,8 @@ export function RepairBench() {
                     width={r.w + 12}
                     height={r.h + 12}
                     rx="3"
-                    fill={isFixed ? "rgb(68 51 214 / 0.08)" : "rgb(178 58 12 / 0.08)"}
-                    stroke={isFixed ? "#4433d6" : "#b23a0c"}
+                    fill={isFixed ? "rgb(59 45 184 / 0.08)" : "rgb(143 25 21 / 0.08)"}
+                    stroke={isFixed ? "#3b2db8" : "#8f1915"}
                     strokeWidth="3"
                     strokeDasharray={isFixed ? undefined : "10 7"}
                   />

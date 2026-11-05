@@ -79,6 +79,13 @@ In the Claude Code sandbox the dev server must run unsandboxed (Turbopack's FSEv
   - A pinned summary on mobile.
 - **Narrative order**: hero → two readers → inventory → lifecycle → repair bench → cost model → verification → audiences → CTA.
 - **Copy**: em dashes cut; check-before-post described as in development wherever it appears.
+- **Finish review** (Impeccable finish reviewer, fresh subagent):
+  - First verdict: **fix**, with 8 material items: tab rail, acetate leaf, sample report finding, custody line in place of the card cascade, ledger rows in place of hero metrics, mobile inventory labels, mobile CTA overlap, price citation.
+  - All 8 were applied and scored resolved. One mobile regression (tab truncation) and a leaf inset were then fixed and scored resolved.
+  - Final verdict: **ship**, scoped to those scored items, not a whole-surface re-audit. The reviewer verified 390 only; 360 was checked by DOM measurement.
+- **Final checks**: rendered detector 0 anti-patterns; 23/23 Playwright + axe; production build passes.
+- **Lighthouse** (mobile, production build): Performance 94, Accessibility 100, Best Practices 96, SEO 100. LCP 3.0 s, CLS 0, TBT 0 ms.
+- **Founder must confirm**: the "Washington State cooperative contract 02024 … $3.34 / $4.60" figure in the cost model hint (from spec §1).
 
 ## Next session
 1. Lighthouse on a production build, plus a VoiceOver pass over the lens, the repair bench and the contact form.
