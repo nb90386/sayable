@@ -43,7 +43,6 @@ export default function ApproachPage() {
   return (
     <>
       <PageIntro
-        eyebrow="Our approach"
         title={
           <>
             Say what was checked. <em>Nothing more.</em>
@@ -69,7 +68,6 @@ export default function ApproachPage() {
       <section aria-labelledby="research" className="border-t bg-paper-deep/50 hairline">
         <div className="wrap grid-12 gap-y-10 py-20 sm:py-28">
           <div className="col-span-12 lg:col-span-4">
-            <p className="eyebrow">Research status</p>
             <h2 id="research" className="headline mt-6 !text-[length:var(--step-3)]">
               What our tests show, <em>and what they don&apos;t.</em>
             </h2>

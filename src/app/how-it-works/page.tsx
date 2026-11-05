@@ -59,7 +59,6 @@ export default function HowItWorksPage() {
   return (
     <>
       <PageIntro
-        eyebrow="How it works"
         title={
           <>
             One document, <em>five stages.</em>

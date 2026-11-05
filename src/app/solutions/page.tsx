@@ -46,7 +46,6 @@ export default function SolutionsPage() {
   return (
     <>
       <PageIntro
-        eyebrow="Solutions"
         title={
           <>
             Built for the people who <em>publish</em> public information.
@@ -63,7 +62,7 @@ export default function SolutionsPage() {
                 <p className="tag !text-muted">{String(i + 1).padStart(2, "0")} / 04</p>
                 <h2 className="mt-4 font-serif text-[length:var(--step-3)] leading-[1.02] tracking-[-0.02em]">{a.who}</h2>
               </div>
-              <blockquote className="col-span-12 font-serif text-[length:var(--step-2)] italic leading-[1.25] text-ink-soft lg:col-span-5">
+              <blockquote className="col-span-12 font-serif text-[length:var(--step-2)] leading-[1.25] text-ink-soft lg:col-span-5">
                 <p>{a.moment}</p>
               </blockquote>
               <dl className="col-span-12 grid content-start gap-5 text-[0.975rem] lg:col-span-3">

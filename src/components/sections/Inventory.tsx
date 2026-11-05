@@ -47,7 +47,6 @@ export function Inventory() {
       <div className="wrap">
         <div className="grid-12 gap-y-10">
           <div className="col-span-12 lg:col-span-4">
-            <p className="eyebrow">What we find</p>
             <h2 id="inv-title" className="headline mt-6 !text-[length:var(--step-3)]">
               Start with the whole inventory, <em>not a guess.</em>
             </h2>

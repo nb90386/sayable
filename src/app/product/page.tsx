@@ -64,7 +64,6 @@ export default function ProductPage() {
   return (
     <>
       <PageIntro
-        eyebrow="Product"
         title={
           <>
             Five ways in, <em>one standard</em> of checking.

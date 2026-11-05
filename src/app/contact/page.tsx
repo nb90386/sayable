@@ -32,7 +32,6 @@ export default async function ContactPage({ searchParams }: { searchParams: Prom
     <div className="wrap pb-24 pt-[calc(var(--header-h)+4rem)] sm:pb-32">
       <div className="grid-12 gap-y-14">
         <div className="col-span-12 lg:col-span-5">
-          <p className="eyebrow">Contact · Request an audit</p>
           <h1 className="display mt-7 text-[length:clamp(2.6rem,1.5rem+3.6vw,4.8rem)]">
             Tell us what you <em>publish.</em>
           </h1>

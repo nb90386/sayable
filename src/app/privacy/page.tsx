@@ -10,7 +10,6 @@ export default function PrivacyPage() {
   return (
     <>
       <PageIntro
-        eyebrow="Privacy"
         title={
           <>
             We collect <em>very little.</em>

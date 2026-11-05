@@ -122,20 +122,19 @@ export function FinalCta() {
       <canvas ref={ref} aria-hidden="true" className="pointer-events-none absolute inset-0 h-full w-full" />
       <div className="wrap relative pb-28 pt-[52vw] sm:pb-40 md:pt-44">
         <div className="max-w-[44rem]">
-          <p className="eyebrow">Start here</p>
           <h2 id="cta-title" className="display mt-7 text-[length:var(--step-5)]">
             Start with what is <em>already posted.</em>
           </h2>
           <p className="lede mt-8 !max-w-[44ch]">
-            Send us your public website. We will scope a readiness audit of the documents on it — what must be fixed,
-            what can be archived, and what it will take — or talk through a small pilot first.
+            Send us your public website. We&rsquo;ll scope a Readiness Audit of the documents on it: what must be fixed,
+            what can be archived, and what the work will take. Or start with a small pilot.
           </p>
           <div className="mt-11 flex flex-wrap items-center gap-x-8 gap-y-3">
             <Link href="/contact?topic=audit" className="btn btn-night">
-              Request an audit <span className="arrow" aria-hidden="true">→</span>
+              Request a Readiness Audit <span className="arrow" aria-hidden="true" data-icon="arrow-r"></span>
             </Link>
             <Link href="/contact?topic=pilot" className="link-quiet text-moon">
-              Discuss a pilot <span aria-hidden="true">→</span>
+              Discuss a pilot <span aria-hidden="true" data-icon="arrow-r"></span>
             </Link>
           </div>
         </div>

@@ -4,7 +4,7 @@ const layers = [
   { k: "Rules", t: "veraPDF, PDF/UA-1", d: "The free, open-source validator many buyers already use. It confirms the file is structurally sound." },
   { k: "Meaning", t: "Semantic review", d: "Compares the rendered page with its tags in screen-reader order: headings, reading order, tables, lists, alt text." },
   { k: "People", t: "Human review", d: "Forms, tables, scans and anything a check disputes are handled or confirmed by a person." },
-  { k: "Record", t: "A plain report", d: "What was checked, what changed, who changed it, and the tool versions — for every file." },
+  { k: "Record", t: "A plain report", d: "What was checked, what changed, who changed it, and the tool versions, for every file." },
 ];
 
 const research = [
@@ -19,16 +19,15 @@ export function Verification() {
       <div className="wrap">
         <div className="grid-12 gap-y-12">
           <div className="col-span-12 lg:col-span-5">
-            <p className="eyebrow">Verification</p>
             <h2 id="ver-title" className="headline mt-6">
               No single check is enough. <em>So we layer them.</em>
             </h2>
             <p className="mt-6 max-w-[42ch] text-ink-soft">
               A validator can pass a file whose headings are in the wrong place. A careful reviewer can miss a missing
-              language tag. Sayable layers checks so each covers what the others cannot — and reports the results
+              language tag. Sayable layers checks so each covers what the others cannot, and reports the results
               without overstating them.
             </p>
-            <div className="mt-10 border-l-2 border-signal pl-5">
+            <div className="mt-10 border border-signal/50 bg-sheet p-5">
               <p className="font-serif text-[1.25rem] leading-snug">
                 &ldquo;Checked with veraPDF (PDF/UA-1 profile) and the Sayable semantic checker. This report is not a legal
                 certification of compliance.&rdquo;
@@ -63,7 +62,7 @@ export function Verification() {
             <div className="col-span-12 md:col-span-4">
               <h3 className="font-serif text-[1.6rem] leading-tight">What our research shows so far</h3>
               <p className="mt-3 max-w-[36ch] text-[0.925rem] text-muted">
-                Results from our own tests on sample and synthetic documents — not customer outcomes. Tables, lists,
+                Results from our own tests on sample and synthetic documents. These are preliminary benchmarks, not customer outcomes. Tables, lists,
                 reading order and scanned pages still need people.{" "}
                 <Link href="/approach" className="text-link">
                   Read our approach

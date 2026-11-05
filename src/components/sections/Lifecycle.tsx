@@ -22,12 +22,12 @@ const detail: Record<string, { title: string; body: string; points: string[] }> 
   },
   publish: {
     title: "A check before the upload button.",
-    body: "Staff drop a file in before posting and get a plain-language result: what passes, what blocks, and what to fix. Agenda packets can come back in time for their posting deadline.",
+    body: "Nothing goes live unchecked. Agenda packets can come back remediated in time for their posting deadline, and a self-serve check-before-post page for staff is in development.",
     points: ["Ready to post", "Report attached", "Nothing claims “compliant”"],
   },
   monitor: {
     title: "Keep the inventory from growing back.",
-    body: "New uploads are noticed and checked. Recurring problems — the same template, the same missing labels — are traced to their source so they stop repeating.",
+    body: "New uploads are noticed and checked. Recurring problems, like one template that always drops its labels, are traced to their source so they stop repeating.",
     points: ["Agenda packet · Dec 8 · checked", "Fee schedule v2 · needs attention", "Template issue · traced"],
   },
 };
@@ -54,7 +54,6 @@ export function Lifecycle() {
   return (
     <section aria-labelledby="lc-title" className="night on-night relative">
       <div className="wrap pt-28 sm:pt-36">
-        <p className="eyebrow">How it works</p>
         <h2 id="lc-title" className="headline mt-6 max-w-[18ch]">
           One document, <em>start to finish.</em>
         </h2>
@@ -96,10 +95,10 @@ export function Lifecycle() {
                 data-i={i}
                 className="flex min-h-[60vh] flex-col justify-center py-12 md:min-h-[85vh]"
               >
-                <p className="tag !text-signal-night">
-                  {s.n} · {s.name}
-                </p>
-                <h3 className="mt-4 font-serif text-[length:var(--step-3)] leading-[1.05] tracking-[-0.02em]">{d.title}</h3>
+                <h3 className="font-serif text-[length:var(--step-3)] font-[760] leading-[1.02] tracking-[-0.03em]">
+                  <span className="sr-only">{s.name}: </span>
+                  {d.title}
+                </h3>
                 <p className="mt-5 max-w-[42ch] text-moon-muted">{d.body}</p>
                 <ul className="mt-7 border-t" style={{ borderColor: "var(--rule-night)" }}>
                   {d.points.map((p) => (

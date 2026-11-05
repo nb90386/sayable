@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { IBM_Plex_Mono, Newsreader, Schibsted_Grotesk } from "next/font/google";
+import { Archivo, Courier_Prime, Public_Sans } from "next/font/google";
 import { Footer } from "@/components/Footer";
 import { Header } from "@/components/Header";
 import { RevealObserver } from "@/components/RevealObserver";
@@ -7,17 +7,17 @@ import { site } from "@/content/site";
 import "./globals.css";
 import "./effects.css";
 
-const newsreader = Newsreader({
+const archivo = Archivo({
   subsets: ["latin"],
-  style: ["normal", "italic"],
-  variable: "--font-newsreader",
+  axes: ["wdth"],
+  variable: "--font-archivo",
   display: "swap",
 });
-const schibsted = Schibsted_Grotesk({ subsets: ["latin"], variable: "--font-schibsted", display: "swap" });
-const plexMono = IBM_Plex_Mono({
+const publicSans = Public_Sans({ subsets: ["latin"], variable: "--font-public", display: "swap" });
+const courier = Courier_Prime({
   subsets: ["latin"],
-  weight: ["400", "500"],
-  variable: "--font-plex-mono",
+  weight: ["400", "700"],
+  variable: "--font-courier",
   display: "swap",
   preload: false,
 });
@@ -28,11 +28,11 @@ export const metadata: Metadata = {
   openGraph: { title: "Sayable", description: site.description, type: "website" },
 };
 
-export const viewport: Viewport = { themeColor: "#f3efe6" };
+export const viewport: Viewport = { themeColor: "#d9bd84" };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en-US" className={`${newsreader.variable} ${schibsted.variable} ${plexMono.variable}`}>
+    <html lang="en-US" className={`${archivo.variable} ${publicSans.variable} ${courier.variable}`}>
       <body>
         <a href="#main" className="skip-link sr-only-focusable">
           Skip to content

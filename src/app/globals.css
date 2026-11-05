@@ -7,26 +7,26 @@
    ────────────────────────────────────────────────────────────── */
 
 @theme {
-  --color-paper: #f3efe6;
-  --color-paper-deep: #e8e2d4;
-  --color-sheet: #fcfaf5;
-  --color-ink: #0e1020;
-  --color-ink-soft: #2b2e40;
-  --color-muted: #55586a;
-  --color-signal: #4433d6;
-  --color-signal-bright: #6c5cff;
-  --color-signal-wash: #e5e1ff;
-  --color-ember: #b23a0c;
-  --color-ember-wash: #fbe3d6;
-  --color-night: #0b0c17;
-  --color-night-raise: #151729;
-  --color-moon: #ecebf5;
-  --color-moon-muted: #a6a8bf;
-  --color-signal-night: #a99dff;
+  --color-paper: #d9bd84;
+  --color-paper-deep: #cdae6f;
+  --color-sheet: #fbfaf6;
+  --color-ink: #1b1a16;
+  --color-ink-soft: #2f2b21;
+  --color-muted: #4a3c1d;
+  --color-signal: #3b2db8;
+  --color-signal-bright: #5a4ae0;
+  --color-signal-wash: #e4e0fb;
+  --color-ember: #8f1915;
+  --color-ember-wash: #f7dcd6;
+  --color-night: #18211d;
+  --color-night-raise: #222d28;
+  --color-moon: #f1ede2;
+  --color-moon-muted: #b9b6a6;
+  --color-signal-night: #b7adff;
 
-  --font-serif: var(--font-newsreader), "Iowan Old Style", Georgia, serif;
-  --font-sans: var(--font-schibsted), ui-sans-serif, system-ui, sans-serif;
-  --font-mono: var(--font-plex-mono), ui-monospace, "SF Mono", Menlo, monospace;
+  --font-serif: var(--font-archivo), "Arial Narrow", sans-serif;
+  --font-sans: var(--font-public), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-courier), "Courier New", monospace;
 
   --ease-out-quart: cubic-bezier(0.25, 1, 0.5, 1);
   --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
@@ -45,8 +45,8 @@
 
   --gutter: clamp(1rem, 0.5rem + 2.4vw, 2.5rem);
   --max: 88rem;
-  --rule: rgb(14 16 32 / 0.14);
-  --rule-strong: rgb(14 16 32 / 0.32);
+  --rule: rgb(27 26 22 / 0.18);
+  --rule-strong: rgb(27 26 22 / 0.4);
   --rule-night: rgb(236 235 245 / 0.14);
   --shadow-sheet:
     0 1px 0 rgb(255 255 255 / 0.8) inset,
@@ -78,6 +78,7 @@
     overflow-x: clip;
   }
   ::selection { background: var(--color-signal); color: #fff; }
+  html { scrollbar-color: var(--color-ink-soft) var(--color-paper); accent-color: var(--color-signal); caret-color: var(--color-signal); }
 
   :focus-visible {
     outline: 2px solid var(--color-signal);
@@ -108,21 +109,23 @@
 /* ─── Typography primitives ───────────────────────────────── */
 .display {
   font-family: var(--font-serif);
-  font-weight: 340;
-  letter-spacing: -0.028em;
-  line-height: 0.96;
-  font-variation-settings: "opsz" 72;
+  font-weight: 800;
+  font-stretch: 112%;
+  letter-spacing: -0.035em;
+  line-height: 0.92;
+  text-transform: none;
 }
-.display em, .display i { font-style: italic; font-weight: 300; }
+.display em, .display i { font-style: normal; font-weight: 800; font-stretch: 112%; color: var(--color-signal); }
 .headline {
   font-family: var(--font-serif);
-  font-weight: 380;
-  letter-spacing: -0.02em;
-  line-height: 1.04;
+  font-weight: 760;
+  font-stretch: 100%;
+  letter-spacing: -0.03em;
+  line-height: 0.98;
   font-size: var(--step-4);
-  font-variation-settings: "opsz" 60;
 }
-.headline em { font-style: italic; font-weight: 320; }
+.headline em { font-style: normal; font-weight: 760; color: var(--color-signal); }
+  .on-night .headline em, .on-night .display em { color: var(--color-signal-night); }
 .lede {
   font-size: var(--step-1);
   line-height: 1.5;
@@ -150,9 +153,9 @@
 .on-night .eyebrow { color: var(--color-moon-muted); }
 .tag {
   font-family: var(--font-mono);
-  font-size: 0.6875rem;
-  line-height: 1.45;
-  letter-spacing: 0.02em;
+  font-size: 0.8125rem;
+  line-height: 1.4;
+  letter-spacing: 0;
   color: var(--color-signal);
   white-space: normal;
 }
@@ -240,10 +243,10 @@
 }
 .hairline { border-color: var(--rule); }
 .blueprint {
+  /* index-card ruling: one blue rule per line, one red margin rule */
   background-image:
-    linear-gradient(var(--rule) 1px, transparent 1px),
-    linear-gradient(90deg, var(--rule) 1px, transparent 1px);
-  background-size: 32px 32px;
+    linear-gradient(90deg, transparent 2.75rem, rgb(176 32 27 / 0.35) 2.75rem, rgb(176 32 27 / 0.35) calc(2.75rem + 1px), transparent calc(2.75rem + 1px)),
+    repeating-linear-gradient(180deg, transparent 0 1.95rem, rgb(59 45 184 / 0.16) 1.95rem 2rem);
 }
 .night {
   background: var(--color-night);
@@ -251,6 +254,19 @@
 }
 
 }
+
+/* ─── Drawn icons (one stroke family) ─── */
+[data-icon] {
+  display: inline-block;
+  width: 1.05em;
+  height: 0.8em;
+  flex: none;
+  background: currentColor;
+  -webkit-mask: var(--i) no-repeat center / contain;
+  mask: var(--i) no-repeat center / contain;
+}
+[data-icon="arrow-r"] { --i: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 14'%3E%3Cpath d='M1 7h17M12 1l6 6-6 6' fill='none' stroke='%23000' stroke-width='1.8' stroke-linecap='square'/%3E%3C/svg%3E"); }
+[data-icon="arrow-d"] { --i: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 14 20'%3E%3Cpath d='M7 1v17M1 12l6 6 6-6' fill='none' stroke='%23000' stroke-width='1.8' stroke-linecap='square'/%3E%3C/svg%3E"); width: 0.8em; height: 1.05em; }
 
 /* ─── Utilities ───────────────────────────────────────────── */
 .sr-only-focusable:not(:focus):not(:focus-within) {

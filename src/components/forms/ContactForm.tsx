@@ -132,7 +132,7 @@ export function ContactForm({ contactEmail, defaultInterest }: { contactEmail: s
           ref={summaryRef}
           tabIndex={-1}
           role="alert"
-          className="mt-6 border-l-2 border-ember bg-ember-wash/60 px-4 py-3 text-[0.95rem] text-ink focus:outline-none focus-visible:ring-2 focus-visible:ring-ember"
+          className="mt-6 border border-ember/50 bg-ember-wash/60 px-4 py-3 text-[0.95rem] text-ink focus:outline-none focus-visible:ring-2 focus-visible:ring-ember"
         >
           <p className="font-[600]">
             {errorList.length === 1 ? "One thing needs attention" : `${errorList.length} things need attention`}:
@@ -217,13 +217,13 @@ export function ContactForm({ contactEmail, defaultInterest }: { contactEmail: s
           .
         </p>
         <button type="submit" className="btn disabled:opacity-70" disabled={status.kind === "sending"} aria-disabled={status.kind === "sending"}>
-          {status.kind === "sending" ? "Sending…" : "Send request"} <span className="arrow" aria-hidden="true">→</span>
+          {status.kind === "sending" ? "Sending…" : "Send request"} <span className="arrow" aria-hidden="true" data-icon="arrow-r"></span>
         </button>
       </div>
 
       <div ref={statusRef} tabIndex={-1} aria-live="polite" className="focus:outline-none">
         {status.kind === "not_configured" && last && (
-          <div className="mt-6 border-l-2 border-signal bg-signal-wash/50 px-4 py-4 text-[0.95rem]">
+          <div className="mt-6 border border-signal/50 bg-signal-wash/50 px-4 py-4 text-[0.95rem]">
             <p className="font-[600]">Online requests aren&apos;t connected yet, so nothing was sent.</p>
             <p className="mt-1.5 text-ink-soft">
               Your details are still in the form.{" "}
@@ -235,7 +235,7 @@ export function ContactForm({ contactEmail, defaultInterest }: { contactEmail: s
                   className="link-quiet"
                   href={`mailto:${contactEmail}?subject=${encodeURIComponent(`Sayable request from ${last.organization}`)}&body=${encodeURIComponent(composeMessage(last))}`}
                 >
-                  Email {contactEmail} <span aria-hidden="true">→</span>
+                  Email {contactEmail} <span aria-hidden="true" data-icon="arrow-r"></span>
                 </a>
               )}
               <button type="button" onClick={copy} className="link-quiet">
@@ -245,7 +245,7 @@ export function ContactForm({ contactEmail, defaultInterest }: { contactEmail: s
           </div>
         )}
         {status.kind === "error" && (
-          <p role="alert" className="mt-6 border-l-2 border-ember bg-ember-wash/60 px-4 py-3 text-[0.95rem]">
+          <p role="alert" className="mt-6 border border-ember/50 bg-ember-wash/60 px-4 py-3 text-[0.95rem]">
             {status.message}
           </p>
         )}

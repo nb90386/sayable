@@ -159,7 +159,7 @@ export function Header() {
           </ul>
           <div className="mt-auto pt-10">
             <Link href={cta.href} className="btn w-full justify-between">
-              {cta.label} <span className="arrow" aria-hidden="true">→</span>
+              {cta.label} <span className="arrow" aria-hidden="true" data-icon="arrow-r"></span>
             </Link>
           </div>
         </nav>

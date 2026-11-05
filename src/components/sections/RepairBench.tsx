@@ -76,7 +76,6 @@ export function RepairBench() {
       <div className="wrap">
         <div className="grid-12 items-end gap-y-6">
           <div className="col-span-12 lg:col-span-7">
-            <p className="eyebrow">Try a repair</p>
             <h2 id="bench-title" className="headline mt-6">
               Small changes to the tags. <em>A different document</em> to a listener.
             </h2>

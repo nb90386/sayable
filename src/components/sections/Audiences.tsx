@@ -12,7 +12,7 @@ const rows = [
     n: "ii",
     who: "Clerks and document teams",
     scene: "Tuesday’s agenda packet has to be posted by Friday, and it is 140 pages.",
-    what: "Packets sent in and returned remediated with a check report, in time for posting rules — plus a check-before-post step for everyday uploads.",
+    what: "Packets sent in and returned remediated with a check report, in time for posting rules. Check-before-post for everyday uploads is planned.",
     href: "/solutions#clerks",
   },
   {
@@ -26,7 +26,7 @@ const rows = [
     n: "iv",
     who: "Accessibility professionals",
     scene: "The queue is full, and the next contract needs independent verification.",
-    what: "Overflow remediation, and a second set of checks — validator, semantic review and a person — on files your team produced.",
+    what: "Overflow remediation, and a second set of checks on files your team produced: validator, semantic review and a person.",
     href: "/solutions#specialists",
   },
 ];
@@ -36,7 +36,6 @@ export function Audiences() {
     <section aria-labelledby="aud-title" className="border-t pb-28 pt-24 hairline sm:pb-36 sm:pt-32">
       <div className="wrap">
         <div className="grid-12 gap-y-6">
-          <p className="eyebrow col-span-12 md:col-span-4">Who it is for</p>
           <h2 id="aud-title" className="headline col-span-12 md:col-span-8">
             Built for the people <em>who post the PDFs.</em>
           </h2>
@@ -45,20 +44,18 @@ export function Audiences() {
           {rows.map((r) => (
             <li key={r.n} className="group border-b hairline">
               <Link href={r.href} className="grid-12 items-baseline gap-y-3 py-9 no-underline sm:py-11">
-                <span className="col-span-2 font-serif text-[1.4rem] italic text-muted md:col-span-1">{r.n}.</span>
+                <span className="col-span-2 font-serif text-[1.4rem] text-muted md:col-span-1">{r.n}.</span>
                 <span className="col-span-10 md:col-span-3">
                   <span className="block font-serif text-[length:var(--step-2)] leading-[1.1] tracking-[-0.015em] transition-colors group-hover:text-signal">
                     {r.who}
                   </span>
                 </span>
-                <span className="col-span-12 font-serif text-[1.2rem] italic leading-snug text-ink-soft md:col-span-4 md:pr-6">
+                <span className="col-span-12 font-serif text-[1.2rem] leading-snug text-ink-soft md:col-span-4 md:pr-6">
                   {r.scene}
                 </span>
                 <span className="col-span-12 flex items-start justify-between gap-6 text-[0.975rem] text-ink-soft md:col-span-4">
                   {r.what}
-                  <span aria-hidden="true" className="mt-1 shrink-0 transition-transform duration-500 ease-[var(--ease-out-expo)] group-hover:translate-x-1">
-                    →
-                  </span>
+                  <span aria-hidden="true" className="mt-1 shrink-0 transition-transform duration-500 ease-[var(--ease-out-expo)] group-hover:translate-x-1" data-icon="arrow-r"></span>
                 </span>
               </Link>
             </li>

@@ -1,13 +1,12 @@
 import Link from "next/link";
 
-/** Opening block shared by supporting pages: eyebrow, serif title, lede, and a structural margin note. */
+/** Opening block shared by supporting pages: title, lede, and a structural margin note. */
 export function PageIntro({
-  eyebrow,
   title,
   lede,
   note,
 }: {
-  eyebrow: string;
+  eyebrow?: string;
   title: React.ReactNode;
   lede: React.ReactNode;
   note?: string;
@@ -16,7 +15,6 @@ export function PageIntro({
     <header className="wrap pt-[calc(var(--header-h)+4rem)] pb-16 sm:pb-24">
       <div className="grid-12 gap-y-8">
         <div className="col-span-12 lg:col-span-9">
-          <p className="eyebrow">{eyebrow}</p>
           <h1 className="display mt-7 text-[length:clamp(2.6rem,1.4rem+4.4vw,5.6rem)]">{title}</h1>
         </div>
         <div className="col-span-12 grid gap-6 border-t pt-8 hairline md:col-span-10 md:col-start-3 md:grid-cols-[1fr_auto] lg:col-span-8 lg:col-start-5">
@@ -50,7 +48,7 @@ export function Row({
           <h2 id={id ? `${id}-title` : undefined} className="mt-3 font-serif text-[length:var(--step-3)] leading-[1.05] tracking-[-0.02em]">
             {title}
           </h2>
-          {kicker ? <p className="mt-4 max-w-[34ch] font-serif text-[1.15rem] italic text-ink-soft">{kicker}</p> : null}
+          {kicker ? <p className="mt-4 max-w-[34ch] font-serif text-[1.15rem] text-ink-soft">{kicker}</p> : null}
         </div>
         <div className="prose-tight col-span-12 max-w-[62ch] text-ink-soft md:col-span-7">{children}</div>
       </div>
@@ -73,7 +71,7 @@ export function PageCta({ title = "Start with what you already publish.", body }
           </p>
           <div className="mt-8 flex flex-wrap items-center gap-x-8 gap-y-3">
             <Link href="/contact" className="btn btn-night">
-              Request an audit <span className="arrow" aria-hidden="true">→</span>
+              Request an audit <span className="arrow" aria-hidden="true" data-icon="arrow-r"></span>
             </Link>
             <Link href="/approach" className="link-quiet text-moon">
               How we report results

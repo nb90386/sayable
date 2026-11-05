@@ -36,21 +36,16 @@ export function TwoReaders() {
   const seq = reading[mode];
 
   return (
-    <section id="two-readers" aria-labelledby="two-readers-title" className="relative pb-28 pt-28 sm:pb-36 sm:pt-40">
+    <section id="two-readers" aria-labelledby="two-readers-title" className="relative pb-24 pt-24 sm:pb-32 sm:pt-28">
       <div className="wrap">
-        <div className="grid-12 gap-y-8">
-          <div className="col-span-12 md:col-span-5">
-            <p className="eyebrow">The problem</p>
-          </div>
-          <div className="col-span-12 md:col-span-7">
-            <h2 id="two-readers-title" className="headline">
-              One page. <em>Two readers.</em>
-            </h2>
-            <p className="lede mt-6 !max-w-[46ch]">
-              A sighted resident sees a heading, a fee table and a comment form. A screen reader only gets what the
-              file&rsquo;s hidden tags describe. When the tags are missing, the same page comes out as a jumble.
-            </p>
-          </div>
+        <div className="grid-12 items-end gap-y-6">
+          <h2 id="two-readers-title" className="headline col-span-12 md:col-span-6">
+            One page. <em>Two readers.</em>
+          </h2>
+          <p className="lede col-span-12 !max-w-[46ch] md:col-span-6 md:col-start-7">
+            A sighted resident sees a heading, a fee table and a comment form. A screen reader only gets what the
+            file&rsquo;s hidden tags describe. When the tags are missing, the same page comes out as a jumble.
+          </p>
         </div>
 
         <div className="mt-16 grid-12 gap-y-10">
@@ -58,8 +53,8 @@ export function TwoReaders() {
           <div className="col-span-12 lg:col-span-7">
             <div className="lens-wrap relative select-none">
               <div className="mb-3 flex justify-between gap-4" aria-hidden="true">
-                <span className="tag !text-ink-soft">← What you see</span>
-                <span className="tag text-right !text-ink-soft">What the screen reader gets →</span>
+                <span className="tag !text-ink-soft">What you see</span>
+                <span className="tag text-right !text-ink-soft">What the screen reader gets</span>
               </div>
               <div className="sheet relative overflow-hidden" aria-hidden="true">
                 <svg viewBox={VB} className="block h-auto w-full">
@@ -130,7 +125,7 @@ export function TwoReaders() {
             <p className="mt-6 max-w-[44ch] text-[0.95rem] text-muted">
               {mode === "before"
                 ? "No headings to jump between, a table read as a run of numbers, and two form fields nobody can identify. The footer is read first."
-                : "Headings, a real table with header cells, a described map and named fields — in the order a sighted reader would follow."}
+                : "Headings, a real table with header cells, a described map and named fields, in the order a sighted reader would follow."}
             </p>
           </div>
         </div>
@@ -145,7 +140,7 @@ function StructureView({ mode }: { mode: Mode }) {
   const bad = mode === "before";
   return (
     <svg viewBox={VB} className="block h-full w-full">
-      <rect width="850" height="1100" fill="#0b0c17" />
+      <rect width="850" height="1100" fill="#18211d" />
       <g stroke="rgb(236 235 245 / 0.06)">
         {Array.from({ length: 34 }, (_, i) => (
           <line key={i} x1="0" x2="850" y1={i * 34} y2={i * 34} />
@@ -174,7 +169,7 @@ function StructureView({ mode }: { mode: Mode }) {
             {p ? (
               <g transform={`translate(${b.x + b.w - 14} ${b.y + 10})`}>
                 <circle r="17" fill={color} />
-                <text textAnchor="middle" y="6.5" fontFamily="var(--font-mono)" fontSize="17" fontWeight="500" fill="#0b0c17">
+                <text textAnchor="middle" y="6.5" fontFamily="var(--font-mono)" fontSize="17" fontWeight="500" fill="#18211d">
                   {p.n}
                 </text>
               </g>

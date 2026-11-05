@@ -1,3 +1,4 @@
+import { CostModel } from "@/components/sections/CostModel";
 import { Audiences } from "@/components/sections/Audiences";
 import { FinalCta } from "@/components/sections/FinalCta";
 import { Hero } from "@/components/sections/Hero";
@@ -15,8 +16,9 @@ export default function Home() {
       <Inventory />
       <Lifecycle />
       <RepairBench />
-      <Audiences />
+      <CostModel />
       <Verification />
+      <Audiences />
       <FinalCta />
     </>
   );

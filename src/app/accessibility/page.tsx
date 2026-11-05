@@ -11,7 +11,6 @@ export default function AccessibilityPage() {
   return (
     <>
       <PageIntro
-        eyebrow="Accessibility statement"
         title={
           <>
             This site should work <em>for everyone.</em>
