@@ -36,23 +36,27 @@ test("internal links resolve", async ({ page, request }) => {
 test("signature interactions work by keyboard", async ({ page }) => {
   test.setTimeout(30_000);
   await page.goto("/");
-  // audio demonstration: both players have named, keyboard-operable controls and transcripts
-  const problem = page.getByRole("button", { name: "Hear the problem" });
-  const difference = page.getByRole("button", { name: "Hear the difference" });
-  await expect(problem).toBeVisible();
-  await expect(difference).toBeVisible();
-  await problem.focus();
-  await expect(problem).toBeFocused();
+  // audio demonstration: one player, a version switch, transcripts behind a disclosure
+  const play = page.getByRole("button", { name: "Hear the problem" });
+  await expect(play).toBeVisible();
+  await page.getByRole("radio", { name: "After repair", exact: true }).click();
+  await expect(page.getByRole("button", { name: "Hear the difference" })).toBeVisible();
+  await page.getByText("Read both transcripts").click();
   await expect(page.getByRole("list", { name: "Transcript, as posted" })).toContainText("Edit text. Blank.");
   await expect(page.getByRole("list", { name: "Transcript, after repair" })).toContainText("Applicant name. Edit text. Required.");
+  // product workspace: arrow keys move between stages
+  const discover = page.getByRole("tab", { name: "Discover" });
+  await discover.focus();
+  await page.keyboard.press("ArrowRight");
+  await expect(page.getByRole("tab", { name: "Repair" })).toHaveAttribute("aria-selected", "true");
   // audio file is served
   const res = await page.request.get("/audio/permit-before.mp3");
   expect(res.status()).toBe(200);
   // sample report: arrow keys move between findings
-  const firstTab = page.getByRole("tab", { name: "Comment form fields have no names" });
+  const firstTab = page.getByRole("tab", { name: "Form fields have no names" });
   await firstTab.focus();
   await page.keyboard.press("ArrowDown");
-  await expect(page.getByRole("tab", { name: "Fee table has no header cells" })).toHaveAttribute("aria-selected", "true");
+  await expect(page.getByRole("tab", { name: "Title is tagged as plain text" })).toHaveAttribute("aria-selected", "true");
   // estimator: moving a slider changes the arithmetic
   const pages = page.getByLabel("PDF pages on your public site");
   await pages.focus();

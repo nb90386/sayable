@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Atkinson_Hyperlegible_Mono, Atkinson_Hyperlegible_Next, Bricolage_Grotesque } from "next/font/google";
+import { JetBrains_Mono, Onest } from "next/font/google";
 import { Footer } from "@/components/Footer";
 import { Header } from "@/components/Header";
 import { RevealObserver } from "@/components/RevealObserver";
@@ -7,17 +7,10 @@ import { site } from "@/content/site";
 import "./globals.css";
 import "./effects.css";
 
-// Display: Bricolage Grotesque, set condensed (wdth axis) for headlines.
-const bricolage = Bricolage_Grotesque({
-  subsets: ["latin"],
-  axes: ["wdth", "opsz"],
-  variable: "--font-bricolage",
-  display: "swap",
-});
-// Reading: Atkinson Hyperlegible Next, designed by the Braille Institute for low-vision readers.
-const atkinson = Atkinson_Hyperlegible_Next({ subsets: ["latin"], variable: "--font-atkinson", display: "swap" });
-// Structure tags only.
-const atkinsonMono = Atkinson_Hyperlegible_Mono({ subsets: ["latin"], variable: "--font-atkinson-mono", display: "swap", preload: false });
+// One family for every role: Onest, a humanist grotesk, warm at display sizes and very clear at body sizes.
+const onest = Onest({ subsets: ["latin"], variable: "--font-onest", display: "swap" });
+// Document annotations only.
+const jetbrains = JetBrains_Mono({ subsets: ["latin"], weight: ["400", "500"], variable: "--font-jetbrains", display: "swap", preload: false });
 
 export const metadata: Metadata = {
   title: { default: "Sayable · Document accessibility for public agencies", template: "%s · Sayable" },
@@ -25,11 +18,11 @@ export const metadata: Metadata = {
   openGraph: { title: "Sayable", description: site.description, type: "website" },
 };
 
-export const viewport: Viewport = { themeColor: "#f6f5f1" };
+export const viewport: Viewport = { themeColor: "#f8f9fb" };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en-US" className={`${bricolage.variable} ${atkinson.variable} ${atkinsonMono.variable}`}>
+    <html lang="en-US" className={`${onest.variable} ${jetbrains.variable}`}>
       <body>
         <a href="#main" className="skip-link sr-only-focusable">
           Skip to content

@@ -1,14 +1,13 @@
 "use client";
 
 import { useId, useState } from "react";
-import { NoticePage, VB, blocks, fields, thCells } from "../doc/notice";
+import { PVB, PermitPage, regions as R } from "../doc/permit";
 
-const b = (id: string) => blocks.find((x) => x.id === id)!;
 const regions: Record<string, { x: number; y: number; w: number; h: number }[]> = {
-  fields,
-  table: thCells,
-  heading: [b("h1"), b("h2")],
-  alt: [b("figure")],
+  fields: ["name", "phone", "address", "signature"].map((k) => R[k]!),
+  heading: [R.title!],
+  order: [R.footer!],
+  group: [R.work!],
 };
 
 /** The page, with the region a finding names highlighted and a leader line into it. */
@@ -17,13 +16,13 @@ function RegionThumb({ id }: { id: string }) {
   const first = rs[0]!;
   const cy = first.y + first.h / 2;
   return (
-    <svg viewBox={VB} className="block h-auto w-full rounded-[4px] bg-sheet shadow-[0_1px_2px_rgb(0_0_0/0.08),0_8px_20px_-10px_rgb(0_0_0/0.35)]" aria-hidden="true">
-      <NoticePage />
-      <rect width="850" height="1100" fill="rgb(246 245 241 / 0.6)" />
+    <svg viewBox={PVB} className="block h-auto w-full rounded-[4px] bg-sheet shadow-[0_1px_2px_rgb(0_0_0/0.08),0_8px_20px_-10px_rgb(0_0_0/0.35)]" aria-hidden="true">
+      <PermitPage />
+      <rect width="850" height="1100" fill="rgb(248 249 251 / 0.55)" />
       {rs.map((r, i) => (
-        <rect key={id + i} x={r.x - 8} y={r.y - 8} width={r.w + 16} height={r.h + 16} rx="10" fill="rgb(228 70 43 / 0.16)" stroke="#e4462b" strokeWidth="9" />
+        <rect key={id + i} x={r.x - 8} y={r.y - 8} width={r.w + 16} height={r.h + 16} rx="10" fill="rgb(229 82 31 / 0.16)" stroke="#e5521f" strokeWidth="9" />
       ))}
-      <path d={`M -40 ${cy} C 10 ${cy}, ${first.x - 70} ${cy}, ${first.x - 10} ${cy}`} fill="none" stroke="#121314" strokeWidth="11" strokeLinecap="round" />
+      <path d={`M -40 ${cy} C 10 ${cy}, ${first.x - 70} ${cy}, ${first.x - 10} ${cy}`} fill="none" stroke="#2458e8" strokeWidth="11" strokeLinecap="round" />
     </svg>
   );
 }
@@ -43,47 +42,47 @@ type Finding = {
 const findings: Finding[] = [
   {
     id: "fields",
-    title: "Comment form fields have no names",
+    title: "Form fields have no names",
     category: "form_labels",
     severity: "major",
-    evidence: "Two text fields on page 1 have empty accessible names. A listener hears “Edit text, blank” twice.",
-    action: "Field names drafted from the printed labels (“Your name”, “Your comment”), then confirmed by a reviewer.",
+    evidence: "Four text fields on page 1 have empty accessible names. A listener hears “Edit text, blank” with no way to tell them apart.",
+    action: "Names drafted from the printed labels (“Applicant name”, “Daytime phone”, “Site address”, “Applicant signature”), then confirmed by a reviewer.",
     by: "Automatic, then reviewed",
     before: "Edit text, blank.",
-    after: "Your name, edit text.",
-  },
-  {
-    id: "table",
-    title: "Fee table has no header cells",
-    category: "table_headers",
-    severity: "major",
-    evidence: "Row 1 (“Permit type, Current, Proposed”) is tagged as ordinary cells, so numbers are read without column names.",
-    action: "Row 1 retagged as header cells with column scope. Visible content unchanged.",
-    by: "A person",
-    before: "Permit type. Current. Proposed. Building, residential. 85. 92.",
-    after: "Permit type: Building, residential. Current: $85. Proposed: $92.",
+    after: "Applicant name, edit text, required.",
   },
   {
     id: "heading",
-    title: "Title is tagged as a paragraph",
+    title: "Title is tagged as plain text",
     category: "heading_missing",
     severity: "major",
-    evidence: "“Notice of Public Hearing” is tagged P. There is no heading to navigate to.",
-    action: "Retagged H1; “Proposed fee schedule” retagged H2 to match the visible hierarchy.",
+    evidence: "“Residential Permit Application” is tagged P. There is no heading to jump to.",
+    action: "Retagged as H1. Visible content unchanged.",
     by: "Automatic, then reviewed",
-    before: "Notice of Public Hearing.",
-    after: "Heading level 1, Notice of Public Hearing.",
+    before: "Residential permit application.",
+    after: "Residential Permit Application, heading level 1.",
   },
   {
-    id: "alt",
-    title: "Map has no text alternative",
-    category: "alt_text",
-    severity: "minor",
-    evidence: "The location map is announced as “Image” with no description.",
-    action: "Alternative text added: “Map: Council Chambers, 410 Main Street.”",
+    id: "order",
+    title: "Footer is read first",
+    category: "reading_order",
+    severity: "major",
+    evidence: "The form number and page count come before the title in the reading order.",
+    action: "Footer marked as an artifact, so it is skipped; reading order set from the title down.",
     by: "Automatic, then reviewed",
-    before: "Image.",
-    after: "Map: Council Chambers, 410 Main Street.",
+    before: "Page 1 of 2. Residential permit application.",
+    after: "Residential Permit Application, heading level 1.",
+  },
+  {
+    id: "group",
+    title: "Check boxes have no group",
+    category: "form_labels",
+    severity: "minor",
+    evidence: "Three check boxes are announced without the question they answer.",
+    action: "Grouped as “Type of work” with each box named. Grouping is always done by a person.",
+    by: "A person",
+    before: "Check box, not checked.",
+    after: "Type of work: New construction, check box, not checked.",
   },
 ];
 
@@ -95,7 +94,7 @@ export function ReportExplorer() {
   return (
     <figure className="sheet overflow-hidden">
       <div className="flex flex-wrap items-baseline justify-between gap-2 border-b px-5 py-4 hairline sm:px-7">
-        <span className="mono text-[0.85rem]">notice-of-public-hearing.pdf · v2</span>
+        <span className="mono text-[0.85rem]">permit-application.pdf · v2</span>
         <span className="mono text-[0.8rem] text-muted">Sample report · fictional city</span>
       </div>
 
@@ -165,7 +164,7 @@ export function ReportExplorer() {
         </div>
       </div>
       <figcaption className="border-t px-5 py-3 text-[0.85rem] text-muted hairline sm:px-7">
-        Illustrative entries for the fictional notice on this page; listener lines are simulated. Every report ends: “This
+        Illustrative entries for the sample permit form on this page; listener lines are simulated. Every report ends: “This
         report is not a legal certification of compliance.”
       </figcaption>
     </figure>

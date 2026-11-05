@@ -8,7 +8,6 @@ import { Wordmark } from "./Wordmark";
 
 export function Header() {
   const pathname = usePathname();
-  const home = pathname === "/";
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const panelRef = useRef<HTMLDivElement>(null);
@@ -71,17 +70,17 @@ export function Header() {
 
   return (
     <header
-      className={`${home && !open ? "absolute" : "fixed"} inset-x-0 top-0 z-50 transition-[background-color,border-color] duration-500 ${
-        (scrolled && !home) || open ? "border-b bg-paper hairline" : "border-b border-transparent bg-transparent"
+      className={`fixed inset-x-0 top-0 z-50 transition-[background-color,border-color] duration-500 ${
+        scrolled || open ? "border-b bg-paper hairline" : "border-b border-transparent bg-paper"
       }`}
       style={{ height: "var(--header-h)" }}
     >
-      <div className={`flex h-full items-center justify-between gap-6 ${home ? "px-[var(--gutter)]" : "wrap"}`}>
+      <div className="wrap flex h-full items-center justify-between gap-6">
         <Link href="/" className="relative z-10 -ml-1 rounded-sm px-1 py-2 no-underline" aria-label="Sayable home">
           <Wordmark />
         </Link>
 
-        <nav aria-label="Primary" className={`hidden ${home ? "mr-auto xl:block" : "lg:block"}`}>
+        <nav aria-label="Primary" className="hidden lg:block">
           <ul className="flex items-center gap-1">
             {nav.map((item) => {
               const active = pathname === item.href;
@@ -107,13 +106,13 @@ export function Header() {
         </nav>
 
         <div className="flex items-center gap-2">
-          <Link href={cta.href} className={`btn hidden !min-h-10 !px-4 text-sm sm:inline-flex ${home ? "btn-home" : ""}`}>
+          <Link href={cta.href} className={`btn hidden !min-h-10 !px-4 text-sm sm:inline-flex`}>
             {cta.label}
           </Link>
           <button
             ref={toggleRef}
             type="button"
-            className={`relative z-10 inline-flex h-11 w-11 items-center justify-center rounded-sm ${home ? "xl:hidden" : "lg:hidden"} ${home && !open ? "lg:text-moon" : ""}`}
+            className="relative z-10 inline-flex h-11 w-11 items-center justify-center rounded-sm lg:hidden"
             aria-expanded={open}
             aria-controls="mobile-menu"
             onClick={() => setOpen((v) => !v)}
@@ -139,7 +138,7 @@ export function Header() {
         id="mobile-menu"
         ref={panelRef}
         hidden={!open}
-        className={`fixed inset-x-0 bottom-0 top-[var(--header-h)] overflow-y-auto bg-paper ${home ? "xl:hidden" : "lg:hidden"}`}
+        className="fixed inset-x-0 bottom-0 top-[var(--header-h)] overflow-y-auto bg-paper lg:hidden"
       >
         <nav aria-label="Mobile" className="wrap flex min-h-full flex-col pb-10 pt-6">
           <ul className="border-t hairline">
