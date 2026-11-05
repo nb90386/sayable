@@ -78,7 +78,7 @@ export function Inventory() {
         i,
         col,
         sx: col * 20 + 0.8,
-        sy: 9 + row * 12.5,
+        sy: 13 + row * 12.5,
         srot: row % 2 ? 1.2 : -1,
         rx: 1 + rand(i) * 78,
         ry: 2 + rand(i + 40) * 80,
@@ -100,7 +100,7 @@ export function Inventory() {
     }
     return path;
   }, [placed]);
-  const calm = "M 0 4 C 6 1, 14 7, 20 4 S 34 1, 40 4 S 54 7, 60 4 S 74 1, 80 4 S 94 7, 100 4";
+  const calm = "M 0 9 C 6 7, 14 11, 20 9 S 34 7, 40 9 S 54 11, 60 9 S 74 7, 80 9 S 94 11, 100 9";
 
   return (
     <section aria-labelledby="inv-title" className="relative pb-24 pt-6 sm:pb-32">
