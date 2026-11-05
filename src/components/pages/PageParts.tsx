@@ -26,15 +26,15 @@ export function PageIntro({
   );
 }
 
-/** A numbered editorial row: index + heading on the left, body on the right. */
+/** An editorial row: heading on the left, body on the right. */
 export function Row({
-  n,
   id,
   title,
   kicker,
   children,
 }: {
-  n: string;
+  /** Kept for callers; no longer rendered as a kicker. */
+  n?: string;
   id?: string;
   title: string;
   kicker?: string;
@@ -44,8 +44,7 @@ export function Row({
     <section id={id} aria-labelledby={id ? `${id}-title` : undefined} className="border-t hairline py-12 sm:py-16">
       <div className="grid-12 gap-y-6">
         <div className="col-span-12 md:col-span-5">
-          <p className="tag !text-muted">{n}</p>
-          <h2 id={id ? `${id}-title` : undefined} className="mt-3 font-serif text-[length:var(--step-3)] leading-[1.05] tracking-[-0.02em]">
+          <h2 id={id ? `${id}-title` : undefined} className="font-serif text-[length:var(--step-3)] font-[760] leading-[1.02] tracking-[-0.03em]">
             {title}
           </h2>
           {kicker ? <p className="mt-4 max-w-[34ch] font-serif text-[1.15rem] text-ink-soft">{kicker}</p> : null}

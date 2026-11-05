@@ -146,7 +146,7 @@
   box-shadow: 0 1px 0 rgb(255 255 255 / 0.35) inset, 0 18px 40px -18px rgb(60 40 5 / 0.55);
   padding: clamp(1rem, 3vw, 2.25rem);
 }
-.folder::before {
+.folder[data-tab]::before {
   /* the folder tab */
   content: attr(data-tab);
   position: absolute;
@@ -185,3 +185,38 @@
   background: inherit;
   border-radius: 1px 1px 0 0;
 }
+
+/* folder-tab rail: one tab per stage, stepped down the manila range */
+.tab-rail {
+  display: flex;
+  gap: 3px;
+  padding-left: 0.5rem;
+  margin: 0;
+  list-style: none;
+}
+.tab-rail li {
+  flex: 1 1 0;
+  min-width: 0;
+  padding: 0.5rem 0.6rem 0.4rem;
+  border-radius: 5px 5px 0 0;
+  background: color-mix(in oklab, #c9a663, #6b5426 calc(var(--t) * 7%));
+  color: #2e2410;
+  font-family: var(--font-serif);
+  font-stretch: 75%;
+  font-weight: 700;
+  font-size: clamp(0.7rem, 0.55rem + 0.35vw, 0.9rem);
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  transform: translateY(calc(var(--t) * 2px));
+}
+.tab-rail li.is-current { background: #c9a663; transform: none; }
+
+/* acetate leaf: the structure layer as a clear, punched sheet hinged over the page */
+.ld-leaf { opacity: 0; transition: opacity 90ms steps(2, end); }
+.ld-leaf-sheet { fill: rgb(59 45 184 / 0.05); stroke: rgb(59 45 184 / 0.6); stroke-width: 1.2; vector-effect: non-scaling-stroke; }
+.ld-leaf-hinge { fill: rgb(59 45 184 / 0.2); }
+.ld-leaf-punch { fill: #c9a663; }
+.living-doc:not([data-phase="0"]) .ld-leaf { opacity: 1; }

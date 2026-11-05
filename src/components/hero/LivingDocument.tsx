@@ -94,6 +94,12 @@ export function LivingDocument() {
 
           {/* The hidden structure, lifted off the page */}
           <svg viewBox={VB} className="ld-structure absolute inset-0 h-full w-full overflow-visible" role="presentation">
+            <g className="ld-leaf">
+              <rect x="-18" y="-18" width="886" height="1136" rx="2" className="ld-leaf-sheet" />
+              <rect x="-18" y="-18" width="886" height="30" className="ld-leaf-hinge" />
+              <circle cx="150" cy="-3" r="6.5" className="ld-leaf-punch" />
+              <circle cx="700" cy="-3" r="6.5" className="ld-leaf-punch" />
+            </g>
             <g className="ld-outlines">
               {blocks.map((b) => (
                 <rect
@@ -169,7 +175,7 @@ export function LivingDocument() {
       </div>
 
       <div className="mt-5 flex flex-wrap items-center justify-between gap-x-6 gap-y-2 pl-1">
-        <p className="tag !text-muted">Example · fictional notice, tagged for a screen reader</p>
+        <p className="tag !text-ink-soft">ACC-2026-0412 · example notice, fictional city</p>
         <button
           type="button"
           aria-pressed={show}

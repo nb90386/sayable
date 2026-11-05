@@ -33,7 +33,7 @@ function useOrderCanvas(ref: React.RefObject<HTMLCanvasElement | null>) {
       const px = small ? (w - pw) / 2 : w * 0.64;
       const py = small ? h * 0.06 : h * 0.18;
       const lh = small ? 13 : 15;
-      const lines = Math.floor((small ? h * 0.32 : h * 0.62) / lh);
+      const lines = Math.floor((small ? Math.min(h * 0.3, w * 0.42) : h * 0.62) / lh);
       const step = 7;
       ps = [];
       for (let l = 0; l < lines; l++) {
@@ -55,7 +55,7 @@ function useOrderCanvas(ref: React.RefObject<HTMLCanvasElement | null>) {
           });
         }
       }
-      if (reduced) ps.forEach((p) => ((p.x = p.tx), (p.y = p.ty)));
+      if (reduced || small) ps.forEach((p) => ((p.x = p.tx), (p.y = p.ty)));
       settled = false;
     };
 
@@ -120,7 +120,14 @@ export function FinalCta() {
   return (
     <section aria-labelledby="cta-title" className="night on-night relative overflow-hidden border-b" style={{ borderColor: "var(--rule-night)" }}>
       <canvas ref={ref} aria-hidden="true" className="pointer-events-none absolute inset-0 h-full w-full" />
-      <div className="wrap relative pb-28 pt-[52vw] sm:pb-40 md:pt-44">
+      <p
+        aria-hidden="true"
+        className="stamp pointer-events-none absolute right-[10%] top-[58%] max-md:!hidden !text-signal-night text-[clamp(1rem,0.6rem+1vw,1.5rem)]"
+        style={{ mixBlendMode: "normal" }}
+      >
+        Checked · Ready to post
+      </p>
+      <div className="wrap relative pb-28 pt-[64vw] sm:pb-40 md:pt-44">
         <div className="max-w-[44rem]">
           <h2 id="cta-title" className="display mt-7 text-[length:var(--step-5)]">
             Start with what is <em>already posted.</em>

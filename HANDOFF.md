@@ -59,6 +59,27 @@ In the Claude Code sandbox the dev server must run unsandboxed (Turbopack's FSEv
 - The hero tag-decode effect shows scrambled glyphs for about 1 second on load (decorative; the hero is `aria-hidden` with a text description).
 - The rate limiter is per instance and in memory. Use a shared store (for example Upstash or Vercel KV) before relying on it in production.
 
+
+## Redesign pass (Nov 4–5 2026, Impeccable-led)
+- **Impeccable**:
+  - The skill is installed at user scope (`~/.claude/skills/impeccable`); no project-scope reinstall. Its design hook ran on every edit.
+  - Steps used: `impeccable context`; init (PRODUCT.md written from the brief, no interview); new-work direction roll (`concept-seed`, seed:8e32e96647d1ab8e); direction contract at `.impeccable/surfaces/src-app-page-tsx.md`; craft floor; detector on `src/` and on http://localhost:3100; the `impeccable-finish-reviewer` subagent.
+  - Code-led build, because no image generation was available.
+- **Initial findings**:
+  - The look sat in the "cream ground + italic serif + tracked mono labels" generated-UI cluster, and used banned default faces (Newsreader, IBM Plex).
+  - Eyebrow kickers on every section; Unicode arrows standing in for icons; colored left-border callouts; a grid-line background.
+- **Rendered detector results**: 49 findings after the first redesign pass, including a selector collision that collapsed the lifecycle column; **0** after fixes. Two advisories remain, both documented: the index-card ruling is deliberate world material, and a hero decode glyph overlap is transient.
+- **New world: municipal records room.**
+  - Palette: manila folder ground, index-card white, stamp-ink violet, errata red, steel-cabinet green-black for dark sections.
+  - Type: Archivo (wide/condensed) for headings and tabs, Public Sans for reading, Courier Prime for the typewritten clerk's voice.
+  - The hero notice sits in a tabbed folder; inventory files are tabbed folders; the closing section stamps the ordered page.
+- **New Act Four**: `CostModel.tsx`, an interactive cost and effort model.
+  - Seven inputs, three scenarios with the arithmetic shown, hours of hand work remaining, and the monthly run-rate.
+  - Assumptions are labeled with their sources. It is not a quote.
+  - A pinned summary on mobile.
+- **Narrative order**: hero → two readers → inventory → lifecycle → repair bench → cost model → verification → audiences → CTA.
+- **Copy**: em dashes cut; check-before-post described as in development wherever it appears.
+
 ## Next session
 1. Lighthouse on a production build, plus a VoiceOver pass over the lens, the repair bench and the contact form.
 2. Bring LCP under 2.5 s (inline critical CSS, subset fonts).

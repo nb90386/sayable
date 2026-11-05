@@ -4,10 +4,10 @@ import { useEffect, useMemo, useState } from "react";
 import { useInView, usePrefersReducedMotion } from "@/lib/useInView";
 
 const piles = [
-  { key: "fix", name: "Must fix", color: "var(--color-ember)", share: 0.38, why: "Has a form, is linked from a service page such as “Apply for a permit”, or is a current agenda." },
-  { key: "archive", name: "Archive candidate", color: "var(--color-signal)", share: 0.34, why: "Older minutes and closed-year reports kept only for reference, not linked from a service page." },
-  { key: "delete", name: "Delete candidate", color: "var(--color-muted)", share: 0.16, why: "Exact duplicates of another file, expired notices, empty or broken files." },
-  { key: "convert", name: "Better as a web page", color: "var(--color-ink)", share: 0.12, why: "One or two pages of plain text that belongs on the site itself." },
+  { key: "fix", short: "Fix", name: "Must fix", color: "var(--color-ember)", share: 0.38, why: "Has a form, is linked from a service page such as “Apply for a permit”, or is a current agenda." },
+  { key: "archive", short: "Archive", name: "Archive candidate", color: "var(--color-signal)", share: 0.34, why: "Older minutes and closed-year reports kept only for reference, not linked from a service page." },
+  { key: "delete", short: "Delete", name: "Delete candidate", color: "var(--color-muted)", share: 0.16, why: "Exact duplicates of another file, expired notices, empty or broken files." },
+  { key: "convert", short: "Web page", name: "Better as a web page", color: "var(--color-ink)", share: 0.12, why: "One or two pages of plain text that belongs on the site itself." },
 ] as const;
 
 const N = 160;
@@ -92,8 +92,9 @@ export function Inventory() {
                 })}
                 <div className={`absolute inset-x-0 top-0 grid grid-cols-4 transition-opacity duration-700 ${sorted ? "opacity-100" : "opacity-0"}`}>
                   {piles.map((p) => (
-                    <span key={p.key} className="tag pl-[0.5%] !text-ink-soft">
-                      {p.name}
+                    <span key={p.key} className="tag truncate pl-[0.5%] !text-ink-soft">
+                      <span className="sm:hidden">{p.short}</span>
+                      <span className="hidden sm:inline">{p.name}</span>
                     </span>
                   ))}
                 </div>

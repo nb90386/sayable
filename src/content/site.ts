@@ -13,7 +13,7 @@ export const nav = [
   { href: "/approach", label: "Our approach" },
 ] as const;
 
-export const cta = { href: "/contact", label: "Request an audit" } as const;
+export const cta = { href: "/contact?topic=audit", label: "Request a Readiness Audit" } as const;
 
 export const stages = [
   {

@@ -31,7 +31,7 @@ const fields: Field[] = [
   { key: "docs", label: "Public documents on your site", hint: "Every PDF linked from public pages.", min: 200, max: 20000, step: 100, format: num },
   { key: "pages", label: "Average pages per document", hint: "Agendas run long; notices are short.", min: 1, max: 40, step: 1, format: num },
   { key: "mustFix", label: "Share that needs remediation", hint: "Forms, service pages, current agendas. The audit measures this; your team decides.", min: 5, max: 100, step: 1, format: pct },
-  { key: "manualCost", label: "Manual remediation, per page", hint: "One public cooperative contract lists about $3.34 simple, $4.60 complex.", min: 1, max: 15, step: 0.25, format: usd },
+  { key: "manualCost", label: "Manual remediation, per page", hint: "Washington State cooperative contract 02024 lists about $3.34 a page simple, $4.60 complex (our research; confirm current rates).", min: 1, max: 15, step: 0.25, format: usd },
   { key: "autoShare", label: "Routine pages fixed by software, then checked", hint: "In our research test, 13 of 32 sample pages (41%) passed with no hand work.", min: 0, max: 70, step: 1, format: pct },
   { key: "autoCost", label: "Cost per automated, checked page", hint: "An assumption for this model, not a price.", min: 0.25, max: 4, step: 0.25, format: usd },
   { key: "monthly", label: "New documents published per month", hint: "Everything posted from now on needs to work.", min: 0, max: 600, step: 10, format: num },

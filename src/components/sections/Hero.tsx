@@ -6,8 +6,8 @@ export function Hero() {
     <section aria-labelledby="hero-title" className="relative overflow-hidden pt-[calc(var(--header-h)+2.5rem)] sm:pt-[calc(var(--header-h)+4rem)]">
       <div className="wrap relative">
         <div className="grid-12 items-center gap-y-14">
-          <div className="relative z-10 col-span-12 lg:col-span-7 lg:pb-16">
-            <h1 id="hero-title" className="display mt-2 text-[length:clamp(2.3rem,1rem+3.7vw,4.6rem)]">
+          <div className="relative z-10 col-span-12 lg:col-span-6 lg:pb-16">
+            <h1 id="hero-title" className="display mt-2 text-[length:clamp(2.3rem,1.2rem+2.9vw,4rem)]">
               <span className="block" data-reveal="mask">A document can look</span>
               <span className="block" data-reveal="mask" style={{ ["--d" as string]: "120ms" }}>perfectly readable</span>
               <span className="block" data-reveal="mask" style={{ ["--d" as string]: "240ms" }}>
@@ -28,9 +28,18 @@ export function Hero() {
             </div>
           </div>
 
-          <div className="col-span-12 lg:col-span-5 lg:-mr-6 xl:-mr-14">
-            <div className="folder mx-auto mt-10 max-w-[min(600px,94vw)] lg:mt-6 lg:max-w-none" data-tab="Planning Division · Notices · ACC-2026-0412">
-              <LivingDocument />
+          <div className="col-span-12 lg:col-span-6">
+            <div className="mx-auto mt-10 max-w-[min(620px,94vw)] lg:ml-auto lg:mr-0 lg:mt-6">
+              <ol className="tab-rail" aria-hidden="true">
+                {["Discover", "Repair", "Verify", "Publish", "Monitor"].map((t, i) => (
+                  <li key={t} className={i === 0 ? "is-current" : undefined} style={{ ["--t" as string]: i }}>
+                    {t}
+                  </li>
+                ))}
+              </ol>
+              <div className="folder">
+                <LivingDocument />
+              </div>
             </div>
           </div>
         </div>
