@@ -1,7 +1,7 @@
 export const site = {
   name: "Sayable",
   description:
-    "Sayable helps public agencies find, repair, verify and publish accessible documents: with automated structure checks, semantic review and people for the hard parts.",
+    "Sayable helps public agencies find, repair, verify and publish accessible documents, using automated structure checks, semantic review and people for the hard parts.",
   /** Public business inbox. Unset until the domain and mailbox exist — see README. */
   contactEmail: process.env.NEXT_PUBLIC_CONTACT_EMAIL?.trim() || null,
 };

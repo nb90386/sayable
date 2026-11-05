@@ -68,7 +68,7 @@ export function Close() {
                 const px = prev.x - 26;
                 const py = prev.y + 16;
                 const my = (py + y) / 2;
-                return d + (Math.abs(py - y) < 4 ? ` C ${px + 120} ${py - 60}, ${x - 120} ${y - 60}, ${x} ${y}` : ` C ${px - 18} ${my}, ${x - 18} ${my}, ${x} ${y}`);
+                return d + (Math.abs(py - y) < 4 ? ` C ${px} ${py - 64}, ${px} ${py - 64}, ${px + 52} ${py - 64} L ${x - 44} ${y - 64} C ${x} ${y - 64}, ${x} ${y - 64}, ${x} ${y}` : ` C ${px - 18} ${my}, ${x - 18} ${my}, ${x} ${y}`);
               }, "")}
               fill="none"
               stroke="#121314"

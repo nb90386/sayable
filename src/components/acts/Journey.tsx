@@ -95,7 +95,7 @@ function StageLayer({ stage }: { stage: string }) {
           const r = regions[id]!;
           return <rect key={id} x={r.x - 6} y={r.y - 6} width={r.w + 12} height={r.h + 12} rx="6" fill="rgb(228 70 43 / 0.08)" stroke="#e4462b" strokeWidth="4" strokeDasharray="12 8" />;
         })}
-        <g transform="translate(64 1000)">
+        <g transform="translate(64 950)">
           <rect width="230" height="34" rx="17" fill="#e4462b" />
           <text x="16" y="23" fontFamily="var(--font-mono)" fontSize="15" fill="#fff">read first: footer</text>
         </g>

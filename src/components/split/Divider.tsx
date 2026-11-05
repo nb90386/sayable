@@ -45,6 +45,7 @@ export function Divider() {
   const [p, setP] = useState(0);
   const [act, setAct] = useState("title");
   const [collapsed, setCollapsed] = useState(false);
+  const [firstView, setFirstView] = useState(true);
   const raf = useRef(0);
 
   useEffect(() => {
@@ -54,6 +55,7 @@ export function Divider() {
         raf.current = 0;
         const max = document.documentElement.scrollHeight - window.innerHeight;
         setP(max > 0 ? Math.min(1, Math.max(0, window.scrollY / max)) : 0);
+        setFirstView(window.scrollY < window.innerHeight * 0.5);
       });
     };
     onScroll();
@@ -99,7 +101,7 @@ export function Divider() {
   return (
     <div
       aria-hidden="true"
-      className={`divider ${collapsed ? "is-collapsed" : ""} ${act === "title" ? "at-title" : ""} ${desk.amp < 0.15 ? "is-calm" : ""}`}
+      className={`divider ${collapsed ? "is-collapsed" : ""} ${act === "title" && firstView ? "at-title" : ""} ${desk.amp < 0.15 ? "is-calm" : ""}`}
       data-sc-verify-state={`${desk.amp.toFixed(2)}|${act}|${collapsed ? 1 : 0}`}
       data-sc-verify-hold={collapsed ? "true" : undefined}
     >

@@ -63,3 +63,7 @@ If you want to see what a filled-in table looks like, and which shapes tend to
 collide, read `EXAMPLES.md` in the scroll-craft repository. Treat it as
 illustration only: those rows are somebody else's builds and they do **not**
 constrain yours.
+
+| Build | Grammar | Nav treatment | Hero device | Act-sequence shape | Close pattern | Signature move |
+|---|---|---|---|---|---|---|
+| sayable (2026-11-05) | Split stage (2.7) | Standard site header scrolls away on home; divider pill labels both sides during title act | Two-column split headline across porcelain/graphite with document and structure list | 7 acts, 14.8vh: title, listen (audio peak), scale, journey (pinned sheet, per-stage hidden layer), value, trust, close | Collapse: divider leaves, accessible story takes full width with the resolved document | The divider is the document's reading path: kinked with vermilion knots, straightening per act, turning ink, then collapsing |
