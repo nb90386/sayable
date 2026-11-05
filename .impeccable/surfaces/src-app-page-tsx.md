@@ -7,18 +7,18 @@ related_targets: ["src/app/contact/page.tsx"]
 
 # Surface brief: Sayable marketing site (home + supporting routes)
 
-Mode: Persuade. Audience: city managers, IT directors, ADA coordinators, clerks. Action: request a Readiness Audit (/contact). Proof: the document demonstrations, transparent cost model, preliminary research benchmarks (labeled). Constraints: PRODUCT.md brand commitments; WCAG 2.2 AA; reduced motion.
+Mode: Persuade. Audience: city managers, IT directors, ADA coordinators, clerks, public information officers, municipal web agencies. Primary action: Request a Readiness Audit (/contact?topic=audit). Proof: the document demonstrations, a transparent workload estimator, an explorable sample report, preliminary research benchmarks (labeled). Constraints: PRODUCT.md brand commitments; WCAG 2.2 AA; reduced motion.
 
 ## Direction contract
 
-THESIS: Sayable is the records room that finally knows what is in it. The site is a working records room: folders, index cards and stamped findings. It refuses the category's SaaS hero-plus-cards and the cream-serif editorial default.
+THESIS: The Path to Understanding. A single reading path travels through a public document: tangled where the structure is broken, calm and ordered once Sayable has done its work. The site refuses both the SaaS template and the records-room costume it replaces.
 
-OWN-WORLD: Manila folder board as the committed ground (30–60% of the surface). Index-card white sheets with ruled lines. Stamp-pad violet ink for verified structure, errata red for barriers, steel-cabinet green-black for the dark passages. Archivo in wide and condensed cuts for headings and tab labels, Public Sans for reading, Courier Prime as the typewritten clerk's voice. Folder tabs, accession numbers, and rubber-stamp marks with a hard edge. No gradients, no glow.
+OWN-WORLD: The ground is luminous porcelain (#F7F9F4), with white document sheets that carry soft, offset paper shadows. Ink is near-black green (#17211D). Evergreen (#1D5347) marks resolved structure and fills the deep sections. Apricot (#F0AE71) marks the moments where the path snags; rust (#A24A1C) is the text-safe form of that warning. Type is Source Serif 4 at display optical sizes with an italic turn for the human line, Hanken Grotesk for reading and controls, and Fragment Mono only for tags and data. Buttons are full pills. A wide pale ribbon with a thin evergreen centre line threads between sections.
 
-STORY: A notice looks fine but excludes a resident; a city's records are unsorted; Sayable sorts, repairs, stamps and files them; the cost model shows the avoided work; the sample report proves the method; request an audit.
+STORY: A resident meets a form that looks finished but cannot be used. A city faces thousands of such files. Sayable sorts them, repairs them, checks them and keeps watch. The estimator shows the avoidable work. The sample report shows the method. The Readiness Audit is the first step.
 
-FIRST VIEWPORT: An open manila folder fills the right two-thirds. The notice is clipped inside, with a clear acetate leaf of structure hinged over it. The headline is set in wide Archivo on the folder board at left, and the primary action, "Request a Readiness Audit", sits under it. A folder-tab rail across the top of the folder names the five stages.
+FIRST VIEWPORT: The headline sits at left in Source Serif 4: "A document can look right / and still *leave someone out.*" Under it, one line of copy, the evergreen pill "Request a Readiness Audit" and a quiet "Watch the reading path" control. At right, a white notice sheet, slightly turned. A tangled apricot path snags on four problems, then a clean evergreen path redraws through the content in reading order. A pale ribbon carries the line out of the page.
 
-FORM: Municipal records room (candidate 7 of 7, seed:8e32e96647d1ab8e). Raises: acetate leaf as the structure layer and crisp hinged steps for motion (from rw-manual-acetate-tab-board); one continuous custody line, with machine-checked marked solid and person-reviewed marked hairline (from exhibition-museum-curation-provenance-ribbon).
+FORM: Brief-pinned direction ("THE PATH TO UNDERSTANDING", founder brief Nov 5 2026); the roll was not run, per new-work's pinned-direction rule. seed: none (unavailable)
 
 FINISH: unreviewed and undocumented is unfinished; this build ends with the finish review, the verdict, DESIGN.md, and every shipping raster carrying its provenance

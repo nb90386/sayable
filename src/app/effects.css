@@ -1,91 +1,72 @@
-/* ─── Living document (hero) ──────────────────────────────── */
-.ld-stage {
-  --px: 0;
-  --py: 0;
-  perspective: 1800px;
-  perspective-origin: 40% 30%;
-}
-.ld-rig {
-  position: relative;
-  transform-style: preserve-3d;
-  transform: rotateX(calc(9deg + var(--py) * -3deg)) rotateY(calc(-16deg + var(--px) * 5deg)) rotateZ(1.2deg);
-  transition: transform 1.6s var(--ease-out-expo);
-  will-change: transform;
-}
-.ld-page {
-  transform: translateZ(0);
-  transition: filter 1.2s var(--ease-out-expo);
-}
-.ld-structure {
-  transform: translateZ(0);
+/* ─── Reading path (hero signature) ───────────────────────── */
+.rp-stage { --px: 0; --py: 0; perspective: 1600px; }
+.rp-sheet {
+  background: var(--color-sheet);
+  border-radius: var(--radius-sheet);
+  box-shadow: var(--shadow-sheet);
+  transform: rotateX(calc(4deg + var(--py) * -2deg)) rotateY(calc(-7deg + var(--px) * 3deg)) rotateZ(-1.2deg);
   transition: transform 1.4s var(--ease-out-expo);
-  pointer-events: none;
+  overflow: visible;
 }
-.living-doc[data-phase="1"] .ld-structure,
-.living-doc[data-phase="2"] .ld-structure,
-.living-doc[data-phase="3"] .ld-structure {
-  transform: translateZ(90px) translate3d(calc(var(--px) * 10px), calc(var(--py) * 8px), 0);
-}
-.living-doc:not([data-phase="0"]) .ld-page { filter: saturate(0.7) brightness(0.985); }
-
-.ld-box {
+.rp-tangle-line {
   fill: none;
-  stroke: var(--color-signal);
-  stroke-width: 1.5;
+  stroke: var(--color-warm);
+  stroke-width: 3.2;
+  stroke-linecap: round;
   stroke-dasharray: 100 100;
   stroke-dashoffset: 100;
-  transition: stroke-dashoffset 1.2s var(--ease-out-expo);
   vector-effect: non-scaling-stroke;
+  animation: rp-draw 2.2s var(--ease-in-out-quint) 0.2s forwards;
 }
-.ld-box-artifact { stroke: var(--color-muted); stroke-dasharray: 2 2.5; stroke-dashoffset: 0; opacity: 0; transition: opacity 0.8s; }
-.ld-box-th { stroke-width: 1; stroke-opacity: 0.7; }
-.living-doc:not([data-phase="0"]) .ld-box { stroke-dashoffset: 0; }
-.living-doc:not([data-phase="0"]) .ld-box-artifact { opacity: 0.8; }
+.rp-knot { fill: var(--color-warm-wash); stroke: var(--color-warm); stroke-width: 2; }
+.rp-knot-core { fill: var(--color-ember); }
+.rp-snag-chip { fill: var(--color-ember); }
+.rp-snag-text { fill: #fff; font-family: var(--font-sans); font-weight: 600; font-size: 15px; }
+.rp-snag { opacity: 0; animation: rp-pop 0.6s var(--ease-out-expo) forwards; animation-delay: calc(0.9s + var(--i) * 0.35s); transform-box: fill-box; }
 
-.ld-tag { opacity: 0; transform: translateY(6px); transition: opacity 0.5s, transform 0.8s var(--ease-out-expo); transform-box: fill-box; }
-.ld-tag rect { fill: var(--color-signal); }
-.ld-tag text { fill: #fff; font-family: var(--font-mono); font-size: 13px; letter-spacing: 0.02em; }
-.ld-tag-artifact rect { fill: var(--color-sheet); stroke: var(--color-muted); stroke-dasharray: 2 2; }
-.ld-tag-artifact text { fill: var(--color-muted); }
-.ld-tag-mini rect { fill: var(--color-signal-wash); }
-.ld-tag-mini text { fill: var(--color-signal); font-size: 11.5px; }
-.living-doc[data-phase="2"] .ld-tag,
-.living-doc[data-phase="3"] .ld-tag { opacity: 1; transform: none; }
+.rp-fix { opacity: 0; transition: opacity 0.5s; }
+.rp-box { fill: rgb(29 83 71 / 0.04); stroke: var(--color-signal); stroke-width: 1.6; vector-effect: non-scaling-stroke; opacity: 0; }
+.rp-th { fill: rgb(29 83 71 / 0.09); stroke: none; }
+.rp-fix-line { fill: none; stroke: var(--color-signal); stroke-width: 3.2; stroke-linecap: round; stroke-dasharray: 100 100; stroke-dashoffset: 100; vector-effect: non-scaling-stroke; }
+.rp-node circle { fill: var(--color-signal); }
+.rp-node text { fill: #fff; font-family: var(--font-sans); font-weight: 700; font-size: 15px; }
+.rp-node, .rp-chip { opacity: 0; }
+.rp-chip rect { fill: var(--color-signal); }
+.rp-chip text { fill: #fff; font-family: var(--font-mono); font-size: 13.5px; }
 
-.ld-path {
-  fill: none;
-  stroke: var(--color-signal);
-  stroke-width: 2;
-  stroke-dasharray: 100 100;
-  stroke-dashoffset: 100;
-  transition: stroke-dashoffset 2.2s var(--ease-in-out-quint);
-  vector-effect: non-scaling-stroke;
-}
-.ld-node { opacity: 0; transition: opacity 0.4s; transition-delay: calc(var(--o) * 180ms); }
-.ld-node circle { fill: var(--color-ink); }
-.ld-node text { fill: #fff; font-family: var(--font-mono); font-size: 13px; font-weight: 500; }
-.living-doc[data-phase="3"] .ld-path { stroke-dashoffset: 0; }
-.living-doc[data-phase="3"] .ld-node { opacity: 1; }
+.rp[data-state="fixed"] .rp-tangle { opacity: 0.1; transition: opacity 0.6s; }
+.rp[data-state="fixed"] .rp-tangle .rp-snag { animation: none; opacity: 0; }
+.rp[data-state="fixed"] .rp-fix { opacity: 1; }
+.rp[data-state="fixed"] .rp-box { animation: rp-fade 0.5s var(--ease-out-expo) forwards; animation-delay: calc(var(--i) * 0.12s); }
+.rp[data-state="fixed"] .rp-fix-line { animation: rp-draw 1.9s var(--ease-in-out-quint) 0.15s forwards; }
+.rp[data-state="fixed"] .rp-node { animation: rp-fade 0.4s var(--ease-out-expo) forwards; animation-delay: calc(0.3s + var(--i) * 0.22s); }
+.rp[data-state="fixed"] .rp-chip { animation: rp-pop 0.55s var(--ease-out-expo) forwards; animation-delay: calc(0.5s + var(--i) * 0.2s); }
 
-/* hero headline: the word "understood" gets its own structure annotation */
-.annot {
-  position: relative;
-  white-space: nowrap;
+@keyframes rp-draw { to { stroke-dashoffset: 0; } }
+@keyframes rp-fade { to { opacity: 1; } }
+@keyframes rp-pop { from { opacity: 0; transform: translateY(6px) scale(0.96); } to { opacity: 1; transform: none; } }
+
+.rp-toggle { display: inline-flex; padding: 4px; border-radius: 999px; background: var(--color-paper-deep); }
+.rp-toggle button { min-height: 2.6rem; padding: 0 1.1rem; border-radius: 999px; font-weight: 600; font-size: 0.95rem; color: var(--color-ink-soft); transition: background-color 0.3s, color 0.3s, box-shadow 0.3s; }
+.rp-toggle button[aria-checked="true"] { background: var(--color-sheet); color: var(--color-ink); box-shadow: 0 1px 2px rgb(23 50 40 / 0.12), 0 4px 10px -4px rgb(23 50 40 / 0.2); }
+
+@media (prefers-reduced-motion: reduce) {
+  .rp-tangle-line, .rp-fix-line { stroke-dashoffset: 0 !important; }
+  .rp-snag, .rp-node, .rp-chip, .rp-box { opacity: 1 !important; }
+  .rp-sheet { transform: rotateZ(-1deg); }
 }
-.annot::after {
-  content: "";
-  position: absolute;
-  left: 0.04em;
-  right: 0.02em;
-  bottom: 0.02em;
-  height: 0.045em;
-  min-height: 2px;
-  background: var(--color-signal);
-  transform-origin: left;
-  transform: scaleX(var(--annot, 1));
-  transition: transform 1.4s var(--ease-out-expo) 1.6s;
+@media (max-width: 767px) {
+  .rp-sheet { transform: rotateZ(-1deg); }
 }
-.js-motion .annot:not(.is-in)::after { --annot: 0; }
+
+/* ─── Ribbon: the reading path between sections ─────────── */
+.ribbon { pointer-events: none; display: block; width: 100%; height: auto; overflow: visible; }
+.ribbon-band { fill: none; stroke: var(--color-paper-deep); stroke-linecap: round; }
+.ribbon-line { fill: none; stroke: var(--color-signal); stroke-width: 2; stroke-linecap: round; vector-effect: non-scaling-stroke; stroke-dasharray: 100 100; stroke-dashoffset: 100; transition: stroke-dashoffset 2.4s var(--ease-in-out-quint); }
+.ribbon.is-in .ribbon-line { stroke-dashoffset: 0; }
+.on-night .ribbon-band { stroke: var(--color-night-raise); }
+.on-night .ribbon-line { stroke: var(--color-warm); }
+@media (prefers-reduced-motion: reduce) { .ribbon-line { stroke-dashoffset: 0; } }
 
 /* ─── Two readers lens ────────────────────────────────────── */
 .lens-range {
@@ -106,121 +87,39 @@
 .lens-range::-moz-range-thumb { width: 56px; height: 100vh; border: 0; }
 .lens-wrap:has(.lens-range:focus-visible) .lens-handle-knob { outline: 2px solid var(--color-signal); outline-offset: 4px; }
 
-/* ─── Inventory triage field ─────────────────────────────── */
-.inv-dot {
+/* ─── Inventory ──────────────────────────────────────────── */
+.inv-sheet {
   position: absolute;
-  width: var(--s);
-  height: calc(var(--s) * 1.29);
-  border-radius: 1px;
-  transition: left 1.3s var(--ease-out-expo), top 1.3s var(--ease-out-expo), transform 1.3s var(--ease-out-expo), background-color 0.6s;
+  transition: left 1.2s var(--ease-out-expo), top 1.2s var(--ease-out-expo), transform 1.2s var(--ease-out-expo), box-shadow 0.6s;
   transition-delay: var(--dl);
 }
 
-/* ─── Lifecycle (dark) ────────────────────────────────────── */
+/* ─── Lifecycle ──────────────────────────────────────────── */
 .lc-layer { opacity: 0; transition: opacity 0.7s var(--ease-out-quart), transform 0.9s var(--ease-out-expo); transform: translateY(8px); }
 .lc-layer.is-on { opacity: 1; transform: none; }
+
+/* ─── Estimator ──────────────────────────────────────────── */
+.cost-range { accent-color: var(--color-warm); height: 1.75rem; cursor: pointer; }
+.cost-bar { transition: width 0.7s var(--ease-out-expo); overflow: hidden; }
+
+/* ─── Seal: the "checked" mark ───────────────────────────── */
+.stamp {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5em;
+  font-family: var(--font-sans);
+  font-weight: 700;
+  font-size: 0.9rem;
+  color: var(--color-signal);
+  background: var(--color-signal-wash);
+  padding: 0.4em 0.9em;
+  border-radius: 999px;
+}
+.stamp::before { content: ""; width: 0.55em; height: 0.55em; border-radius: 50%; background: currentColor; }
+.on-night .stamp { color: var(--color-ink); background: var(--color-warm); }
 
 /* ─── Mobile menu item entrance ───────────────────────────── */
 @media (prefers-reduced-motion: no-preference) {
   #mobile-menu:not([hidden]) .menu-item { animation: menu-in 0.7s var(--ease-out-expo) both; animation-delay: calc(var(--i) * 45ms + 60ms); }
 }
 @keyframes menu-in { from { opacity: 0; transform: translateY(14px); } }
-
-@media (prefers-reduced-motion: reduce) {
-  .ld-rig { transform: rotateX(6deg) rotateY(-10deg); }
-}
-@media (max-width: 767px) {
-  .ld-rig { transform: rotateX(6deg) rotateY(-8deg) rotateZ(0.8deg); }
-  .living-doc:not([data-phase="0"]) .ld-structure { transform: translateZ(40px); }
-}
-
-/* ─── Cost model ─────────────────────────────────────────── */
-.cost-range { accent-color: var(--color-signal); height: 1.75rem; cursor: pointer; }
-.cost-bar { transition: width 0.7s var(--ease-out-expo); overflow: hidden; }
-
-/* ─── Records-room folder (hero) ─────────────────────────── */
-.folder {
-  position: relative;
-  background: #c9a663;
-  border-radius: 2px 6px 6px 6px;
-  box-shadow: 0 1px 0 rgb(255 255 255 / 0.35) inset, 0 18px 40px -18px rgb(60 40 5 / 0.55);
-  padding: clamp(1rem, 3vw, 2.25rem);
-}
-.folder[data-tab]::before {
-  /* the folder tab */
-  content: attr(data-tab);
-  position: absolute;
-  left: 0;
-  bottom: 100%;
-  padding: 0.55rem 1.1rem 0.45rem;
-  background: #c9a663;
-  border-radius: 6px 6px 0 0;
-  font-family: var(--font-mono);
-  font-size: 0.8rem;
-  color: #3a2d12;
-  white-space: nowrap;
-}
-.stamp {
-  display: inline-block;
-  font-family: var(--font-serif);
-  font-weight: 800;
-  font-stretch: 125%;
-  letter-spacing: 0.04em;
-  text-transform: uppercase;
-  color: var(--color-signal);
-  border: 2px solid currentColor;
-  padding: 0.25em 0.6em 0.2em;
-  border-radius: 3px;
-  transform: rotate(-4deg);
-  mix-blend-mode: multiply;
-}
-/* inventory files read as tabbed folders */
-.inv-dot::before {
-  content: "";
-  position: absolute;
-  left: 0;
-  top: -22%;
-  width: 46%;
-  height: 24%;
-  background: inherit;
-  border-radius: 1px 1px 0 0;
-}
-
-/* folder-tab rail: one tab per stage, stepped down the manila range */
-.tab-rail {
-  display: flex;
-  gap: 3px;
-  padding-left: 0.5rem;
-  margin: 0;
-  list-style: none;
-}
-.tab-rail li {
-  flex: 1 1 0;
-  min-width: 0;
-  padding: 0.5rem 0.6rem 0.4rem;
-  border-radius: 5px 5px 0 0;
-  background: color-mix(in oklab, #c9a663, #6b5426 calc(var(--t) * 7%));
-  color: #2e2410;
-  font-family: var(--font-serif);
-  font-stretch: 75%;
-  font-weight: 700;
-  font-size: clamp(0.7rem, 0.55rem + 0.35vw, 0.9rem);
-  letter-spacing: 0.02em;
-  text-transform: uppercase;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  transform: translateY(calc(var(--t) * 2px));
-}
-.tab-rail li.is-current { background: #c9a663; transform: none; }
-
-/* acetate leaf: the structure layer as a clear, punched sheet hinged over the page */
-.ld-leaf { opacity: 0; transition: opacity 90ms steps(2, end); }
-.ld-leaf-sheet { fill: rgb(59 45 184 / 0.05); stroke: rgb(59 45 184 / 0.6); stroke-width: 1.2; vector-effect: non-scaling-stroke; }
-.ld-leaf-hinge { fill: rgb(59 45 184 / 0.2); }
-.ld-leaf-punch { fill: #c9a663; }
-.living-doc:not([data-phase="0"]) .ld-leaf { opacity: 1; }
-@media (max-width: 639px) {
-  .tab-rail { gap: 2px; padding-left: 0.25rem; }
-  .tab-rail li { padding: 0.45rem 0.3rem 0.35rem; font-size: 0.62rem; letter-spacing: 0; text-overflow: clip; text-align: center; }
-}

@@ -1,59 +1,58 @@
 import Link from "next/link";
-import { LivingDocument } from "../hero/LivingDocument";
+import { ReadingPath } from "../hero/ReadingPath";
+import { Ribbon } from "../Ribbon";
 
 export function Hero() {
   return (
-    <section aria-labelledby="hero-title" className="relative overflow-hidden pt-[calc(var(--header-h)+2.5rem)] sm:pt-[calc(var(--header-h)+4rem)]">
+    <section aria-labelledby="hero-title" className="relative overflow-hidden pt-[calc(var(--header-h)+2.5rem)] sm:pt-[calc(var(--header-h)+3.5rem)]">
       <div className="wrap relative">
-        <div className="grid-12 items-center gap-y-14">
-          <div className="relative z-10 col-span-12 lg:col-span-6 lg:pb-16">
-            <h1 id="hero-title" className="display mt-2 text-[length:clamp(2.3rem,1.2rem+2.9vw,4rem)]">
-              <span className="block" data-reveal="mask">A document can look</span>
-              <span className="block" data-reveal="mask" style={{ ["--d" as string]: "120ms" }}>perfectly readable</span>
-              <span className="block" data-reveal="mask" style={{ ["--d" as string]: "240ms" }}>
-                <em>and still shut someone out.</em>
+        <div className="grid-12 items-center gap-y-12">
+          <div className="relative z-10 col-span-12 lg:col-span-6 lg:pb-10">
+            <h1 id="hero-title" className="display text-[length:clamp(2.5rem,1.3rem+3.4vw,4.75rem)]">
+              <span className="block" data-reveal="mask">A document can look right</span>
+              <span className="block" data-reveal="mask" style={{ ["--d" as string]: "140ms" }}>
+                <em>and still leave someone out.</em>
               </span>
             </h1>
-            <p className="lede mt-8 !max-w-[42ch]" data-reveal style={{ ["--d" as string]: "380ms" }}>
-              Sayable sorts a city&rsquo;s public documents, repairs the hidden structure screen readers depend on, and
-              shows exactly what was checked before anything is posted.
+            <p className="lede mt-8 !max-w-[38ch]" data-reveal style={{ ["--d" as string]: "320ms" }}>
+              Sayable helps cities and counties find the public documents residents rely on, repair the structure screen
+              readers depend on, and show exactly what was checked.
             </p>
-            <div className="mt-10 flex flex-wrap items-center gap-x-8 gap-y-3" data-reveal style={{ ["--d" as string]: "480ms" }}>
+            <div className="mt-10 flex flex-wrap items-center gap-x-7 gap-y-3" data-reveal style={{ ["--d" as string]: "440ms" }}>
               <Link href="/contact?topic=audit" className="btn">
                 Request a Readiness Audit <span className="arrow" aria-hidden="true" data-icon="arrow-r"></span>
               </Link>
               <Link href="#two-readers" className="link-quiet">
-                Hear what a screen reader gets <span aria-hidden="true" data-icon="arrow-d"></span>
+                See why it matters <span aria-hidden="true" data-icon="arrow-d"></span>
               </Link>
             </div>
           </div>
 
-          <div className="col-span-12 lg:col-span-6">
-            <div className="mx-auto mt-10 max-w-[min(620px,94vw)] lg:ml-auto lg:mr-0 lg:mt-6">
-              <ol className="tab-rail" aria-hidden="true">
-                {["Discover", "Repair", "Verify", "Publish", "Monitor"].map((t, i) => (
-                  <li key={t} className={i === 0 ? "is-current" : undefined} style={{ ["--t" as string]: i }}>
-                    {t}
-                  </li>
-                ))}
-              </ol>
-              <div className="folder">
-                <LivingDocument />
-              </div>
+          <div className="relative col-span-12 lg:col-span-6">
+            <div className="mx-auto max-w-[min(500px,92vw)] lg:mr-0">
+              <ReadingPath />
             </div>
           </div>
         </div>
+      </div>
 
-        <dl className="mt-20 grid grid-cols-2 border-t hairline md:grid-cols-4">
+      <Ribbon
+        className="relative mt-4 h-[90px] sm:h-[150px] lg:-mt-10"
+        d="M -60 40 C 240 160, 520 -10, 800 90 S 1250 180, 1500 60"
+        viewBox="0 0 1440 180"
+      />
+
+      <div className="wrap">
+        <dl className="grid grid-cols-2 gap-y-6 pb-6 md:grid-cols-4">
           {[
-            ["Checked against", "PDF/UA-1 with veraPDF"],
-            ["Reviewed for", "meaning, not just rules"],
-            ["Hard parts go to", "a person"],
-            ["Every file ships with", "a plain check report"],
-          ].map(([k, v], i) => (
-            <div key={k} className={`py-5 pr-4 ${i > 0 ? "md:border-l md:pl-6 hairline" : ""} ${i % 2 === 1 ? "border-l pl-4 hairline md:pl-6" : ""} ${i > 1 ? "border-t md:border-t-0 hairline" : ""}`}>
-              <dt className="tag !text-muted">{k}</dt>
-              <dd className="mt-1.5 font-serif text-[1.15rem] leading-snug">{v}</dd>
+            ["Find", "Every publicly linked PDF, sorted by how residents use it."],
+            ["Fix", "Safe structural repairs, with people for tables, forms and scans."],
+            ["Check", "PDF/UA validation, a semantic review and a person."],
+            ["Keep up", "New uploads checked before they reach the public."],
+          ].map(([k, v]) => (
+            <div key={k} className="pr-6">
+              <dt className="title text-[1.35rem]">{k}</dt>
+              <dd className="mt-1.5 max-w-[26ch] text-[0.95rem] leading-snug text-ink-soft">{v}</dd>
             </div>
           ))}
         </dl>

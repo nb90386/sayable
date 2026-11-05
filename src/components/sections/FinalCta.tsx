@@ -1,148 +1,60 @@
-"use client";
-
 import Link from "next/link";
-import { useEffect, useRef } from "react";
+import { NoticePage, VB, blocks, nodePoint, readingPath } from "../doc/notice";
+import { Ribbon } from "../Ribbon";
 
-/**
- * Closing scene: scattered glyph fragments settle into the ordered lines of a
- * page — ambiguity into structure. Canvas runs only while visible and stops
- * once settled. Reduced motion draws the settled state once.
- */
-function useOrderCanvas(ref: React.RefObject<HTMLCanvasElement | null>) {
-  useEffect(() => {
-    const canvas = ref.current;
-    if (!canvas) return;
-    const ctx = canvas.getContext("2d");
-    if (!ctx) return;
-    const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    const GL = "PHTDLIFRAa/<>=#·01";
-    type P = { x: number; y: number; tx: number; ty: number; vx: number; vy: number; g: string; a: number; hot: boolean };
-    let ps: P[] = [];
-    let w = 0, h = 0, raf = 0, visible = false, settled = false;
-
-    const build = () => {
-      const dpr = Math.min(window.devicePixelRatio || 1, 2);
-      w = canvas.clientWidth;
-      h = canvas.clientHeight;
-      canvas.width = Math.round(w * dpr);
-      canvas.height = Math.round(h * dpr);
-      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-      // Target: a page of text lines on the right side (or bottom on small screens).
-      const small = w < 768;
-      const pw = small ? w * 0.78 : Math.min(w * 0.3, 380);
-      const px = small ? (w - pw) / 2 : w * 0.64;
-      const py = small ? h * 0.06 : h * 0.18;
-      const lh = small ? 13 : 15;
-      const lines = Math.floor((small ? Math.min(h * 0.3, w * 0.42) : h * 0.62) / lh);
-      const step = 7;
-      ps = [];
-      for (let l = 0; l < lines; l++) {
-        const isHead = l === 0 || l === 7 || l === 15;
-        const len = isHead ? 0.55 : l % 6 === 5 ? 0.45 : 0.82 + ((l * 37) % 17) / 100;
-        for (let x = 0; x < pw * Math.min(len, 1); x += isHead ? step - 2 : step) {
-          const seed = Math.sin(l * 91.7 + x * 3.1) * 1e4;
-          const r = seed - Math.floor(seed);
-          ps.push({
-            tx: px + x,
-            ty: py + l * lh + (isHead ? -2 : 0),
-            x: r * w,
-            y: ((seed * 7) % 1 + 1) % 1 * h,
-            vx: 0,
-            vy: 0,
-            g: GL[Math.floor(r * GL.length)]!,
-            a: isHead ? 0.95 : 0.5,
-            hot: isHead,
-          });
-        }
-      }
-      if (reduced || small) ps.forEach((p) => ((p.x = p.tx), (p.y = p.ty)));
-      settled = false;
-    };
-
-    const draw = () => {
-      ctx.clearRect(0, 0, w, h);
-      ctx.font = "10px ui-monospace, monospace";
-      let moving = 0;
-      for (const p of ps) {
-        if (!reduced) {
-          const ax = (p.tx - p.x) * 0.012;
-          const ay = (p.ty - p.y) * 0.012;
-          p.vx = (p.vx + ax) * 0.88;
-          p.vy = (p.vy + ay) * 0.88;
-          p.x += p.vx;
-          p.y += p.vy;
-          if (Math.abs(p.tx - p.x) + Math.abs(p.ty - p.y) > 0.4) moving++;
-        }
-        const d = Math.min(1, (Math.abs(p.tx - p.x) + Math.abs(p.ty - p.y)) / 120);
-        ctx.globalAlpha = p.a * (0.35 + 0.65 * (1 - d));
-        ctx.fillStyle = p.hot ? "#b7adff" : "#f1ede2";
-        if (d < 0.05) ctx.fillRect(p.x, p.y - 3, p.hot ? 5 : 5.5, p.hot ? 3 : 2);
-        else ctx.fillText(p.g, p.x, p.y);
-      }
-      ctx.globalAlpha = 1;
-      if (reduced || moving === 0) settled = true;
-    };
-
-    const loop = () => {
-      draw();
-      if (visible && !settled) raf = requestAnimationFrame(loop);
-      else raf = 0;
-    };
-
-    build();
-    draw();
-    const io = new IntersectionObserver(([e]) => {
-      visible = !!e?.isIntersecting;
-      if (visible && !raf && !settled) raf = requestAnimationFrame(loop);
-    }, { threshold: 0.25 });
-    io.observe(canvas);
-    let rt: ReturnType<typeof setTimeout>;
-    const onResize = () => {
-      clearTimeout(rt);
-      rt = setTimeout(() => {
-        build();
-        ps.forEach((p) => ((p.x = p.tx), (p.y = p.ty)));
-        draw();
-      }, 150);
-    };
-    window.addEventListener("resize", onResize);
-    return () => {
-      io.disconnect();
-      cancelAnimationFrame(raf);
-      window.removeEventListener("resize", onResize);
-    };
-  }, [ref]);
+/** The opening document, resolved: the reading path runs in order and every block has its structure. */
+function ResolvedSheet() {
+  const ordered = blocks.filter((b) => b.order);
+  return (
+    <svg viewBox={VB} className="block h-auto w-full rounded-[14px] bg-sheet shadow-[var(--shadow-sheet)]" aria-hidden="true">
+      <NoticePage />
+      {ordered.map((b) => (
+        <rect key={b.id} x={b.x - 8} y={b.y - 8} width={b.w + 16} height={b.h + 16} rx="8" fill="rgb(29 83 71 / 0.04)" stroke="#1d5347" strokeWidth="2" />
+      ))}
+      <path d={readingPath()} fill="none" stroke="#1d5347" strokeWidth="4" strokeLinecap="round" />
+      {ordered.map((b) => {
+        const p = nodePoint(b);
+        return (
+          <g key={b.id} transform={`translate(${p.x} ${p.y})`}>
+            <circle r="16" fill="#1d5347" />
+            <text y="6" textAnchor="middle" fontFamily="var(--font-sans)" fontWeight="700" fontSize="16" fill="#fff">
+              {b.order}
+            </text>
+          </g>
+        );
+      })}
+    </svg>
+  );
 }
 
 export function FinalCta() {
-  const ref = useRef<HTMLCanvasElement>(null);
-  useOrderCanvas(ref);
   return (
-    <section aria-labelledby="cta-title" className="night on-night relative overflow-hidden border-b" style={{ borderColor: "var(--rule-night)" }}>
-      <canvas ref={ref} aria-hidden="true" className="pointer-events-none absolute inset-0 h-full w-full" />
-      <p
-        aria-hidden="true"
-        className="stamp pointer-events-none absolute right-[10%] top-[58%] max-md:!hidden !text-signal-night text-[clamp(1rem,0.6rem+1vw,1.5rem)]"
-        style={{ mixBlendMode: "normal" }}
-      >
-        Checked · Ready to post
-      </p>
-      <div className="wrap relative pb-28 pt-[64vw] sm:pb-40 md:pt-44">
-        <div className="max-w-[44rem]">
-          <h2 id="cta-title" className="display mt-7 text-[length:var(--step-5)]">
-            Start with what is <em>already posted.</em>
+    <section aria-labelledby="cta-title" className="relative overflow-hidden pb-24 pt-16 sm:pb-32">
+      <Ribbon className="h-[120px] sm:h-[170px]" d="M -60 150 C 260 20, 560 190, 860 90 S 1200 10, 1500 120" viewBox="0 0 1440 200" />
+      <div className="wrap grid-12 items-center gap-y-12">
+        <div className="col-span-12 lg:col-span-6">
+          <h2 id="cta-title" className="display text-[length:var(--step-5)]">
+            See what your <em>documents need.</em>
           </h2>
-          <p className="lede mt-8 !max-w-[44ch]">
+          <p className="lede mt-7 !max-w-[42ch]">
             Send us your public website. We&rsquo;ll scope a Readiness Audit of the documents on it: what must be fixed,
-            what can be archived, and what the work will take. Or start with a small pilot.
+            what can wait for your team&rsquo;s decision, and what the work will take.
           </p>
-          <div className="mt-11 flex flex-wrap items-center gap-x-8 gap-y-3">
-            <Link href="/contact?topic=audit" className="btn btn-night">
+          <div className="mt-10 flex flex-wrap items-center gap-x-7 gap-y-3">
+            <Link href="/contact?topic=audit" className="btn">
               Request a Readiness Audit <span className="arrow" aria-hidden="true" data-icon="arrow-r"></span>
             </Link>
-            <Link href="/contact?topic=pilot" className="link-quiet text-moon">
-              Discuss a pilot <span aria-hidden="true" data-icon="arrow-r"></span>
+            <Link href="/contact?topic=pilot" className="link-quiet">
+              Discuss a pilot
             </Link>
+          </div>
+        </div>
+        <div className="col-span-12 lg:col-span-5 lg:col-start-8">
+          <div className="relative mx-auto max-w-[420px] rotate-[2deg]">
+            <ResolvedSheet />
+            <p className="stamp absolute -bottom-4 left-6 shadow-[0_6px_16px_-8px_rgb(23_50_40/0.4)]" aria-hidden="true">
+              Checked · ready to post
+            </p>
           </div>
         </div>
       </div>

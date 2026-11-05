@@ -33,18 +33,34 @@ test("internal links resolve", async ({ page, request }) => {
   }
 });
 
-test("lens and repair bench respond to keyboard", async ({ page }) => {
+test("signature interactions work by keyboard", async ({ page }) => {
   test.setTimeout(30_000);
   await page.goto("/");
+  // hero reading path: switch between states
+  const posted = page.getByRole("radio", { name: "As posted", exact: true });
+  await posted.click({ timeout: 5000 });
+  await expect(posted).toHaveAttribute("aria-checked", "true");
+  await page.getByRole("radio", { name: "After Sayable", exact: true }).click();
+  // two readers lens
   const slider = page.getByLabel("Compare the visible page with its hidden structure");
   await slider.focus({ timeout: 5000 });
   const before = await slider.inputValue();
   await page.keyboard.press("ArrowRight");
   expect(await slider.inputValue()).not.toBe(before);
-  await page.getByRole("radio", { name: "After repair" }).click({ timeout: 5000 });
+  await page.getByRole("radio", { name: "After repair", exact: true }).click({ timeout: 5000 });
   await expect(page.getByText("Heading level 1, Notice of Public Hearing.").first()).toBeVisible();
-  await page.getByRole("button", { name: "Apply repair" }).click({ timeout: 5000 });
-  await expect(page.getByRole("button", { name: "Undo repair" })).toBeVisible();
+  // sample report: arrow keys move between findings
+  const firstTab = page.getByRole("tab", { name: "Comment form fields have no names" });
+  await firstTab.focus();
+  await page.keyboard.press("ArrowDown");
+  await expect(page.getByRole("tab", { name: "Fee table has no header cells" })).toHaveAttribute("aria-selected", "true");
+  // estimator: moving a slider changes the arithmetic
+  const pages = page.getByLabel("PDF pages on your public site");
+  await pages.focus();
+  const out = page.locator("output").first();
+  const was = await out.textContent();
+  await page.keyboard.press("ArrowRight");
+  await expect(out).not.toHaveText(was ?? "");
 });
 
 test("contact form validates and never fakes success", async ({ page }) => {

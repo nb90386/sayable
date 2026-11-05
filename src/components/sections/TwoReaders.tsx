@@ -94,7 +94,7 @@ export function TwoReaders() {
 
           {/* Transcript */}
           <div className="col-span-12 lg:col-span-5 lg:pl-6">
-            <div role="radiogroup" aria-label="Document version" className="inline-flex border hairline p-1">
+            <div role="radiogroup" aria-label="Document version" className="rp-toggle">
               {(["before", "after"] as const).map((m) => (
                 <button
                   key={m}
@@ -102,13 +102,12 @@ export function TwoReaders() {
                   role="radio"
                   aria-checked={mode === m}
                   onClick={() => setMode(m)}
-                  className={`min-h-11 px-4 text-sm font-[540] transition-colors ${mode === m ? "bg-ink text-paper" : "text-ink-soft hover:text-ink"}`}
                 >
                   {m === "before" ? "Untagged, as posted" : "After repair"}
                 </button>
               ))}
             </div>
-            <h3 className="mt-8 font-serif text-[1.6rem] leading-tight">
+            <h3 className="title mt-8 text-[1.6rem]">
               {mode === "before" ? "What a listener might hear" : "What a listener should hear"}
             </h3>
             <ol className="mt-5 border-t hairline" aria-live="polite">
@@ -140,7 +139,7 @@ function StructureView({ mode }: { mode: Mode }) {
   const bad = mode === "before";
   return (
     <svg viewBox={VB} className="block h-full w-full">
-      <rect width="850" height="1100" fill="#18211d" />
+      <rect width="850" height="1100" fill="#13362e" />
       <g stroke="rgb(236 235 245 / 0.06)">
         {Array.from({ length: 34 }, (_, i) => (
           <line key={i} x1="0" x2="850" y1={i * 34} y2={i * 34} />
@@ -149,7 +148,7 @@ function StructureView({ mode }: { mode: Mode }) {
       {blocks.map((b) => {
         const p = pos.get(b.id);
         const skipped = !p;
-        const color = skipped ? "#4a3c1d" : bad ? "#ff8a5c" : "#b7adff";
+        const color = skipped ? "#56655d" : bad ? "#f0ae71" : "#9fd3bf";
         return (
           <g key={b.id}>
             <rect
@@ -158,7 +157,7 @@ function StructureView({ mode }: { mode: Mode }) {
               width={b.w + 12}
               height={b.h + 12}
               rx="3"
-              fill={skipped ? "none" : bad ? "rgb(255 138 92 / 0.07)" : "rgb(183 173 255 / 0.08)"}
+              fill={skipped ? "none" : bad ? "rgb(240 174 113 / 0.07)" : "rgb(159 211 191 / 0.08)"}
               stroke={color}
               strokeWidth="1.5"
               strokeDasharray={skipped ? "4 5" : undefined}
@@ -169,7 +168,7 @@ function StructureView({ mode }: { mode: Mode }) {
             {p ? (
               <g transform={`translate(${b.x + b.w - 14} ${b.y + 10})`}>
                 <circle r="17" fill={color} />
-                <text textAnchor="middle" y="6.5" fontFamily="var(--font-mono)" fontSize="17" fontWeight="500" fill="#18211d">
+                <text textAnchor="middle" y="6.5" fontFamily="var(--font-mono)" fontSize="17" fontWeight="500" fill="#13362e">
                   {p.n}
                 </text>
               </g>
