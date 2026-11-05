@@ -1,0 +1,138 @@
+/* ─── Living document (hero) ──────────────────────────────── */
+.ld-stage {
+  --px: 0;
+  --py: 0;
+  perspective: 1800px;
+  perspective-origin: 40% 30%;
+}
+.ld-rig {
+  position: relative;
+  transform-style: preserve-3d;
+  transform: rotateX(calc(9deg + var(--py) * -3deg)) rotateY(calc(-16deg + var(--px) * 5deg)) rotateZ(1.2deg);
+  transition: transform 1.6s var(--ease-out-expo);
+  will-change: transform;
+}
+.ld-page {
+  transform: translateZ(0);
+  transition: filter 1.2s var(--ease-out-expo);
+}
+.ld-structure {
+  transform: translateZ(0);
+  transition: transform 1.4s var(--ease-out-expo);
+  pointer-events: none;
+}
+.living-doc[data-phase="1"] .ld-structure,
+.living-doc[data-phase="2"] .ld-structure,
+.living-doc[data-phase="3"] .ld-structure {
+  transform: translateZ(90px) translate3d(calc(var(--px) * 10px), calc(var(--py) * 8px), 0);
+}
+.living-doc:not([data-phase="0"]) .ld-page { filter: saturate(0.7) brightness(0.985); }
+
+.ld-box {
+  fill: none;
+  stroke: var(--color-signal);
+  stroke-width: 1.5;
+  stroke-dasharray: 100 100;
+  stroke-dashoffset: 100;
+  transition: stroke-dashoffset 1.2s var(--ease-out-expo);
+  vector-effect: non-scaling-stroke;
+}
+.ld-box-artifact { stroke: var(--color-muted); stroke-dasharray: 2 2.5; stroke-dashoffset: 0; opacity: 0; transition: opacity 0.8s; }
+.ld-box-th { stroke-width: 1; stroke-opacity: 0.7; }
+.living-doc:not([data-phase="0"]) .ld-box { stroke-dashoffset: 0; }
+.living-doc:not([data-phase="0"]) .ld-box-artifact { opacity: 0.8; }
+
+.ld-tag { opacity: 0; transform: translateY(6px); transition: opacity 0.5s, transform 0.8s var(--ease-out-expo); transform-box: fill-box; }
+.ld-tag rect { fill: var(--color-signal); }
+.ld-tag text { fill: #fff; font-family: var(--font-mono); font-size: 13px; letter-spacing: 0.02em; }
+.ld-tag-artifact rect { fill: var(--color-sheet); stroke: var(--color-muted); stroke-dasharray: 2 2; }
+.ld-tag-artifact text { fill: var(--color-muted); }
+.ld-tag-mini rect { fill: var(--color-signal-wash); }
+.ld-tag-mini text { fill: var(--color-signal); font-size: 11.5px; }
+.living-doc[data-phase="2"] .ld-tag,
+.living-doc[data-phase="3"] .ld-tag { opacity: 1; transform: none; }
+
+.ld-path {
+  fill: none;
+  stroke: var(--color-signal);
+  stroke-width: 2;
+  stroke-dasharray: 100 100;
+  stroke-dashoffset: 100;
+  transition: stroke-dashoffset 2.2s var(--ease-in-out-quint);
+  vector-effect: non-scaling-stroke;
+}
+.ld-node { opacity: 0; transition: opacity 0.4s; transition-delay: calc(var(--o) * 180ms); }
+.ld-node circle { fill: var(--color-ink); }
+.ld-node text { fill: #fff; font-family: var(--font-mono); font-size: 13px; font-weight: 500; }
+.living-doc[data-phase="3"] .ld-path { stroke-dashoffset: 0; }
+.living-doc[data-phase="3"] .ld-node { opacity: 1; }
+
+/* hero headline: the word "understood" gets its own structure annotation */
+.annot {
+  position: relative;
+  white-space: nowrap;
+}
+.annot::after {
+  content: "";
+  position: absolute;
+  left: 0.04em;
+  right: 0.02em;
+  bottom: 0.02em;
+  height: 0.045em;
+  min-height: 2px;
+  background: var(--color-signal);
+  transform-origin: left;
+  transform: scaleX(var(--annot, 1));
+  transition: transform 1.4s var(--ease-out-expo) 1.6s;
+}
+.js-motion .annot:not(.is-in)::after { --annot: 0; }
+
+/* ─── Two readers lens ────────────────────────────────────── */
+.lens-range {
+  -webkit-appearance: none;
+  appearance: none;
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  background: transparent;
+  cursor: ew-resize;
+  margin: 0;
+  opacity: 0;
+  z-index: 5;
+}
+.lens-range::-webkit-slider-thumb { -webkit-appearance: none; width: 56px; height: 100vh; }
+.lens-range::-moz-range-thumb { width: 56px; height: 100vh; border: 0; }
+.lens-wrap:has(.lens-range:focus-visible) .lens-handle-knob { outline: 2px solid var(--color-signal); outline-offset: 4px; }
+
+/* ─── Inventory triage field ─────────────────────────────── */
+.inv-dot {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: var(--s);
+  height: calc(var(--s) * 1.29);
+  border-radius: 1px;
+  transform: translate3d(var(--x), var(--y), 0) rotate(var(--r));
+  transition: transform 1.3s var(--ease-out-expo), background-color 0.6s;
+  transition-delay: var(--dl);
+  will-change: transform;
+}
+
+/* ─── Lifecycle (dark) ────────────────────────────────────── */
+.lc-layer { opacity: 0; transition: opacity 0.7s var(--ease-out-quart), transform 0.9s var(--ease-out-expo); transform: translateY(8px); }
+.lc-layer.is-on { opacity: 1; transform: none; }
+
+/* ─── Mobile menu item entrance ───────────────────────────── */
+@media (prefers-reduced-motion: no-preference) {
+  #mobile-menu:not([hidden]) .menu-item { animation: menu-in 0.7s var(--ease-out-expo) both; animation-delay: calc(var(--i) * 45ms + 60ms); }
+}
+@keyframes menu-in { from { opacity: 0; transform: translateY(14px); } }
+
+@media (prefers-reduced-motion: reduce) {
+  .ld-rig { transform: rotateX(6deg) rotateY(-10deg); }
+}
+@media (max-width: 767px) {
+  .ld-rig { transform: rotateX(6deg) rotateY(-8deg) rotateZ(0.8deg); }
+  .living-doc:not([data-phase="0"]) .ld-structure { transform: translateZ(40px); }
+}
