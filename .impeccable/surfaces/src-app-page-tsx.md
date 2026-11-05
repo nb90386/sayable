@@ -7,28 +7,26 @@ related_targets: []
 
 # Surface brief: Sayable marketing site
 
-Mode: Persuade. Audience: city managers, ADA coordinators, clerks, municipal IT, public-sector buyers, web agencies. Primary action: Request a Readiness Audit (/contact?topic=audit). Proof: audio before/after of a sample permit form (TTS, labelled), a transparent estimator, a sample report, preliminary research benchmarks.
+Mode: Persuade. Audience: city managers, ADA coordinators, clerks, municipal IT and public-sector buyers. Primary action: Request a Readiness Audit.
 
 ## Direction contract
 
-THESIS: The document has two stories. The whole page is a split stage: what you see on porcelain at left, what a screen reader gets on graphite at right. The divider between them is the document's reading path. It refuses the split-hero template by making the split the entire page's argument rather than one hero.
+THESIS: Make document accessibility visible. The permit document is the product, presented the way a hardware company presents a device: large, centred, well lit. The founder rejected the 50/50 split, and it is refused here.
 
 OWN-WORLD:
-- Ground: porcelain #F6F5F1, plus graphite #111418 for the accessible story.
-- Ink: #121314.
-- Accent: vermilion #E4462B (night tone #FF7A5C), the proofreader's pen, used only where structure is broken.
-- Type: Bricolage Grotesque at a condensed width for display; Atkinson Hyperlegible Next for reading; Atkinson Hyperlegible Mono for structure tags only.
-- Documents: white sheets with a 4px radius.
-- Actions: ink or moon pills.
+- Ground: luminous cool white #F8F9FB, with #EEF1F5 bands.
+- Ink: #12151B; secondary text #535B69.
+- Accent: one structure blue, #2458E8.
+- Broken relationships: ember #E5521F (text #B53D12), functional and sparse.
+- Cinematic scenes: dark #10141C, entered and left through soft gradients rather than hard cuts.
+- Type: Onest for every role, with JetBrains Mono only for document annotations.
+- Documents: white sheets with a second page beneath and deep soft shadows.
+- Buttons: pill-shaped.
 
-STORY: hear the same form read twice; see the inventory sorted; follow one file through five stages while its visible page never changes; compute the workload; see what software and people check; then the divider collapses and one page asks for the audit.
+STORY: opening scan; hear the form twice; the collection sorted; one file through five stages in a workspace; the estimator; the method and a sample report; the audit offer; the resolved form at the close.
 
-FIRST VIEWPORT:
-- A two-column headline across the split: "A document can look right." beside "And still leave someone out."
-- Left: one-line copy, "Hear the difference" and the ink pill "Request a Readiness Audit", then the permit sheet.
-- Right: the file's broken structure list.
-- The tangled vermilion divider runs between the columns, with a pill label at the bottom of the viewport.
+FIRST VIEWPORT: a centred two-line headline, "Public documents, / readable by everyone.", with a one-line lede, a blue pill "Request a Readiness Audit" and the link "Hear the difference". Below it, a large tilted permit sheet spans most of the width. Scrolling flattens it and moves a blue scan line down the page, revealing the broken structure.
 
-FORM: Scroll Craft grammar 2.7 "Split stage" (scrollcraft/builds/sayable/BRIEF.md). The direction is brief-pinned ("THE DOCUMENT HAS TWO STORIES", founder brief Nov 5 2026), so the Impeccable concept roll was not run; per new-work, "A user- or brief-pinned decision beats the roll, always". seed:a30754c9914f7a53 (roll run Nov 5 2026, assigned index 5 of the grounded list; the brief-pinned direction overrides the assignment per new-work: "A user- or brief-pinned decision beats the roll, always").
+FORM: Scroll Craft grammar 2.1, filmic one-shot (scrollcraft/builds/sayable-apple/BRIEF.md). seed:a30754c9914f7a53 (Impeccable roll run Nov 5 2026; the brief-pinned direction overrides the assignment, per new-work: "A user- or brief-pinned decision beats the roll, always").
 
 FINISH: unreviewed and undocumented is unfinished; this build ends with the finish review, the verdict, DESIGN.md, and every shipping raster carrying its provenance

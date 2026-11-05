@@ -9,8 +9,8 @@ await btn.click();
 await p.waitForTimeout(3500);
 const state = await p.evaluate(() => {
   const a = document.querySelectorAll("audio")[0];
-  const on = document.querySelector('[aria-label="Transcript, as posted"] .is-on');
-  return { t: a.currentTime.toFixed(2), paused: a.paused, err: a.error && a.error.code, highlighted: on ? on.textContent : null, pressed: document.querySelector('button[aria-pressed="true"]')?.textContent };
+  const on = document.querySelector('.caption-line');const hl = document.querySelector('.hl.is-on, .hl-fixed.is-on');
+  return { t: a.currentTime.toFixed(2), paused: a.paused, err: a.error && a.error.code, caption: on ? on.textContent : null, sheetHighlight: !!hl, pressed: document.querySelector('button[aria-pressed="true"]')?.textContent };
 });
 console.log(JSON.stringify(state));
 await p.getByRole("button", { name: "Pause" }).click();

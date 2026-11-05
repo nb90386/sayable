@@ -21,7 +21,7 @@
 .on-night .permit-under { background: #dfe3ea; }
 
 /* ─── Opening: pinned stage with the structure scan (signature) ── */
-.opening { height: 250vh; --p: 0; --s: clamp(0, calc((var(--p) - 0.1) / 0.62), 1); }
+.opening { height: 220vh; --p: 0; --s: clamp(0, calc((var(--p) - 0.06) / 0.74), 1); }
 .opening-stage { position: sticky; top: 0; height: 100svh; overflow: hidden; display: flex; flex-direction: column; align-items: center; padding-top: calc(var(--header-h) + clamp(2rem, 6vh, 4.5rem)); }
 .opening-copy { position: relative; z-index: 0; transform: translateY(calc(var(--p) * -80px)); opacity: clamp(0, calc(1 - var(--p) * 4), 1); }
 .opening-doc { position: relative; z-index: 1; width: min(880px, 92vw); margin-top: clamp(1.5rem, 4vh, 3rem); perspective: 2400px; flex: none; }
@@ -35,11 +35,12 @@
 .opening-xray .sheet-path { stroke-dasharray: 100 100; stroke-dashoffset: calc(100 - var(--s) * 100); }
 .opening-scan { position: absolute; left: -2%; right: -2%; top: calc(var(--s) * 100%); height: 2px; background: var(--color-signal); opacity: clamp(0, calc(var(--s) * 20), 1); }
 .opening-scan span { position: absolute; right: 0; top: -13px; font-size: 12px; line-height: 1; color: #fff; background: var(--color-signal); padding: 6px 10px; border-radius: 999px; }
-.opening-caption { position: absolute; bottom: clamp(1.5rem, 5vh, 3rem); left: 0; right: 0; z-index: 3; font-size: var(--step-1); font-weight: 560; letter-spacing: -0.02em; opacity: clamp(0, calc((var(--p) - 0.72) * 6), 1); }
+.opening-caption { position: absolute; bottom: clamp(1.5rem, 5vh, 3rem); left: 0; right: 0; z-index: 3; font-size: var(--step-1); font-weight: 560; letter-spacing: -0.02em; opacity: clamp(0, calc((var(--p) - 0.6) * 5), 1); }
 .opening-caption::before { content: ""; position: absolute; inset: -150px 0 -80px; background: linear-gradient(to top, var(--color-paper) 62%, rgb(248 249 251 / 0)); z-index: -1; }
 @media (max-width: 767px) {
   .opening { height: 210vh; }
-  .opening-tilt { transform: translateY(calc(var(--p) * -40%)) rotateX(max(0deg, calc(14deg - var(--p) * 24deg))); }
+  .opening-tilt { transform: translateY(calc(var(--p) * -58svh)) rotateX(max(0deg, calc(14deg - var(--p) * 24deg))); }
+  .opening-scan span { display: none; }
 }
 @media (prefers-reduced-motion: reduce) {
   .opening { height: auto; --s: 1; }
@@ -68,10 +69,10 @@
 .hl { fill: rgb(229 82 31 / 0.14); stroke: #e5521f; stroke-width: 4; opacity: 0; transition: opacity 0.2s; }
 .hl-fixed { fill: rgb(36 88 232 / 0.1); stroke: #2458e8; stroke-width: 4; opacity: 0; transition: opacity 0.2s; }
 .hl.is-on, .hl-fixed.is-on { opacity: 1; }
-.player { display: flex; align-items: center; gap: 1rem; padding: 0.5rem 1.1rem 0.5rem 0.5rem; border-radius: 999px; background: rgb(255 255 255 / 0.08); }
+.player { display: flex; align-items: center; gap: 0.75rem; min-width: 0; padding: 0.5rem 1.1rem 0.5rem 0.5rem; border-radius: 999px; background: rgb(255 255 255 / 0.08); }
 .player-btn { display: inline-flex; align-items: center; justify-content: center; gap: 0.5rem; min-height: 3rem; padding: 0 1.3rem; border-radius: 999px; font-weight: 600; background: var(--color-moon); color: var(--color-night); white-space: nowrap; }
-.wave { display: flex; align-items: center; gap: 3px; height: 34px; flex: 1; min-width: 0; }
-.wave i { flex: 1; min-width: 2px; border-radius: 2px; background: currentColor; opacity: 0.3; transition: opacity 0.2s; }
+.wave { display: flex; align-items: center; gap: 3px; height: 34px; flex: 1; min-width: 0; overflow: hidden; }
+.wave i { flex: 1 1 0; min-width: 0; border-radius: 2px; background: currentColor; opacity: 0.38; min-height: 4px; transition: opacity 0.2s; }
 .wave i.on { opacity: 1; }
 .caption-line { min-height: 2.7em; font-size: var(--step-2); font-weight: 560; letter-spacing: -0.025em; line-height: 1.3; }
 
@@ -95,3 +96,5 @@
   #mobile-menu:not([hidden]) .menu-item { animation: menu-in 0.6s var(--ease-out-expo) both; animation-delay: calc(var(--i) * 40ms + 50ms); }
 }
 @keyframes menu-in { from { opacity: 0; transform: translateY(12px); } }
+
+@media (max-width: 480px) { .wave i:nth-child(n+25) { display: none; } .player-btn { padding: 0 1rem; } }

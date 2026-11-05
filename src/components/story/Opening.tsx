@@ -11,15 +11,28 @@ import { BrokenLayer, PermitSheet } from "../doc/PermitSheet";
  * scan line down the page; above the line the hidden structure shows through.
  */
 export function Opening() {
-  const ref = useScrollVars<HTMLElement>({ reducedValue: 1 });
+  const ref = useScrollVars<HTMLElement>({
+    reducedValue: 1,
+    // publish the rendered scan position for the Scroll Craft verification harness
+    onProgress: (p) => {
+      const el = ref.current;
+      if (!el) return;
+      const scan = Math.min(1, Math.max(0, (p - 0.06) / 0.74));
+      const caption = Math.min(1, Math.max(0, (p - 0.6) * 5));
+      el.setAttribute("data-sc-verify-state", `${scan.toFixed(2)}|${caption.toFixed(2)}`);
+      // the resolved frame (scan done, caption shown) is an authored hold
+      if (scan >= 1 && caption >= 1) el.setAttribute("data-sc-verify-hold", "true");
+      else el.removeAttribute("data-sc-verify-hold");
+    },
+  });
   // Scroll Craft verification harness waits for this marker before sampling.
   useEffect(() => document.documentElement.classList.add("sc-ready"), []);
   return (
     <section ref={ref} data-sc-act="opening" aria-labelledby="hero-title" className="opening relative">
       <div className="opening-stage">
         <div className="opening-copy wrap text-center">
-          <h1 id="hero-title" className="display mx-auto max-w-[13ch] text-[length:clamp(2.6rem,1.5rem+4.2vw,5.4rem)]">
-            Public documents, readable by everyone.
+          <h1 id="hero-title" className="display mx-auto text-[length:clamp(2.5rem,1.4rem+4.2vw,5.4rem)]">
+            <span className="block">Public documents,</span> <span className="block">readable by everyone.</span>
           </h1>
           <p className="lede mx-auto mt-5 !max-w-[42ch]">
             Sayable finds the documents residents rely on, repairs the structure screen readers depend on, and shows exactly

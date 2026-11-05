@@ -151,7 +151,7 @@ export function Value() {
           </div>
 
           <div className="mt-10 border-t pt-8 hairline">
-            <p className="text-[1.02rem]">
+            <p className="max-w-[72ch] text-[1.02rem]">
               Avoided by sorting first: <Money value={baseline - sorted} className="numeral font-[600]" />. Each month after that,{" "}
               {num(v.monthly)} new pages cost about <strong className="numeral">{usd(monthlyHand)}</strong> by hand, or{" "}
               <strong className="numeral">{usd(monthlyMixed)}</strong> with routine pages automated and reviewed.
@@ -184,7 +184,7 @@ export function Value() {
           </form>
 
           <div className="mt-10 flex flex-col items-start gap-6 sm:flex-row sm:items-center sm:justify-between">
-            <p className="max-w-[62ch] text-[0.86rem] leading-relaxed text-muted">
+            <p className="max-w-[60ch] text-[0.86rem] leading-relaxed text-muted">
               A hypothetical estimate from the numbers you entered, not a quote or a measured result. The automation share is one average; real documents vary, and tables, forms and scans usually need a person. Sayable does not decide which documents your organization must remediate.
             </p>
             <Link href="/contact?topic=audit" className="btn shrink-0">
