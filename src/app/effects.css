@@ -97,6 +97,7 @@
   height: 100%;
   background: transparent;
   cursor: ew-resize;
+  touch-action: pan-y;
   margin: 0;
   opacity: 0;
   z-index: 5;
@@ -108,15 +109,11 @@
 /* ─── Inventory triage field ─────────────────────────────── */
 .inv-dot {
   position: absolute;
-  left: 0;
-  top: 0;
   width: var(--s);
   height: calc(var(--s) * 1.29);
   border-radius: 1px;
-  transform: translate3d(var(--x), var(--y), 0) rotate(var(--r));
-  transition: transform 1.3s var(--ease-out-expo), background-color 0.6s;
+  transition: left 1.3s var(--ease-out-expo), top 1.3s var(--ease-out-expo), transform 1.3s var(--ease-out-expo), background-color 0.6s;
   transition-delay: var(--dl);
-  will-change: transform;
 }
 
 /* ─── Lifecycle (dark) ────────────────────────────────────── */

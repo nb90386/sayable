@@ -31,11 +31,7 @@ export function LivingDocument() {
 
   // Entrance choreography.
   useEffect(() => {
-    if (reduced) {
-      setPhase(3);
-      setDecodeT(1);
-      return;
-    }
+    if (reduced) return;
     const t1 = setTimeout(() => setPhase(1), 700);
     const t2 = setTimeout(() => setPhase(2), 1350);
     const t3 = setTimeout(() => setPhase(3), 2100);
@@ -83,7 +79,8 @@ export function LivingDocument() {
     };
   }, [reduced]);
 
-  const on = show ? phase : 0;
+  const on = show ? (reduced ? 3 : phase) : 0;
+  const dt = reduced ? 1 : decodeT;
   const ordered = blocks.filter((b) => b.order);
 
   return (
@@ -120,7 +117,7 @@ export function LivingDocument() {
 
             <g className="ld-tags">
               {blocks.map((b, i) => {
-                const label = decode(b.tag, decodeT, i * 3);
+                const label = decode(b.tag, dt, i * 3);
                 const w = b.tag.length * 8.4 + 18;
                 const x = b.id === "seal" ? b.x + b.w - w + 8 : b.x + b.w + 8 - w;
                 const y = b.y - 30;
@@ -147,7 +144,7 @@ export function LivingDocument() {
                 <g key={i} transform={`translate(${f.x + 8} ${f.y + 9})`}>
                   <g className="ld-tag ld-tag-mini">
                     <rect width={f.name.length * 7.6 + 12} height="20" rx="2" />
-                    <text x="6" y="14">{decode(f.name, decodeT, 20 + i)}</text>
+                    <text x="6" y="14">{decode(f.name, dt, 20 + i)}</text>
                   </g>
                 </g>
               ))}

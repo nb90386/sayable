@@ -21,7 +21,11 @@ export function Header() {
   }, []);
 
   // Close on navigation.
-  useEffect(() => setOpen(false), [pathname]);
+  const [lastPath, setLastPath] = useState(pathname);
+  if (pathname !== lastPath) {
+    setLastPath(pathname);
+    setOpen(false);
+  }
 
   const close = useCallback(() => {
     setOpen(false);

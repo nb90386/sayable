@@ -42,7 +42,7 @@ export function Hero() {
           </div>
         </div>
 
-        <dl className="mt-20 grid grid-cols-2 border-t hairline md:grid-cols-4" data-reveal>
+        <dl className="mt-20 grid grid-cols-2 border-t hairline md:grid-cols-4">
           {[
             ["Checked against", "PDF/UA-1 with veraPDF"],
             ["Reviewed for", "meaning, not just rules"],

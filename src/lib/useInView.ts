@@ -10,8 +10,8 @@ export function useInView<T extends Element>(opts: { once?: boolean; rootMargin?
     const el = ref.current;
     if (!el) return;
     if (typeof IntersectionObserver === "undefined") {
-      setInView(true);
-      return;
+      const raf = requestAnimationFrame(() => setInView(true));
+      return () => cancelAnimationFrame(raf);
     }
     const io = new IntersectionObserver(
       ([entry]) => {
