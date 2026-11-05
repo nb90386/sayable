@@ -46,7 +46,7 @@ test("signature interactions work by keyboard", async ({ page }) => {
   await expect(page.getByRole("list", { name: "Transcript, as posted" })).toContainText("Edit text. Blank.");
   await expect(page.getByRole("list", { name: "Transcript, after repair" })).toContainText("Applicant name. Edit text. Required.");
   // audio file is served
-  const res = await page.request.get("/audio/permit-before.m4a");
+  const res = await page.request.get("/audio/permit-before.mp3");
   expect(res.status()).toBe(200);
   // sample report: arrow keys move between findings
   const firstTab = page.getByRole("tab", { name: "Comment form fields have no names" });

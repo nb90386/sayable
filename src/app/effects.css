@@ -19,6 +19,10 @@
 @media (min-width: 1024px) { .split-head { grid-template-columns: 1fr 1fr; } }
 .split-head > span { display: block; padding-inline: var(--gutter); padding-top: clamp(5rem, 4rem + 4vw, 8.5rem); }
 .split-head.is-title > span { padding-top: calc(var(--header-h) + clamp(2.5rem, 1rem + 4vw, 5.5rem)); }
+@media (max-width: 1023px) {
+  .split-head > span:last-child, .split-head.is-title > span:last-child { padding-top: 2.25rem; }
+  .split-head > span:first-child { padding-bottom: 2rem; }
+}
 .split-head > span:first-child { background: var(--color-paper); color: var(--color-ink); }
 .split-head > span:last-child { background: var(--color-night); color: var(--color-moon); }
 .split-head > span:last-child em { color: var(--color-signal-night); }

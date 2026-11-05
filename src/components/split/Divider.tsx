@@ -73,10 +73,13 @@ export function Divider() {
       { rootMargin: "-48% 0px -48% 0px" },
     );
     acts.forEach((a) => io.observe(a));
+    // Scroll Craft verification harness waits for this marker before sampling.
+    document.documentElement.classList.add("sc-ready");
     return () => {
       window.removeEventListener("scroll", onScroll);
       window.removeEventListener("resize", onScroll);
       cancelAnimationFrame(raf.current);
+      raf.current = 0;
       io.disconnect();
     };
   }, []);
@@ -94,7 +97,12 @@ export function Divider() {
   };
 
   return (
-    <div aria-hidden="true" className={`divider ${collapsed ? "is-collapsed" : ""}`}>
+    <div
+      aria-hidden="true"
+      className={`divider ${collapsed ? "is-collapsed" : ""}`}
+      data-sc-verify-state={`${desk.amp.toFixed(2)}|${act}|${collapsed ? 1 : 0}`}
+      data-sc-verify-hold={collapsed ? "true" : undefined}
+    >
       <svg className="divider-desk" viewBox="0 0 40 1000" preserveAspectRatio="none">
         <path d={desk.d} className="divider-line" />
         {desk.knots.map((k, i) => (

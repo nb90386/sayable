@@ -63,9 +63,10 @@ for (const [name, segs] of Object.entries(scripts)) {
   });
   const concat = path.join(tmp, `${name}.txt`);
   writeFileSync(concat, parts.map((p) => `file '${p}'`).join("\n"));
-  const out = path.join(outDir, `permit-${name}.m4a`);
-  execFileSync("ffmpeg", ["-loglevel", "error", "-y", "-f", "concat", "-safe", "0", "-i", concat, "-c:a", "aac", "-b:a", "64k", out]);
-  cues[name] = { src: `/audio/permit-${name}.m4a`, duration: +dur(out).toFixed(3), cues: list };
+  const out = path.join(outDir, `permit-${name}.mp3`);
+  // MP3 plays in every current browser, including Chromium builds without AAC.
+  execFileSync("ffmpeg", ["-loglevel", "error", "-y", "-f", "concat", "-safe", "0", "-i", concat, "-c:a", "libmp3lame", "-b:a", "64k", out]);
+  cues[name] = { src: `/audio/permit-${name}.mp3`, duration: +dur(out).toFixed(3), cues: list };
   console.log(name, cues[name].duration + "s", list.length, "cues");
 }
 writeFileSync(

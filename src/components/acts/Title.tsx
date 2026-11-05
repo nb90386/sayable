@@ -5,7 +5,7 @@ import { PVB, PermitPage, regions, structure } from "../doc/permit";
 export function Title() {
   return (
     <section data-sc-act="title" aria-labelledby="hero-title" className="split relative">
-      <h1 id="hero-title" className="split-head is-title display text-[length:clamp(2.6rem,1.5rem+4.4vw,6rem)]">
+      <h1 id="hero-title" className="split-head is-title display text-[length:clamp(2.5rem,1.4rem+3.6vw,5rem)]">
         <span className="pb-6 lg:pb-10">A document can look right.</span>
         <span className="pb-6 lg:pb-10">
           And still <em>leave someone out.</em>
@@ -16,7 +16,7 @@ export function Title() {
           <p className="story-label lg:hidden" aria-hidden="true">
             What you see
           </p>
-          <p className="lede ml-auto !max-w-[34ch] lg:text-right">
+          <p className="lede !max-w-[34ch] lg:ml-auto lg:text-right">
             Sayable helps cities and counties find the public documents residents rely on, repair the structure assistive
             technology reads, and show exactly what was checked.
           </p>
