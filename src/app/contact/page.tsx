@@ -39,7 +39,7 @@ export default async function ContactPage({ searchParams }: { searchParams: Prom
             Cities, counties, agencies and the firms who publish for them. We reply from a person, not an autoresponder.
           </p>
 
-          <h2 className="tag mt-14 !text-muted">What happens after you write</h2>
+          <h2 className="title mt-14 text-[1.15rem]">What happens after you write</h2>
           <ol className="mt-4 border-t hairline">
             {steps.map((s) => (
               <li key={s.n} className="border-b py-6 hairline">

@@ -44,7 +44,7 @@ export function Row({
     <section id={id} aria-labelledby={id ? `${id}-title` : undefined} className="border-t hairline py-12 sm:py-16">
       <div className="grid-12 gap-y-6">
         <div className="col-span-12 md:col-span-5">
-          <h2 id={id ? `${id}-title` : undefined} className="font-serif text-[length:var(--step-3)] font-[420] leading-[1.06] tracking-[-0.018em]">
+          <h2 id={id ? `${id}-title` : undefined} className="text-[length:var(--step-3)] font-[640] leading-[1.06] tracking-[-0.036em]">
             {title}
           </h2>
           {kicker ? <p className="mt-4 max-w-[34ch] font-serif text-[1.15rem] text-ink-soft">{kicker}</p> : null}
@@ -87,9 +87,8 @@ export function Spec({ items }: { items: string[] }) {
   return (
     <ul className="mt-6 border-t hairline">
       {items.map((it) => (
-        <li key={it} className="flex gap-4 border-b py-3 text-[0.95rem] hairline">
-          <span aria-hidden="true" className="mt-[0.55em] h-2 w-2 shrink-0 bg-signal" />
-          <span>{it}</span>
+        <li key={it} className="border-b py-3 hairline">
+          {it}
         </li>
       ))}
     </ul>

@@ -105,8 +105,29 @@ export default function VerifyPage() {
             </p>
           </div>
 
-          <div className="mt-12 overflow-x-auto" tabIndex={0} role="region" aria-label="What each layer of checking catches and misses">
-            <table className="w-full min-w-[56rem] border-collapse text-left">
+          <ol className="mt-10 border-t hairline md:hidden">
+            {layers.map((l) => (
+              <li key={l.name} className="border-b py-6 hairline">
+                <h3 className="title text-[1.2rem]">{l.name}</h3>
+                <dl className="mt-3 space-y-3 text-ink-soft">
+                  <div>
+                    <dt className="text-[0.85rem] font-[600] text-muted">What it does</dt>
+                    <dd className="mt-0.5">{l.what}</dd>
+                  </div>
+                  <div>
+                    <dt className="text-[0.85rem] font-[600] text-muted">Catches</dt>
+                    <dd className="mt-0.5">{l.catches}</dd>
+                  </div>
+                  <div>
+                    <dt className="text-[0.85rem] font-[600] text-muted">Misses</dt>
+                    <dd className="mt-0.5">{l.misses}</dd>
+                  </div>
+                </dl>
+              </li>
+            ))}
+          </ol>
+          <div className="mt-12 hidden md:block">
+            <table className="w-full border-collapse text-left">
               <caption className="sr-only">Comparison of verification layers: what each checks, catches and misses</caption>
               <thead>
                 <tr className="border-y hairline text-[0.85rem] text-muted">
@@ -146,9 +167,8 @@ export default function VerifyPage() {
               <h3 className="title text-[1.15rem]">What a check report records</h3>
               <ul className="mt-5 border-t hairline">
                 {evidence.map((e) => (
-                  <li key={e} className="flex gap-4 border-b py-3 text-[0.975rem] hairline">
-                    <span aria-hidden="true" className="mt-[0.55em] h-2 w-2 shrink-0 bg-signal" />
-                    <span>{e}</span>
+                  <li key={e} className="border-b py-3 hairline">
+                    {e}
                   </li>
                 ))}
               </ul>

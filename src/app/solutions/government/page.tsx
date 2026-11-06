@@ -36,7 +36,7 @@ const sortSteps = [
 ];
 
 const procurement = [
-  "The Readiness Audit is a flat fee, with an indicative starting range of $1,500 to $5,000 by entity size. We aim to price it to fit small-purchase approval where possible.",
+  "The Readiness Audit is one flat fee, set by the size of your site and quoted in writing. We aim to keep it within small-purchase approval limits where possible.",
   "The scope is written down and quoted before anything starts.",
   "The audit stands on its own. You are not committing to repairs by buying it.",
   "Work is limited to public documents.",

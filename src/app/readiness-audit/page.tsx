@@ -240,6 +240,7 @@ export default function ReadinessAuditPage() {
                   </tbody>
                 </table>
               </div>
+              <p className="px-5 pb-4 pt-1 text-[0.85rem] text-muted sm:hidden">Scroll the table sideways to see every column.</p>
             </div>
             <figcaption className="mt-4 max-w-[52ch] text-[0.9rem] text-muted">
               An illustration with made-up files, to show the shape of the inventory. It is not a real client report.
@@ -304,9 +305,9 @@ export default function ReadinessAuditPage() {
             Price
           </h2>
           <div className="col-span-12 lg:col-span-6 lg:col-start-7">
-            <p className="numeral text-[clamp(2rem,1.4rem+2.4vw,3.4rem)]">$1,500 to $5,000</p>
+            <p className="numeral text-[clamp(2rem,1.4rem+2.4vw,3.4rem)]">One flat fee, in writing</p>
             <p className="mt-4 max-w-[52ch] text-moon-muted">
-              This is an indicative starting range for a flat fee, set by the size of your entity. The price is quoted in writing after scoping. You see it before anything starts.
+              The fee is set by the size of your site and quoted in writing after a short scoping call. You see the price before anything starts, and the audit does not commit you to any further work.
             </p>
           </div>
         </div>

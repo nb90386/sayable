@@ -26,3 +26,13 @@ Status as of 2026-11-05, sprint branch `sayable/premium-production-sprint-2026-1
 - Screen-reader testing with VoiceOver or NVDA users has not been done. Automated checks do not prove WCAG conformance.
 - The ADA Title II dates were moved by DOJ's April 2026 interim final rule (now April 26, 2027 and April 26, 2028). The guides cite the Federal Register; recheck before launch.
 - `npm audit --omit=dev`: 0 vulnerabilities. Full audit: 8 moderate in dev-only ESLint tooling (@typescript-eslint), not shipped to the browser; left alone to avoid a breaking lint upgrade.
+
+## Founder decisions still open
+- **Publishing a price.** The spec's indicative audit range ($1,500 to $5,000) is deliberately not shown; pages say "one flat fee, set by the size of your site, quoted in writing".
+- **Agenda Desk turnaround.** "Aim for 24 to 48 hours, agreed in writing" comes from the spec; confirm before launch.
+- **Washington State contract rates** in the estimator hint ($3.34 / $4.60 per page): confirm current figures.
+
+## Independent design review (Impeccable finish reviewer, 2026-11-05)
+Fixed in this sprint: the unapproved price, the phone layout of the /verify comparison (now stacked below md), scroll hints on wide tables, one heading weight for all section headings, Spec lists at body size without decorative blue squares, eyebrow and mono labels removed (404, contact, legal contents), the legal draft note no longer uses a side stripe, the 404 sheet redrawn with an under-page and an ember "page not found" region, and the repaired permit sheet added to /product.
+
+Still open (next design pass): give each /how-it-works stage its own composition instead of five identical rows; turn the /product services into one comparison table; soften the hard paper-to-night cuts on supporting pages; show a sample report cover on /readiness-audit.

@@ -1,0 +1,13 @@
+import { chromium } from "@playwright/test";
+const out = process.argv[2];
+const b = await chromium.launch({ executablePath: process.env.PW_CHROME });
+const p = await b.newPage({ viewport: { width: 390, height: 844 }, hasTouch: true });
+await p.goto("http://localhost:3100/about", { waitUntil: "networkidle" });
+await p.waitForTimeout(500);
+await p.screenshot({ path: `${out}/banner-390.png` });
+await p.getByRole("button", { name: "Essential only" }).click();
+await p.evaluate(() => window.scrollTo(0, document.body.scrollHeight));
+await p.waitForTimeout(400);
+const f = await p.locator("footer").boundingBox();
+await p.screenshot({ path: `${out}/footer-390.png`, clip: { x: 0, y: 0, width: 390, height: 300 } });
+await b.close();

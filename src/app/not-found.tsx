@@ -16,8 +16,7 @@ export default function NotFound() {
     <div className="wrap pb-24 pt-[calc(var(--header-h)+4rem)] sm:pb-32">
       <div className="grid-12 gap-y-12">
         <div className="col-span-12 lg:col-span-7">
-          <p className="mono text-muted">404</p>
-          <h1 className="display mt-5 text-[length:clamp(2.6rem,1.4rem+4.4vw,5.2rem)]">This page isn&apos;t here.</h1>
+          <h1 className="display text-[length:clamp(2.6rem,1.4rem+4.4vw,5.2rem)]">This page isn&apos;t here.</h1>
           <p className="lede mt-8">
             The link may be old, or the address may have a typo. These pages are a good place to pick up.
           </p>
@@ -33,19 +32,26 @@ export default function NotFound() {
           </ul>
         </div>
         <div className="col-span-12 lg:col-span-4 lg:col-start-9">
-          <svg viewBox="0 0 240 310" className="mx-auto w-full max-w-[260px]" aria-hidden="true" focusable="false">
-            <rect x="22" y="18" width="196" height="274" rx="6" fill="var(--color-sheet)" stroke="var(--color-ink)" strokeOpacity="0.35" strokeWidth="1.5" />
-            <rect x="44" y="44" width="92" height="10" rx="2" fill="var(--color-ink)" fillOpacity="0.8" />
-            <g fill="var(--color-ink)" fillOpacity="0.2">
-              <rect x="44" y="72" width="152" height="6" rx="2" />
-              <rect x="44" y="88" width="132" height="6" rx="2" />
-              <rect x="44" y="104" width="146" height="6" rx="2" />
-              <rect x="44" y="232" width="140" height="6" rx="2" />
-              <rect x="44" y="248" width="96" height="6" rx="2" />
-            </g>
-            <rect x="44" y="132" width="152" height="80" rx="4" fill="none" stroke="var(--color-signal)" strokeWidth="2" strokeDasharray="7 6" />
-            <text x="120" y="178" textAnchor="middle" fontFamily="var(--font-mono)" fontSize="22" fill="var(--color-signal)">?</text>
-          </svg>
+          <div className="relative mx-auto w-full max-w-[280px]" aria-hidden="true">
+            <div className="absolute inset-0 translate-x-3 translate-y-3 rotate-[2deg] rounded-[6px] bg-sheet shadow-[0_1px_2px_rgb(16_20_28/0.06)]" />
+            <svg
+              viewBox="0 0 240 310"
+              className="relative w-full rounded-[6px] bg-sheet shadow-[0_2px_4px_rgb(16_20_28/0.06),0_28px_60px_-24px_rgb(16_20_28/0.35)]"
+              focusable="false"
+            >
+              <rect x="24" y="28" width="96" height="11" rx="2" fill="var(--color-ink)" fillOpacity="0.85" />
+              <g fill="var(--color-ink)" fillOpacity="0.18">
+                <rect x="24" y="56" width="176" height="6" rx="2" />
+                <rect x="24" y="72" width="150" height="6" rx="2" />
+                <rect x="24" y="88" width="164" height="6" rx="2" />
+                <rect x="24" y="236" width="160" height="6" rx="2" />
+                <rect x="24" y="252" width="110" height="6" rx="2" />
+              </g>
+              <rect x="24" y="116" width="192" height="96" rx="5" fill="rgb(181 61 18 / 0.05)" stroke="var(--color-ember)" strokeWidth="1.8" strokeDasharray="6 5" />
+              <rect x="64" y="154" width="112" height="22" rx="11" fill="var(--color-ember)" />
+              <text x="120" y="169" textAnchor="middle" fontFamily="var(--font-mono)" fontSize="10.5" fill="#fff">page not found</text>
+            </svg>
+          </div>
         </div>
       </div>
     </div>

@@ -36,7 +36,7 @@ export function LegalLayout({
         {hideDraft ? null : (
         <aside
           aria-labelledby="draft-note"
-          className="mb-12 max-w-[66ch] border-l-2 border-ember bg-ember-wash px-5 py-4 text-[0.97rem] text-ink-soft"
+          className="mb-12 max-w-[40rem] rounded-[6px] bg-paper-deep px-5 py-4 text-[0.97rem] text-ink-soft shadow-[inset_0_0_0_1px_var(--rule-strong)]"
         >
           <h2 id="draft-note" className="title text-ink">
             Review draft
@@ -59,7 +59,7 @@ export function LegalLayout({
         <div className="grid-12 gap-y-10">
           <nav aria-label="On this page" className="col-span-12 lg:col-span-3">
             <div className="lg:sticky lg:top-[calc(var(--header-h)+2rem)]">
-              <p className="tag !text-muted">On this page</p>
+              <p className="font-[600] text-ink">Contents</p>
               <ol className="mt-3 border-t hairline">
                 {sections.map((s) => (
                   <li key={s.id} className="border-b hairline">
@@ -81,7 +81,7 @@ export function LegalLayout({
 export function LegalSectionBlock({ id, title, children }: { id: string; title: string; children: React.ReactNode }) {
   return (
     <section id={id} aria-labelledby={`${id}-title`} className="scroll-mt-[calc(var(--header-h)+1.5rem)] border-t hairline py-10 first:border-t-0 first:pt-0">
-      <h2 id={`${id}-title`} className="font-serif text-[length:var(--step-2)] font-[420] leading-[1.1] tracking-[-0.018em]">
+      <h2 id={`${id}-title`} className="title text-[length:var(--step-2)] leading-[1.1] text-ink">
         {title}
       </h2>
       <div className="mt-5 space-y-4 text-ink-soft [&_li]:mt-1.5 [&_ul]:list-disc [&_ul]:pl-5">{children}</div>

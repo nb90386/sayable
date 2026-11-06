@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { PermitSheet, SheetLegend } from "@/components/doc/PermitSheet";
 import { PageCta, PageIntro, Row, Spec } from "@/components/pages/PageParts";
 
 export const metadata: Metadata = {
@@ -112,6 +113,20 @@ export default function ProductPage() {
         lede="Sayable is a service backed by our own software. We find the documents that need attention, repair them with automation and people, and check every file the same way."
         note="Discover › Repair › Verify › Publish › Monitor"
       />
+
+      <figure className="wrap pb-20 sm:pb-28">
+        <div className="mx-auto max-w-[760px]">
+          <PermitSheet
+            layer="fixed"
+            label="A sample permit application after the Repair and Verify stages: a level-one heading, every field named, and a reading order from the title to the date."
+          />
+          <SheetLegend layer="fixed" className="mt-6" />
+        </div>
+        <figcaption className="mx-auto mt-6 max-w-[56ch] text-center text-[0.95rem] text-ink-soft">
+          What you get back: the same form, unchanged for sighted readers, with its structure named and ordered for
+          everyone else. <span className="text-muted">Illustrative sample. Fictional city.</span>
+        </figcaption>
+      </figure>
 
       <section aria-labelledby="workflow-title" className="wrap pb-20 sm:pb-28">
         <h2 id="workflow-title" className="headline max-w-[22ch] !text-[length:var(--step-3)]">

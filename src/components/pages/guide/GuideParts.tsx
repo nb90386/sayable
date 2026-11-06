@@ -3,7 +3,7 @@ import Link from "next/link";
 export function GuideSection({ id, title, children }: { id: string; title: string; children: React.ReactNode }) {
   return (
     <section id={id} aria-labelledby={`${id}-h`} className="scroll-mt-28 border-t pt-10 hairline">
-      <h2 id={`${id}-h`} className="title text-[length:var(--step-2)] !leading-[1.1]">
+      <h2 id={`${id}-h`} className="title text-[length:var(--step-2)] !leading-[1.1] text-ink">
         {title}
       </h2>
       <div className="mt-6 space-y-5">{children}</div>
@@ -12,7 +12,7 @@ export function GuideSection({ id, title, children }: { id: string; title: strin
 }
 
 export function H3({ children }: { children: React.ReactNode }) {
-  return <h3 className="title pt-3 text-[length:var(--step-1)]">{children}</h3>;
+  return <h3 className="title pt-3 text-[length:var(--step-1)] text-ink">{children}</h3>;
 }
 
 export function UL({ children }: { children: React.ReactNode }) {
@@ -38,6 +38,7 @@ export function DataTable({
   rows: string[][];
 }) {
   return (
+    <>
     <div className="overflow-x-auto" tabIndex={0} role="region" aria-label={caption}>
       <table className="w-full min-w-[40rem] border-collapse text-left text-[0.95rem]">
         <caption className="pb-3 text-left text-muted">{caption}</caption>
@@ -69,6 +70,8 @@ export function DataTable({
         </tbody>
       </table>
     </div>
+    <p className="mt-2 text-[0.85rem] text-muted md:hidden">Scroll the table sideways to see every column.</p>
+    </>
   );
 }
 
