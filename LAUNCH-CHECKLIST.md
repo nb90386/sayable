@@ -23,4 +23,4 @@ Status as of 2026-11-05, sprint branch `sayable/premium-production-sprint-2026-1
 - CSP keeps `'unsafe-inline'` for scripts because Next.js inlines bootstrap scripts; nonces would make every page dynamic.
 - Screen-reader testing with VoiceOver or NVDA users has not been done. Automated checks do not prove WCAG conformance.
 - The ADA Title II dates were moved by DOJ's April 2026 interim final rule (now April 26, 2027 and April 26, 2028). The guides cite the Federal Register; recheck before launch.
-- `npm audit` could not reach the advisory endpoint from the sandbox; run it once with network access.
+- `npm audit --omit=dev`: 0 vulnerabilities. Full audit: 8 moderate in dev-only ESLint tooling (@typescript-eslint), not shipped to the browser; left alone to avoid a breaking lint upgrade.
