@@ -190,3 +190,12 @@ The records-room world described in the previous section is retired. Recovery ta
 
 ## Content rules (spec §3)
 Never "compliant", "certified", "guaranteed" or "ADA approved". No testimonials, logos or invented metrics. Research numbers must be labeled as research. Triage is a recommendation.
+
+## Finish Line sprint (2026-11-05, 19:33 to 22:20 PT)
+Branch `sayable/premium-production-sprint-2026-11-05`. Original preserved at tag `backup/pre-finish-line-2026-11-05` (`687bb35`); see BACKUP-AND-ROLLBACK.md.
+- Homepage hero rewritten for the five-second test ("Accessible documents. Less guesswork." plus what Sayable does and three outcomes); all `<em>` emphasis removed site-wide.
+- New routes: /readiness-audit, /verify (replaces /approach, 308), /solutions/government, /solutions/agencies, /resources + 3 guides, /about, /security, /terms, /cookies, branded 404. Rewritten: /product (five-stage workflow with availability), /how-it-works (customer journey), /solutions, /privacy, /accessibility.
+- Motion 14.9 via LazyMotion: dropdown popovers, shared nav pill, segmented knobs with arc + 12% stretch, crossfades, press 0.97, success pulses. See MOTION-SYSTEM.md.
+- Consent-gated Vercel Web Analytics with typed, PII-free events; GPC honoured; no cookies.
+- CSP, HSTS, COOP and other headers; previews noindex; sitemap, robots, OG image, icons, canonicals.
+- Status, numbers and blockers: LAUNCH-CHECKLIST.md. Page purposes: SITE-MAP.md.

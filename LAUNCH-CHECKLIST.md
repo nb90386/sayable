@@ -7,7 +7,9 @@ Status as of 2026-11-05, sprint branch `sayable/premium-production-sprint-2026-1
 - [x] Playwright + axe (WCAG 2.0/2.1/2.2 A and AA tags), desktop 1440 and mobile 390, against the production build: 56 passed, 2 skipped (device-specific). Covers all 19 routes plus internal links, sitemap URLs, 404, `/approach` redirect, security headers, keyboard demos, form validation, nav dropdown keyboard behavior, mobile menu, consent banner, consent persistence, GPC, and no cookies set.
 - [x] No horizontal overflow, one h1 per page, no italic emphasis, no `href="#"`, at 1440 and 390 on every route.
 - [x] Impeccable rendered detector: 0 findings on all 22 checked pages after fixes.
-- [x] Lighthouse (production build, local): desktop 100/100/100/100; mobile performance 94 (home) and 95 (Readiness Audit), accessibility, best practices and SEO 100. CLS 0.
+- [x] Lighthouse (production build, local, mobile simulated slow 4G): home 97/100/100/100 (LCP 2.5 s), product 96, inventory guide 95, contact 96, all with accessibility, best practices and SEO at 100 and CLS 0 to 0.01. Desktop 100 in every category on all four.
+- [x] Scroll Craft verifier on the homepage at 1440 and 390: no dead scroll (contact sheets in `scrollcraft/builds/sayable-apple/lab/finish-*`, not committed).
+- [x] Overflow sweep on every route at 1440, 1280, 1024, 768, 390 and 360: no horizontal overflow, one h1, no italic emphasis.
 - [x] Security headers: CSP, HSTS (1 year, no preload), nosniff, Referrer-Policy, X-Frame-Options DENY, COOP, Permissions-Policy. Previews also send `X-Robots-Tag: noindex` and `robots.txt` disallows all outside production.
 - [x] No secrets in the repo; no Vercel environment variables exist yet.
 
@@ -18,7 +20,7 @@ Status as of 2026-11-05, sprint branch `sayable/premium-production-sprint-2026-1
 4. **Canonical domain.** Canonicals and the sitemap use `https://sayable-site.vercel.app`. Set `NEXT_PUBLIC_SITE_URL` when a custom domain exists.
 
 ## Known risks
-- Mobile LCP is 2.9 to 3.1 s under Lighthouse's simulated slow 4G (target 2.5 s). The LCP element is the h1 text; render delay comes from CSS, fonts and the framework bundle.
+- Mobile LCP is 2.5 s on the home page but 2.8 to 2.9 s on text-heavy supporting pages under Lighthouse's simulated slow 4G (target 2.5 s). The LCP element is the h1 text; render delay comes from CSS, fonts and the framework bundle.
 - The rate limiter is per server instance and in memory. For real traffic add Vercel Firewall rate limiting or a shared store.
 - CSP keeps `'unsafe-inline'` for scripts because Next.js inlines bootstrap scripts; nonces would make every page dynamic.
 - Screen-reader testing with VoiceOver or NVDA users has not been done. Automated checks do not prove WCAG conformance.
