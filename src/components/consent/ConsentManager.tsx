@@ -5,6 +5,7 @@ import { AnimatePresence, m, useReducedMotion } from "motion/react";
 import { useAnimate } from "motion/react-mini";
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
+import { track } from "@/lib/analytics";
 import { gpcEnabled, onConsent, readConsent, writeConsent } from "@/lib/consent";
 import { EASE_OUT, tUi, tUiExit } from "@/lib/motion";
 
@@ -37,9 +38,16 @@ export function ConsentManager() {
       dialog.current?.showModal();
     };
     window.addEventListener("sayable:open-consent", open);
+    // One listener counts every audit call to action on the site (consent-gated in track()).
+    const onClick = (e: MouseEvent) => {
+      const a = (e.target as Element | null)?.closest?.("a[href^='/contact?topic=audit']");
+      if (a) track("audit_cta_click", { page: window.location.pathname });
+    };
+    document.addEventListener("click", onClick);
     return () => {
       off();
       window.removeEventListener("sayable:open-consent", open);
+      document.removeEventListener("click", onClick);
     };
   }, []);
 

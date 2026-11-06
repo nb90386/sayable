@@ -4,7 +4,7 @@ Status as of 2026-11-05, sprint branch `sayable/premium-production-sprint-2026-1
 
 ## Verified
 - [x] `tsc --noEmit`, `eslint src tests`, `next build` pass (27 routes, all static except `/contact` and `/api/contact`).
-- [x] Playwright + axe (WCAG 2.0/2.1/2.2 A and AA tags), desktop 1440 and mobile 390, against the production build: 56 passed, 2 skipped (device-specific). Covers all 19 routes plus internal links, sitemap URLs, 404, `/approach` redirect, security headers, keyboard demos, form validation, nav dropdown keyboard behavior, mobile menu, consent banner, consent persistence, GPC, and no cookies set.
+- [x] Playwright + axe (WCAG 2.0/2.1/2.2 A and AA tags), desktop 1440 and mobile 390, against the production build: 58 passed, 2 skipped (device-specific). Covers all 19 routes plus analytics loading only after consent without form contents, internal links, sitemap URLs, 404, `/approach` redirect, security headers, keyboard demos, form validation, nav dropdown keyboard behavior, mobile menu, consent banner, consent persistence, GPC, and no cookies set.
 - [x] No horizontal overflow, one h1 per page, no italic emphasis, no `href="#"`, at 1440 and 390 on every route.
 - [x] Impeccable rendered detector: 0 findings on all 22 checked pages after fixes.
 - [x] Lighthouse (production build, local, mobile simulated slow 4G): home 97/100/100/100 (LCP 2.5 s), product 96, inventory guide 95, contact 96, all with accessibility, best practices and SEO at 100 and CLS 0 to 0.01. Desktop 100 in every category on all four.

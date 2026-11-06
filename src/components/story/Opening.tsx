@@ -2,7 +2,6 @@
 
 import Link from "next/link";
 import { useEffect } from "react";
-import { track } from "@/lib/analytics";
 import { useScrollVars } from "@/lib/useScrollVars";
 import { PVB } from "../doc/permit";
 import { BrokenLayer, PermitSheet, SheetLegend } from "../doc/PermitSheet";
@@ -41,7 +40,7 @@ export function Opening() {
             first, and get them repaired and verified.
           </p>
           <div className="mt-7 flex flex-wrap items-center justify-center gap-x-6 gap-y-2">
-            <Link href="/contact?topic=audit" className="btn" onClick={() => track("audit_cta_click", { from: "hero" })}>
+            <Link href="/contact?topic=audit" className="btn">
               Request a Readiness Audit
             </Link>
             <Link href="/readiness-audit" className="link-quiet">

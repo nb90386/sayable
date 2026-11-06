@@ -5,7 +5,6 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useCallback, useEffect, useId, useRef, useState } from "react";
 import { cta, nav, type NavGroup } from "@/content/site";
-import { track } from "@/lib/analytics";
 import { DUR, EASE_OUT, STAGGER, popover, tUi, tUiExit } from "@/lib/motion";
 import { Wordmark } from "./Wordmark";
 
@@ -231,7 +230,7 @@ export function Header() {
         </nav>
 
         <div className="flex items-center gap-2">
-          <Link href={cta.href} className="btn hidden !min-h-10 !px-4 text-sm sm:inline-flex" onClick={() => track("audit_cta_click", { from: "header" })}>
+          <Link href={cta.href} className="btn hidden !min-h-10 !px-4 text-sm sm:inline-flex">
             {cta.label}
           </Link>
           <button
@@ -293,7 +292,7 @@ export function Header() {
                 </div>
               ))}
               <div className="mt-auto pt-10">
-                <Link href={cta.href} className="btn w-full justify-between" onClick={() => track("audit_cta_click", { from: "mobile-menu" })}>
+                <Link href={cta.href} className="btn w-full justify-between">
                   {cta.long} <span className="arrow" aria-hidden="true" data-icon="arrow-r"></span>
                 </Link>
               </div>

@@ -176,3 +176,18 @@ test("desktop nav dropdown opens from its trigger and closes on Escape", async (
   await expect(trigger).toHaveAttribute("aria-expanded", "false");
   await expect(trigger).toBeFocused();
 });
+
+test("analytics loads only after consent, and never carries form contents", async ({ page }) => {
+  const insights: string[] = [];
+  page.on("request", (r) => {
+    if (/_vercel\/insights|vercel-scripts/.test(r.url())) insights.push(r.url() + " " + (r.postData() ?? ""));
+  });
+  await page.addInitScript(() => localStorage.setItem("sayable-consent", JSON.stringify({ v: 1, analytics: true, at: "test" })));
+  await page.goto("/contact", { waitUntil: "networkidle" });
+  expect(insights.some((u) => /script/.test(u))).toBe(true);
+  await page.getByLabel("Name").fill("Pat Example");
+  await page.getByLabel("Work email").fill("pat@example.gov");
+  await page.waitForTimeout(300);
+  expect(insights.join(" ")).not.toContain("pat@example.gov");
+  expect(insights.join(" ")).not.toContain("Pat Example");
+});

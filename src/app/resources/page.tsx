@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { TrackedLink } from "@/components/TrackedLink";
 import { PageIntro } from "@/components/pages/PageParts";
 import { resourceHref, resources } from "@/content/resources";
 
@@ -26,9 +27,9 @@ export default function ResourcesPage() {
             <li key={r.slug} className="border-b py-10 hairline sm:py-12">
               <div className="grid-12 gap-y-4">
                 <h3 className="title col-span-12 text-[length:var(--step-2)] !leading-[1.1] md:col-span-7">
-                  <Link href={resourceHref(r.slug)} className="hover:text-signal">
+                  <TrackedLink href={resourceHref(r.slug)} event="resource_open" label={r.slug} className="hover:text-signal">
                     {r.title}
-                  </Link>
+                  </TrackedLink>
                 </h3>
                 <div className="col-span-12 md:col-span-4 md:col-start-9">
                   <p className="text-ink-soft">{r.summary}</p>
