@@ -2,7 +2,7 @@ export const INTERESTS = [
   { value: "audit", label: "A readiness audit" },
   { value: "pilot", label: "A pilot on a sample of documents" },
   { value: "agenda", label: "Agenda and meeting-packet turnaround" },
-  { value: "partner", label: "Partnership or white-label work" },
+  { value: "partner", label: "Agency or overflow work" },
 ] as const;
 
 export const ROLES = [

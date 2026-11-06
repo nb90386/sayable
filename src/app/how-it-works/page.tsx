@@ -1,10 +1,12 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import { PageCta, PageIntro, Spec } from "@/components/pages/PageParts";
 import { stages } from "@/content/site";
 
 export const metadata: Metadata = {
   title: "How it works",
-  description: "How Sayable discovers, repairs, verifies, publishes and monitors accessible public documents.",
+  description: "What you provide, what Sayable does at each stage, what needs a person, and what you get back, from the first inventory to checked documents.",
+  alternates: { canonical: "/how-it-works" },
 };
 
 const detail: Record<string, { title: string; body: string[]; spec: string[]; who: string }> = {
@@ -48,26 +50,63 @@ const detail: Record<string, { title: string; body: string[]; spec: string[]; wh
     title: "Keep new problems from piling up.",
     body: [
       "Publishing never stops. Agendas, notices and fee schedules keep arriving. Ongoing work covers new uploads as they appear and recurring issues, such as a template that keeps producing untagged tables, so they can be fixed at the source.",
-      "Monitoring is on our roadmap, and today it runs as a service. We'll tell you exactly which parts are automated when we scope your work.",
+      "Monitoring software is planned, not available yet. Until then, reviewing new uploads can be part of an ongoing service, scoped in writing, and we tell you exactly which parts are automated.",
     ],
     spec: ["New-document detection on your public site", "Recurring-issue patterns reported to your team"],
-    who: "Service today; more automation over time",
+    who: "Planned as software; by arrangement as a service",
   },
 };
+
+
+const journey = [
+  { step: "You send your website address", body: "A short form. No documents, no logins, no files to export.", you: "About 5 minutes" },
+  { step: "We scope it together", body: "A short call about where your documents live and what residents use most. Then a written scope and a fixed price.", you: "One call" },
+  { step: "We inventory and check", body: "We crawl your public site, sort every PDF and check the ones that matter. We may ask you to confirm other places documents are hosted.", you: "Answer a question or two" },
+  { step: "You review the findings", body: "A written report, the full inventory as a spreadsheet and a walkthrough. Your team decides what is archived, removed or fixed.", you: "One review meeting" },
+  { step: "You choose what happens next", body: "Repairs by us, the Agenda Desk for new packets, or your own team working from the ranked list. Nothing continues unless you ask.", you: "Your decision" },
+];
 
 export default function HowItWorksPage() {
   return (
     <>
       <PageIntro
-        title={
-          <>
-            One document, <span className="tone">five stages.</span>
-          </>
-        }
-        lede="The same file moves from a messy public website to a checked, documented, ready-to-post result. Here is what happens at each step, and who does it."
+        title="From a website address to documents you can stand behind."
+        lede="What you send us, what we do at each stage, what needs a person, and what you get back."
         note="Software proposes · checks decide · people finish"
       />
 
+      <section aria-labelledby="journey-title" className="wrap pb-20 sm:pb-28">
+        <div className="grid-12 gap-y-6">
+          <div className="col-span-12 lg:col-span-4">
+            <h2 id="journey-title" className="headline !text-[length:var(--step-3)]">
+              Your side of the work
+            </h2>
+            <p className="mt-4 max-w-[34ch] text-ink-soft">
+              Most of the effort is ours. Here is everything we ask of your team, from first contact to a decision.
+            </p>
+            <Link href="/readiness-audit" className="link-quiet mt-4">
+              What the audit includes <span aria-hidden="true" data-icon="chev"></span>
+            </Link>
+          </div>
+          <ol className="col-span-12 border-t hairline lg:col-span-8">
+            {journey.map((j, i) => (
+              <li key={j.step} className="grid gap-x-6 gap-y-1 border-b py-5 hairline sm:grid-cols-[3rem_1fr_11rem]">
+                <span className="numeral text-[1.4rem] text-signal">{i + 1}</span>
+                <div>
+                  <h3 className="title text-[1.15rem]">{j.step}</h3>
+                  <p className="mt-1 text-[0.95rem] text-ink-soft">{j.body}</p>
+                </div>
+                <p className="text-[0.88rem] text-muted sm:text-right">
+                  <span className="sr-only">Your time: </span>
+                  {j.you}
+                </p>
+              </li>
+            ))}
+          </ol>
+        </div>
+      </section>
+
+      <h2 className="sr-only">The five stages</h2>
       <nav aria-label="Stages" className="wrap">
         <ol className="flex flex-wrap gap-x-8 gap-y-2 border-y py-4 hairline">
           {stages.map((s) => (
