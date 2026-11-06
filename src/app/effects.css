@@ -149,3 +149,9 @@
 .hero-points li { display: inline-flex; align-items: center; gap: 0.55rem; }
 .hero-points li::before { content: ""; width: 0.95rem; height: 0.95rem; flex: none; background: var(--color-signal); -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath d='M2.5 8.5l3.5 3.5 7.5-8' fill='none' stroke='%23000' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") no-repeat center / contain; mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath d='M2.5 8.5l3.5 3.5 7.5-8' fill='none' stroke='%23000' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") no-repeat center / contain; }
 @media (max-width: 640px) { .hero-points { flex-direction: column; align-items: center; gap: 0.35rem; } }
+@media (max-width: 640px) {
+  .consent-banner { left: 8px; right: 8px; bottom: max(8px, env(safe-area-inset-bottom)); width: auto; padding: 0.85rem 1rem 0.9rem; border-radius: 14px; }
+  .consent-banner p { font-size: 0.88rem; }
+  .consent-banner > div { margin-top: 0.6rem; }
+  .consent-banner .btn { flex: 1 1 0; }
+}

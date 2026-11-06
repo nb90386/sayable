@@ -69,8 +69,7 @@ export function ConsentManager() {
             exit={reduced ? { opacity: 0, transition: tUiExit } : { opacity: 0, y: 8, transition: tUiExit }}
           >
             <p className="text-[0.95rem] leading-snug">
-              This site sets no cookies. With your permission we count page visits and a few anonymous clicks using
-              cookieless Vercel Web Analytics.{" "}
+              No cookies here. May we count visits and a few anonymous clicks with cookieless Vercel Web Analytics?{" "}
               <Link href="/cookies" className="text-link">
                 Details
               </Link>

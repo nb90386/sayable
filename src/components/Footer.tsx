@@ -37,7 +37,7 @@ export function Footer() {
       <div className="wrap pb-10 pt-20 sm:pt-28">
         <div className="grid-12 gap-y-14">
           <div className="col-span-12 md:col-span-6">
-            <Link href="/" className="inline-block text-moon no-underline" aria-label="Sayable home">
+            <Link href="/" className="inline-block text-moon no-underline [--wm-path:var(--color-night)]" aria-label="Sayable home">
               <Wordmark />
             </Link>
             <p className="mt-6 max-w-[30ch] text-[1.6rem] font-[600] leading-[1.2] tracking-[-0.025em] text-moon">
