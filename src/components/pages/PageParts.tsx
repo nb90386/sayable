@@ -72,7 +72,7 @@ export function PageCta({ title = "Start with what you already publish.", body }
             <Link href="/contact" className="btn btn-night">
               Request an audit <span className="arrow" aria-hidden="true" data-icon="arrow-r"></span>
             </Link>
-            <Link href="/approach" className="link-quiet text-moon">
+            <Link href="/verify" className="link-quiet text-moon">
               How we report results
             </Link>
           </div>

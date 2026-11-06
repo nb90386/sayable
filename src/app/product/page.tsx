@@ -66,7 +66,7 @@ export default function ProductPage() {
       <PageIntro
         title={
           <>
-            Five ways in, <em>one standard</em> of checking.
+            Five ways in, <span className="tone">one standard</span> of checking.
           </>
         }
         lede="Sayable starts as a service backed by our own software: we find what needs attention, repair it with automation and people, and verify every file the same way."
@@ -86,7 +86,7 @@ export default function ProductPage() {
               how each stage works
             </Link>{" "}
             or{" "}
-            <Link href="/approach" className="text-link">
+            <Link href="/verify" className="text-link">
               the rules we hold ourselves to
             </Link>
             .

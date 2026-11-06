@@ -3,6 +3,8 @@
 import { useEffect, useRef, useState } from "react";
 import data from "@/content/audio-cues.json";
 import { usePrefersReducedMotion } from "@/lib/useInView";
+import { track as trackEvent } from "@/lib/analytics";
+import { Segmented } from "../motion/Segmented";
 import { PermitSheet, SheetLegend } from "../doc/PermitSheet";
 import { regions } from "../doc/permit";
 
@@ -88,6 +90,7 @@ export function Problem() {
       /* the waveform is decoration; playback works without it */
     }
     if (a.ended) a.currentTime = 0;
+    trackEvent("demo_play", { version: mode });
     await a.play();
   };
 
@@ -114,18 +117,16 @@ export function Problem() {
           and after repair.
         </p>
 
-        <div role="radiogroup" aria-label="Version of the form" className="seg mt-10">
-          {(
-            [
-              ["before", "As posted"],
-              ["after", "After repair"],
-            ] as const
-          ).map(([v, l]) => (
-            <button key={v} type="button" role="radio" aria-checked={mode === v} onClick={() => choose(v)}>
-              {l}
-            </button>
-          ))}
-        </div>
+        <Segmented
+          className="mt-10"
+          label="Version of the form"
+          value={mode}
+          onChange={choose}
+          options={[
+            { value: "before", label: "As posted" },
+            { value: "after", label: "After repair" },
+          ]}
+        />
       </div>
 
       <div className="wrap mt-12">

@@ -3,7 +3,9 @@ import { JetBrains_Mono, Onest } from "next/font/google";
 import { Footer } from "@/components/Footer";
 import { Header } from "@/components/Header";
 import { RevealObserver } from "@/components/RevealObserver";
+import { ConsentManager } from "@/components/consent/ConsentManager";
 import { site } from "@/content/site";
+import { SITE_URL, isProductionDeploy } from "@/content/url";
 import "./globals.css";
 import "./effects.css";
 
@@ -13,9 +15,15 @@ const onest = Onest({ subsets: ["latin"], variable: "--font-onest", display: "sw
 const jetbrains = JetBrains_Mono({ subsets: ["latin"], weight: ["400", "500"], variable: "--font-jetbrains", display: "swap", preload: false });
 
 export const metadata: Metadata = {
-  title: { default: "Sayable · Document accessibility for public agencies", template: "%s · Sayable" },
+  metadataBase: new URL(SITE_URL),
+  title: { default: "Sayable · PDF accessibility audits and verification for public agencies", template: "%s · Sayable" },
   description: site.description,
-  openGraph: { title: "Sayable", description: site.description, type: "website" },
+  applicationName: "Sayable",
+  alternates: { canonical: "/" },
+  openGraph: { title: "Sayable · Accessible documents. Less guesswork.", description: site.description, type: "website", siteName: "Sayable", locale: "en_US", url: "/" },
+  twitter: { card: "summary_large_image", title: "Sayable · Accessible documents. Less guesswork.", description: site.description },
+  // Previews and local builds stay out of search results.
+  robots: isProductionDeploy ? { index: true, follow: true } : { index: false, follow: false },
 };
 
 export const viewport: Viewport = { themeColor: "#f8f9fb" };
@@ -33,6 +41,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         </main>
         <Footer />
         <RevealObserver />
+        <ConsentManager />
       </body>
     </html>
   );

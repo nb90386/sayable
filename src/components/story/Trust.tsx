@@ -22,7 +22,7 @@ export function Trust() {
     <section data-sc-act="trust" aria-labelledby="trust-title" className="py-[clamp(7rem,14vh,11rem)]">
       <div className="wrap text-center">
         <h2 id="trust-title" className="headline mx-auto max-w-[15ch]">
-          Every claim comes with <em>its evidence.</em>
+          Every claim comes with <span className="tone">its evidence.</span>
         </h2>
         <p className="lede mx-auto mt-6 !max-w-[50ch]">
           No single check catches everything, so Sayable layers them and reports which one found what. It reports results;
@@ -55,7 +55,7 @@ export function Trust() {
           <h3 className="title text-center text-[1.35rem]">What our research shows so far</h3>
           <p className="mx-auto mt-2 max-w-[60ch] text-center text-[0.95rem] text-muted">
             Preliminary benchmarks from our own tests on sample and synthetic documents in 2026, not customer outcomes.{" "}
-            <Link href="/approach" className="text-link">
+            <Link href="/verify" className="text-link">
               Methods and limits
             </Link>
           </p>

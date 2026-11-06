@@ -105,12 +105,12 @@
 
   /* ─── Type roles ─── */
   .display { font-family: var(--font-sans); font-weight: 650; letter-spacing: -0.042em; line-height: 0.98; }
-  .display em, .display i { font-style: normal; color: var(--color-signal); }
-  .on-night .display em { color: var(--color-signal-light); }
-  .display em.broken { color: var(--color-ember); }
+  .display .tone { font-style: normal; color: var(--color-signal); }
+  .on-night .display .tone { color: var(--color-signal-light); }
+  .display .tone.broken { color: var(--color-ember); }
   .headline { font-family: var(--font-sans); font-weight: 640; letter-spacing: -0.036em; line-height: 1.02; font-size: var(--step-4); }
-  .headline em { font-style: normal; color: var(--color-muted); }
-  .on-night .headline em { color: var(--color-moon-muted); }
+  .headline .tone { font-style: normal; color: var(--color-muted); }
+  .on-night .headline .tone { color: var(--color-moon-muted); }
   .title { font-family: var(--font-sans); font-weight: 600; letter-spacing: -0.022em; line-height: 1.15; }
   .lede { font-size: var(--step-1); line-height: 1.45; color: var(--color-muted); max-width: 38ch; letter-spacing: -0.012em; }
   .on-night .lede { color: var(--color-moon-muted); }
@@ -140,7 +140,8 @@
     transition: background-color 0.25s, transform 0.35s var(--ease-out-expo);
   }
   .btn:hover { background: color-mix(in oklab, var(--btn-bg), #000 12%); }
-  .btn:active { transform: scale(0.98); }
+  .btn, .press { transition-property: background-color, color, box-shadow, transform; transition-duration: 0.16s; transition-timing-function: cubic-bezier(0.22, 1, 0.36, 1); }
+  .btn:active, .press:active { transform: scale(0.97); transition-duration: 0.06s; }
   .btn .arrow { transition: transform 0.35s var(--ease-out-expo); }
   .btn:hover .arrow { transform: translateX(2px); }
   .btn-night { --btn-bg: var(--color-moon); --btn-fg: var(--color-night); }

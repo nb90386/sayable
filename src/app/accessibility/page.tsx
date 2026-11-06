@@ -1,61 +1,81 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { PageIntro, Row } from "@/components/pages/PageParts";
+import { LegalLayout, LegalSectionBlock as S } from "@/components/pages/LegalParts";
 
 export const metadata: Metadata = {
   title: "Accessibility statement",
-  description: "How the Sayable website is built for accessibility, its known limitations, and how to report a problem.",
+  description:
+    "How the Sayable website aims for WCAG 2.2 AA, what we test, known limitations, and how to report an accessibility problem.",
+  alternates: { canonical: "/accessibility" },
 };
+
+const sections = [
+  { id: "target", title: "Our target" },
+  { id: "tested", title: "What we test" },
+  { id: "built", title: "How it is built" },
+  { id: "limits", title: "Known limitations" },
+  { id: "report", title: "Report a problem" },
+];
 
 export default function AccessibilityPage() {
   return (
-    <>
-      <PageIntro
-        title={
-          <>
-            This site should work <em>for everyone.</em>
-          </>
-        }
-        lede="We sell document accessibility, so this website has to meet the standard we ask of others. Here's what we aim for, what we test, and where we know it falls short."
-        note="Last reviewed November 2026"
-      />
-      <div className="wrap pb-28">
-        <Row n="01" title="Our target">
-          <p>
-            We aim to meet the Web Content Accessibility Guidelines (WCAG) 2.2 at Level AA. We are not claiming full
-            conformance. Automated checks catch only part of what matters, and we haven&apos;t completed testing with
-            screen-reader users.
-          </p>
-        </Row>
-        <Row n="02" title="How it's built">
-          <p>
-            The site uses semantic headings and landmarks, visible keyboard focus, a skip link, labeled form fields with
-            written error messages, and colors chosen to meet AA contrast ratios. The interactive illustrations can be used with a
-            keyboard and have text descriptions.
-          </p>
-          <p>
-            If your system asks for reduced motion, animation is turned off and every illustration appears in its finished
-            state. No content is hidden behind an animation.
-          </p>
-        </Row>
-        <Row n="03" title="Known limitations">
-          <p>
-            The illustrated documents on this site are drawings of example pages, not real PDFs. They are described in
-            text, but you can&apos;t browse their tag structure with a screen reader the way you would a real tagged file.
-            The &ldquo;what a screen reader might announce&rdquo; passages are simulations written by us, not recordings.
-          </p>
-        </Row>
-        <Row n="04" title="Tell us about a problem">
-          <p>
-            If something on this site doesn&apos;t work for you, please{" "}
-            <Link href="/contact" className="text-link">
-              contact us
-            </Link>{" "}
-            and describe the page and what happened. Choose &ldquo;Something else&rdquo; as your role if none fit. We
-            treat accessibility problems on our own site as bugs, and fix them first.
-          </p>
-        </Row>
-      </div>
-    </>
+    <LegalLayout
+      title="Accessibility statement"
+      lede="We sell document accessibility, so this website has to meet the standard we ask of others. Here is what we aim for, what we test, and where we know it falls short."
+      note="Last reviewed November 5, 2026"
+      sections={sections}
+      hideDraft
+    >
+      <S id="target" title="Our target">
+        <p>
+          We aim to meet the Web Content Accessibility Guidelines (WCAG) 2.2 at Level AA. We are not claiming full
+          conformance. Automated checks catch only part of what matters, and we have not completed testing with
+          screen-reader users.
+        </p>
+      </S>
+
+      <S id="tested" title="What we test">
+        <ul>
+          <li>Automated axe checks, run in Playwright on every page.</li>
+          <li>Keyboard testing: every control can be reached and used without a mouse, with visible focus.</li>
+          <li>Reduced motion: if your system asks for it, animation is turned off and illustrations show their finished state.</li>
+          <li>Color contrast checks against AA ratios.</li>
+          <li>Transcripts for the audio demos.</li>
+        </ul>
+      </S>
+
+      <S id="built" title="How it is built">
+        <p>
+          The site uses semantic headings and landmarks, a skip link, labeled form fields with written error messages, and
+          text alternatives for illustrations. No content is hidden behind an animation.
+        </p>
+      </S>
+
+      <S id="limits" title="Known limitations">
+        <ul>
+          <li>We have not yet tested with screen-reader users.</li>
+          <li>
+            The document illustrations are SVG drawings of example pages, not real tagged PDFs. They come with text
+            descriptions, but you cannot browse a tag structure with a screen reader the way you would in a real file.
+          </li>
+          <li>
+            The inventory animation is decorative. On small screens there is a list alternative that carries the same
+            information.
+          </li>
+          <li>The audio demos are illustrative text-to-speech, not recordings of a screen reader.</li>
+        </ul>
+      </S>
+
+      <S id="report" title="Report a problem">
+        <p>
+          If something on this site does not work for you, please use our{" "}
+          <Link href="/contact" className="text-link">
+            contact page
+          </Link>{" "}
+          and describe the page and what happened. We treat accessibility problems on our own site as bugs, and fix them
+          first.
+        </p>
+      </S>
+    </LegalLayout>
   );
 }

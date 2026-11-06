@@ -1,19 +1,49 @@
 export const site = {
   name: "Sayable",
   description:
-    "Sayable helps public agencies find, repair, verify and publish accessible documents, using automated structure checks, semantic review and people for the hard parts.",
+    "Sayable helps cities and counties find accessibility problems in their public PDFs, prioritize what matters, and get documents repaired and verified.",
   /** Public business inbox. Unset until the domain and mailbox exist — see README. */
   contactEmail: process.env.NEXT_PUBLIC_CONTACT_EMAIL?.trim() || null,
 };
 
-export const nav = [
-  { href: "/product", label: "Product" },
-  { href: "/how-it-works", label: "How it works" },
-  { href: "/solutions", label: "Solutions" },
-  { href: "/approach", label: "Our approach" },
-] as const;
+export type NavLink = { href: string; label: string; note?: string };
+export type NavGroup = { label: string; href?: string; items?: NavLink[] };
 
-export const cta = { href: "/contact?topic=audit", label: "Request a Readiness Audit" } as const;
+/** Primary navigation. Groups open a small popover; plain entries are links. */
+export const nav: NavGroup[] = [
+  {
+    label: "Product",
+    items: [
+      { href: "/product", label: "Product overview", note: "Discover, repair, verify, publish, monitor" },
+      { href: "/readiness-audit", label: "Readiness Audit", note: "The starting point: what you have and what it needs" },
+      { href: "/verify", label: "Verification", note: "How every file is checked, and what that proves" },
+    ],
+  },
+  { label: "How it works", href: "/how-it-works" },
+  {
+    label: "Solutions",
+    items: [
+      { href: "/solutions/government", label: "Cities and counties", note: "Clerks, ADA coordinators, IT and web teams" },
+      { href: "/solutions/agencies", label: "Agencies and firms", note: "Website agencies and remediation partners" },
+      { href: "/solutions", label: "All solutions" },
+    ],
+  },
+  { label: "Resources", href: "/resources" },
+  {
+    label: "Company",
+    items: [
+      { href: "/about", label: "About Sayable" },
+      { href: "/security", label: "Security and data" },
+      { href: "/accessibility", label: "Accessibility" },
+      { href: "/contact", label: "Contact" },
+    ],
+  },
+];
+
+/** Flat list of every primary destination, for the mobile menu and footer. */
+export const navLinks: NavLink[] = nav.flatMap((g) => (g.items ? g.items : [{ href: g.href!, label: g.label }]));
+
+export const cta = { href: "/contact?topic=audit", label: "Request an Audit", long: "Request a Readiness Audit" } as const;
 
 export const stages = [
   {

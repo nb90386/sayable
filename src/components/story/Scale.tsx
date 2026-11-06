@@ -59,7 +59,7 @@ export function Scale() {
     <section data-sc-act="scale" aria-labelledby="scale-title" className="py-[clamp(7rem,14vh,11rem)]">
       <div className="wrap text-center">
         <h2 id="scale-title" className="headline mx-auto max-w-[17ch]">
-          One form is a problem. <em>Thousands are a workload.</em>
+          One form is a problem. <span className="tone">Thousands are a workload.</span>
         </h2>
         <p className="lede mx-auto mt-6 !max-w-[50ch]">
           Years of agendas, applications, reports and notices, all of them looking finished. Sayable reads every publicly

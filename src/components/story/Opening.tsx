@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { useEffect } from "react";
+import { track } from "@/lib/analytics";
 import { useScrollVars } from "@/lib/useScrollVars";
 import { PVB } from "../doc/permit";
 import { BrokenLayer, PermitSheet, SheetLegend } from "../doc/PermitSheet";
@@ -32,20 +33,26 @@ export function Opening() {
     <section ref={ref} data-sc-act="opening" aria-labelledby="hero-title" className="opening relative">
       <div className="opening-stage">
         <div className="opening-copy wrap text-center">
-          <h1 id="hero-title" className="display mx-auto text-[length:clamp(2.5rem,1.4rem+4.2vw,5.4rem)]">
-            <span className="block">Public documents,</span> <span className="block">readable by everyone.</span>
+          <h1 id="hero-title" className="display mx-auto text-[length:clamp(2.6rem,1.4rem+4.4vw,5.6rem)]">
+            <span className="block">Accessible documents.</span> <span className="tone block">Less guesswork.</span>
           </h1>
-          <p className="lede mx-auto mt-5 !max-w-[44ch] lg:!max-w-none">
-            Find what needs fixing, fix it, and show exactly what was checked.
+          <p className="lede mx-auto mt-5 !max-w-[52ch] !text-ink-soft">
+            Sayable helps cities and counties find the accessibility problems in their public PDFs, see which ones matter
+            first, and get them repaired and verified.
           </p>
           <div className="mt-7 flex flex-wrap items-center justify-center gap-x-6 gap-y-2">
-            <Link href="/contact?topic=audit" className="btn">
+            <Link href="/contact?topic=audit" className="btn" onClick={() => track("audit_cta_click", { from: "hero" })}>
               Request a Readiness Audit
             </Link>
-            <Link href="#problem-title" className="link-quiet">
-              Hear the difference <span aria-hidden="true" data-icon="chev"></span>
+            <Link href="/readiness-audit" className="link-quiet">
+              What the audit includes <span aria-hidden="true" data-icon="chev"></span>
             </Link>
           </div>
+          <ul className="hero-points mx-auto mt-8" aria-label="What Sayable does">
+            <li>Know which documents matter</li>
+            <li>See what needs fixing</li>
+            <li>Keep new publications on track</li>
+          </ul>
         </div>
 
         <div className="opening-doc">

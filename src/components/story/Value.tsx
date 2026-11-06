@@ -80,7 +80,7 @@ export function Value() {
     <section data-sc-act="value" aria-labelledby="value-title" className="bg-paper-deep py-[clamp(7rem,14vh,11rem)]">
       <div className="wrap text-center">
         <h2 id="value-title" className="headline mx-auto max-w-[16ch]">
-          The cheapest page to fix is the one <em>you never had to.</em>
+          The cheapest page to fix is the one <span className="tone">you never had to.</span>
         </h2>
         <p className="lede mx-auto mt-6 !max-w-[50ch]">
           Put in rough numbers for your site. Every figure below is computed from them, and every formula is shown.

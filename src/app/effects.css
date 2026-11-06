@@ -113,3 +113,39 @@
   .opening-xray .sheet-path { animation: none; }
 }
 @keyframes path-draw { from { stroke-dashoffset: 100; } to { stroke-dashoffset: 0; } }
+
+/* ─── Primary navigation (Motion: shared hover pill, popovers from their trigger) ─── */
+[data-icon="chev-d"] { --i: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 10'%3E%3Cpath d='M2 2l6 6 6-6' fill='none' stroke='%23000' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E"); width: 0.62em; height: 0.4em; }
+.nav-link { position: relative; display: inline-flex; align-items: center; min-height: 2.75rem; padding: 0 0.85rem; border-radius: 999px; font-size: 0.95rem; font-weight: 500; color: var(--color-ink-soft); text-decoration: none; transition: color 0.2s; }
+.nav-link:hover, .nav-link[aria-expanded="true"] { color: var(--color-ink); }
+.nav-link.is-active { color: var(--color-ink); }
+.nav-link.is-active::after { content: ""; position: absolute; left: 0.85rem; right: 0.85rem; bottom: 0.45rem; height: 1.5px; border-radius: 1px; background: var(--color-signal); }
+.nav-pill { position: absolute; inset: 0.3rem 0; border-radius: 999px; background: rgb(18 21 27 / 0.055); }
+.nav-pop { position: absolute; left: 0; top: calc(100% + 0.35rem); z-index: 60; width: 21rem; padding: 0.4rem; border-radius: 16px; background: var(--color-sheet); box-shadow: 0 0 0 1px rgb(18 21 27 / 0.07), 0 12px 32px -12px rgb(16 20 28 / 0.28), 0 2px 6px -2px rgb(16 20 28 / 0.08); }
+.nav-pop-link { display: block; padding: 0.7rem 0.85rem; border-radius: 11px; text-decoration: none; transition: background-color 0.15s; }
+.nav-pop-link:hover, .nav-pop-link:focus-visible { background: rgb(36 88 232 / 0.06); }
+
+/* ─── Segmented control with a shared travelling knob ─── */
+.seg-opt { position: relative; isolation: isolate; min-height: 2.6rem; padding: 0 1.15rem; border-radius: 999px; font-weight: 560; font-size: 0.98rem; color: inherit; }
+.seg .seg-opt[aria-checked="true"] { background: transparent; box-shadow: none; color: var(--color-ink); transition: color 0.2s 0.04s; }
+.seg-knob { position: absolute; inset: 0; z-index: -1; border-radius: 999px; background: var(--color-sheet); box-shadow: 0 1px 2px rgb(0 0 0 / 0.12), 0 4px 12px -6px rgb(0 0 0 / 0.25); }
+
+/* ─── Privacy choices ─── */
+.consent-banner { position: fixed; z-index: 70; left: max(16px, env(safe-area-inset-left)); bottom: max(16px, env(safe-area-inset-bottom)); width: min(26rem, calc(100vw - 32px)); padding: 1.15rem 1.25rem 1.25rem; border-radius: 18px; background: var(--color-sheet); color: var(--color-ink); box-shadow: 0 0 0 1px rgb(18 21 27 / 0.08), 0 18px 40px -16px rgb(16 20 28 / 0.35); }
+.consent-dialog { width: min(34rem, calc(100vw - 32px)); margin: auto; padding: 0; border: 0; border-radius: 20px; background: var(--color-sheet); color: var(--color-ink); box-shadow: 0 24px 60px -20px rgb(16 20 28 / 0.45); }
+.consent-dialog[open] { animation: pop-in 0.2s cubic-bezier(0.22, 1, 0.36, 1); }
+.consent-dialog::backdrop { background: rgb(16 20 28 / 0.4); }
+@keyframes pop-in { from { opacity: 0; transform: scale(0.95); } }
+.switch { appearance: none; flex: none; position: relative; width: 3rem; height: 1.75rem; border-radius: 999px; background: rgb(18 21 27 / 0.22); cursor: pointer; transition: background-color 0.2s; }
+.switch::after { content: ""; position: absolute; top: 3px; left: 3px; width: calc(1.75rem - 6px); height: calc(1.75rem - 6px); border-radius: 999px; background: #fff; box-shadow: 0 1px 3px rgb(0 0 0 / 0.25); transition: transform 0.24s cubic-bezier(0.65, 0, 0.35, 1), width 0.24s cubic-bezier(0.65, 0, 0.35, 1); }
+.switch:active::after { width: calc(1.75rem + 0.2rem); }
+.switch:checked { background: var(--color-signal); }
+.switch:checked::after { transform: translateX(1.25rem); }
+.switch:checked:active::after { transform: translateX(1.05rem); }
+@media (prefers-reduced-motion: reduce) { .consent-dialog[open] { animation: none; } .switch, .switch::after { transition: none; } }
+
+/* Hero: the three things Sayable does, readable before any animation. */
+.hero-points { display: flex; flex-wrap: wrap; justify-content: center; gap: 0.5rem 1.75rem; font-size: 0.98rem; font-weight: 520; color: var(--color-ink-soft); }
+.hero-points li { display: inline-flex; align-items: center; gap: 0.55rem; }
+.hero-points li::before { content: ""; width: 0.95rem; height: 0.95rem; flex: none; background: var(--color-signal); -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath d='M2.5 8.5l3.5 3.5 7.5-8' fill='none' stroke='%23000' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") no-repeat center / contain; mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath d='M2.5 8.5l3.5 3.5 7.5-8' fill='none' stroke='%23000' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") no-repeat center / contain; }
+@media (max-width: 640px) { .hero-points { flex-direction: column; align-items: center; gap: 0.35rem; } }

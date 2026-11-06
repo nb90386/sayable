@@ -1,6 +1,35 @@
 import Link from "next/link";
-import { nav, site, stages } from "@/content/site";
+import { site } from "@/content/site";
+import { ConsentSettingsButton } from "./consent/ConsentSettingsButton";
 import { Wordmark } from "./Wordmark";
+
+const footerCols = [
+  {
+    title: "Product",
+    links: [
+      { href: "/product", label: "Overview" },
+      { href: "/readiness-audit", label: "Readiness Audit" },
+      { href: "/how-it-works", label: "How it works" },
+      { href: "/verify", label: "Verification" },
+    ],
+  },
+  {
+    title: "Solutions",
+    links: [
+      { href: "/solutions/government", label: "Cities and counties" },
+      { href: "/solutions/agencies", label: "Agencies and firms" },
+      { href: "/resources", label: "Resources" },
+    ],
+  },
+  {
+    title: "Company",
+    links: [
+      { href: "/about", label: "About" },
+      { href: "/security", label: "Security" },
+      { href: "/contact", label: "Contact" },
+    ],
+  },
+];
 
 export function Footer() {
   return (
@@ -11,7 +40,7 @@ export function Footer() {
             <Link href="/" className="inline-block text-moon no-underline" aria-label="Sayable home">
               <Wordmark />
             </Link>
-            <p className="mt-6 max-w-[30ch] font-serif text-[1.65rem] leading-[1.2] tracking-[-0.015em] text-moon">
+            <p className="mt-6 max-w-[30ch] text-[1.6rem] font-[600] leading-[1.2] tracking-[-0.025em] text-moon">
               Public documents that read as clearly as they look.
             </p>
             <p className="mt-6 max-w-[44ch] text-[0.95rem] text-moon-muted">
@@ -20,34 +49,22 @@ export function Footer() {
             </p>
           </div>
 
-          <nav aria-label="Footer" className="col-span-6 md:col-span-3">
-            <h2 className="text-[0.85rem] font-[600] text-moon-muted">Site</h2>
-            <ul className="mt-5 space-y-1">
-              {[...nav, { href: "/contact", label: "Contact" }].map((item) => (
-                <li key={item.href}>
-                  <Link href={item.href} className="inline-flex min-h-10 items-center text-moon no-underline hover:text-signal-light">
-                    {item.label}
-                  </Link>
-                </li>
-              ))}
-            </ul>
+          <nav aria-label="Footer" className="col-span-12 grid grid-cols-2 gap-x-6 gap-y-10 sm:grid-cols-3 md:col-span-6">
+            {footerCols.map((c) => (
+              <div key={c.title}>
+                <h2 className="text-[0.85rem] font-[600] text-moon-muted">{c.title}</h2>
+                <ul className="mt-4 space-y-0.5">
+                  {c.links.map((item) => (
+                    <li key={item.href}>
+                      <Link href={item.href} className="inline-flex min-h-10 items-center text-[0.95rem] text-moon no-underline hover:text-signal-light">
+                        {item.label}
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ))}
           </nav>
-
-          <div className="col-span-6 md:col-span-3">
-            <h2 className="text-[0.85rem] font-[600] text-moon-muted">The work</h2>
-            <ol className="mt-5 space-y-1">
-              {stages.map((s) => (
-                <li key={s.id}>
-                  <Link
-                    href={`/how-it-works#${s.id}`}
-                    className="inline-flex min-h-10 items-center gap-3 text-moon no-underline hover:text-signal-light"
-                  >
-                                        {s.name}
-                  </Link>
-                </li>
-              ))}
-            </ol>
-          </div>
         </div>
 
         <div className="mt-20 grid gap-8 border-t pt-8 text-[0.875rem] text-moon-muted md:grid-cols-[1fr_auto]" style={{ borderColor: "var(--rule-night)" }}>
@@ -65,15 +82,20 @@ export function Footer() {
             ) : null}
           </p>
           <ul className="flex flex-wrap gap-x-6 gap-y-1">
+            {[
+              { href: "/accessibility", label: "Accessibility" },
+              { href: "/privacy", label: "Privacy" },
+              { href: "/terms", label: "Terms" },
+              { href: "/cookies", label: "Cookies" },
+            ].map((l) => (
+              <li key={l.href}>
+                <Link href={l.href} className="inline-flex min-h-10 items-center text-moon no-underline hover:text-signal-light">
+                  {l.label}
+                </Link>
+              </li>
+            ))}
             <li>
-              <Link href="/accessibility" className="inline-flex min-h-10 items-center text-moon no-underline hover:text-signal-light">
-                Accessibility statement
-              </Link>
-            </li>
-            <li>
-              <Link href="/privacy" className="inline-flex min-h-10 items-center text-moon no-underline hover:text-signal-light">
-                Privacy
-              </Link>
+              <ConsentSettingsButton className="inline-flex min-h-10 items-center text-moon hover:text-signal-light" />
             </li>
             <li className="inline-flex min-h-10 items-center">© {new Date().getFullYear()} Sayable</li>
           </ul>

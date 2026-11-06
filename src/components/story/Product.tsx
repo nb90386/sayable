@@ -1,6 +1,8 @@
 "use client";
 
+import { AnimatePresence, LayoutGroup, motion, useReducedMotion } from "motion/react";
 import { useId, useState } from "react";
+import { DUR, EASE_OUT, KNOB_STRETCH, settleDelay, tKnob, tStretch } from "@/lib/motion";
 import { PVB, PermitPage, regions } from "../doc/permit";
 import { BrokenLayer, FixedLayer, SheetLegend } from "../doc/PermitSheet";
 
@@ -76,6 +78,7 @@ const mark: Record<Row["k"], [string, string]> = {
 export function Product() {
   const [i, setI] = useState(0);
   const base = useId();
+  const reduced = useReducedMotion();
   const s = stages[i]!;
   const layer = s.id === "discover" ? "broken" : "fixed";
 
@@ -83,13 +86,14 @@ export function Product() {
     <section id="product" data-sc-act="product" aria-labelledby="product-title" className="py-[clamp(7rem,14vh,11rem)]">
       <div className="wrap text-center">
         <h2 id="product-title" className="headline mx-auto max-w-[15ch]">
-          One file, five stages. <em>The page never changes.</em>
+          One file, five stages. <span className="tone">The page never changes.</span>
         </h2>
         <p className="lede mx-auto mt-6 !max-w-[48ch]">
           Sayable changes what assistive technology reads, never what residents see. Step through the work on a single
           document.
         </p>
 
+        <LayoutGroup id="product-stages">
         <div role="tablist" aria-label="Stages" className="seg mt-10 max-w-full flex-wrap justify-center !rounded-[1.6rem]">
           {stages.map((st, n) => (
             <button
@@ -100,6 +104,7 @@ export function Product() {
               aria-selected={n === i}
               aria-controls={`${base}-panel`}
               tabIndex={n === i ? 0 : -1}
+              className="seg-opt"
               onClick={() => setI(n)}
               onKeyDown={(e) => {
                 if (e.key !== "ArrowRight" && e.key !== "ArrowLeft") return;
@@ -109,13 +114,33 @@ export function Product() {
                 document.getElementById(`${base}-tab-${stages[next]!.id}`)?.focus();
               }}
             >
-              {st.name}
+              {n === i ? (
+                <motion.span
+                  layoutId="stage-knob"
+                  aria-hidden="true"
+                  className="seg-knob"
+                  animate={reduced ? undefined : KNOB_STRETCH}
+                  transition={reduced ? { duration: 0 } : { ...tKnob, scaleX: tStretch }}
+                />
+              ) : null}
+              <span className="relative">{st.name}</span>
             </button>
           ))}
         </div>
-        <p className="mx-auto mt-6 min-h-[3.2em] max-w-[54ch] text-[1.05rem] text-ink-soft" aria-live="polite">
-          {s.line}
-        </p>
+        </LayoutGroup>
+        <div className="mx-auto mt-6 grid min-h-[3.2em] max-w-[54ch] text-[1.05rem] text-ink-soft" aria-live="polite">
+          <AnimatePresence initial={false}>
+            <motion.p
+              key={s.id}
+              className="[grid-area:1/1]"
+              initial={reduced ? { opacity: 0 } : { opacity: 0, y: 6, filter: "blur(2px)" }}
+              animate={{ opacity: 1, y: 0, filter: "blur(0px)", transition: { duration: DUR.ui, ease: EASE_OUT, delay: reduced ? 0 : settleDelay(DUR.move) } }}
+              exit={{ opacity: 0, transition: { duration: DUR.uiExit, ease: EASE_OUT } }}
+            >
+              {s.line}
+            </motion.p>
+          </AnimatePresence>
+        </div>
       </div>
 
       <div className="wrap mt-10">

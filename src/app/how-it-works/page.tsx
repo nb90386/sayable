@@ -61,7 +61,7 @@ export default function HowItWorksPage() {
       <PageIntro
         title={
           <>
-            One document, <em>five stages.</em>
+            One document, <span className="tone">five stages.</span>
           </>
         }
         lede="The same file moves from a messy public website to a checked, documented, ready-to-post result. Here is what happens at each step, and who does it."

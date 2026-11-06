@@ -33,7 +33,7 @@ export default async function ContactPage({ searchParams }: { searchParams: Prom
       <div className="grid-12 gap-y-14">
         <div className="col-span-12 lg:col-span-5">
           <h1 className="display mt-7 text-[length:clamp(2.6rem,1.5rem+3.6vw,4.8rem)]">
-            Tell us what you <em>publish.</em>
+            Tell us what you <span className="tone">publish.</span>
           </h1>
           <p className="lede mt-8">
             Cities, counties, agencies and the firms who publish for them. We reply from a person, not an autoresponder.
