@@ -1,6 +1,6 @@
 "use client";
 
-import { motion, useReducedMotion } from "motion/react";
+import { m, useReducedMotion } from "motion/react";
 import { useId, useRef, useState } from "react";
 import { track } from "@/lib/analytics";
 import { EASE_OUT } from "@/lib/motion";
@@ -124,7 +124,7 @@ export function ContactForm({ contactEmail, defaultInterest }: { contactEmail: s
 
   if (status.kind === "sent") {
     return (
-      <motion.div
+      <m.div
         ref={statusRef}
         tabIndex={-1}
         role="status"
@@ -137,7 +137,7 @@ export function ContactForm({ contactEmail, defaultInterest }: { contactEmail: s
         </p>
         <h2 className="title mt-4 text-[length:var(--step-2)] leading-tight">Thank you. Your request reached us.</h2>
         <p className="mt-4 text-ink-soft">A person reads every request and replies by email.</p>
-      </motion.div>
+      </m.div>
     );
   }
 

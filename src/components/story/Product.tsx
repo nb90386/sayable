@@ -1,6 +1,6 @@
 "use client";
 
-import { AnimatePresence, LayoutGroup, motion, useReducedMotion } from "motion/react";
+import { AnimatePresence, LayoutGroup, m, useReducedMotion } from "motion/react";
 import { useId, useState } from "react";
 import { DUR, EASE_OUT, KNOB_STRETCH, settleDelay, tKnob, tStretch } from "@/lib/motion";
 import { PVB, PermitPage, regions } from "../doc/permit";
@@ -115,7 +115,7 @@ export function Product() {
               }}
             >
               {n === i ? (
-                <motion.span
+                <m.span
                   layoutId="stage-knob"
                   aria-hidden="true"
                   className="seg-knob"
@@ -130,7 +130,7 @@ export function Product() {
         </LayoutGroup>
         <div className="mx-auto mt-6 grid min-h-[3.2em] max-w-[54ch] text-[1.05rem] text-ink-soft" aria-live="polite">
           <AnimatePresence initial={false}>
-            <motion.p
+            <m.p
               key={s.id}
               className="[grid-area:1/1]"
               initial={reduced ? { opacity: 0 } : { opacity: 0, y: 6, filter: "blur(2px)" }}
@@ -138,7 +138,7 @@ export function Product() {
               exit={{ opacity: 0, transition: { duration: DUR.uiExit, ease: EASE_OUT } }}
             >
               {s.line}
-            </motion.p>
+            </m.p>
           </AnimatePresence>
         </div>
       </div>

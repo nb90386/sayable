@@ -61,7 +61,7 @@ export function GuideLayout({
             </div>
           </nav>
 
-          <div className="col-span-12 max-w-[66ch] space-y-12 text-[length:var(--step-0)] leading-[1.6] text-ink-soft lg:col-span-8 lg:col-start-5">
+          <div className="col-span-12 max-w-[40rem] space-y-12 text-[length:var(--step-0)] leading-[1.6] text-ink-soft lg:col-span-8 lg:col-start-5">
             {children}
             <p className="border-t pt-6 text-[0.95rem] text-muted hairline">
               This guide is general information, not legal advice. Questions about what the law requires of your

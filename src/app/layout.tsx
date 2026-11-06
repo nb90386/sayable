@@ -4,6 +4,7 @@ import { Footer } from "@/components/Footer";
 import { Header } from "@/components/Header";
 import { RevealObserver } from "@/components/RevealObserver";
 import { ConsentManager } from "@/components/consent/ConsentManager";
+import { MotionProvider } from "@/components/motion/MotionProvider";
 import { site } from "@/content/site";
 import { SITE_URL, isProductionDeploy } from "@/content/url";
 import "./globals.css";
@@ -35,13 +36,15 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <a href="#main" className="skip-link sr-only-focusable">
           Skip to content
         </a>
-        <Header />
-        <main id="main" tabIndex={-1} className="outline-none">
-          {children}
-        </main>
-        <Footer />
-        <RevealObserver />
-        <ConsentManager />
+        <MotionProvider>
+          <Header />
+          <main id="main" tabIndex={-1} className="outline-none">
+            {children}
+          </main>
+          <Footer />
+          <RevealObserver />
+          <ConsentManager />
+        </MotionProvider>
       </body>
     </html>
   );

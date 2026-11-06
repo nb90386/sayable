@@ -1,6 +1,6 @@
 "use client";
 
-import { LayoutGroup, motion, useReducedMotion } from "motion/react";
+import { LayoutGroup, m, useReducedMotion } from "motion/react";
 import { useId, useRef } from "react";
 import { DUR, EASE_OUT, KNOB_STRETCH, settleDelay, tKnob, tStretch } from "@/lib/motion";
 
@@ -55,7 +55,7 @@ export function Segmented<T extends string>({
               className="seg-opt"
             >
               {on ? (
-                <motion.span
+                <m.span
                   layoutId="knob"
                   aria-hidden="true"
                   className="seg-knob"
@@ -66,13 +66,13 @@ export function Segmented<T extends string>({
                   {...(reduced ? {} : { transition: { ...tKnob, scaleX: tStretch } })}
                 />
               ) : null}
-              <motion.span
+              <m.span
                 className="relative"
                 animate={{ opacity: on ? 1 : 0.78 }}
                 transition={{ duration: DUR.ui, ease: EASE_OUT, delay: reduced ? 0 : settleDelay(DUR.move) }}
               >
                 {o.label}
-              </motion.span>
+              </m.span>
             </button>
           );
         })}

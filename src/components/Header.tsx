@@ -1,6 +1,6 @@
 "use client";
 
-import { AnimatePresence, LayoutGroup, motion, useReducedMotion } from "motion/react";
+import { AnimatePresence, LayoutGroup, m, useReducedMotion } from "motion/react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useCallback, useEffect, useId, useRef, useState } from "react";
@@ -56,7 +56,7 @@ function Group({
     };
   }, [open, setOpen]);
 
-  const pill = hovered || (open && !hovered) ? <motion.span layoutId="nav-pill" className="nav-pill" transition={reduced ? { duration: 0 } : { duration: DUR.ui, ease: EASE_OUT }} /> : null;
+  const pill = hovered || (open && !hovered) ? <m.span layoutId="nav-pill" className="nav-pill" transition={reduced ? { duration: 0 } : { duration: DUR.ui, ease: EASE_OUT }} /> : null;
 
   return (
     <li
@@ -89,7 +89,7 @@ function Group({
         >
           {pill}
           <span className="relative">{g.label}</span>
-          <motion.span
+          <m.span
             aria-hidden="true"
             className="relative ml-1 inline-block text-muted"
             animate={{ rotate: open ? 180 : 0 }}
@@ -106,7 +106,7 @@ function Group({
       {g.items ? (
         <AnimatePresence>
           {open ? (
-            <motion.div
+            <m.div
               id={id}
               key="panel"
               className="nav-pop"
@@ -115,7 +115,7 @@ function Group({
             >
               <ul>
                 {g.items.map((it, i) => (
-                  <motion.li
+                  <m.li
                     key={it.href}
                     initial={reduced ? false : { opacity: 0, y: -3 }}
                     animate={{ opacity: 1, y: 0, transition: { ...tUi, delay: reduced ? 0 : 0.04 + i * STAGGER } }}
@@ -124,10 +124,10 @@ function Group({
                       <span className="block font-[600] text-ink">{it.label}</span>
                       {it.note ? <span className="mt-0.5 block text-[0.86rem] leading-snug text-muted">{it.note}</span> : null}
                     </Link>
-                  </motion.li>
+                  </m.li>
                 ))}
               </ul>
-            </motion.div>
+            </m.div>
           ) : null}
         </AnimatePresence>
       ) : null}
@@ -257,7 +257,7 @@ export function Header() {
 
       <AnimatePresence>
         {open ? (
-          <motion.div
+          <m.div
             id="mobile-menu"
             ref={panelRef}
             key="mobile"
@@ -274,7 +274,7 @@ export function Header() {
                     {(g.items ?? [{ href: g.href!, label: g.label }]).map((it) => {
                       const i = row++;
                       return (
-                        <motion.li
+                        <m.li
                           key={it.href}
                           initial={reduced ? false : { opacity: 0, y: 6 }}
                           animate={{ opacity: 1, y: 0, transition: { ...tUi, delay: reduced ? 0 : Math.min(i, 10) * STAGGER } }}
@@ -286,7 +286,7 @@ export function Header() {
                           >
                             {it.label}
                           </Link>
-                        </motion.li>
+                        </m.li>
                       );
                     })}
                   </ul>
@@ -298,7 +298,7 @@ export function Header() {
                 </Link>
               </div>
             </nav>
-          </motion.div>
+          </m.div>
         ) : null}
       </AnimatePresence>
     </header>

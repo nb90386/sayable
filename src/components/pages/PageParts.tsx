@@ -15,7 +15,7 @@ export function PageIntro({
     <header className="wrap pt-[calc(var(--header-h)+4rem)] pb-16 sm:pb-24">
       <div className="grid-12 gap-y-8">
         <div className="col-span-12 lg:col-span-9">
-          <h1 className="display mt-7 text-[length:clamp(2.6rem,1.4rem+4.4vw,5.6rem)]">{title}</h1>
+          <h1 className="display mt-7 max-w-[20ch] text-[length:clamp(2.5rem,1.4rem+3.4vw,4.4rem)]">{title}</h1>
         </div>
         <div className="col-span-12 grid gap-6 border-t pt-8 hairline md:col-span-10 md:col-start-3 md:grid-cols-[1fr_auto] lg:col-span-8 lg:col-start-5">
           <p className="lede !max-w-[46ch]">{lede}</p>

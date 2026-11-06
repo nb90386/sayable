@@ -1,7 +1,8 @@
 "use client";
 
 import { Analytics } from "@vercel/analytics/next";
-import { AnimatePresence, motion, useAnimate, useReducedMotion } from "motion/react";
+import { AnimatePresence, m, useReducedMotion } from "motion/react";
+import { useAnimate } from "motion/react-mini";
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import { gpcEnabled, onConsent, readConsent, writeConsent } from "@/lib/consent";
@@ -59,7 +60,7 @@ export function ConsentManager() {
       {allowed ? <Analytics /> : null}
       <AnimatePresence>
         {ready && banner ? (
-          <motion.section
+          <m.section
             key="banner"
             aria-label="Privacy choices"
             className="consent-banner"
@@ -82,7 +83,7 @@ export function ConsentManager() {
                 Allow analytics
               </button>
             </div>
-          </motion.section>
+          </m.section>
         ) : null}
       </AnimatePresence>
 

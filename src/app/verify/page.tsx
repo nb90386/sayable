@@ -89,7 +89,7 @@ export default function VerifyPage() {
   return (
     <>
       <PageIntro
-        title="One check is never enough. We stack three and say what each found."
+        title="One check is never enough."
         lede="A PDF can pass a validator and still be unreadable with a screen reader. Sayable layers automated checks with human review and reports each result separately."
         note="Technical validation, not a legal determination"
       />

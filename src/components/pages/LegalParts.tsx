@@ -71,7 +71,7 @@ export function LegalLayout({
               </ol>
             </div>
           </nav>
-          <div className="legal-body col-span-12 max-w-[66ch] lg:col-span-8 lg:col-start-5">{children}</div>
+          <div className="legal-body col-span-12 max-w-[40rem] lg:col-span-8 lg:col-start-5">{children}</div>
         </div>
       </div>
     </>
