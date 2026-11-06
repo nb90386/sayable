@@ -325,13 +325,13 @@ Documents have gently rounded corners (6px) because they are paper. Product wind
 
 ### Buttons
 - **Shape:** full pill (999px), 3rem minimum height, 1.4rem side padding, 1.02rem at 560 weight.
-- **Primary:** white on Structure Blue. Hover mixes 12% black into the blue in OKLab, press scales to 0.98, and a trailing arrow nudges 2px on hover. Used for "Request a Readiness Audit" and form submission.
+- **Primary:** white on Structure Blue. Hover mixes 12% black into the blue in OKLab, press scales to 0.97 (60ms in, 160ms back, no spring; `.press` gives the same press to other controls), and a trailing arrow nudges 2px on hover. Used for "Request a Readiness Audit" and form submission.
 - **Night:** Night text on a Moon pill, turning pure white on hover. This is the primary action inside dark scenes.
 - **Quiet:** transparent with a 1.5px inset rule at ink 24% and a 6% current-colour wash on hover. Used for in-chapter toggles such as "Sort the collection".
 - **Quiet link:** blue text with a small chevron, 3rem tall, underlined on hover. It sits beside a primary button as the secondary action ("Hear the difference", "Discuss a pilot").
 
 ### Segmented Control
-A pill track (ink at 6% on light, white at 10% on night) with 4px padding holds pill options 2.6rem tall. The selected option is a white pill with ink text and the selected-segment shadow. It is a radiogroup for "As posted / After repair" and a tablist with arrow-key roving for the five workspace stages.
+A pill track (ink at 6% on light, white at 10% on night) with 4px padding holds pill options 2.6rem tall. One shared white knob (`layoutId`) travels to the selected option on a shallow `arc()` path and stretches 12% along its direction at mid-travel; the labels settle a beat later. It is a radiogroup with arrow keys for "As posted / After repair" (`components/motion/Segmented.tsx`) and a tablist with arrow-key roving for the five workspace stages. Tokens are in MOTION-SYSTEM.md.
 
 ### Audio Player (signature)
 One player under one sheet in the dark audio chapter. It is a translucent pill (white at 8%) holding a Moon pill button (play/pause with a drawn icon, labelled "Hear the problem" or "Hear the difference"), a waveform of 44 rounded bars driven by an analyser (played bars at full opacity, unplayed at 38%), and a round replay button. As the narration plays, the spoken region on the sheet lights up: ember for "As posted", blue for "After repair". The spoken words appear in the caption line beneath.
@@ -365,10 +365,16 @@ A pill reading "Checked" with a drawn check, deep blue on the blue wash (night o
 White fields with a 10px radius, a hairline border and 0.75rem × 0.875rem padding. Focus turns the border blue and adds a 2px blue ring at 25%. Invalid fields take an ember-text border, with the error in ember text below and an ember-wash summary at the top listing links to each field. Radio choices are 10px hairline tiles that turn blue-bordered on a half wash when checked.
 
 ### Navigation
-A fixed 3.5rem paper bar that gains a hairline when scrolled. It holds the wordmark (a small ink sheet with a paper reading path and an ember knot, beside "Sayable" at 500 weight) and nav links in Soft Ink at 0.95rem/480, each with a 1px blue underline that grows from the left on hover and stays for the current page. A compact primary pill sits at right. Below 1024px a two-line toggle opens a full-screen paper menu with 2rem links staggered in at 40ms, a focus trap, Escape to close, and scroll lock.
+A fixed 3.5rem paper bar that gains a hairline when scrolled (no blur: a backdrop filter would trap the fixed mobile menu). The wordmark sits left, the CTA pill "Request an Audit" right. Five entries: Product, Solutions and Company are disclosure buttons that open a 21rem white popover (16px radius, hairline ring, soft shadow) growing from its trigger at 0.95 scale over 200ms and returning over 160ms; rows stagger in at 30ms, each a bold label over a one-line muted note. How it works and Resources are plain links. One shared hover pill (ink at 5.5%) slides between entries; the current section keeps a 1.5px blue underline. Escape closes a popover and returns focus to its trigger. Below 1024px a two-line toggle opens a full-screen paper menu, grouped under small muted headings, rows at 1.35rem/600 staggered at 30ms, with a focus trap, Escape to close, and scroll lock.
+
+### Privacy choices
+A 26rem white card at the bottom left on first visit, with two equal quiet buttons, "Essential only" and "Allow analytics", and a link to /cookies. The footer's "Privacy choices" opens a native `<dialog>` (20px radius, 0.95 entrance) with an always-on essential row and a switch for anonymous analytics; saving gives one restrained pulse and a "Saved." status. A Global Privacy Control signal suppresses the banner.
+
+### Supporting pages
+Every supporting page opens with PageIntro (h1 up to 20ch at clamp 2.5–4.4rem, a lede and a mono margin note) and then uses compositions that fit its question rather than one repeated stack: deliverables beside a sample inventory table, numbered timelines on a blue hairline, comparison tables in focusable scroll regions, night bands for price and the Agenda Desk, native `<details>` FAQs. Guides and legal pages are Read surfaces: a 40rem column, sticky contents list, updated date and a "general information, not legal advice" or "review draft" note.
 
 ### Footer
-A night block with the wordmark, a one-line promise, site and stage links in Moon, the non-certification line, and an oversized outlined "Sayable" wordmark at moon 30% as the closing signature.
+A night block with the wordmark, a one-line promise, three link columns (Product, Solutions, Company) in Moon, legal links and the "Privacy choices" button, the non-certification line, and an oversized outlined "Sayable" wordmark at moon 30% as the closing signature.
 
 ## Do's and Don'ts
 
