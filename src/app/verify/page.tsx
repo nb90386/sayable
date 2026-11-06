@@ -105,7 +105,7 @@ export default function VerifyPage() {
             </p>
           </div>
 
-          <div className="mt-12 overflow-x-auto">
+          <div className="mt-12 overflow-x-auto" tabIndex={0} role="region" aria-label="What each layer of checking catches and misses">
             <table className="w-full min-w-[56rem] border-collapse text-left">
               <caption className="sr-only">Comparison of verification layers: what each checks, catches and misses</caption>
               <thead>

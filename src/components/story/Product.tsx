@@ -23,7 +23,7 @@ const stages: { id: string; name: string; line: string; rows: Row[]; status: str
   {
     id: "repair",
     name: "Repair",
-    line: "Software fixes tags, order and field names, never the visible text. Tables, forms needing judgement and scans go to a person.",
+    line: "Software fixes tags, order and field names, never the visible text. Tables, forms needing judgment and scans go to a person.",
     status: "4 of 5 fixed automatically",
     rows: [
       { t: "Title tagged as H1", k: "auto" },

@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { useEffect, useId, useRef, useState } from "react";
+import { track } from "@/lib/analytics";
 import { usePrefersReducedMotion } from "@/lib/useInView";
 
 type Inputs = { pages: number; attention: number; exceptions: number; vendor: number; auto: number; autoCost: number; reviewMin: number; wage: number; monthly: number };
@@ -169,7 +170,9 @@ export function Value() {
                         {f.fmt(v[f.key])}
                       </output>
                     </div>
-                    <input id={id} type="range" min={f.min} max={f.max} step={f.step} value={v[f.key]} onChange={(e) => setV((s) => ({ ...s, [f.key]: Number(e.target.value) }))} aria-describedby={`${id}-hint`} className="cost-range mt-2" />
+                    <input id={id} type="range" min={f.min} max={f.max} step={f.step} value={v[f.key]} onChange={(e) => setV((s) => ({ ...s, [f.key]: Number(e.target.value) }))}
+                      onPointerUp={() => track("estimator_change", { field: f.key })}
+                      onKeyUp={() => track("estimator_change", { field: f.key })} aria-describedby={`${id}-hint`} className="cost-range mt-2" />
                     <p id={`${id}-hint`} className="mt-1 text-[0.84rem] leading-snug text-muted">
                       {f.hint}
                     </p>

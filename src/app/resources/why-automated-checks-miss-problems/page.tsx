@@ -63,7 +63,7 @@ export default function Page() {
             ["Form field names and labels", "Whether names exist", "Yes, from nearby text", "Whether the label tells the user what to enter"],
             ["Links", "Whether a link is tagged", "Flags text such as 'click here'", "Whether the link text makes sense out of context"],
             ["Scanned pages (images of text)", "Yes, no real text present", "Yes, text recognition", "Whether recognized text is accurate, particularly with handwriting, stamps and poor scans"],
-            ["Colour contrast", "Partly, for text with known colours", "Yes", "Meaning carried by colour alone, and contrast inside images"],
+            ["Color contrast", "Partly, for text with known colors", "Yes", "Meaning carried by color alone, and contrast inside images"],
             ["Math, charts and maps", "That something is there", "Rarely", "Whether the alternative conveys the information"],
             ["Language of passages", "Partly", "Yes", "Whether foreign-language phrases are marked in the right places"],
           ]}

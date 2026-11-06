@@ -203,7 +203,7 @@ export function Header() {
   return (
     <header
       className={`fixed inset-x-0 top-0 z-50 transition-[background-color,border-color] duration-300 ${
-        scrolled || open ? "border-b bg-paper/95 backdrop-blur-[6px] hairline" : "border-b border-transparent bg-paper"
+        scrolled || open ? "border-b bg-paper hairline" : "border-b border-transparent bg-paper"
       }`}
       style={{ height: "var(--header-h)" }}
     >

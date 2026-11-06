@@ -219,7 +219,7 @@ export default function ReadinessAuditPage() {
           <figure className="col-span-12 lg:col-span-6 lg:col-start-7">
             <div className="sheet overflow-hidden p-5 sm:p-8">
               <p className="mono text-[0.8rem] text-muted">Inventory excerpt, Example County</p>
-              <div className="mt-5 overflow-x-auto">
+              <div className="mt-5 overflow-x-auto" tabIndex={0} role="region" aria-label="Sample inventory excerpt">
                 <table className="w-full min-w-[34rem] border-collapse text-left text-[0.9rem]">
                   <caption className="sr-only">Example inventory rows with a recommendation and reason for each file</caption>
                   <thead>

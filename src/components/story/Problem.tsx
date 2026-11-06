@@ -159,7 +159,7 @@ export function Problem() {
                   <div className="h-full rounded-full bg-moon" style={{ width: `${progress * 100}%` }} />
                 </div>
               ) : (
-                levels.map((l, i) => <i key={i} className={i / BARS <= progress ? "on" : ""} style={{ height: `${Math.round(l * 100)}%` }} />)
+                levels.map((l, i) => <span key={i} className={i / BARS <= progress ? "on" : ""} style={{ height: `${Math.round(l * 100)}%` }} />)
               )}
             </div>
             <button type="button" onClick={replay} className="inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-full hover:bg-white/10">

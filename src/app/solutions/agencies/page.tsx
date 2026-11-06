@@ -76,7 +76,7 @@ export default function AgenciesPage() {
               Sayable is a service backed by our own software. You send us work and we send back repaired, checked files and reports. We are not offering a tool you plug into your own systems.
             </p>
           </div>
-          <div className="col-span-12 overflow-x-auto lg:col-span-6 lg:col-start-7">
+          <div className="col-span-12 overflow-x-auto lg:col-span-6 lg:col-start-7" tabIndex={0} role="region" aria-label="What is and is not offered">
             <table className="w-full min-w-[26rem] border-collapse text-left">
               <caption className="sr-only">What Sayable offers to agencies and firms</caption>
               <thead>

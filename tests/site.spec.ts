@@ -1,7 +1,27 @@
 import AxeBuilder from "@axe-core/playwright";
 import { expect, test } from "@playwright/test";
 
-const routes = ["/", "/product", "/how-it-works", "/solutions", "/approach", "/contact", "/accessibility", "/privacy"];
+const routes = [
+  "/",
+  "/product",
+  "/readiness-audit",
+  "/how-it-works",
+  "/verify",
+  "/solutions",
+  "/solutions/government",
+  "/solutions/agencies",
+  "/resources",
+  "/resources/inventory-government-pdfs",
+  "/resources/what-a-pdf-audit-tells-you",
+  "/resources/why-automated-checks-miss-problems",
+  "/about",
+  "/security",
+  "/contact",
+  "/accessibility",
+  "/privacy",
+  "/terms",
+  "/cookies",
+];
 
 for (const route of routes) {
   test(`${route} has no axe WCAG A/AA violations, one h1, no overflow, no console errors`, async ({ page }) => {
@@ -9,6 +29,7 @@ for (const route of routes) {
     page.on("pageerror", (e) => errors.push(String(e)));
     page.on("console", (m) => m.type() === "error" && errors.push(m.text()));
     await page.emulateMedia({ reducedMotion: "reduce" });
+    await page.addInitScript(() => localStorage.setItem("sayable-consent", JSON.stringify({ v: 1, analytics: false, at: "test" })));
     await page.goto(route, { waitUntil: "networkidle" });
     const results = await new AxeBuilder({ page }).withTags(["wcag2a", "wcag2aa", "wcag21aa", "wcag22aa"]).analyze();
     const summary = results.violations.map((v) => `${v.id}: ${v.nodes.length} × ${v.nodes[0]?.target.join(" ")}`);
@@ -81,4 +102,77 @@ test("mobile menu opens, traps Escape, and closes", async ({ page }, info) => {
   await page.keyboard.press("Escape");
   await expect(page.locator("#mobile-menu")).toBeHidden();
   await expect(page.getByRole("button", { name: "Open menu" })).toBeFocused();
+});
+
+test("unknown routes return a branded 404 and /approach redirects to /verify", async ({ page, request }) => {
+  const res = await page.goto("/this-page-does-not-exist");
+  expect(res?.status()).toBe(404);
+  await expect(page.locator("h1")).toHaveCount(1);
+  await expect(page.getByRole("link", { name: /readiness audit/i }).first()).toBeVisible();
+  const r = await request.get("/approach", { maxRedirects: 0 });
+  expect(r.status()).toBe(308);
+  expect(r.headers()["location"]).toContain("/verify");
+});
+
+test("every sitemap URL resolves", async ({ request }) => {
+  const xml = await (await request.get("/sitemap.xml")).text();
+  const urls = [...xml.matchAll(/<loc>([^<]+)<\/loc>/g)].map((m) => new URL(m[1]!).pathname);
+  expect(urls.length).toBeGreaterThan(15);
+  for (const u of urls) expect((await request.get(u)).status(), u).toBe(200);
+});
+
+test("security headers are sent", async ({ request }) => {
+  const h = (await request.get("/")).headers();
+  expect(h["content-security-policy"]).toContain("frame-ancestors 'none'");
+  expect(h["x-content-type-options"]).toBe("nosniff");
+  expect(h["referrer-policy"]).toBe("strict-origin-when-cross-origin");
+  expect(h["x-frame-options"]).toBe("DENY");
+});
+
+test("consent: analytics never loads before an explicit choice, and the choice persists", async ({ page }) => {
+  const insights: string[] = [];
+  page.on("request", (r) => r.url().includes("/_vercel/insights") && insights.push(r.url()));
+  await page.goto("/", { waitUntil: "networkidle" });
+  const banner = page.getByRole("region", { name: "Privacy choices" });
+  await expect(banner).toBeVisible();
+  await expect(banner.getByRole("button", { name: "Essential only" })).toBeVisible();
+  await expect(banner.getByRole("button", { name: "Allow analytics" })).toBeVisible();
+  expect(insights).toEqual([]);
+  await banner.getByRole("button", { name: "Essential only" }).click();
+  await expect(banner).toBeHidden();
+  await page.reload({ waitUntil: "networkidle" });
+  await expect(page.getByRole("region", { name: "Privacy choices" })).toBeHidden();
+  expect(insights).toEqual([]);
+  // preferences can be changed later from the footer
+  await page.getByRole("button", { name: "Privacy choices" }).click();
+  const dialog = page.getByRole("dialog", { name: "Privacy choices" });
+  await expect(dialog).toBeVisible();
+  await expect(dialog.getByRole("switch", { name: "Anonymous analytics" })).not.toBeChecked();
+  await dialog.getByRole("switch", { name: "Anonymous analytics" }).check();
+  await dialog.getByRole("button", { name: "Save choices" }).click();
+  await expect(dialog.getByRole("status")).toHaveText("Saved.");
+  const stored = await page.evaluate(() => JSON.parse(localStorage.getItem("sayable-consent") ?? "{}"));
+  expect(stored.analytics).toBe(true);
+  // the site itself sets no cookies
+  expect(await page.context().cookies()).toEqual([]);
+});
+
+test("a Global Privacy Control signal suppresses the banner and analytics", async ({ page }) => {
+  await page.addInitScript(() => Object.defineProperty(navigator, "globalPrivacyControl", { value: true }));
+  await page.goto("/", { waitUntil: "networkidle" });
+  await expect(page.getByRole("region", { name: "Privacy choices" })).toBeHidden();
+});
+
+test("desktop nav dropdown opens from its trigger and closes on Escape", async ({ page }, info) => {
+  test.skip(info.project.name !== "desktop");
+  await page.addInitScript(() => localStorage.setItem("sayable-consent", JSON.stringify({ v: 1, analytics: false, at: "test" })));
+  await page.goto("/");
+  const trigger = page.getByRole("navigation", { name: "Primary" }).getByRole("button", { name: "Product" });
+  await trigger.focus();
+  await page.keyboard.press("Enter");
+  await expect(trigger).toHaveAttribute("aria-expanded", "true");
+  await expect(page.getByRole("link", { name: /Readiness Audit/ }).first()).toBeVisible();
+  await page.keyboard.press("Escape");
+  await expect(trigger).toHaveAttribute("aria-expanded", "false");
+  await expect(trigger).toBeFocused();
 });

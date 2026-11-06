@@ -1,6 +1,9 @@
 "use client";
 
+import { motion, useReducedMotion } from "motion/react";
 import { useId, useRef, useState } from "react";
+import { track } from "@/lib/analytics";
+import { EASE_OUT } from "@/lib/motion";
 import { INTERESTS, LIMITS, ROLES, validateContact, type ContactErrors, type ContactPayload } from "@/lib/contact";
 
 type Status =
@@ -48,6 +51,13 @@ export function ContactForm({ contactEmail, defaultInterest }: { contactEmail: s
   const statusRef = useRef<HTMLDivElement>(null);
   const [errors, setErrors] = useState<ContactErrors>({});
   const [status, setStatus] = useState<Status>({ kind: "idle" });
+  const reduced = useReducedMotion();
+  const started = useRef(false);
+  const markStarted = () => {
+    if (started.current) return;
+    started.current = true;
+    track("contact_form_start");
+  };
   const [last, setLast] = useState<ContactPayload | null>(null);
   const [copied, setCopied] = useState(false);
 
@@ -82,6 +92,7 @@ export function ContactForm({ contactEmail, defaultInterest }: { contactEmail: s
       const data = (await res.json().catch(() => ({}))) as { ok?: boolean; code?: string; message?: string; errors?: ContactErrors };
       if (res.ok && data.ok) {
         setStatus({ kind: "sent" });
+        track("contact_form_success", { topic: payload.interest || "unknown" });
         formRef.current?.reset();
       } else if (data.code === "not_configured") {
         setStatus({ kind: "not_configured" });
@@ -113,16 +124,25 @@ export function ContactForm({ contactEmail, defaultInterest }: { contactEmail: s
 
   if (status.kind === "sent") {
     return (
-      <div ref={statusRef} tabIndex={-1} role="status" className="sheet p-8 sm:p-10">
-        <p className="tag">Request received</p>
-        <h2 className="mt-4 font-serif text-[length:var(--step-2)] leading-tight">Thank you. Your request reached us.</h2>
-        <p className="mt-4 text-ink-soft">We read every request ourselves and reply from a person, usually within two business days.</p>
-      </div>
+      <motion.div
+        ref={statusRef}
+        tabIndex={-1}
+        role="status"
+        className="sheet p-8 sm:p-10"
+        initial={reduced ? false : { opacity: 0, scale: 0.98 }}
+        animate={reduced ? undefined : { opacity: 1, scale: [0.98, 1.012, 1], transition: { duration: 0.42, ease: EASE_OUT, times: [0, 0.55, 1] } }}
+      >
+        <p className="stamp">
+          <span aria-hidden="true" data-icon="check"></span> Request received
+        </p>
+        <h2 className="title mt-4 text-[length:var(--step-2)] leading-tight">Thank you. Your request reached us.</h2>
+        <p className="mt-4 text-ink-soft">A person reads every request and replies by email.</p>
+      </motion.div>
     );
   }
 
   return (
-    <form ref={formRef} noValidate onSubmit={onSubmit} className="sheet relative p-6 sm:p-10" aria-describedby={id("intro")}>
+    <form ref={formRef} noValidate onSubmit={onSubmit} onFocusCapture={markStarted} className="sheet relative p-6 sm:p-10" aria-describedby={id("intro")}>
       <p id={id("intro")} className="tag !text-muted">
         All fields are required unless marked optional.
       </p>

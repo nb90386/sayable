@@ -1,0 +1,12 @@
+import { chromium } from "@playwright/test";
+const out = process.argv[2];
+const b = await chromium.launch({ executablePath: process.env.PW_CHROME });
+const p = await b.newPage({ viewport: { width: 390, height: 844 }, hasTouch: true });
+await p.addInitScript(() => localStorage.setItem("sayable-consent", JSON.stringify({ v: 1, analytics: false, at: "x" })));
+await p.goto("http://localhost:3100/verify", { waitUntil: "networkidle" });
+await p.getByRole("button", { name: "Open menu" }).click();
+await p.waitForTimeout(600);
+await p.screenshot({ path: `${out}/menu-390.png` });
+await p.goto("http://localhost:3100/nope");
+await p.screenshot({ path: `${out}/404-390.png`, fullPage: true });
+await b.close();

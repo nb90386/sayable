@@ -1,6 +1,7 @@
 "use client";
 
 import { useId, useState } from "react";
+import { track } from "@/lib/analytics";
 import { PVB, PermitPage, regions as R } from "../doc/permit";
 
 const regions: Record<string, { x: number; y: number; w: number; h: number }[]> = {
@@ -111,7 +112,10 @@ export function ReportExplorer() {
                 aria-selected={on}
                 aria-controls={`${base}-panel`}
                 tabIndex={on ? 0 : -1}
-                onClick={() => setSel(x.id)}
+                onClick={() => {
+                  setSel(x.id);
+                  track("sample_report_view", { finding: x.id });
+                }}
                 onKeyDown={(e) => {
                   if (e.key !== "ArrowDown" && e.key !== "ArrowUp") return;
                   e.preventDefault();
