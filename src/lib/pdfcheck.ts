@@ -67,11 +67,24 @@ export async function checkPdf(data: ArrayBuffer, onProgress?: (done: number, to
   if (data.byteLength > MAX_BYTES) throw new CheckError("too-big");
   if (!looksLikePdf(new Uint8Array(data))) throw new CheckError("not-pdf");
 
+  if (signal?.aborted) throw new CheckError("cancelled");
   const pdfjs = await import("pdfjs-dist");
-  pdfjs.GlobalWorkerOptions.workerSrc = "/pdfjs/pdf.worker.min.mjs";
+  if (signal?.aborted) throw new CheckError("cancelled");
+
+  // We own the worker so Stop and the time limit can kill it outright, even if
+  // a hostile file has it stuck. Passing a port also stops pdf.js from quietly
+  // falling back to parsing on the page's main thread if the worker fails.
+  const raw = new Worker("/pdfjs/pdf.worker.min.mjs", { type: "module" });
+  const pdfWorker = pdfjs.PDFWorker.create({ port: raw });
+
+  let stopped: CheckErrorCode | null = null;
+  let reject: (e: CheckError) => void = () => {};
+  const stopPromise = new Promise<never>((_, r) => (reject = r));
+  stopPromise.catch(() => {});
 
   const task = pdfjs.getDocument({
     data: new Uint8Array(data.slice(0)),
+    worker: pdfWorker,
     cMapUrl: "/pdfjs/cmaps/",
     cMapPacked: true,
     standardFontDataUrl: "/pdfjs/standard_fonts/",
@@ -80,26 +93,36 @@ export async function checkPdf(data: ArrayBuffer, onProgress?: (done: number, to
     verbosity: 0,
   });
 
-  // Destroying the loading task terminates the worker, which stops any parsing in progress.
-  let stopped: CheckErrorCode | null = null;
   const stop = (code: CheckErrorCode) => {
+    if (stopped) return;
     stopped = code;
-    void task.destroy();
+    raw.terminate();
+    void task.destroy().catch(() => {});
+    reject(new CheckError(code));
   };
   const timer = setTimeout(() => stop("timeout"), TIME_LIMIT_MS);
   const onAbort = () => stop("cancelled");
   signal?.addEventListener("abort", onAbort, { once: true });
+  raw.addEventListener("error", () => stop("failed"));
+  /** Every await races the stop signal, so nothing waits on a dead worker. */
+  const race = <T,>(p: Promise<T>) => Promise.race([p, stopPromise]);
   const guard = () => {
     if (stopped) throw new CheckError(stopped);
+  };
+  const cleanup = () => {
+    clearTimeout(timer);
+    signal?.removeEventListener("abort", onAbort);
+    void task.destroy().catch(() => {});
+    pdfWorker.destroy();
+    raw.terminate();
   };
 
   let doc;
   try {
-    doc = await task.promise;
+    doc = await race(task.promise);
   } catch (e) {
     const name = (e as { name?: string })?.name;
-    clearTimeout(timer);
-    signal?.removeEventListener("abort", onAbort);
+    cleanup();
     guard();
     if (name === "PasswordException") throw new CheckError("password");
     if (name === "InvalidPDFException") throw new CheckError("damaged");
@@ -109,12 +132,12 @@ export async function checkPdf(data: ArrayBuffer, onProgress?: (done: number, to
   try {
     const pages = doc.numPages;
     const pagesChecked = Math.min(pages, MAX_PAGES);
-    const [meta, markInfo, outline, prefs] = await Promise.all([
+    const [meta, markInfo, outline, prefs] = await race(Promise.all([
       doc.getMetadata().catch(() => null),
       doc.getMarkInfo().catch(() => null),
       doc.getOutline().catch(() => null),
       doc.getViewerPreferences().catch(() => null),
-    ]);
+    ]));
     const info = (meta?.info ?? {}) as Record<string, unknown>;
     const xmpTitle = meta?.metadata?.get("dc:title") ?? null;
     const title = String(xmpTitle || info.Title || "").trim();
@@ -129,18 +152,20 @@ export async function checkPdf(data: ArrayBuffer, onProgress?: (done: number, to
     let headings = 0;
     let tables = 0;
     let tableHeaders = 0;
-    let fields = 0;
-    let fieldsNoName = 0;
+    /** One entry per form field, not per widget: radio groups and repeated fields have several widgets. */
+    const fieldMap = new Map<string, { named: boolean; widgets: number }>();
     const imageOnlyPages: number[] = [];
 
     for (let p = 1; p <= pagesChecked; p++) {
       guard();
-      const page = await doc.getPage(p);
-      const [text, tree, annots] = await Promise.all([
-        page.getTextContent().catch(() => null),
-        page.getStructTree().catch(() => null),
-        page.getAnnotations().catch(() => [] as unknown[]),
-      ]);
+      const page = await race(doc.getPage(p));
+      const [text, tree, annots] = await race(
+        Promise.all([
+          page.getTextContent().catch(() => null),
+          page.getStructTree().catch(() => null),
+          page.getAnnotations().catch(() => [] as unknown[]),
+        ]),
+      );
       if (p === 1) lang = text?.lang ?? null;
       const chars = (text?.items ?? []).reduce((n, it) => n + ("str" in it ? it.str.trim().length : 0), 0);
       if (chars < 3) imageOnlyPages.push(p);
@@ -163,8 +188,11 @@ export async function checkPdf(data: ArrayBuffer, onProgress?: (done: number, to
         if (a.subtype !== "Widget" || a.hidden) continue;
         const ft = a.fieldType as string | undefined;
         if (ft === "Btn" && a.pushButton) continue;
-        fields++;
-        if (!String(a.alternativeText ?? "").trim()) fieldsNoName++;
+        const key = String(a.fieldName || a.id);
+        const e = fieldMap.get(key) ?? { named: false, widgets: 0 };
+        e.widgets++;
+        if (String(a.alternativeText ?? "").trim()) e.named = true;
+        fieldMap.set(key, e);
       }
       page.cleanup();
       onProgress?.(p, pagesChecked);
@@ -172,6 +200,11 @@ export async function checkPdf(data: ArrayBuffer, onProgress?: (done: number, to
 
     // Only a real structure tree counts. A Marked flag with no tree is a false promise.
     const tagged = structPages > 0;
+    const fieldList = [...fieldMap.values()];
+    const fields = fieldList.length;
+    const fieldsNoName = fieldList.filter((f) => !f.named && f.widgets === 1).length;
+    // pdf.js cannot read a name stored on a group's parent, so an unnamed group is unknown, not a failure.
+    const groupsUnknown = fieldList.filter((f) => !f.named && f.widgets > 1).length;
     const findings: Finding[] = [];
     const scanned = imageOnlyPages.length;
 
@@ -264,7 +297,9 @@ export async function checkPdf(data: ArrayBuffer, onProgress?: (done: number, to
               id: "fields",
               title: "Form fields",
               status: "person",
-              detail: `All ${plural(fields, "form field")} have a spoken name.`,
+              detail: groupsUnknown
+                ? `${fields - groupsUnknown} of ${plural(fields, "form field")} have a spoken name. For ${plural(groupsUnknown, "group")} of buttons, the name may be stored where this check cannot read it.`
+                : `All ${plural(fields, "form field")} have a spoken name.`,
               why: "Each field needs a name that says what to type, like “Applicant phone number”.",
               fix: "A person should confirm each name is correct and that the tab order follows the form.",
             }
@@ -375,8 +410,6 @@ export async function checkPdf(data: ArrayBuffer, onProgress?: (done: number, to
     guard();
     throw e instanceof CheckError ? e : new CheckError("failed");
   } finally {
-    clearTimeout(timer);
-    signal?.removeEventListener("abort", onAbort);
-    void task.destroy();
+    cleanup();
   }
 }

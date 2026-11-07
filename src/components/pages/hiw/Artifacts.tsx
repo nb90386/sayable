@@ -213,7 +213,7 @@ export function TagTreePair() {
           </div>
         </div>
       </div>
-      <figcaption className="mt-4 max-w-[64ch] text-[0.9rem] text-muted">
+      <figcaption className="mt-4 max-w-[56ch] text-[0.9rem] text-muted">
         Sample. Fictional city. Software changes the title&rsquo;s role, adds alt text, names the form fields and marks the page number as decoration. The table is handed to a
         person. The visible text of the page is identical before and after.
       </figcaption>

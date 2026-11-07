@@ -245,6 +245,27 @@ test.describe("Check a PDF", () => {
     expect(sent, sent.join("\n")).toEqual([]);
   });
 
+  test("Stop cancels a check, and the worker never falls back to the main thread", async ({ page }) => {
+    const warnings: string[] = [];
+    page.on("console", (m) => /fake worker|worker/i.test(m.text()) && m.type() !== "log" && warnings.push(m.text()));
+    // hold the sample download so there is time to press Stop
+    await page.route("**/samples/permit-tagged.pdf", async (route) => {
+      await new Promise((r) => setTimeout(r, 1500));
+      await route.continue();
+    });
+    await page.goto("/check");
+    await page.getByRole("button", { name: /Permit form, tagged/ }).click();
+    await page.getByRole("button", { name: "Stop" }).click();
+    await expect(page.locator(".check-error")).toContainText("Check stopped");
+    await page.waitForTimeout(1800);
+    await expect(page.locator("#check-result")).toHaveCount(0);
+    await page.unroute("**/samples/permit-tagged.pdf");
+    // a normal run afterwards still works, on a real worker
+    await page.getByRole("button", { name: /Permit form, untagged/ }).click();
+    await expect(page.locator("#check-result")).toBeVisible();
+    expect(warnings, warnings.join("\n")).toEqual([]);
+  });
+
   test("bad files get clear errors", async ({ page }) => {
     await page.goto("/check");
     const alert = page.locator(".check-error");

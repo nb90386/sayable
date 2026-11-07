@@ -89,10 +89,10 @@ function Page({ title, pageNo, children }: { title: string; pageNo: string; chil
     <li className="hx-doc flex min-w-0 flex-col p-4 sm:p-5">
       <div className="flex items-baseline justify-between gap-3 border-b pb-3 hairline">
         <h3 className="title text-[1.05rem]">{title}</h3>
-        <span className="mono text-[0.72rem] text-muted">{pageNo}</span>
+        <span className="mono text-[0.78rem] text-muted">{pageNo}</span>
       </div>
       <div className="mt-3 flex-1">{children}</div>
-      <p className="mono mt-4 border-t pt-2.5 text-[0.72rem] text-muted hairline">Sample. Fictional city.</p>
+      <p className="mono mt-4 border-t pt-2.5 text-[0.78rem] text-muted hairline">Sample. Fictional city.</p>
     </li>
   );
 }
@@ -115,7 +115,7 @@ export function ReportPages() {
               {inventory.map(([f, r, why]) => (
                 <tr key={f} className="border-t align-top hairline">
                   <th scope="row" className="py-2 pr-2 text-left font-[400]">
-                    <span className="mono block break-all text-[0.72rem] font-[500]">{f}</span>
+                    <span className="mono block break-all text-[0.78rem] font-[500]">{f}</span>
                     <span className="block text-muted">{why}</span>
                   </th>
                   <td className="py-2 font-[560]">{r}</td>
@@ -133,7 +133,7 @@ export function ReportPages() {
             <li key={f} className="grid grid-cols-[1.4rem_1fr] border-t py-2 hairline first:border-t-0 first:pt-0">
               <span className="numeral text-[0.95rem] text-signal">{i + 1}</span>
               <span>
-                <span className="mono block break-all text-[0.72rem] font-[500]">{f}</span>
+                <span className="mono block break-all text-[0.78rem] font-[500]">{f}</span>
                 <span className="text-muted">{why}</span>
               </span>
             </li>

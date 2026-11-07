@@ -66,6 +66,7 @@ export function PdfChecker() {
     try {
       const [{ checkPdf }, data] = await Promise.all([import("@/lib/pdfcheck"), load()]);
       const result = await checkPdf(data, (done, total) => !ctrl.signal.aborted && setState({ k: "working", name, done, total }), ctrl.signal);
+      if (ctrl.signal.aborted) throw Object.assign(new Error("cancelled"), { code: "cancelled" });
       setState({ k: "done", name, sample, result });
       // Count that a check ran. Never the file name, size or findings.
       track("pdf_check_run", { source: sample ? "sample" : "own-file" });

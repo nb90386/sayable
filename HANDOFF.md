@@ -199,3 +199,19 @@ Branch `sayable/premium-production-sprint-2026-11-05`. Original preserved at tag
 - Consent-gated Vercel Web Analytics with typed, PII-free events; GPC honoured; no cookies.
 - CSP, HSTS, COOP and other headers; previews noindex; sitemap, robots, OG image, icons, canonicals.
 - Status, numbers and blockers: LAUNCH-CHECKLIST.md. Page purposes: SITE-MAP.md.
+
+---
+
+## Sprint 3, 2026-11-06: make the business impossible to misunderstand
+
+Branch `sayable/premium-production-sprint-2026-11-05` (continued). Backups unchanged: tag `backup/pre-finish-line-2026-11-05` and branch `backup/original-site-2026-11-05` at `687bb35`; the pre-sprint-3 state is commit `87d0bb3`.
+
+What changed, in one place:
+- Hero: "Many city PDFs can't be read by people who use screen readers." plus one sentence of what Sayable does and the April 26, 2027 date. Primary CTA "Check a PDF, free", secondary "Request a Readiness Audit". Tested twice with simulated personas (clerk, city manager, ADA coordinator); scores rose from 3/3/4 to 4/3.5/4.5.
+- Homepage story: hear the problem → the deadline (with sources and the NFB v. DOJ caveat) → what one form can cost (resident, staff, budget, a real DOJ case) → sorting → stages → why not Acrobat or ChatGPT (task table where Sayable loses on cost and self-service) → hours-based estimator → evidence → the audit → close.
+- `/check`: a real, free, in-browser PDF check (pdf.js; nothing uploaded), three generated sample PDFs including real form fields, cancel and a 90 s limit.
+- Voice demo regenerated with Kokoro-82M (Apache-2.0), voice `af_heart`. See `docs/AUDIO.md`.
+- `/product`: offer table, PDF-only file-scope matrix, honest stage labels. `/how-it-works` and `/readiness-audit` rebuilt with per-stage artifacts and a sample report. `/verify`: same file, two verdicts. `/solutions/government`: leads with the date and each role. New guide: the Title II rule and your PDFs.
+- Wording everywhere: repairs are done by people with software "still in testing"; the semantic check is labelled in testing; monitoring and team tools are planned; Agenda Desk is a limited pilot.
+
+Docs: `docs/SAYABLE-PRODUCT-STRATEGY.md`, `docs/research/RESEARCH-NOTES.md`, `docs/ENG-REVIEW.md`, `docs/QA-REPORT.md`, `docs/AUDIO.md`, `LAUNCH-CHECKLIST.md`.

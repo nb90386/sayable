@@ -107,9 +107,11 @@ export function Product() {
               className="seg-opt"
               onClick={() => setI(n)}
               onKeyDown={(e) => {
-                if (e.key !== "ArrowRight" && e.key !== "ArrowLeft") return;
+                const last = stages.length - 1;
+                const next =
+                  e.key === "ArrowRight" ? (i + 1) % stages.length : e.key === "ArrowLeft" ? (i + last) % stages.length : e.key === "Home" ? 0 : e.key === "End" ? last : -1;
+                if (next < 0) return;
                 e.preventDefault();
-                const next = (i + (e.key === "ArrowRight" ? 1 : stages.length - 1)) % stages.length;
                 setI(next);
                 document.getElementById(`${base}-tab-${stages[next]!.id}`)?.focus();
               }}

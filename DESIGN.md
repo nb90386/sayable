@@ -376,6 +376,18 @@ Every supporting page opens with PageIntro (h1 up to 20ch at clamp 2.5–4.4rem,
 ### Footer
 A night block with the wordmark, a one-line promise, three link columns (Product, Solutions, Company) in Moon, legal links and the "Privacy choices" button, the non-certification line, and an oversized outlined "Sayable" wordmark at moon 30% as the closing signature.
 
+### Status pills (sprint 2026-11-06)
+One vocabulary for every honest status on the site: `.check-status` plus `st-fail` (ember wash, "Problem"), `st-warn` (amber, "Worth fixing" / "Pilot by arrangement"), `st-person` (signal wash, "A person must check" / "Service, available now"), `st-pass` (green wash, "Looks fine" / "Available now"), `st-na` (paper-deep, "Not found" / "Not supported"). Never a "compliant" or "certified" pill.
+
+### Task comparison table
+`.cmp-table` with `.cmp-glyph` marks: filled check (`cmp-yes`), half disc (`cmp-part`), empty ring (`cmp-no`), each followed by a short sentence and an sr-only label. Sayable's column is tinted `signal-wash`, and it must lose rows where it honestly loses (cost, running it yourself). Tables live in `relative overflow-x-auto` regions with `tabIndex=0` so sr-only text cannot escape the scroller. Below `md`, the same data renders as one list per task.
+
+### Check a PDF
+A sheet-white drop zone with an inset ring (no dashed border), three sample buttons on paper-deep, a real progress bar driven by page count, then findings as hairline rows (title, status pill, what we found, why it matters, what to do) and a paper-deep "what this check cannot tell you" panel. Results are focused on arrival; errors are focused alerts.
+
+### Cost rows (consequences)
+`.cost-row`: copy on the left (blue kicker, title, paragraph) and a small artifact on the right in paper-deep: a transcript, an inbox item, two bars, a real case with its source link.
+
 ## Do's and Don'ts
 
 ### Do:

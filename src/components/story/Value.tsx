@@ -130,10 +130,19 @@ export function Value() {
                     <div className={`cost-bar absolute inset-y-0 left-0 rounded-full ${b.hi}`} style={{ width: `${(b.h[1] / max) * 100}%` }} />
                     <div className={`cost-bar absolute inset-y-0 left-0 rounded-full ${b.lo}`} style={{ width: `${Math.max(0.6, (b.h[0] / max) * 100)}%` }} />
                   </div>
-                  <p className="mono mt-1.5 text-[0.8rem] text-muted">{range(b.h)}{b.id === "all" ? " (dark: low end, light: high end)" : ""}</p>
+                  <p className="mono mt-1.5 text-[0.8rem] text-muted">{range(b.h)}</p>
                 </div>
               ))}
             </div>
+
+            <p className="-mt-4 flex flex-wrap gap-x-5 gap-y-1 text-[0.82rem] text-muted" aria-hidden="true">
+              <span className="inline-flex items-center gap-1.5">
+                <span className="h-2 w-4 rounded-full bg-ink/55" /> Fewest hours
+              </span>
+              <span className="inline-flex items-center gap-1.5">
+                <span className="h-2 w-4 rounded-full bg-ink/20" /> Most hours
+              </span>
+            </p>
 
             <div className="rounded-[12px] bg-sheet p-5 text-[0.92rem] text-ink-soft shadow-[inset_0_0_0_1px_rgb(18_21_27/0.08)]">
               <p className="font-[600] text-ink">How the hours are worked out</p>

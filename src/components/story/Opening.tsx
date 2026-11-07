@@ -35,10 +35,10 @@ export function Opening() {
           <h1 id="hero-title" className="display mx-auto max-w-[19ch] text-[length:clamp(2.3rem,1.25rem+3.7vw,4.75rem)]">
             Many city PDFs can&apos;t be read by people who use <span className="tone">screen readers.</span>
           </h1>
-          <p className="lede mx-auto mt-5 !max-w-[56ch] !text-ink-soft">
+          <p className="lede mx-auto mt-5 !max-w-[56ch] text-pretty !text-ink-soft">
             Sayable finds the PDFs on your website that have this problem, fixes them starting with the ones residents rely on most, and gives you a
             record of what was checked. Under the current federal ADA rule, cities of 50,000 or more residents must meet the WCAG 2.1 AA accessibility
-            standard by April 26, 2027.
+            standard by April&nbsp;26,&nbsp;2027.
           </p>
           <div className="mt-7 flex flex-wrap items-center justify-center gap-3">
             <Link href="/check" className="btn">

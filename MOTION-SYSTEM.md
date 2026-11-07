@@ -20,6 +20,8 @@ Library: `motion` 14.9 (`motion/react`). Tokens live in `src/lib/motion.ts`; CSS
 - **Success**: the consent "Save choices" button gives one 1.035 pulse after the choice is stored. The contact form shows success only after the server confirms.
 - **Story scenes** (hero scan, inventory sort, estimator figures) keep their existing scroll and CSS choreography.
 
+- Check a PDF: state changes (working, error, results) cross over under `AnimatePresence mode="popLayout"` with `tUi` in and `tUiExit` out; finding rows enter with the 30 ms stagger after an 80 ms settle; the progress bar scales with real page progress, linear 160 ms, never faked.
+
 ## Reduced motion
 Every Motion component reads `useReducedMotion()`: knobs jump, popovers fade only, staggers drop to zero, and the hero becomes a static, fully revealed document.
 

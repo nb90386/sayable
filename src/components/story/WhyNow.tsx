@@ -84,7 +84,7 @@ export function WhyNow() {
                 </li>
               ))}
             </ul>
-            <p className="mt-4 max-w-[70ch]">
+            <p className="mt-4 max-w-[62ch]">
               These are the dates as of November 2026. A lawsuit filed in May 2026 (National Federation of the Blind v. DOJ) asks a court to restore
               the earlier dates, and DOJ has said it may propose changes, so they could move. Population is counted from the 2020 Census. This is
               general information, not legal advice. <Link href="/resources/title-ii-rule-and-your-pdfs" className="text-link text-moon">The rule and your PDFs, in plain English</Link>
