@@ -243,3 +243,28 @@ Questions for the first five buyers (past behavior only, from `12-customer-valid
     - Review log and dashboard, and the exit-plan-mode gate.
     - Sections 1, 5, 6, 7 and 9 (architecture, code quality, tests, performance, deploy), because there is no implementation plan to review yet.
 - Nothing was committed, deployed or paid for. Other in-progress files in the working tree (`public/pdfjs/`, `public/samples/`, scripts) were not touched.
+
+## 13. File-scope capability matrix (verified from code, 2026-11-06)
+
+Evidence: the only shipped Sayable software is this website. `src/lib/pdfcheck.ts` (in-browser check, pdf.js 6.4.299) is the only code that reads customer files, and it runs on the visitor's device. The repair/verify pipeline in `sayable-spec/SAYABLE-BUILD-SPEC.md` is a specification; the Python experiments in `startup-research/experiments/c01–c04` are research prototypes, not production code. Repair is therefore a human-delivered service using standard tools (Acrobat, PAC, veraPDF) plus the prototypes where they have been shown to work.
+
+| File type | Upload | Parse | Inspect (free check) | Repair | Verify | Human review | Status |
+|---|---|---|---|---|---|---|---|
+| Born-digital PDF | Local only (never uploaded) | Yes (pdf.js) | Tags, title, language, text layer, headings, tables, figure alt, form-field names, bookmarks | Service | Service (PAC/veraPDF + person) | Reading order, alt quality, table structure | Check: available now. Repair/verify: service now |
+| Scanned PDF | Local only | Yes | Detects pages with no text | Service: OCR + person | Service | Always | Service now, slower |
+| Interactive PDF form | Local only | Yes | Fields without accessible names (TU) | Service | Service | Names, tab order | Service now |
+| PDF tables | Local only | Yes | Tables without TH cells (tagged files) | Service, by a person | Service | Always | Service now |
+| Images in PDFs | Local only | Yes | Tagged figures without Alt/ActualText | Service: drafted, person checks | Service | Always | Service now |
+| Large/complex PDF | Up to 25 MB | First 400 pages | As above | Quoted individually | Service | Yes | Check limited; service now |
+| Word / PowerPoint / Excel | No | No | No | No | No | n/a | Not supported |
+| HTML pages | No | No | No | No | No | n/a | Not supported (out of scope) |
+
+Not checked by the free tool and stated on the results page: reading-order correctness, alt-text accuracy, table header associations, colour contrast, full PDF/UA-1 rule set (use veraPDF/PAC), meaning when heard.
+
+## 14. Decisions implemented in the sprint (2026-11-06)
+
+- Hero names the problem, the buyer and the deadline in two sentences; primary CTA is the free check, secondary the citywide audit.
+- Primary segment on the site: cities of 50,000+ (California-first stays a sales choice, not site copy, so the site does not exclude other states).
+- Self-service Stage A shipped as a genuinely working, in-browser check with three generated sample PDFs. No server upload endpoint exists, so there is no file custody, storage, retention or processing-cost risk. Stage B (private beta uploads for repair) remains gated on: file-type and signature validation server-side, size/page limits, isolated parsing with resource limits, malware screening, private storage with short-lived links, retention and deletion rules, provider disclosure, and rate limits. None of that is built.
+- No prices published. The estimator works in skilled hours from visitor-entered numbers; the unverified Washington State rates were removed.
+- Agenda Desk is a limited pilot by arrangement; automatic fixing, team tools and monitoring are labelled planned.

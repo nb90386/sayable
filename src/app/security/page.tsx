@@ -35,6 +35,18 @@ export default function SecurityPage() {
             <Link href="/cookies" className="text-link">cookie notice</Link> for what is collected and why.
           </p>
         </Row>
+        <Row id="check" title="The free PDF check">
+          <p>
+            The check at <Link href="/check" className="text-link">/check</Link> runs entirely in your browser. Your PDF is opened by pdf.js, the
+            open-source reader used in Firefox, inside a separate browser worker. The file is never uploaded, stored or sent to Sayable or anyone else,
+            and it is gone when you close the tab.
+          </p>
+          <p>
+            Files over 25 MB are refused before they are opened, and only the first 400 pages are read. The reader and its data files are served from
+            this website, so the check loads nothing from other companies. If you allowed analytics, we count that a check ran and whether it used a
+            sample. We never record the file name, its contents or its results.
+          </p>
+        </Row>
         <Row id="audits" title="Documents in audit engagements">
           <p>
             A Readiness Audit works on public documents by default: files your website already links to. We do not

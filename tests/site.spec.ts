@@ -5,12 +5,14 @@ const routes = [
   "/",
   "/product",
   "/readiness-audit",
+  "/check",
   "/how-it-works",
   "/verify",
   "/solutions",
   "/solutions/government",
   "/solutions/agencies",
   "/resources",
+  "/resources/title-ii-rule-and-your-pdfs",
   "/resources/inventory-government-pdfs",
   "/resources/what-a-pdf-audit-tells-you",
   "/resources/why-automated-checks-miss-problems",
@@ -190,4 +192,62 @@ test("analytics loads only after consent, and never carries form contents", asyn
   await page.waitForTimeout(300);
   expect(insights.join(" ")).not.toContain("pat@example.gov");
   expect(insights.join(" ")).not.toContain("Pat Example");
+});
+
+test.describe("Check a PDF", () => {
+  test.beforeEach(async ({ page }) => {
+    await page.addInitScript(() => localStorage.setItem("sayable-consent", JSON.stringify({ v: 1, analytics: false, at: "test" })));
+  });
+
+  test("samples give real, distinct findings", async ({ page }) => {
+    await page.goto("/check");
+    const settled = () => expect(page.locator("section[aria-labelledby=check-result]")).toHaveCount(1);
+    const statusOf = (title: string) => page.locator(".check-row", { has: page.locator("h3", { hasText: title }) }).locator(".check-status");
+
+    await page.getByRole("button", { name: /Permit form, untagged/ }).click();
+    await expect(page.locator("#check-result")).toBeFocused();
+    await expect(statusOf("Tags")).toHaveText("Problem");
+    await expect(statusOf("Real text")).toHaveText("Looks fine");
+
+    await page.getByRole("button", { name: /Water notice, scanned/ }).click();
+    await expect(page.getByText("Sample: Water notice, scanned")).toBeVisible();
+    await settled();
+    await expect(statusOf("Real text")).toHaveText("Problem");
+
+    await page.getByRole("button", { name: /Permit form, tagged/ }).click();
+    await expect(page.getByText("Sample: Permit form, tagged")).toBeVisible();
+    await settled();
+    await expect(statusOf("Tags")).toHaveText("Looks fine");
+    await expect(statusOf("Language")).toHaveText("Looks fine");
+    await expect(statusOf("Tables")).toHaveText("A person must check");
+    await expect(statusOf("Reading order")).toHaveText("A person must check");
+    // never a compliance verdict
+    await expect(page.getByText(/compliant|certified|passes WCAG/i)).toHaveCount(0);
+  });
+
+  test("your own file is read locally and never uploaded", async ({ page }) => {
+    const sent: string[] = [];
+    page.on("request", (r) => {
+      if (r.method() !== "GET" || !r.url().startsWith(new URL(page.url() || "http://x").origin)) sent.push(`${r.method()} ${r.url()}`);
+    });
+    await page.goto("/check");
+    sent.length = 0;
+    const res = await page.request.get("/samples/permit-tagged.pdf");
+    await page.setInputFiles("input[type=file]", { name: "my-permit.pdf", mimeType: "application/pdf", buffer: await res.body() });
+    await expect(page.locator("#check-result")).toBeVisible();
+    await expect(page.getByText("Your file: my-permit.pdf")).toBeVisible();
+    expect(sent, sent.join("\n")).toEqual([]);
+  });
+
+  test("bad files get clear errors", async ({ page }) => {
+    await page.goto("/check");
+    const alert = page.locator(".check-error");
+    await page.setInputFiles("input[type=file]", { name: "notes.pdf", mimeType: "application/pdf", buffer: Buffer.from("just some text") });
+    await expect(alert).toContainText("not a PDF");
+    await page.setInputFiles("input[type=file]", { name: "huge.pdf", mimeType: "application/pdf", buffer: Buffer.concat([Buffer.from("%PDF-1.7\n"), Buffer.alloc(26 * 1024 * 1024)]) });
+    await expect(alert).toContainText("over 25 MB");
+    await page.setInputFiles("input[type=file]", { name: "broken.pdf", mimeType: "application/pdf", buffer: Buffer.from("%PDF-1.7\n1 0 obj garbage") });
+    await expect(alert).toBeVisible();
+    await expect(page.locator("#check-result")).toHaveCount(0);
+  });
 });

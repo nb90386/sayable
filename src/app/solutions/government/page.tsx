@@ -28,6 +28,34 @@ const concerns = [
   },
 ];
 
+const roles = [
+  {
+    who: "ADA coordinator",
+    asks: "Which documents put residents at risk of being shut out, and can we show what we did about it?",
+    gets: "A sorted inventory with the reason for each file's placement, check results, and a report per repaired file.",
+  },
+  {
+    who: "City clerk",
+    asks: "Agendas and packets have posting deadlines. How do we keep new ones accessible without missing them?",
+    gets: "A free check to use before posting, and repair of packets as a pilot, with turnaround agreed in writing.",
+  },
+  {
+    who: "Web or digital services manager",
+    asks: "How many PDFs are on our site, where, and which can be archived or replaced with a web page?",
+    gets: "The full inventory as a spreadsheet: every linked PDF, the page that links to it, and a recommendation.",
+  },
+  {
+    who: "IT director",
+    asks: "What are we sending to a vendor, and why not just use the Acrobat licences we already have?",
+    gets: "Work on public documents only, a check that never uploads files, and the inventory and review work Acrobat doesn't do.",
+  },
+  {
+    who: "City manager and purchasing",
+    asks: "What will this cost, and does it need a formal bid?",
+    gets: "A flat audit fee quoted in writing, sized to stay within small-purchase limits where possible, and an effort estimate for the rest.",
+  },
+];
+
 const sortSteps = [
   { n: "1", t: "Inventory", d: "Every PDF linked from your public site, and the page that links to it." },
   { n: "2", t: "Sort", d: "Must fix, archive candidate, delete candidate, or better as a web page." },
@@ -46,10 +74,48 @@ export default function GovernmentPage() {
   return (
     <>
       <PageIntro
-        title="Your documents are part of your front door."
-        lede="For city managers, IT directors, clerks and ADA coordinators who publish PDFs and need to know which ones work for everyone."
-        note="Public documents only"
+        title="For cities with an April 2027 deadline."
+        lede="If your city has 50,000 people or more, the federal ADA rule says your website and the PDFs on it must meet WCAG 2.1 AA by April 26, 2027. Smaller governments and special districts have until April 26, 2028. Here is what that means for each person on your team."
+        note="PDFs only · public documents only"
       />
+
+      <section aria-labelledby="roles" className="border-t hairline py-16 sm:py-24">
+        <div className="wrap">
+          <h2 id="roles" className="headline max-w-[20ch] !text-[length:var(--step-3)]">
+            Who on your team needs what
+          </h2>
+          <dl className="mt-10 grid gap-x-10 border-t hairline md:grid-cols-2">
+            {roles.map((r) => (
+              <div key={r.who} className="border-b py-7 hairline">
+                <dt className="title text-[1.2rem] text-ink">{r.who}</dt>
+                <dd className="mt-2 grid gap-2 text-ink-soft">
+                  <p>
+                    <span className="font-[600] text-ink">Asks: </span>
+                    {r.asks}
+                  </p>
+                  <p>
+                    <span className="font-[600] text-ink">Gets from Sayable: </span>
+                    {r.gets}
+                  </p>
+                </dd>
+              </div>
+            ))}
+          </dl>
+          <div className="mt-12 rounded-[14px] bg-paper-deep p-7 sm:p-9">
+            <h3 className="title text-[1.3rem] text-ink">Three things you can do this month</h3>
+            <ol className="mt-4 grid list-decimal gap-2 pl-5 text-ink-soft">
+              <li>
+                Run your most-used form through our <Link href="/check" className="text-link">free PDF check</Link>. It takes a minute and the file
+                stays on your computer.
+              </li>
+              <li>Ask who in each department posts PDFs, and roughly how many. Nobody usually knows the total.</li>
+              <li>
+                Decide who owns the work and the budget. Then <Link href="/contact?topic=audit" className="text-link">ask us for a written audit quote</Link>.
+              </li>
+            </ol>
+          </div>
+        </div>
+      </section>
 
       <section aria-labelledby="problems" className="border-t hairline py-16 sm:py-24">
         <div className="wrap">

@@ -14,7 +14,8 @@ export const nav: NavGroup[] = [
   {
     label: "Product",
     items: [
-      { href: "/product", label: "Product overview", note: "Discover, repair, verify, publish, monitor" },
+      { href: "/check", label: "Check a PDF", note: "Free. Runs in your browser; nothing is uploaded" },
+      { href: "/product", label: "Services and scope", note: "What you can buy, and which files we handle" },
       { href: "/readiness-audit", label: "Readiness Audit", note: "The starting point: what you have and what it needs" },
       { href: "/verify", label: "Verification", note: "How every file is checked, and what that proves" },
     ],

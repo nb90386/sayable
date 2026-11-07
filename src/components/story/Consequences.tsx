@@ -1,7 +1,7 @@
 /**
  * Chapter: what an inaccessible PDF costs, followed through one document.
  * Each cost carries a small artifact so it reads as a situation, not a claim.
- * The resident and staff scenes are illustrative; the legal scene cites a real resolution.
+ * The resident and staff scenes are illustrative; the legal scene cites real DOJ agreements (see docs/research/RESEARCH-NOTES.md).
  */
 export function Consequences() {
   return (
@@ -85,18 +85,29 @@ export function Consequences() {
                 <h3 className="title text-[1.35rem] text-ink">A complaint, and years of reporting.</h3>
                 <p className="mt-3 max-w-[52ch] text-ink-soft">
                   Residents can complain to the Department of Justice or take a city to court under Title II. When DOJ resolves a case, it usually asks the
-                  city to fix its website and documents, adopt a policy, train staff and report progress, often for several years. There is no automatic fine
-                  for a single PDF, and no vendor, including us, can make that duty go away.
+                  city to fix its website and documents, adopt a policy, train staff and report progress, often for several years. Money damages are limited
+                  and usually require showing the discrimination was intentional. There is no automatic fine for a single PDF, and no vendor, including us,
+                  can make the duty go away.
                 </p>
               </div>
-              <figure className="cost-art" aria-hidden="true" data-legal-example>
-                <p className="mono text-[0.82rem] text-muted">What a DOJ agreement can require</p>
-                <ul className="mt-2 grid gap-1 text-[0.95rem] text-ink">
-                  <li>Fix the website and its documents</li>
-                  <li>Adopt an accessibility policy</li>
-                  <li>Train the staff who publish</li>
-                  <li>Report progress to DOJ</li>
-                </ul>
+              <figure className="cost-art">
+                <p className="mono text-[0.82rem] text-muted">A real case</p>
+                <blockquote className="mt-2 text-[0.95rem] text-ink">
+                  <p>
+                    In 2014 a blind attorney complained that court documents from the Orange County Clerk of Courts in Florida were scanned PDFs that a
+                    screen reader could not read. The settlement with DOJ required accessible documents on request, an accessible website within six months, staff
+                    training, quarterly reports, and $10,000 to the complainant.
+                  </p>
+                </blockquote>
+                <figcaption className="mt-3 text-[0.84rem] text-muted">
+                  <a href="https://archive.ada.gov/occ.htm" className="text-link" rel="noopener noreferrer">
+                    Read the agreement on ada.gov
+                  </a>
+                  . Denver&apos;s 2018 agreement had similar terms for its whole website, over three years.{" "}
+                  <a href="https://archive.ada.gov/denver_pca/denver_sa.html" className="text-link" rel="noopener noreferrer">
+                    Denver agreement
+                  </a>
+                </figcaption>
               </figure>
             </li>
           </ol>

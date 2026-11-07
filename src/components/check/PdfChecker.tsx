@@ -28,6 +28,8 @@ const ERRORS: Record<CheckErrorCode, string> = {
   damaged: "That PDF looks damaged. Your PDF reader may still open it, but we could not read its structure.",
   empty: "That file is empty.",
   failed: "Something went wrong while reading that PDF. Please try again, or try a different file.",
+  cancelled: "Check stopped. Nothing was kept.",
+  timeout: "That PDF was taking too long to read, so we stopped. Very large or unusual files are better checked by a person: send it to us.",
 };
 
 type State =
@@ -53,12 +55,16 @@ export function PdfChecker() {
   const resultRef = useRef<HTMLHeadingElement>(null);
   const [state, setState] = useState<State>({ k: "idle" });
   const [over, setOver] = useState(false);
+  const abort = useRef<AbortController | null>(null);
 
   const run = useCallback(async (name: string, load: () => Promise<ArrayBuffer>, sample: boolean) => {
+    abort.current?.abort();
+    const ctrl = new AbortController();
+    abort.current = ctrl;
     setState({ k: "working", name, done: 0, total: 0 });
     try {
       const [{ checkPdf }, data] = await Promise.all([import("@/lib/pdfcheck"), load()]);
-      const result = await checkPdf(data, (done, total) => setState({ k: "working", name, done, total }));
+      const result = await checkPdf(data, (done, total) => !ctrl.signal.aborted && setState({ k: "working", name, done, total }), ctrl.signal);
       setState({ k: "done", name, sample, result });
       // Count that a check ran. Never the file name, size or findings.
       track("pdf_check_run", { source: sample ? "sample" : "own-file" });
@@ -158,6 +164,9 @@ export function PdfChecker() {
                 Checking {state.name}
                 {state.total ? `: page ${state.done} of ${state.total}` : "…"}
               </p>
+              <button type="button" className="btn btn-quiet !min-h-10 justify-self-start !px-4 text-sm" onClick={() => abort.current?.abort()}>
+                Stop
+              </button>
               <div className="check-bar" role="progressbar" aria-label="Check progress" aria-valuemin={0} aria-valuemax={state.total || 1} aria-valuenow={state.done}>
                 <span style={{ transform: `scaleX(${state.total ? state.done / state.total : 0.04})` }} />
               </div>

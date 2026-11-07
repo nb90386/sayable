@@ -1,6 +1,6 @@
 import { ImageResponse } from "next/og";
 
-export const alt = "Sayable: accessible documents, less guesswork. A permit form with its reading order drawn through it.";
+export const alt = "Sayable: many city PDFs can't be read by people who use screen readers. A permit form with its reading order drawn through it.";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
@@ -30,13 +30,13 @@ export default function OpengraphImage() {
             <span style={{ fontSize: 34, fontWeight: 600, letterSpacing: -1 }}>Sayable</span>
           </div>
           <div style={{ display: "flex", flexDirection: "column" }}>
-            <span style={{ fontSize: 76, fontWeight: 700, letterSpacing: -3.5, lineHeight: 1 }}>Accessible documents.</span>
-            <span style={{ fontSize: 76, fontWeight: 700, letterSpacing: -3.5, lineHeight: 1.05, color: SIGNAL }}>Less guesswork.</span>
+            <span style={{ fontSize: 60, fontWeight: 700, letterSpacing: -2.6, lineHeight: 1.04 }}>Many city PDFs can&apos;t be read by people who use</span>
+            <span style={{ fontSize: 60, fontWeight: 700, letterSpacing: -2.6, lineHeight: 1.04, color: SIGNAL }}>screen readers.</span>
             <span style={{ marginTop: 28, fontSize: 28, lineHeight: 1.35, color: MUTED, maxWidth: 520 }}>
-              Find the accessibility problems in public PDFs, fix what matters first, and verify every file.
+              Find the PDFs that fall short, fix the ones residents use most, and keep a record of what was checked.
             </span>
           </div>
-          <span style={{ fontSize: 22, color: MUTED }}>Readiness Audits for cities, counties and the teams who publish for them</span>
+          <span style={{ fontSize: 22, color: MUTED }}>Free PDF check · Readiness Audits for cities</span>
         </div>
         <div style={{ display: "flex", position: "relative", width: 560, height: 630 }}>
           <div

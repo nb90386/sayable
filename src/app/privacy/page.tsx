@@ -69,6 +69,13 @@ export default function PrivacyPage() {
         </p>
       </S>
 
+      <S id="pdf-check" title="The free PDF check">
+        <p>
+          When you check a PDF, it is read by your own browser. The file is not uploaded and we never receive it, its name or its contents. If you
+          allowed analytics, the only thing recorded is that a check ran, and whether it was one of our samples.
+        </p>
+      </S>
+
       <S id="form" title="The contact form">
         <p>
           The form asks for your name, work email, organization, role and topic. A website address and a message are

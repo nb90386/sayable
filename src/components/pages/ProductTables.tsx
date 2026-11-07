@@ -59,7 +59,7 @@ const OFFERS: { name: string; href: string; who: string; get: string; work: stri
 /** The offer ladder in one table: what each thing is, who does it, what it costs, whether you can buy it today. */
 export function OfferLadder() {
   return (
-    <div className="mt-10" role="region" aria-label="Sayable services compared" tabIndex={0}>
+    <div className="relative mt-10 overflow-x-auto" role="region" aria-label="Sayable services compared" tabIndex={0}>
       <table className="cmp-table min-w-[760px]">
         <caption className="sr-only">Sayable services compared</caption>
         <thead>
@@ -111,7 +111,7 @@ const CAN: Record<Can, string> = { yes: "Yes", part: "Partly", no: "No" };
 /** What Sayable works on, by file type. PDF only, said plainly. */
 export function FileScope() {
   return (
-    <div className="mt-10" role="region" aria-label="Supported file types" tabIndex={0}>
+    <div className="relative mt-10 overflow-x-auto" role="region" aria-label="Supported file types" tabIndex={0}>
       <table className="cmp-table min-w-[680px]">
         <caption className="sr-only">What the free check and the repair service handle, by file type</caption>
         <thead>

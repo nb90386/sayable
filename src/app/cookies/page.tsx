@@ -68,7 +68,7 @@ export default function CookiesPage() {
           <li>
             Allow analytics: Vercel Web Analytics loads, and we may record page views and anonymous counts of these
             actions: audit call-to-action clicked, contact form started, contact form submitted successfully, audio demo
-            played, workload estimator adjusted, and sample report viewed.
+            played, workload estimator adjusted, sample report viewed, guide opened, and PDF check run (only whether it used a sample, never the file).
           </li>
         </ul>
         <p>If you make no choice, analytics does not load.</p>

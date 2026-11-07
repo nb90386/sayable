@@ -60,6 +60,16 @@ export function Value() {
         </p>
       </div>
 
+      {/* phones: the result stays in view while the sliders move */}
+      <div className="sticky top-[var(--header-h)] z-20 mt-10 border-y bg-sheet py-2.5 hairline lg:hidden" aria-hidden="true">
+        <p className="wrap flex justify-between gap-3 text-[0.88rem]">
+          <span className="text-muted">
+            In repair: <span className="numeral font-[600] text-ink">{num(scope)} pages</span>
+          </span>
+          <span className="numeral font-[600] text-ink">{range(sorted)}</span>
+        </p>
+      </div>
+
       <div className="wrap mt-14">
         <div className="mx-auto grid max-w-[1100px] gap-12 border-t border-ink/20 pt-10 lg:grid-cols-[minmax(0,5fr)_minmax(0,6fr)] lg:gap-16">
           <form onSubmit={(e) => e.preventDefault()} aria-label="Your assumptions">

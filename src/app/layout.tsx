@@ -17,12 +17,12 @@ const jetbrains = JetBrains_Mono({ subsets: ["latin"], weight: ["400", "500"], v
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
-  title: { default: "Sayable · PDF accessibility audits and verification for public agencies", template: "%s · Sayable" },
+  title: { default: "Sayable · PDF accessibility for cities and public agencies", template: "%s · Sayable" },
   description: site.description,
   applicationName: "Sayable",
   alternates: { canonical: "/" },
-  openGraph: { title: "Sayable · Accessible documents. Less guesswork.", description: site.description, type: "website", siteName: "Sayable", locale: "en_US", url: "/" },
-  twitter: { card: "summary_large_image", title: "Sayable · Accessible documents. Less guesswork.", description: site.description },
+  openGraph: { title: "Sayable · PDF accessibility for cities", description: site.description, type: "website", siteName: "Sayable", locale: "en_US", url: "/" },
+  twitter: { card: "summary_large_image", title: "Sayable · PDF accessibility for cities", description: site.description },
   // Previews and local builds stay out of search results.
   robots: isProductionDeploy ? { index: true, follow: true } : { index: false, follow: false },
 };

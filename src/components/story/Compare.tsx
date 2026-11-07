@@ -113,10 +113,14 @@ export function Compare() {
               exist but are wrong. That is the work Sayable takes on: the inventory, the sorting, the hard pages, and a record your staff can re-check in
               the same free tools.
             </p>
+            <p className="max-w-[54ch] text-ink-soft md:col-start-2">
+              Established remediation firms and products, such as CommonLook, Equidox and CivicPlus, do much of this work too, and some of it very well.
+              Whoever you talk to, including us, ask how they find your files, decide what to fix, and check the result with a person.
+            </p>
           </div>
 
           {/* wide screens: one table */}
-          <div className="mt-12 hidden md:block" role="region" aria-label="Who does which task" tabIndex={0}>
+          <div className="relative mt-12 hidden overflow-x-auto md:block" role="region" aria-label="Who does which task" tabIndex={0}>
             <table className="cmp-table">
               <caption className="sr-only">Which tool does which part of the work</caption>
               <thead>
@@ -151,20 +155,18 @@ export function Compare() {
             {TASKS.map((r) => (
               <li key={r.task} className="border-t py-5 hairline">
                 <h3 className="font-[620] text-ink">{r.task}</h3>
-                <dl className="mt-3 grid gap-2 text-[0.93rem]">
+                <ul className="mt-3 grid gap-2 text-[0.93rem]">
                   {r.cells.map((c, i) => (
-                    <div key={i} className={`grid grid-cols-[1.1rem_1fr] gap-x-2 ${i === 3 ? "font-[560] text-ink" : "text-ink-soft"}`}>
+                    <li key={i} className={`grid grid-cols-[1.1rem_1fr] gap-x-2 ${i === 3 ? "font-[560] text-ink" : "text-ink-soft"}`}>
                       <Glyph m={c.m} />
-                      <div>
-                        <dt className="inline font-[600]">{TOOLS[i]}: </dt>
-                        <dd className="inline">
-                          <span className="sr-only">{MARK[c.m]}. </span>
-                          {c.t}
-                        </dd>
-                      </div>
-                    </div>
+                      <p>
+                        <span className="font-[600]">{TOOLS[i]}: </span>
+                        <span className="sr-only">{MARK[c.m]}. </span>
+                        {c.t}
+                      </p>
+                    </li>
                   ))}
-                </dl>
+                </ul>
               </li>
             ))}
           </ol>

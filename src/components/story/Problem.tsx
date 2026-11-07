@@ -113,8 +113,8 @@ export function Problem() {
           A document can look right and still be hard to use.
         </h2>
         <p className="lede mx-auto mt-6 !max-w-[46ch]">
-          A screen reader only knows what a file&rsquo;s hidden structure tells it. Listen to the same permit form, as posted
-          and after repair.
+          People who are blind or have low vision often use a screen reader, software that reads the page aloud. It only knows
+          what a PDF&rsquo;s hidden structure tells it. Listen to the same permit form, as posted and after repair.
         </p>
 
         <Segmented

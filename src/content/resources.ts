@@ -9,6 +9,14 @@ export type Resource = {
 
 export const resources: Resource[] = [
   {
+    slug: "title-ii-rule-and-your-pdfs",
+    title: "The ADA Title II web rule and your PDFs, in plain English",
+    summary:
+      "Who it covers, the dates, which PDFs are excepted and which are not, how it is enforced, and what to do first.",
+    readingMinutes: 8,
+    updated: "2026-11-06",
+  },
+  {
     slug: "inventory-government-pdfs",
     title: "How to inventory your public PDFs",
     summary:

@@ -31,7 +31,7 @@ export function WhyNow() {
 
           <dl className="mt-12 grid gap-px overflow-hidden rounded-[14px] bg-white/10 md:grid-cols-2">
             <div className="bg-night-raise p-7 sm:p-9">
-              <dt className="text-[0.95rem] font-[600] text-moon-muted">Cities, counties and states with 50,000 people or more</dt>
+              <dt className="text-[0.95rem] font-[600] text-moon-muted">State and local governments with 50,000 people or more</dt>
               <dd className="mt-3">
                 <span className="numeral block text-[length:clamp(2.2rem,1.6rem+2vw,3.4rem)] leading-none text-moon">April 26, 2027</span>
               </dd>
@@ -85,8 +85,9 @@ export function WhyNow() {
               ))}
             </ul>
             <p className="mt-4 max-w-[70ch]">
-              DOJ has said it may propose further changes, and the dates could move again. We check the Federal Register before every engagement. This is
-              general information, not legal advice. <Link href="/resources" className="text-link text-moon">Guides for city teams</Link>
+              These are the dates as of November 2026. A lawsuit filed in May 2026 (National Federation of the Blind v. DOJ) asks a court to restore
+              the earlier dates, and DOJ has said it may propose changes, so they could move. Population is counted from the 2020 Census. This is
+              general information, not legal advice. <Link href="/resources/title-ii-rule-and-your-pdfs" className="text-link text-moon">The rule and your PDFs, in plain English</Link>
             </p>
           </div>
         </div>

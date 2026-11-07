@@ -33,7 +33,10 @@ export type CheckResult = {
   counts: { fail: number; warn: number; person: number; pass: number };
 };
 
-export type CheckErrorCode = "too-big" | "not-pdf" | "password" | "damaged" | "empty" | "failed";
+export type CheckErrorCode = "too-big" | "not-pdf" | "password" | "damaged" | "empty" | "failed" | "cancelled" | "timeout";
+
+/** A check that takes longer than this is stopped, so a hostile file cannot hold the tab. */
+export const TIME_LIMIT_MS = 90_000;
 
 export class CheckError extends Error {
   constructor(public code: CheckErrorCode) {
@@ -59,7 +62,7 @@ export function looksLikePdf(head: Uint8Array) {
 
 const plural = (n: number, one: string, many = `${one}s`) => `${n.toLocaleString("en-US")} ${n === 1 ? one : many}`;
 
-export async function checkPdf(data: ArrayBuffer, onProgress?: (done: number, total: number) => void): Promise<CheckResult> {
+export async function checkPdf(data: ArrayBuffer, onProgress?: (done: number, total: number) => void, signal?: AbortSignal): Promise<CheckResult> {
   if (data.byteLength === 0) throw new CheckError("empty");
   if (data.byteLength > MAX_BYTES) throw new CheckError("too-big");
   if (!looksLikePdf(new Uint8Array(data))) throw new CheckError("not-pdf");
@@ -77,11 +80,27 @@ export async function checkPdf(data: ArrayBuffer, onProgress?: (done: number, to
     verbosity: 0,
   });
 
+  // Destroying the loading task terminates the worker, which stops any parsing in progress.
+  let stopped: CheckErrorCode | null = null;
+  const stop = (code: CheckErrorCode) => {
+    stopped = code;
+    void task.destroy();
+  };
+  const timer = setTimeout(() => stop("timeout"), TIME_LIMIT_MS);
+  const onAbort = () => stop("cancelled");
+  signal?.addEventListener("abort", onAbort, { once: true });
+  const guard = () => {
+    if (stopped) throw new CheckError(stopped);
+  };
+
   let doc;
   try {
     doc = await task.promise;
   } catch (e) {
     const name = (e as { name?: string })?.name;
+    clearTimeout(timer);
+    signal?.removeEventListener("abort", onAbort);
+    guard();
     if (name === "PasswordException") throw new CheckError("password");
     if (name === "InvalidPDFException") throw new CheckError("damaged");
     throw new CheckError("failed");
@@ -103,7 +122,7 @@ export async function checkPdf(data: ArrayBuffer, onProgress?: (done: number, to
     const displayTitle = prefs?.get?.("DisplayDocTitle") === true;
 
     let lang: string | null = null;
-    let tagged = !!markInfo?.Marked;
+    const markedFlag = !!markInfo?.Marked;
     let structPages = 0;
     let figures = 0;
     let figuresNoAlt = 0;
@@ -115,6 +134,7 @@ export async function checkPdf(data: ArrayBuffer, onProgress?: (done: number, to
     const imageOnlyPages: number[] = [];
 
     for (let p = 1; p <= pagesChecked; p++) {
+      guard();
       const page = await doc.getPage(p);
       const [text, tree, annots] = await Promise.all([
         page.getTextContent().catch(() => null),
@@ -150,7 +170,8 @@ export async function checkPdf(data: ArrayBuffer, onProgress?: (done: number, to
       onProgress?.(p, pagesChecked);
     }
 
-    if (structPages > 0) tagged = true;
+    // Only a real structure tree counts. A Marked flag with no tree is a false promise.
+    const tagged = structPages > 0;
     const findings: Finding[] = [];
     const scanned = imageOnlyPages.length;
 
@@ -168,7 +189,7 @@ export async function checkPdf(data: ArrayBuffer, onProgress?: (done: number, to
             id: "tags",
             title: "Tags",
             status: "fail",
-            detail: "This PDF has no tags.",
+            detail: markedFlag ? "The file says it is tagged, but we found no tag structure on any page." : "This PDF has no tags.",
             why: "Without tags, a screen reader has to guess what the page contains and in what order. Headings, tables and form labels are lost.",
             fix: "The document needs to be tagged. Acrobat's autotag is a starting point, but its result needs checking by a person.",
           },
@@ -345,7 +366,12 @@ export async function checkPdf(data: ArrayBuffer, onProgress?: (done: number, to
     for (const f of findings) if (f.status !== "na") counts[f.status]++;
 
     return { pages, pagesChecked, bytes: data.byteLength, producer, findings, counts };
+  } catch (e) {
+    guard();
+    throw e instanceof CheckError ? e : new CheckError("failed");
   } finally {
+    clearTimeout(timer);
+    signal?.removeEventListener("abort", onAbort);
     void task.destroy();
   }
 }
