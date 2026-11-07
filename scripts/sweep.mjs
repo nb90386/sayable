@@ -1,7 +1,7 @@
 // Usage: node scripts/sweep.mjs <outDir> [widths] [routes...]
 import { chromium } from "@playwright/test";
 const [out = "shots", w = "1440,390", ...given] = process.argv.slice(2);
-const routes = given.length ? given : ["/", "/product", "/readiness-audit", "/how-it-works", "/verify", "/solutions", "/solutions/government", "/solutions/agencies", "/resources", "/resources/inventory-government-pdfs", "/resources/what-a-pdf-audit-tells-you", "/resources/why-automated-checks-miss-problems", "/about", "/security", "/contact", "/accessibility", "/privacy", "/terms", "/cookies", "/nope"];
+const routes = given.length ? given : ["/", "/check", "/resources/title-ii-rule-and-your-pdfs", "/product", "/readiness-audit", "/how-it-works", "/verify", "/solutions", "/solutions/government", "/solutions/agencies", "/resources", "/resources/inventory-government-pdfs", "/resources/what-a-pdf-audit-tells-you", "/resources/why-automated-checks-miss-problems", "/about", "/security", "/contact", "/accessibility", "/privacy", "/terms", "/cookies", "/nope"];
 const b = await chromium.launch({ executablePath: process.env.PW_CHROME || undefined });
 for (const width of w.split(",").map(Number)) {
   const ctx = await b.newContext({ viewport: { width, height: width < 800 ? 844 : 900 } });
@@ -11,7 +11,7 @@ for (const width of w.split(",").map(Number)) {
     const errs = [];
     p.on("console", (m) => m.type() === "error" && errs.push(m.text().slice(0, 160)));
     p.on("pageerror", (e) => errs.push(String(e).slice(0, 160)));
-    await p.goto("http://localhost:3100" + r, { waitUntil: "networkidle" });
+    await p.goto((process.env.BASE || "http://localhost:3100") + r, { waitUntil: "networkidle" });
     const h = await p.evaluate(() => document.body.scrollHeight);
     for (let y = 0; y < h; y += 700) { await p.evaluate((yy) => window.scrollTo(0, yy), y); await p.waitForTimeout(60); }
     await p.evaluate(() => window.scrollTo(0, 0)); await p.waitForTimeout(400);
