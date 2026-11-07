@@ -169,7 +169,7 @@ export default function GovernmentPage() {
           </h2>
           <div className="prose-tight col-span-12 max-w-[60ch] text-ink-soft lg:col-span-6 lg:col-start-7">
             <p>
-              Every file is checked with the veraPDF validator and a semantic check, reviewed by a person where needed, and checked again after the last edit. Each file gets its own report.
+              Every file is checked with the veraPDF validator and our semantic check (still in testing), reviewed by a person where needed, and checked again after the last edit. Each file gets its own report.
             </p>
             <p>
               We report what was checked and what happened. We do not say a file is compliant, and we do not give legal advice. See{" "}

@@ -35,7 +35,7 @@ type Finding = {
   severity: "major" | "minor";
   evidence: string;
   action: string;
-  by: "Automatic, then reviewed" | "A person";
+  by: "Drafted by software, then reviewed" | "A person";
   before: string;
   after: string;
 };
@@ -48,7 +48,7 @@ const findings: Finding[] = [
     severity: "major",
     evidence: "Four text fields on page 1 have empty accessible names. A listener hears “Edit text, blank” with no way to tell them apart.",
     action: "Names drafted from the printed labels (“Applicant name”, “Daytime phone”, “Site address”, “Applicant signature”), then confirmed by a reviewer.",
-    by: "Automatic, then reviewed",
+    by: "Drafted by software, then reviewed",
     before: "Edit text, blank.",
     after: "Applicant name, edit text, required.",
   },
@@ -59,7 +59,7 @@ const findings: Finding[] = [
     severity: "major",
     evidence: "“Residential Permit Application” is tagged P. There is no heading to jump to.",
     action: "Retagged as H1. Visible content unchanged.",
-    by: "Automatic, then reviewed",
+    by: "Drafted by software, then reviewed",
     before: "Residential permit application.",
     after: "Residential Permit Application, heading level 1.",
   },
@@ -70,7 +70,7 @@ const findings: Finding[] = [
     severity: "major",
     evidence: "The form number and page count come before the title in the reading order.",
     action: "Footer marked as an artifact, so it is skipped; reading order set from the title down.",
-    by: "Automatic, then reviewed",
+    by: "Drafted by software, then reviewed",
     before: "Page 1 of 2. Residential permit application.",
     after: "Residential Permit Application, heading level 1.",
   },

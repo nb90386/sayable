@@ -63,7 +63,7 @@ export const stages = [
     id: "verify",
     n: "03",
     name: "Verify",
-    line: "Check every file with the PDF/UA validator, a semantic review and human judgment.",
+    line: "Check every file with the PDF/UA validator and a person, plus our semantic check, still in testing.",
   },
   {
     id: "publish",

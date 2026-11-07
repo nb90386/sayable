@@ -16,7 +16,7 @@ const stages: { id: string; name: string; line: string; rows: Row[]; status: str
     rows: [
       { t: "Found on /permits", k: "info" },
       { t: "No tags", k: "issue" },
-      { t: "5 fields with no accessible name", k: "issue" },
+      { t: "4 text fields and 3 check boxes with no name", k: "issue" },
       { t: "Footer read before the title", k: "issue" },
     ],
   },
@@ -35,7 +35,7 @@ const stages: { id: string; name: string; line: string; rows: Row[]; status: str
   {
     id: "verify",
     name: "Verify",
-    line: "Every file is checked again after its last change: the PDF/UA-1 validator, a semantic review against the page, and a person where the work was hard.",
+    line: "Every file is checked again after its last change: the PDF/UA-1 validator, a person, and our semantic check, which is still in testing.",
     status: "3 checks passed",
     rows: [
       { t: "veraPDF 1.28, PDF/UA-1", k: "pass" },
@@ -45,7 +45,7 @@ const stages: { id: string; name: string; line: string; rows: Row[]; status: str
   },
   {
     id: "publish",
-    name: "Publish",
+    name: "Deliver",
     line: "The repaired file goes back with a plain report of what was checked and what changed. The original is kept.",
     status: "Version 2 · report attached",
     rows: [

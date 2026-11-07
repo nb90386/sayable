@@ -105,7 +105,7 @@ export default function AgenciesPage() {
           </h2>
           <div className="prose-tight col-span-12 max-w-[60ch] text-ink-soft lg:col-span-6 lg:col-start-7">
             <p>
-              Every file gets a veraPDF PDF/UA-1 check, a semantic check against the rendered page, human review where needed, and a re-check after the last edit. Each file comes with a report of what was checked.
+              Every file gets a veraPDF PDF/UA-1 check, our semantic check against the rendered page (still in testing), human review where needed, and a re-check after the last edit. Each file comes with a report of what was checked.
             </p>
             <p>
               We report results. We do not certify compliance or give legal advice, so you will not find those claims in anything we hand you.

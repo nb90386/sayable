@@ -1,10 +1,9 @@
 import Link from "next/link";
-import { PermitSheet } from "../doc/PermitSheet";
 
-/** Chapter 8. The opening document returns, its structure now readable in order. */
+/** Closing chapter: one invitation, one lighter alternative. */
 export function Conclusion() {
   return (
-    <section data-sc-act="close" aria-labelledby="close-title" className="scene-dark from-deep to-night on-night pb-[clamp(9rem,18vh,13rem)] pt-[clamp(9rem,18vh,13rem)]">
+    <section data-sc-act="close" aria-labelledby="close-title" className="scene-dark from-deep to-night on-night pb-[clamp(7rem,14vh,10rem)] pt-[clamp(8rem,16vh,11rem)]">
       <div className="wrap text-center">
         <h2 id="close-title" className="display mx-auto max-w-[14ch] text-[length:var(--step-5)]">
           See what your documents need.
@@ -17,21 +16,10 @@ export function Conclusion() {
           <Link href="/contact?topic=audit" className="btn btn-night">
             Request a Readiness Audit
           </Link>
-          <Link href="/contact?topic=pilot" className="link-quiet">
-            Discuss a pilot <span aria-hidden="true" data-icon="chev"></span>
+          <Link href="/check" className="link-quiet">
+            Or check one PDF first <span aria-hidden="true" data-icon="chev"></span>
           </Link>
         </div>
-      </div>
-      <div className="wrap mt-16">
-        <figure className="mx-auto max-w-[680px]">
-          <PermitSheet layer="fixed" label="The permit application from the opening, repaired: a level-one heading, every field named, and a reading order from the title to the date." />
-          <figcaption className="mt-6 flex flex-wrap items-center justify-center gap-3 text-[0.92rem] text-moon-muted">
-            <span className="stamp">
-              <span aria-hidden="true" data-icon="check"></span> Checked
-            </span>
-            The same form, read in order. Example document.
-          </figcaption>
-        </figure>
       </div>
     </section>
   );

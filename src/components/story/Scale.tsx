@@ -65,7 +65,7 @@ export function Scale() {
           Years of agendas, applications, reports and notices, all of them looking finished. Sayable reads every publicly
           linked file and sorts it by what it is and how residents use it, so the work starts where it matters.
         </p>
-        <button type="button" className="btn btn-quiet mt-8 !min-h-11" onClick={() => setManual(!sorted)} aria-pressed={sorted}>
+        <button type="button" className="btn btn-quiet mt-8 !min-h-11" onClick={() => setManual(!sorted)}>
           {sorted ? "Show the unsorted collection" : "Sort the collection"}
         </button>
       </div>

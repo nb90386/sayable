@@ -5,7 +5,7 @@ import { PageCta, PageIntro, Row, Spec } from "@/components/pages/PageParts";
 import { FileScope, OfferLadder } from "@/components/pages/ProductTables";
 
 export const metadata: Metadata = {
-  title: "Product",
+  title: "Services and scope",
   description: "How Sayable finds, repairs, verifies and tracks public PDFs: the five-stage workflow, what is available today, and the services built on it.",
   alternates: { canonical: "/product" },
 };
@@ -30,7 +30,7 @@ const workflow = [
   {
     id: "verify",
     name: "Verify",
-    does: "Check every file with the PDF/UA validator, a semantic check and human review, then report what each one found.",
+    does: "Check every file with the PDF/UA validator and human review, plus our semantic check (in testing), then report what each one found.",
     who: "Software and people",
     when: "Available now, as a service",
     now: true,

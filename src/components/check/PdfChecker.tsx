@@ -8,9 +8,9 @@ import { DUR, EASE_OUT, STAGGER, tUi, tUiExit } from "@/lib/motion";
 import { type CheckErrorCode, type CheckResult, type Finding, type Status, MAX_BYTES, MAX_PAGES } from "@/lib/pdfcheck";
 
 const SAMPLES = [
-  { file: "permit-untagged.pdf", label: "Permit form, untagged", note: "Printed to PDF the usual way" },
+  { file: "permit-untagged.pdf", label: "Permit form, untagged", note: "Fillable, but no tags or field names" },
   { file: "notice-scanned.pdf", label: "Water notice, scanned", note: "A picture of a page" },
-  { file: "permit-tagged.pdf", label: "Permit form, tagged", note: "Exported with tags" },
+  { file: "permit-tagged.pdf", label: "Permit form, tagged", note: "Tagged, with named fields" },
 ] as const;
 
 const STATUS: Record<Status, { label: string; cls: string }> = {
@@ -53,6 +53,7 @@ export function PdfChecker() {
   const inputId = useId();
   const inputRef = useRef<HTMLInputElement>(null);
   const resultRef = useRef<HTMLHeadingElement>(null);
+  const errorRef = useRef<HTMLDivElement>(null);
   const [state, setState] = useState<State>({ k: "idle" });
   const [over, setOver] = useState(false);
   const abort = useRef<AbortController | null>(null);
@@ -72,12 +73,19 @@ export function PdfChecker() {
     } catch (e) {
       const code = ((e as { code?: CheckErrorCode })?.code ?? "failed") as CheckErrorCode;
       setState({ k: "error", message: ERRORS[code] ?? ERRORS.failed });
+      requestAnimationFrame(() => errorRef.current?.focus());
     }
   }, []);
 
+  const busy = state.k === "working";
   const onFile = (f: File | undefined | null) => {
     if (!f) return;
-    if (f.size > MAX_BYTES) return setState({ k: "error", message: ERRORS["too-big"] });
+    if (busy) return;
+    if (f.size > MAX_BYTES) {
+      setState({ k: "error", message: ERRORS["too-big"] });
+      requestAnimationFrame(() => errorRef.current?.focus());
+      return;
+    }
     void run(f.name, () => f.arrayBuffer(), false);
   };
 
@@ -92,7 +100,6 @@ export function PdfChecker() {
       true,
     );
 
-  const busy = state.k === "working";
   const enter = reduced ? { opacity: 0 } : { opacity: 0, y: 8 };
 
   return (
@@ -117,7 +124,7 @@ export function PdfChecker() {
         </svg>
         <div className="grid gap-1 text-center">
           <p className="text-[1.15rem] font-[600] text-ink">Drop a PDF here, or choose one</p>
-          <p className="text-[0.95rem] text-muted">
+          <p id={`${inputId}-hint`} className="text-[0.95rem] text-muted">
             Up to {MAX_BYTES / 1024 / 1024} MB. We check the first {MAX_PAGES} pages.
           </p>
         </div>
@@ -127,7 +134,7 @@ export function PdfChecker() {
           type="file"
           accept="application/pdf,.pdf"
           className="sr-only"
-          disabled={busy}
+          aria-describedby={`${inputId}-hint`}
           onChange={(e) => {
             onFile(e.target.files?.[0]);
             e.target.value = "";
@@ -147,7 +154,7 @@ export function PdfChecker() {
         <ul className="mt-3 grid gap-2 sm:grid-cols-3">
           {SAMPLES.map((s) => (
             <li key={s.file}>
-              <button type="button" className="check-sample press" disabled={busy} onClick={() => onSample(s.file, s.label)}>
+              <button type="button" className="check-sample press" aria-disabled={busy} onClick={() => !busy && onSample(s.file, s.label)}>
                 <span className="block font-[600] text-ink">{s.label}</span>
                 <span className="block text-[0.88rem] text-muted">{s.note}</span>
               </button>
@@ -156,11 +163,12 @@ export function PdfChecker() {
         </ul>
       </div>
 
-      <div aria-live="polite" className="min-h-[1px]">
+
+      <div className="min-h-[1px]">
         <AnimatePresence mode="popLayout" initial={false}>
           {state.k === "working" ? (
             <m.div key="working" initial={enter} animate={{ opacity: 1, y: 0, transition: tUi }} exit={{ opacity: 0, transition: tUiExit }} className="check-working">
-              <p className="font-[600] text-ink">
+              <p className="font-[600] text-ink" aria-live="polite">
                 Checking {state.name}
                 {state.total ? `: page ${state.done} of ${state.total}` : "…"}
               </p>
@@ -174,7 +182,7 @@ export function PdfChecker() {
           ) : null}
 
           {state.k === "error" ? (
-            <m.div key="error" role="alert" initial={enter} animate={{ opacity: 1, y: 0, transition: tUi }} exit={{ opacity: 0, transition: tUiExit }} className="check-error">
+            <m.div key="error" ref={errorRef} tabIndex={-1} role="alert" initial={enter} animate={{ opacity: 1, y: 0, transition: tUi }} exit={{ opacity: 0, transition: tUiExit }} className="check-error">
               <p>{state.message}</p>
             </m.div>
           ) : null}

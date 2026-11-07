@@ -107,7 +107,7 @@ export function Problem() {
   const label = mode === "before" ? "Hear the problem" : "Hear the difference";
 
   return (
-    <section data-sc-act="problem" aria-labelledby="problem-title" className="scene-dark on-night py-[clamp(9rem,18vh,13rem)]">
+    <section data-sc-act="problem" aria-labelledby="problem-title" className="scene-dark on-night join-next pt-[clamp(9rem,18vh,13rem)] pb-[clamp(4rem,9vh,7rem)]">
       <div className="wrap text-center">
         <h2 id="problem-title" className="headline mx-auto max-w-[16ch]">
           A document can look right and still be hard to use.

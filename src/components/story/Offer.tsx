@@ -81,17 +81,12 @@ export function Offer() {
             ))}
           </ol>
           <p className="mx-auto mt-10 max-w-[60ch] text-center text-[0.95rem] text-muted">
-            After the audit: remediation of the must-fix files, agenda packets returned in time to post, and a check-before-post
-            tool for staff, which is in development.
+            After the audit: repair of the must-fix files, quoted in writing. Agenda packets are a limited pilot. Staff can use the free PDF check
+            before posting today; team tools are planned.{" "}
+            <Link href="/product" className="text-link">
+              Everything we offer
+            </Link>
           </p>
-          <div className="mt-8 flex flex-wrap items-center justify-center gap-x-6 gap-y-2">
-            <Link href="/contact?topic=audit" className="btn">
-              Request a Readiness Audit
-            </Link>
-            <Link href="/contact?topic=pilot" className="link-quiet">
-              Discuss a pilot <span aria-hidden="true" data-icon="chev"></span>
-            </Link>
-          </div>
         </div>
       </div>
     </section>

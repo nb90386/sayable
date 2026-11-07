@@ -22,7 +22,7 @@ export function Consequences() {
                 <h3 className="title text-[1.35rem] text-ink">She can&apos;t apply without help.</h3>
                 <p className="mt-3 max-w-[52ch] text-ink-soft">
                   A resident who is blind opens the form with her screen reader, software that reads the screen aloud. She hears &ldquo;edit text, blank&rdquo;
-                  five times and can&apos;t tell which box is for her phone number. She has to ask someone else to fill in her own application, or call city
+                  four times and can&apos;t tell which box is for her phone number. She has to ask someone else to fill in her own application, or call city
                   hall and wait.
                 </p>
               </div>

@@ -173,8 +173,8 @@
   background: var(--color-paper-deep); box-shadow: inset 0 0 0 1px color-mix(in oklab, var(--color-ink) 8%, transparent);
   transition: background-color 160ms ease-out;
 }
-.check-sample:hover:not(:disabled) { background: var(--color-surface); }
-.check-sample:disabled { opacity: 0.6; cursor: progress; }
+.check-sample:hover:not([aria-disabled="true"]) { background: var(--color-surface); }
+.check-sample[aria-disabled="true"] { opacity: 0.6; cursor: progress; }
 .check-working { display: grid; gap: 0.8rem; padding: 1.25rem; border-radius: 12px; background: var(--color-paper-deep); }
 .check-bar { height: 6px; border-radius: 99px; background: color-mix(in oklab, var(--color-ink) 10%, transparent); overflow: hidden; }
 .check-bar > span { display: block; height: 100%; background: var(--color-signal); transform-origin: left; transition: transform 160ms linear; }
@@ -221,3 +221,6 @@
 .cost-k { font-size: 0.9rem; font-weight: 600; color: var(--color-signal-deep); margin-bottom: 0.5rem; }
 .cost-art { padding: 1.1rem 1.2rem; border-radius: 12px; background: var(--color-paper-deep); }
 .cost-art ul li::before { content: "·"; margin-right: 0.5rem; color: var(--color-muted); }
+
+/* Adjacent dark scenes share one night: no paper fade between them. */
+.scene-dark.join-next::after, .scene-dark.join-prev::before { display: none; }

@@ -18,8 +18,8 @@ const layers = [
     misses: "Whether the tags are right. A table can be tagged as a table and still read in the wrong order.",
   },
   {
-    name: "Semantic check",
-    what: "Compares the rendered page with its tags. It asks whether what a reader sees matches what a screen reader will announce.",
+    name: "Semantic check (in testing)",
+    what: "Our own software, still a research prototype, that compares the rendered page with its tags. It asks whether what a reader sees matches what a screen reader will announce. We use it as an extra layer, never instead of a person.",
     catches: "Broken table structure, wrong heading levels, text read out of order, tags that contradict the page.",
     misses: "Judgment calls. Whether alternative text is useful, or whether a form makes sense, needs a person.",
   },

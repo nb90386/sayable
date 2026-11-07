@@ -3,6 +3,8 @@
 //   permit-tagged.pdf    the same form exported with tags, title and language
 //   notice-scanned.pdf   a page that is only a picture of text, like a scan
 // Run: PW_CHROME=<chromium path> node scripts/make-samples.mjs
+import { readFileSync, writeFileSync } from "node:fs";
+import { PDFDocument, PDFHexString, PDFName } from "pdf-lib";
 import { chromium } from "playwright";
 
 const form = (title) => `<!doctype html><html lang="en"><head><meta charset="utf-8"><title>${title}</title>
@@ -25,15 +27,15 @@ const form = (title) => `<!doctype html><html lang="en"><head><meta charset="utf
 <h1>Residential permit application</h1>
 <p>Complete all sections and sign below. Applications missing a signature will be returned.</p>
 <h2>1. Applicant</h2>
-<div class="row"><div><label>Full name</label><div class="box"></div></div><div><label>Daytime phone</label><div class="box"></div></div></div>
-<div style="margin-top:12px"><label>Property address</label><div class="box"></div></div>
+<div class="row"><div><label>Full name</label><div class="box" data-f="Applicant name"></div></div><div><label>Daytime phone</label><div class="box" data-f="Daytime phone"></div></div></div>
+<div style="margin-top:12px"><label>Property address</label><div class="box" data-f="Property address"></div></div>
 <h2>2. Type of work</h2>
-<p class="checks"><span>New construction</span><span>Addition</span><span>Repair or alteration</span></p>
+<p class="checks"><span data-c="Type of work: new construction">New construction</span><span data-c="Type of work: addition">Addition</span><span data-c="Type of work: repair or alteration">Repair or alteration</span></p>
 <h2>3. Fees</h2>
 <table><thead><tr><th scope="col">Project value</th><th scope="col">Permit fee</th><th scope="col">Plan review</th></tr></thead>
 <tbody><tr><td>Up to $5,000</td><td>$120</td><td>$60</td></tr><tr><td>$5,001 to $25,000</td><td>$310</td><td>$155</td></tr><tr><td>Over $25,000</td><td>$540</td><td>$270</td></tr></tbody></table>
 <h2>4. Signature</h2>
-<div class="row"><div><label>Applicant signature</label><div class="box"></div></div><div><label>Date</label><div class="box"></div></div></div>
+<div class="row"><div><label>Applicant signature</label><div class="box" data-f="Applicant signature"></div></div><div><label>Date</label><div class="box" data-f="Date signed"></div></div></div>
 <footer>Sample document for demonstration. The City of Alder Creek is fictional.</footer>
 </body></html>`;
 
@@ -49,14 +51,69 @@ const notice = `<!doctype html><html lang="en"><head><meta charset="utf-8"><styl
 <p>Sample document for demonstration. The City of Alder Creek is fictional.</p>
 </div></body></html>`;
 
+/**
+ * Lay real AcroForm fields over the drawn boxes. With names=false the fields
+ * have no tooltip (TU), which is how many "fillable" city forms ship; with
+ * names=true each field gets the spoken name of its printed label.
+ */
+async function addFields(file, boxes, names) {
+  const doc = await PDFDocument.load(readFileSync(file));
+  const form = doc.getForm();
+  const page = doc.getPage(0);
+  const H = page.getHeight();
+  // Put TU on the field and on its widget: some readers, pdf.js included, only look at the widget.
+  const name = (f, label) => {
+    if (!names) return;
+    const tu = PDFHexString.fromText(label);
+    f.acroField.dict.set(PDFName.of("TU"), tu);
+    for (const w of f.acroField.getWidgets()) w.dict.set(PDFName.of("TU"), tu);
+  };
+  boxes.forEach((b, i) => {
+    const rect = { x: b.x, y: H - b.y - b.h, width: b.w, height: b.h, borderWidth: 0 };
+    if (b.kind === "text") {
+      const f = form.createTextField(`Text${i + 1}`);
+      f.addToPage(page, rect);
+      name(f, b.label);
+    } else {
+      const f = form.createCheckBox(`Check${i + 1}`);
+      f.addToPage(page, rect);
+      name(f, b.label);
+    }
+  });
+  writeFileSync(file, await doc.save());
+}
+
+// Where the boxes land on a Letter page with 0.7in margins, in PDF points.
+async function measure(page) {
+  await page.emulateMedia({ media: "print" });
+  await page.setViewportSize({ width: Math.round((8.5 - 1.4) * 96), height: 1200 });
+  return page.evaluate(() => {
+    const pt = (v) => v * 0.75, m = 0.7 * 72;
+    const out = [];
+    document.querySelectorAll("[data-f]").forEach((e) => {
+      const r = e.getBoundingClientRect();
+      out.push({ kind: "text", label: e.dataset.f, x: m + pt(r.left), y: m + pt(r.top), w: pt(r.width), h: pt(r.height) });
+    });
+    document.querySelectorAll("[data-c]").forEach((e) => {
+      const r = e.getBoundingClientRect();
+      out.push({ kind: "check", label: e.dataset.c, x: m + pt(r.left), y: m + pt(r.top + (r.height - 13) / 2), w: pt(13), h: pt(13) });
+    });
+    return out;
+  });
+}
+
 const browser = await chromium.launch({ executablePath: process.env.PW_CHROME || undefined });
 const page = await browser.newPage();
 
 await page.setContent(form(""));
+const boxes = await measure(page);
 await page.pdf({ path: "public/samples/permit-untagged.pdf", format: "Letter", tagged: false, outline: false, printBackground: true });
+await addFields("public/samples/permit-untagged.pdf", boxes, false);
 
 await page.setContent(form("Residential permit application, City of Alder Creek"));
 await page.pdf({ path: "public/samples/permit-tagged.pdf", format: "Letter", tagged: true, outline: true, printBackground: true });
+await addFields("public/samples/permit-tagged.pdf", boxes, true);
+await page.emulateMedia({ media: "screen" });
 
 await page.setViewportSize({ width: 816, height: 1056 });
 await page.setContent(notice);

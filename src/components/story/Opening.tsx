@@ -36,15 +36,16 @@ export function Opening() {
             Many city PDFs can&apos;t be read by people who use <span className="tone">screen readers.</span>
           </h1>
           <p className="lede mx-auto mt-5 !max-w-[56ch] !text-ink-soft">
-            Sayable finds the PDFs on your website that fall short, fixes the ones residents use most, and gives you a record of what was checked.
-            Under the federal ADA rule, cities of 50,000 or more must meet the WCAG 2.1 AA standard by April 26, 2027.
+            Sayable finds the PDFs on your website that have this problem, fixes them starting with the ones residents rely on most, and gives you a
+            record of what was checked. Under the current federal ADA rule, cities of 50,000 or more residents must meet the WCAG 2.1 AA accessibility
+            standard by April 26, 2027.
           </p>
           <div className="mt-7 flex flex-wrap items-center justify-center gap-3">
             <Link href="/check" className="btn">
               Check a PDF, free
             </Link>
             <Link href="/contact?topic=audit" className="btn btn-quiet">
-              Request a citywide audit
+              Request a Readiness Audit
             </Link>
           </div>
           <ul className="hero-points mx-auto mt-7" aria-label="At a glance">
@@ -55,7 +56,7 @@ export function Opening() {
 
         <div className="opening-doc">
           <div className="opening-tilt">
-            <PermitSheet label="A residential permit application from a fictional city. As you scroll, a scan reveals its hidden structure: five fields with no accessible name, a title tagged as plain text, and a footer that a screen reader reads first.">
+            <PermitSheet label="A residential permit application from a fictional city. As you scroll, a scan reveals its hidden structure: four text fields and three check boxes with no accessible name, a title tagged as plain text, and a footer that a screen reader reads first.">
               {null}
             </PermitSheet>
             <svg viewBox={PVB} className="opening-xray" aria-hidden="true">
@@ -72,7 +73,7 @@ export function Opening() {
       </div>
     </section>
       <div className="opening-caption wrap text-center">
-        <p>Under the paper: five fields with no name, a title that is not a heading, and a footer read first.</p>
+        <p>Under the paper: four text fields and three check boxes with no name, a title that is not a heading, and a footer read first.</p>
         <p className="mt-1 text-[0.85rem] font-[450] text-muted">Illustrative sample. Fictional city.</p>
         <SheetLegend layer="broken" className="mx-auto mt-6 max-w-[22rem] !text-[0.92rem] !font-[450]" />
       </div>

@@ -212,6 +212,7 @@ test.describe("Check a PDF", () => {
     await expect(page.locator("#check-result")).toBeFocused();
     await expect(statusOf("Tags")).toHaveText("Problem");
     await expect(statusOf("Real text")).toHaveText("Looks fine");
+    await expect(statusOf("Form fields")).toHaveText("Problem");
 
     await page.getByRole("button", { name: /Water notice, scanned/ }).click();
     await expect(page.getByText("Sample: Water notice, scanned")).toBeVisible();
@@ -224,6 +225,7 @@ test.describe("Check a PDF", () => {
     await expect(statusOf("Tags")).toHaveText("Looks fine");
     await expect(statusOf("Language")).toHaveText("Looks fine");
     await expect(statusOf("Tables")).toHaveText("A person must check");
+    await expect(statusOf("Form fields")).toHaveText("A person must check");
     await expect(statusOf("Reading order")).toHaveText("A person must check");
     // never a compliance verdict
     await expect(page.getByText(/compliant|certified|passes WCAG/i)).toHaveCount(0);
@@ -248,6 +250,7 @@ test.describe("Check a PDF", () => {
     const alert = page.locator(".check-error");
     await page.setInputFiles("input[type=file]", { name: "notes.pdf", mimeType: "application/pdf", buffer: Buffer.from("just some text") });
     await expect(alert).toContainText("not a PDF");
+    await expect(alert).toBeFocused();
     await page.setInputFiles("input[type=file]", { name: "huge.pdf", mimeType: "application/pdf", buffer: Buffer.concat([Buffer.from("%PDF-1.7\n"), Buffer.alloc(26 * 1024 * 1024)]) });
     await expect(alert).toContainText("over 25 MB");
     await page.setInputFiles("input[type=file]", { name: "broken.pdf", mimeType: "application/pdf", buffer: Buffer.from("%PDF-1.7\n1 0 obj garbage") });

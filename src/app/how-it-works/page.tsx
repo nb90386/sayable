@@ -218,7 +218,7 @@ export default function HowItWorksPage() {
                 id="verify"
                 title="Three kinds of checking, because one isn't enough."
                 body={[
-                  "First, veraPDF, the open-source validator for the PDF/UA-1 standard, checks the file's technical structure. Second, our semantic check compares what a screen reader would traverse with what a sighted reader sees: headings that look like headings but aren't tagged, tables without header cells, content read out of order. Third, a person reviews whatever either check flags, and every form.",
+                  "First, veraPDF, the open-source validator for the PDF/UA-1 standard, checks the file's technical structure. Second, our semantic check, still a research prototype, compares what a screen reader would traverse with what a sighted reader sees: headings that look like headings but aren't tagged, tables without header cells, content read out of order. Third, a person reviews whatever either check flags, and every form.",
                   "Rule checks can pass a document that still makes no sense when read aloud. That gap is why the semantic check exists.",
                 ]}
               />

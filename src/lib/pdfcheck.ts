@@ -272,9 +272,14 @@ export async function checkPdf(data: ArrayBuffer, onProgress?: (done: number, to
               id: "fields",
               title: "Form fields",
               status: "fail",
-              detail: `${plural(fieldsNoName, "form field")} of ${fields} ${fieldsNoName === 1 ? "has" : "have"} no spoken name.`,
+              detail:
+                fieldsNoName === fields
+                  ? fields === 1
+                    ? "The form field has no spoken name."
+                    : `None of the ${fields} form fields has a spoken name.`
+                  : `${plural(fieldsNoName, "form field")} of ${fields} ${fieldsNoName === 1 ? "has" : "have"} no spoken name.`,
               why: "A screen reader announces an unnamed field as just “edit text” or “check box”. The person filling it in cannot tell which box is which.",
-              fix: "Give every field a tooltip (its accessible name) that matches its visible label, then check the tab order.",
+              fix: "Give every field a tooltip (its accessible name) that matches its visible label, then check the tab order. If your PDF editor already shows tooltips for these fields, confirm in Acrobat: a few tools store names where this check cannot read them.",
             },
       );
     } else {

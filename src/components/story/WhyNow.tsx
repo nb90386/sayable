@@ -18,11 +18,11 @@ const PLAN = [
 /** Chapter: the deadline, stated plainly with its sources. No countdown, no alarm. */
 export function WhyNow() {
   return (
-    <section data-sc-act="why-now" aria-labelledby="why-now-title" className="scene-dark on-night pb-[clamp(6rem,13vh,10rem)] pt-[clamp(3rem,8vh,6rem)]">
+    <section data-sc-act="why-now" aria-labelledby="why-now-title" className="scene-dark on-night join-prev pb-[clamp(6rem,13vh,10rem)] pt-[clamp(3rem,8vh,6rem)]">
       <div className="wrap">
         <div className="mx-auto max-w-[1100px]">
           <h2 id="why-now-title" className="headline max-w-[18ch] text-moon">
-            The federal deadline <span className="tone">is set.</span>
+            Your accessibility deadline <span className="tone">is coming.</span>
           </h2>
           <p className="lede mt-6 !max-w-[58ch] !text-moon-muted">
             In 2024 the Department of Justice adopted a rule under Title II of the Americans with Disabilities Act. It requires state and local

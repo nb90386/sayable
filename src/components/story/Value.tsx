@@ -5,7 +5,7 @@ import { useId, useState } from "react";
 import { track } from "@/lib/analytics";
 
 type Inputs = { pages: number; inUse: number; complex: number; monthly: number; rate: number };
-type Field = { key: keyof Inputs; label: string; hint: string; min: number; max: number; step: number; fmt: (v: number) => string };
+type Field = { key: keyof Inputs; label: string; hint: string; min: number; max: number; step: number; fmt: (v: number) => string; say: (v: number) => string };
 
 const num = (v: number) => Math.round(v).toLocaleString("en-US");
 const pct = (v: number) => `${Math.round(v)}%`;
@@ -17,11 +17,11 @@ const hrs = (v: number) => (v >= 1000 ? Math.round(v / 100) * 100 : v >= 100 ? M
 const MIN = { simple: [3, 12], complex: [15, 30] } as const;
 
 const fields: Field[] = [
-  { key: "pages", label: "PDF pages on your public website", hint: "Every page of every PDF your site links to. If you don't know, that is normal. An audit counts them.", min: 1000, max: 300000, step: 1000, fmt: num },
-  { key: "inUse", label: "Share still in use", hint: "Pages people use to apply, pay, take part or stay informed. Older reference files may be excepted. Your team makes that call.", min: 5, max: 100, step: 1, fmt: pct },
-  { key: "complex", label: "Share that is forms, tables or scans", hint: "These take a person much longer per page.", min: 0, max: 80, step: 1, fmt: pct },
-  { key: "monthly", label: "New pages posted each month", hint: "Agendas, packets, notices. Each one posted after the date has to be accessible.", min: 0, max: 5000, step: 50, fmt: num },
-  { key: "rate", label: "Cost of an hour of skilled work", hint: "Your own figure, for staff or a contractor. Set it to $0 to see hours only.", min: 0, max: 150, step: 5, fmt: (v) => (v ? usd(v) : "Hours only") },
+  { key: "pages", label: "PDF pages on your public website", hint: "Every page of every PDF your site links to. If you don't know, that is normal. An audit counts them.", min: 1000, max: 300000, step: 1000, fmt: num, say: (v) => `${num(v)} pages` },
+  { key: "inUse", label: "Share still in use", hint: "Pages people use to apply, pay, take part or stay informed. Older reference files may be excepted. Your team makes that call.", min: 5, max: 100, step: 1, fmt: pct, say: (v) => `${Math.round(v)} percent` },
+  { key: "complex", label: "Share that is forms, tables or scans", hint: "These take a person much longer per page.", min: 0, max: 80, step: 1, fmt: pct, say: (v) => `${Math.round(v)} percent` },
+  { key: "monthly", label: "New pages posted each month", hint: "Agendas, packets, notices. Each one posted after the date has to be accessible.", min: 0, max: 5000, step: 50, fmt: num, say: (v) => `${num(v)} pages a month` },
+  { key: "rate", label: "Cost of an hour of skilled work", hint: "Your own figure, for staff or a contractor. Set it to $0 to see hours only.", min: 0, max: 150, step: 5, fmt: (v) => (v ? usd(v) : "Hours only"), say: (v) => (v ? `${v} dollars an hour` : "Not set, showing hours only") },
 ];
 
 function hours(pages: number, complexShare: number) {
@@ -98,6 +98,7 @@ export function Value() {
                       onPointerUp={() => track("estimator_change", { field: f.key })}
                       onKeyUp={() => track("estimator_change", { field: f.key })}
                       aria-describedby={`${id}-hint`}
+                      aria-valuetext={f.say(v[f.key])}
                       className="cost-range mt-2"
                     />
                     <p id={`${id}-hint`} className="mt-1 text-[0.84rem] leading-snug text-muted">
@@ -162,7 +163,7 @@ export function Value() {
                 An illustration from the numbers you entered. Not a quote, a measured result, or a legal judgement about what you must fix.
               </p>
               <Link href="/contact?topic=audit" className="btn shrink-0">
-                Get your real numbers
+                Request a Readiness Audit
               </Link>
             </div>
           </div>

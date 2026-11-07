@@ -82,7 +82,7 @@ const faqs = [
           The inventory depends on what is publicly linked, so files that are only reachable through a search box or a login can be missed. You can tell us where to look.
         </p>
         <p>
-          Check results come from the PDF/UA-1 validator veraPDF and our own semantic check. Neither one is a full accessibility test, and the report says what each one can and cannot see. For the numbers from our own tests, see{" "}
+          Check results come from the PDF/UA-1 validator veraPDF and our own semantic check, which is still in testing. Neither one is a full accessibility test, and the report says what each one can and cannot see. For the numbers from our own tests, see{" "}
           <Link href="/verify" className="text-link">
             verification and quality
           </Link>
