@@ -152,6 +152,55 @@ export default function VerifyPage() {
         </div>
       </section>
 
+      <section aria-labelledby="two-verdicts" className="border-t py-16 hairline sm:py-24">
+        <div className="wrap">
+          <h2 id="two-verdicts" className="headline max-w-[22ch] !text-[length:var(--step-3)]">
+            Same file, two verdicts
+          </h2>
+          <p className="mt-4 max-w-[60ch] text-ink-soft">
+            An illustrative permit form after a quick repair. Every automated check passes. A person listening to it finds three problems a resident
+            would hit straight away.
+          </p>
+          <div className="mt-10 grid gap-4 md:grid-cols-2">
+            <div className="rounded-[14px] bg-sheet p-6 shadow-[inset_0_0_0_1px_rgb(18_21_27/0.1)] sm:p-8">
+              <p className="mono text-[0.82rem] text-muted">Automated checks</p>
+              <ul className="mt-4 grid gap-3">
+                {[
+                  "PDF/UA-1 validator: no errors",
+                  "Document is tagged, with a title and language",
+                  "Every form field has a name",
+                  "Every image has a description",
+                ].map((t) => (
+                  <li key={t} className="flex items-start gap-2.5 text-ink">
+                    <span className="check-status st-pass shrink-0">Pass</span>
+                    <span>{t}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+            <div className="rounded-[14px] bg-sheet p-6 shadow-[inset_0_0_0_1px_rgb(18_21_27/0.1)] sm:p-8">
+              <p className="mono text-[0.82rem] text-muted">A person with a screen reader</p>
+              <ul className="mt-4 grid gap-3">
+                {[
+                  ["The phone field is announced as \u201cApplicant name\u201d.", "The names exist, but two were copied from the wrong label."],
+                  ["The fee table is read before the instructions.", "The tags are in an order the page is not."],
+                  ["The city seal is described as \u201cimage1\u201d.", "A description is present, so the check counts it."],
+                ].map(([t, d]) => (
+                  <li key={t} className="flex items-start gap-2.5">
+                    <span className="check-status st-fail shrink-0">Fail</span>
+                    <span>
+                      <span className="block text-ink">{t}</span>
+                      <span className="block text-[0.92rem] text-muted">{d}</span>
+                    </span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
+          <p className="mt-4 text-[0.84rem] text-muted">Illustrative example. Fictional city. Problems like these regularly pass automated checks, which confirm that names, tags and descriptions exist, not that they are right.</p>
+        </div>
+      </section>
+
       <section aria-labelledby="evidence" className="border-t bg-paper-deep/50 py-16 hairline sm:py-24">
         <div className="wrap grid-12 gap-y-10">
           <div className="col-span-12 lg:col-span-5">

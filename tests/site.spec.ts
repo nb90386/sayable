@@ -81,12 +81,16 @@ test("signature interactions work by keyboard", async ({ page }) => {
   await page.keyboard.press("ArrowDown");
   await expect(page.getByRole("tab", { name: "Title is tagged as plain text" })).toHaveAttribute("aria-selected", "true");
   // estimator: moving a slider changes the arithmetic
-  const pages = page.getByLabel("PDF pages on your public site");
+  const pages = page.getByLabel("PDF pages on your public website");
   await pages.focus();
   const out = page.locator("output").first();
   const was = await out.textContent();
+  const sentence = page.locator("[aria-labelledby=value-title] [aria-live=polite] > p").first();
+  const before = await sentence.textContent();
   await page.keyboard.press("ArrowRight");
   await expect(out).not.toHaveText(was ?? "");
+  // the plain-English explanation follows the slider
+  await expect(sentence).not.toHaveText(before ?? "");
 });
 
 test("contact form validates and never fakes success", async ({ page }) => {
