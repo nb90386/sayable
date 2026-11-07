@@ -1,5 +1,6 @@
 export const INTERESTS = [
   { value: "audit", label: "A readiness audit" },
+  { value: "repair", label: "Repair of specific PDFs" },
   { value: "pilot", label: "A pilot on a sample of documents" },
   { value: "agenda", label: "Agenda and meeting-packet turnaround" },
   { value: "partner", label: "Agency or overflow work" },

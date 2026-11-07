@@ -54,9 +54,9 @@ export default function AboutPage() {
         </Row>
         <Row id="stage" title="Where we are today">
           <p>
-            Sayable is an early-stage company. We start as a service: the Readiness Audit is the way in, backed by
-            our own software that checks and repairs files. Self-serve checking and monitoring are planned, and they
-            are not available yet.
+            Sayable is an early-stage company. We start as a service: the Readiness Audit is the way in, and repairs are done by people, with
+            software we are still testing for the routine parts. A free single-file PDF check is available today.
+            Team tools and monitoring are planned, and they are not available yet.
           </p>
           <p>
             We would rather say that plainly than imply a bigger operation. If you want to see how the work holds up,

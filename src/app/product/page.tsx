@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { PermitSheet, SheetLegend } from "@/components/doc/PermitSheet";
 import { PageCta, PageIntro, Row, Spec } from "@/components/pages/PageParts";
+import { FileScope, OfferLadder } from "@/components/pages/ProductTables";
 
 export const metadata: Metadata = {
   title: "Product",
@@ -21,7 +22,7 @@ const workflow = [
   {
     id: "repair",
     name: "Repair",
-    does: "Fix routine structure automatically. Tables, forms, reading order and scans go to a person. Visible content is never changed.",
+    does: "Software we are testing drafts routine fixes and a person checks them. Tables, forms, reading order and scans are done by a person. Visible content is never changed.",
     who: "Software and people",
     when: "Available now, as a service",
     now: true,
@@ -72,9 +73,9 @@ const offers = [
     n: "Offer 02",
     title: "Readiness Package",
     kicker: "The audit, then the repairs.",
-    body: "Everything in the audit, followed by remediation of the documents that must be fixed. Routine structure is repaired automatically. Tables, lists, reading order, scanned pages and forms go to a person. Every file is re-checked after its last change and delivered with its own check report.",
+    body: "Everything in the audit, followed by remediation of the documents that must be fixed. Routine structure is drafted by software and checked by a person. Tables, lists, reading order, scanned pages and forms go to a person. Every file is re-checked after its last change and delivered with its own check report.",
     spec: [
-      "Automatic fixes limited to tags, order, alternative text and field names. Visible content is never changed.",
+      "Software-drafted fixes limited to tags, order, alternative text and field names. Visible content is never changed.",
       "Human remediation for the parts software doesn't handle reliably",
       "A check report per file: what was checked, what changed, who changed it",
     ],
@@ -84,16 +85,16 @@ const offers = [
     n: "Offer 03",
     title: "Agenda Desk",
     kicker: "Meeting packets, turned around on a clock.",
-    body: "Clerks send each agenda packet as it's ready. We return it remediated and checked, aiming for a 24 to 48 hour turnaround, so posting deadlines and accessibility don't compete.",
-    spec: ["Upload or email intake", "Turnaround timers agreed in writing", "Same checks and reports as every other file"],
+    body: "Clerks send each agenda packet as it's ready, and we return it repaired and checked before the posting deadline. We are offering this as a limited pilot, with the turnaround agreed in writing for each city, while we measure how long real packets take.",
+    spec: ["Limited pilot, by arrangement", "Turnaround agreed in writing per city", "Same checks and reports as every other file"],
   },
   {
     id: "check",
     n: "Offer 04",
     title: "Check before posting",
     kicker: "Stop new problems at the door.",
-    body: "A simple page where staff drop in a PDF before publishing it. They get a pass or fail, plain-language explanations of what to fix, and an optional automatic fix for routine structure. This one is still in development.",
-    spec: ["Planned self-serve tool, not yet available", "Check-only mode of the same pipeline"],
+    body: "Staff can check a PDF before posting it with our free check, today. It runs in the browser, so the file is never uploaded, and it explains what it finds in plain English. A team version that also fixes routine problems is planned, not available yet.",
+    spec: ["Free single-file check: available now at /check", "Automatic fixing and team features: planned"],
   },
   {
     id: "partners",
@@ -110,7 +111,7 @@ export default function ProductPage() {
     <>
       <PageIntro
         title="Find, fix and verify every public PDF."
-        lede="Sayable is a service backed by our own software. We find the documents that need attention, repair them with automation and people, and check every file the same way."
+        lede="Sayable is a PDF accessibility service for public agencies. We find the PDFs that need attention, repair them by hand with help from software we are still testing, and check every file the same way. One part is free and yours to use today: the PDF check."
         note="Discover › Repair › Verify › Publish › Monitor"
       />
 
@@ -173,9 +174,30 @@ export default function ProductPage() {
         </p>
       </section>
 
+      <section aria-labelledby="ladder-title" className="wrap pb-20 sm:pb-28">
+        <h2 id="ladder-title" className="headline max-w-[22ch] !text-[length:var(--step-3)]">
+          What you can buy, and what is free.
+        </h2>
+        <p className="mt-4 max-w-[60ch] text-ink-soft">
+          Most cities start with the free check or a Readiness Audit. We quote every paid job in writing before any work starts.
+        </p>
+        <OfferLadder />
+      </section>
+
+      <section aria-labelledby="scope-title" className="wrap pb-20 sm:pb-28">
+        <h2 id="scope-title" className="headline max-w-[22ch] !text-[length:var(--step-3)]">
+          PDFs only. Here is exactly what that covers.
+        </h2>
+        <p className="mt-4 max-w-[60ch] text-ink-soft">
+          We focus on PDFs, the format cities use for most forms, agendas and notices. Doing one format well beats doing five badly. We
+          don&apos;t work on Word, PowerPoint or Excel files, or on web pages.
+        </p>
+        <FileScope />
+      </section>
+
       <section aria-labelledby="services-title" className="wrap">
         <h2 id="services-title" className="headline !text-[length:var(--step-3)]">
-          Services built on it
+          Each service in detail
         </h2>
       </section>
       <div className="wrap pb-24">

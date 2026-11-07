@@ -56,7 +56,7 @@ export const stages = [
     id: "repair",
     n: "02",
     name: "Repair",
-    line: "Apply safe structural fixes automatically. Route tables, forms and scans to a person.",
+    line: "Draft routine structural fixes with software, checked by a person. Tables, forms and scans are done by hand.",
   },
   {
     id: "verify",

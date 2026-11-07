@@ -62,7 +62,7 @@ export default function AccessibilityPage() {
             The inventory animation is decorative. On small screens there is a list alternative that carries the same
             information.
           </li>
-          <li>The audio demos are illustrative text-to-speech, not recordings of a screen reader.</li>
+          <li>The audio demos are illustrative narration made with an open-source text-to-speech model, not recordings of a screen reader.</li>
         </ul>
       </S>
 

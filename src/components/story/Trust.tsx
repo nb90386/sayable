@@ -3,7 +3,7 @@ import { ReportExplorer } from "../sections/ReportExplorer";
 
 const method = [
   { t: "Structural validation", d: "veraPDF against PDF/UA-1: tags, language, metadata, fonts.", who: "Software" },
-  { t: "Semantic analysis", d: "The rendered page compared with its tags, in reading order.", who: "Software" },
+  { t: "Semantic analysis", d: "The rendered page compared with its tags, in reading order.", who: "Software, in testing" },
   { t: "Human review", d: "Forms, tables, scans and anything a check disputes.", who: "Person" },
   { t: "Recheck after edits", d: "Every file checked again after its last change.", who: "Software" },
   { t: "Versioned output", d: "The original kept; each version says what changed.", who: "Record" },

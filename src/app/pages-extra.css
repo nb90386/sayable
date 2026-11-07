@@ -1,0 +1,70 @@
+/*
+ * Extra styles for /how-it-works and /readiness-audit drawings.
+ * Motion values mirror src/lib/motion.ts (EASE_OUT, DUR.ui = 200ms, DUR.story = 700ms, STAGGER = 30ms).
+ * Reveals are gated by the site's RevealObserver: it adds .js-motion and .is-in only when
+ * reduced motion is off, so content is always visible without JS or with reduced motion.
+ */
+:root {
+  --mx-ease: cubic-bezier(0.22, 1, 0.36, 1);
+  --mx-ui: 200ms;
+  --mx-story: 700ms;
+  --mx-stagger: 30ms;
+}
+
+/* A group reveals its children in order. The group itself does not move. */
+@media (prefers-reduced-motion: no-preference) {
+  .js-motion .rise-group[data-reveal] { opacity: 1; transform: none; transition: none; }
+  .js-motion .rise-group .rise {
+    opacity: 0;
+    transform: translate3d(0, 8px, 0);
+    transition: opacity var(--mx-ui) var(--mx-ease), transform var(--mx-story) var(--mx-ease);
+    transition-delay: calc(var(--n, 0) * var(--mx-stagger));
+  }
+  .js-motion .rise-group.is-in .rise { opacity: 1; transform: none; }
+
+  /* Check marks draw once when their list arrives. */
+  .js-motion .rise-group .tick path { stroke-dasharray: 22; stroke-dashoffset: 22; transition: stroke-dashoffset var(--mx-ui) var(--mx-ease); transition-delay: calc(var(--n, 0) * var(--mx-stagger) + 120ms); }
+  .js-motion .rise-group.is-in .tick path { stroke-dashoffset: 0; }
+
+  /* Scope bars narrow from the full site to the checked files. */
+  .js-motion .rise-group .au-bar { transform: scaleX(0); transform-origin: left center; transition: transform var(--mx-story) var(--mx-ease); transition-delay: calc(var(--n, 0) * var(--mx-stagger) * 4); }
+  .js-motion .rise-group.is-in .au-bar { transform: none; }
+}
+
+/* ---------- Shared drawing pieces ---------- */
+.hx-doc { background: var(--color-sheet); border-radius: var(--radius-sheet); box-shadow: var(--shadow-sheet); }
+.hx-chip { display: inline-flex; align-items: center; font-family: var(--font-mono); font-size: 0.75rem; line-height: 1.2; padding: 0.22rem 0.5rem; border-radius: 999px; background: var(--color-surface); color: var(--color-ink-soft); white-space: nowrap; }
+.hx-chip[data-tone="broken"] { background: var(--color-ember-wash); color: var(--color-ember); }
+.hx-chip[data-tone="fixed"] { background: var(--color-signal-wash); color: var(--color-signal-deep); }
+.hx-mark { display: inline-flex; align-items: center; gap: 0.4em; font-weight: 600; font-size: 0.8rem; line-height: 1; padding: 0.38rem 0.7rem; border-radius: 999px; white-space: nowrap; }
+.hx-mark[data-who="software"] { background: var(--color-signal-wash); color: var(--color-signal-deep); }
+.hx-mark[data-who="person"] { background: var(--color-ink); color: var(--color-paper); }
+.hx-status { display: inline-flex; align-items: center; font-size: 0.8rem; font-weight: 600; line-height: 1.2; padding: 0.3rem 0.65rem; border-radius: 999px; box-shadow: inset 0 0 0 1.5px var(--rule-strong); color: var(--color-ink-soft); }
+.hx-status[data-state="now"] { background: var(--color-ink); color: var(--color-paper); box-shadow: none; }
+.hx-status[data-state="soon"] { box-shadow: none; border: 1.5px dashed var(--rule-strong); padding: calc(0.3rem - 1.5px) calc(0.65rem - 1.5px); }
+
+/* ---------- How it works ---------- */
+.hx-crawl-row { display: grid; gap: 0.35rem 1.5rem; padding: 0.9rem 1.1rem; border-bottom: 1px solid var(--rule); }
+.hx-crawl-row:last-child { border-bottom: 0; }
+@media (min-width: 52rem) {
+  .hx-crawl-row { grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr) minmax(9rem, auto); align-items: center; padding: 0.8rem 1.4rem; }
+}
+
+/* Paper piles: the stack is as thick as the group is large. Edges are drawn with stacked shadows. */
+.hx-pile { position: relative; padding-bottom: calc(var(--edges, 3) * 3px + 6px); transform: rotate(var(--tilt, 0deg)); transform-origin: 50% 100%; }
+.hx-pile > .top { position: relative; box-shadow: var(--edge-shadow), 0 20px 36px -22px rgb(16 20 28 / 0.4); border-radius: var(--radius-sheet); }
+
+/* Tag tree with elbow connectors. */
+.hx-tree, .hx-tree ul { list-style: none; margin: 0; padding: 0; }
+.hx-tree ul { margin-left: 0.55rem; padding-left: 1rem; border-left: 1.5px solid var(--rule-strong); }
+.hx-tree li { position: relative; }
+.hx-tree ul > li::before { content: ""; position: absolute; left: -1rem; top: 1.15rem; width: 0.8rem; border-top: 1.5px solid var(--rule-strong); }
+.hx-node { display: flex; flex-wrap: wrap; align-items: baseline; gap: 0.25rem 0.55rem; padding: 0.4rem 0.6rem; margin: 0.18rem 0; border-radius: 6px; font-size: 0.9rem; line-height: 1.35; overflow-wrap: anywhere; }
+.hx-node .t { font-family: var(--font-mono); font-size: 0.8rem; font-weight: 500; }
+.hx-node[data-state="broken"] { outline: 1.5px dashed var(--color-warm); outline-offset: -1.5px; background: color-mix(in oklab, var(--color-ember-wash), transparent 45%); }
+.hx-node[data-state="fixed"] { outline: 1.5px solid var(--color-signal); outline-offset: -1.5px; background: color-mix(in oklab, var(--color-signal-wash), transparent 35%); }
+.hx-node[data-state="person"] { outline: 1.5px dashed var(--rule-strong); outline-offset: -1.5px; }
+
+/* Report cover pieces */
+.au-under { position: absolute; inset: 0.9rem -0.4rem -0.7rem 0.5rem; background: #eceff4; border-radius: var(--radius-sheet); transform: rotate(1.1deg); box-shadow: 0 1px 2px rgb(16 20 28 / 0.06), 0 20px 40px -24px rgb(16 20 28 / 0.3); }
+.au-bar { height: 100%; border-radius: 999px; }

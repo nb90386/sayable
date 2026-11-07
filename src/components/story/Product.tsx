@@ -23,8 +23,8 @@ const stages: { id: string; name: string; line: string; rows: Row[]; status: str
   {
     id: "repair",
     name: "Repair",
-    line: "Software fixes tags, order and field names, never the visible text. Tables, forms needing judgment and scans go to a person.",
-    status: "4 of 5 fixed automatically",
+    line: "Tags, reading order and field names are fixed without touching the visible text. Software we are still testing drafts the routine fixes and a person checks them. Tables, forms and scans are done by hand.",
+    status: "3 drafted by software, 1 by a person",
     rows: [
       { t: "Title tagged as H1", k: "auto" },
       { t: "Field names from printed labels", k: "auto" },
@@ -57,8 +57,8 @@ const stages: { id: string; name: string; line: string; rows: Row[]; status: str
   {
     id: "monitor",
     name: "Monitor",
-    line: "New uploads are noticed and checked, and recurring problems are traced to the template that causes them.",
-    status: "Watching new uploads",
+    line: "Planned, not available yet: new uploads noticed and checked, and recurring problems traced to the template that causes them.",
+    status: "Planned",
     rows: [
       { t: "Agenda packet, Dec 8: checked", k: "pass" },
       { t: "Fee schedule v2: needs attention", k: "issue" },

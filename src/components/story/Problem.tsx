@@ -186,7 +186,7 @@ export function Problem() {
             </div>
           </details>
           <p className="mx-auto mt-8 max-w-[56ch] text-center text-[0.88rem] text-moon-muted">
-            Illustrative narration made with macOS text-to-speech. It is not a recording of VoiceOver, NVDA or any screen
+            Illustrative narration made with Kokoro, an open-source text-to-speech model. It is not a recording of VoiceOver, NVDA or any screen
             reader, and the form is a sample, not a customer document.
           </p>
           <audio ref={audio} src={track.src} preload="none" />

@@ -11,7 +11,8 @@ export type EventName =
   | "demo_play"
   | "estimator_change"
   | "sample_report_view"
-  | "resource_open";
+  | "resource_open"
+  | "pdf_check_run";
 
 type Props = Record<string, string | number | boolean>;
 

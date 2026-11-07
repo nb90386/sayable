@@ -73,7 +73,7 @@ export default function AgenciesPage() {
               What is on offer, plainly
             </h2>
             <p className="mt-6 max-w-[42ch] text-ink-soft">
-              Sayable is a service backed by our own software. You send us work and we send back repaired, checked files and reports. We are not offering a tool you plug into your own systems.
+              Sayable is a service: people doing the work, with software we are still testing for the routine parts. You send us work and we send back repaired, checked files and reports. We are not offering a tool you plug into your own systems.
             </p>
           </div>
           <div className="col-span-12 overflow-x-auto lg:col-span-6 lg:col-start-7" tabIndex={0} role="region" aria-label="What is and is not offered">

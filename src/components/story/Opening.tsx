@@ -32,25 +32,24 @@ export function Opening() {
     <section ref={ref} data-sc-act="opening" aria-labelledby="hero-title" className="opening relative">
       <div className="opening-stage">
         <div className="opening-copy wrap text-center">
-          <h1 id="hero-title" className="display mx-auto text-[length:clamp(2.6rem,1.4rem+4.4vw,5.6rem)]">
-            <span className="block">Accessible documents.</span> <span className="tone block">Less guesswork.</span>
+          <h1 id="hero-title" className="display mx-auto max-w-[19ch] text-[length:clamp(2.3rem,1.25rem+3.7vw,4.75rem)]">
+            Many city PDFs can&apos;t be read by people who use <span className="tone">screen readers.</span>
           </h1>
-          <p className="lede mx-auto mt-5 !max-w-[52ch] !text-ink-soft">
-            Sayable helps cities and counties find the accessibility problems in their public PDFs, see which ones matter
-            first, and get them repaired and verified.
+          <p className="lede mx-auto mt-5 !max-w-[56ch] !text-ink-soft">
+            Sayable finds the PDFs on your website that fall short, fixes the ones residents use most, and gives you a record of what was checked.
+            Under the federal ADA rule, cities of 50,000 or more must meet the WCAG 2.1 AA standard by April 26, 2027.
           </p>
-          <div className="mt-7 flex flex-wrap items-center justify-center gap-x-6 gap-y-2">
-            <Link href="/contact?topic=audit" className="btn">
-              Request a Readiness Audit
+          <div className="mt-7 flex flex-wrap items-center justify-center gap-3">
+            <Link href="/check" className="btn">
+              Check a PDF, free
             </Link>
-            <Link href="/readiness-audit" className="link-quiet">
-              What the audit includes <span aria-hidden="true" data-icon="chev"></span>
+            <Link href="/contact?topic=audit" className="btn btn-quiet">
+              Request a citywide audit
             </Link>
           </div>
-          <ul className="hero-points mx-auto mt-8" aria-label="What Sayable does">
-            <li>Know which documents matter</li>
-            <li>See what needs fixing</li>
-            <li>Keep new publications on track</li>
+          <ul className="hero-points mx-auto mt-7" aria-label="At a glance">
+            <li>The free check never uploads your file</li>
+            <li>A person reviews every repair</li>
           </ul>
         </div>
 

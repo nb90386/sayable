@@ -43,7 +43,7 @@ export default function TermsPage() {
 
       <S id="demos" title="Demos, samples and research">
         <ul>
-          <li>The audio demos are illustrative text-to-speech. They are not recordings of a screen reader.</li>
+          <li>The audio demos are illustrative narration made with an open-source text-to-speech model (Kokoro). They are not recordings of a screen reader.</li>
           <li>The sample documents are fictional. Any resemblance to a real document or person is accidental.</li>
           <li>
             Research figures are preliminary internal benchmarks. They may change and should not be treated as a guarantee
