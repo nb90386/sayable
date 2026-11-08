@@ -89,10 +89,10 @@ function Page({ title, pageNo, children }: { title: string; pageNo: string; chil
     <li className="hx-doc flex min-w-0 flex-col p-4 sm:p-5">
       <div className="flex items-baseline justify-between gap-3 border-b pb-3 hairline">
         <h3 className="title text-[1.05rem]">{title}</h3>
-        <span className="mono text-[0.78rem] text-muted">{pageNo}</span>
+        <span className="text-[0.8rem] text-muted">{pageNo}</span>
       </div>
       <div className="mt-3 flex-1">{children}</div>
-      <p className="mono mt-4 border-t pt-2.5 text-[0.78rem] text-muted hairline">Sample. Fictional city.</p>
+      <p className="mt-4 border-t pt-2.5 text-[0.8rem] text-muted hairline">Sample. Fictional city.</p>
     </li>
   );
 }

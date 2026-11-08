@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { JetBrains_Mono, Newsreader, Public_Sans } from "next/font/google";
+import { Funnel_Display, Funnel_Sans } from "next/font/google";
 import { Footer } from "@/components/Footer";
 import { Header } from "@/components/Header";
 import { RevealObserver } from "@/components/RevealObserver";
@@ -10,12 +10,10 @@ import { SITE_URL, isProductionDeploy } from "@/content/url";
 import "./globals.css";
 import "./effects.css";
 
-// Display: Newsreader, a text face with optical sizes, so headlines read like a printed public notice.
-const newsreader = Newsreader({ subsets: ["latin"], variable: "--font-newsreader", display: "swap", axes: ["opsz"], weight: "variable" });
-// Text: Public Sans, from the US Web Design System, designed for government services and very clear at small sizes.
-const publicSans = Public_Sans({ subsets: ["latin"], variable: "--font-public", display: "swap", weight: "variable" });
-// File names and machine values only.
-const jetbrains = JetBrains_Mono({ subsets: ["latin"], weight: ["400", "500"], variable: "--font-jetbrains", display: "swap", preload: false });
+// One superfamily, so headlines and text never clash. Funnel Display for headlines, figures and the wordmark;
+// Funnel Sans for text and controls. Both SIL Open Font License. Chosen from a rendered audition (FONT-AUDIT.md).
+const funnelDisplay = Funnel_Display({ subsets: ["latin"], variable: "--font-funnel-display", display: "swap", weight: "variable" });
+const funnelSans = Funnel_Sans({ subsets: ["latin"], variable: "--font-funnel-sans", display: "swap", weight: "variable" });
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
@@ -33,7 +31,7 @@ export const viewport: Viewport = { themeColor: "#ecebe7" };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en-US" data-scroll-behavior="smooth" className={`${newsreader.variable} ${publicSans.variable} ${jetbrains.variable}`}>
+    <html lang="en-US" data-scroll-behavior="smooth" className={`${funnelDisplay.variable} ${funnelSans.variable}`}>
       <body>
         <a href="#main" className="skip-link sr-only-focusable">
           Skip to content

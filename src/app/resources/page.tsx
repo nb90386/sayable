@@ -33,7 +33,7 @@ export default function ResourcesPage() {
                 </h3>
                 <div className="col-span-12 md:col-span-4 md:col-start-9">
                   <p className="text-ink-soft">{r.summary}</p>
-                  <p className="mono mt-3 text-[0.82rem] text-muted">{r.readingMinutes} minute read</p>
+                  <p className="mt-3 text-[0.85rem] text-muted">{r.readingMinutes} minute read</p>
                 </div>
               </div>
             </li>

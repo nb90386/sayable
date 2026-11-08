@@ -44,7 +44,8 @@ function orderedPath(ids: string[], tangled: boolean) {
   return d;
 }
 
-export function BrokenLayer() {
+/** `compact` keeps one name chip, so the scan reveals a few clear problems instead of a wall of labels. */
+export function BrokenLayer({ compact = false }: { compact?: boolean }) {
   const unnamed = ["name", "phone", "address", "work", "signature"];
   return (
     <g>
@@ -54,12 +55,14 @@ export function BrokenLayer() {
         return (
           <g key={id}>
             <rect x={r.x - 6} y={r.y - 6} width={r.w + 12} height={r.h + 12} rx="8" fill="rgb(207 69 32 / 0.06)" stroke="#cf4520" strokeWidth="2.4" strokeDasharray="10 7" />
-            <g transform={`translate(${r.x + r.w - 196} ${r.y - 18})`} className="ann-chip">
-              <rect width="202" height="30" rx="15" fill="#a33612" />
-              <text x="16" y="20.5" fontFamily="var(--font-sans)" fontWeight="600" fontSize="14" fill="#fff">
-                no accessible name
-              </text>
-            </g>
+            {!compact || id === "name" || id === "signature" ? (
+              <g transform={`translate(${r.x + r.w - 196} ${r.y - 18})`} className="ann-chip">
+                <rect width="202" height="30" rx="15" fill="#a33612" />
+                <text x="16" y="20.5" fontFamily="var(--font-sans)" fontWeight="600" fontSize="14.5" fill="#fff">
+                  no accessible name
+                </text>
+              </g>
+            ) : null}
           </g>
         );
       })}
@@ -98,14 +101,14 @@ export function FixedLayer() {
         const r = regions[id]!;
         const a = anchor(id);
         const label = fixedNames[id];
-        const w = label ? label.length * 9.2 + 26 : 0;
+        const w = label ? label.length * 8.4 + 28 : 0;
         return (
           <g key={id}>
             <rect x={r.x - 6} y={r.y - 6} width={r.w + 12} height={r.h + 12} rx="8" fill="rgb(27 90 69 / 0.05)" stroke="#1b5a45" strokeWidth="2" />
             {label ? (
               <g transform={`translate(${r.x + r.w - w + 6} ${r.y - 20})`} className="ann-chip">
                 <rect width={w} height="28" rx="14" fill="#1b5a45" />
-                <text x="13" y="19.5" fontFamily="var(--font-mono)" fontSize="14" fill="#fff">
+                <text x="14" y="19.5" fontFamily="var(--font-sans)" fontWeight="600" fontSize="14.5" fill="#fff">
                   {label}
                 </text>
               </g>

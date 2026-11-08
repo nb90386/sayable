@@ -73,7 +73,7 @@
 /* ─── How it works: three steps ─────────────────────────── */
 .hiw-step { padding: clamp(4.5rem, 10vh, 7.5rem) 0; }
 .hiw-band { background: var(--color-paper-deep); }
-.hiw-title { font-family: var(--font-display); font-weight: 420; font-size: var(--step-4); line-height: 1.03; letter-spacing: -0.022em; max-width: 16ch; }
+.hiw-title { font-family: var(--font-display); font-weight: 500; font-size: var(--step-4); line-height: 1.03; letter-spacing: -0.028em; max-width: 16ch; }
 .hiw-body { margin-top: 1.25rem; max-width: 46ch; font-size: var(--step-1); line-height: 1.45; color: var(--color-ink-soft); }
 .hiw-time { margin-top: 1.25rem; font-weight: 650; }
 .hiw-one { display: grid; gap: 3rem; align-items: center; }
@@ -90,7 +90,7 @@
 @media (min-width: 900px) { .hiw-choices { grid-template-columns: repeat(3, minmax(0, 1fr)); } .hiw-choices > li + li { border-left: 1px solid var(--rule); padding-left: 2rem; } .hiw-choices > li { padding-right: 2rem; } }
 .hiw-choices > li { display: grid; align-content: start; gap: 0.6rem; padding-block: 1.75rem; }
 @media (max-width: 899px) { .hiw-choices > li + li { border-top: 1px solid var(--rule); } }
-.hiw-choices h3 { font-family: var(--font-display); font-weight: 420; font-size: var(--step-2); line-height: 1.1; letter-spacing: -0.015em; }
+.hiw-choices h3 { font-family: var(--font-display); font-weight: 500; font-size: var(--step-2); line-height: 1.1; letter-spacing: -0.028em; }
 .hiw-choices p { color: var(--color-ink-soft); }
 .hiw-detail-wrap { padding-top: 0; }
 .hiw-details { margin-top: 1.5rem; border-top: 1px solid var(--rule-strong); }

@@ -38,7 +38,7 @@ export function GuideLayout({
           </nav>
           <h1 className="display mt-6 max-w-[18ch] text-[length:clamp(2.4rem,1.4rem+3.8vw,4.8rem)]">{title}</h1>
           <p className="lede mt-8 !max-w-[52ch]">{summary}</p>
-          <p className="mono mt-6 text-[0.82rem] text-muted">
+          <p className="mt-6 text-[0.85rem] text-muted">
             {readingMinutes} minute read, updated <time dateTime={updated}>{formatDate(updated)}</time>
           </p>
         </header>

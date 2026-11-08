@@ -163,7 +163,7 @@ export default function VerifyPage() {
           </p>
           <div className="mt-10 grid gap-4 md:grid-cols-2">
             <div className="rounded-[14px] bg-sheet p-6 shadow-[inset_0_0_0_1px_rgb(18_21_27/0.1)] sm:p-8">
-              <p className="mono text-[0.82rem] text-muted">Automated checks</p>
+              <p className="text-[0.85rem] font-[600] text-muted">Automated checks</p>
               <ul className="mt-4 grid gap-3">
                 {[
                   "PDF/UA-1 validator: no errors",
@@ -179,7 +179,7 @@ export default function VerifyPage() {
               </ul>
             </div>
             <div className="rounded-[14px] bg-sheet p-6 shadow-[inset_0_0_0_1px_rgb(18_21_27/0.1)] sm:p-8">
-              <p className="mono text-[0.82rem] text-muted">A person with a screen reader</p>
+              <p className="text-[0.85rem] font-[600] text-muted">A person with a screen reader</p>
               <ul className="mt-4 grid gap-3">
                 {[
                   ["The phone field is announced as \u201cApplicant name\u201d.", "The names exist, but two were copied from the wrong label."],

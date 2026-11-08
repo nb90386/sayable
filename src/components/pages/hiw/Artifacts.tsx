@@ -195,7 +195,7 @@ export function TagTreePair() {
         <div className="hx-doc p-4 sm:p-6">
           <p className="flex items-center justify-between gap-3 text-[0.85rem] font-[600]">
             Before
-            <span className="mono text-[0.75rem] font-[400] text-muted">as the file arrived</span>
+            <span className="text-[0.8rem] font-[400] text-muted">as the file arrived</span>
           </p>
           <div className="mt-4">
             <p className="hx-node t mono !mb-0 !pb-1 !pt-0 text-[0.8rem] font-[500]">Document</p>
@@ -205,7 +205,7 @@ export function TagTreePair() {
         <div className="hx-doc rise-group p-4 sm:p-6" data-reveal>
           <p className="flex items-center justify-between gap-3 text-[0.85rem] font-[600]">
             After
-            <span className="mono text-[0.75rem] font-[400] text-muted">structure repaired</span>
+            <span className="text-[0.8rem] font-[400] text-muted">structure repaired</span>
           </p>
           <div className="mt-4">
             <p className="hx-node t mono !mb-0 !pb-1 !pt-0 text-[0.8rem] font-[500]">Document</p>
@@ -291,7 +291,7 @@ export function DeliveryPair() {
         {/* The file */}
         <div className="relative sm:mt-10 sm:-mr-6">
           <div className="hx-doc p-4 sm:p-5">
-            <p className="mono break-all text-[0.75rem] text-muted">building-permit-application.pdf</p>
+            <p className="break-all text-[0.8rem] text-muted">building-permit-application.pdf</p>
             <div aria-hidden="true" className="mt-4 space-y-2.5">
               <div className="h-3 w-3/4 rounded-sm bg-ink/80" />
               <div className="h-2 w-1/2 rounded-sm bg-ink/15" />

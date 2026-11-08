@@ -28,16 +28,16 @@
   --color-ember: #a33612;
   --color-ember-wash: #f6e0d5;
   /* carbon chapters */
-  --color-night: #141310;
-  --color-night-raise: #1f1d18;
+  --color-night: #1f2b2a;
+  --color-night-raise: #2a3836;
   --color-moon: #eeede9;
   --color-moon-muted: #a7a49d;
   --color-signal-night: #ff9a72;
 
-  --font-display: var(--font-newsreader), "Iowan Old Style", Georgia, serif;
-  --font-serif: var(--font-newsreader), "Iowan Old Style", Georgia, serif;
-  --font-sans: var(--font-public), ui-sans-serif, system-ui, sans-serif;
-  --font-mono: var(--font-jetbrains), ui-monospace, "SF Mono", Menlo, monospace;
+  --font-display: var(--font-funnel-display), ui-sans-serif, system-ui, sans-serif;
+  --font-serif: var(--font-funnel-display), ui-sans-serif, system-ui, sans-serif;
+  --font-sans: var(--font-funnel-sans), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
 
   --ease-out-quart: cubic-bezier(0.25, 1, 0.5, 1);
   --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
@@ -109,17 +109,17 @@
   .grid-12 { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: clamp(1rem, 2vw, 2rem); }
 
   /* ─── Type roles ─── */
-  .display { font-family: var(--font-display); font-weight: 420; letter-spacing: -0.022em; line-height: 1; font-optical-sizing: auto; }
+  .display { font-family: var(--font-display); font-weight: 500; letter-spacing: -0.028em; line-height: 1;  }
   .display .tone { color: inherit; }
-  .headline { font-family: var(--font-display); font-weight: 420; letter-spacing: -0.02em; line-height: 1.04; font-size: var(--step-4); font-optical-sizing: auto; }
+  .headline { font-family: var(--font-display); font-weight: 500; letter-spacing: -0.028em; line-height: 1.04; font-size: var(--step-4);  }
   .headline .tone { font-style: normal; color: var(--color-muted); }
   .on-night .headline .tone { color: var(--color-moon-muted); }
   .title { font-family: var(--font-sans); font-weight: 650; letter-spacing: -0.016em; line-height: 1.2; }
   .lede { font-size: var(--step-1); line-height: 1.45; color: var(--color-muted); max-width: 40ch; letter-spacing: -0.01em; }
   .on-night .lede { color: var(--color-moon-muted); }
   .tag { font-family: var(--font-sans); font-size: 0.82rem; font-weight: 600; line-height: 1.45; letter-spacing: 0; color: var(--color-muted); white-space: normal; }
-  .mono { font-family: var(--font-mono); font-feature-settings: "zero" 1; letter-spacing: -0.01em; }
-  .numeral { font-family: var(--font-display); font-weight: 420; letter-spacing: -0.02em; font-variant-numeric: lining-nums tabular-nums; }
+  .mono { font-family: var(--font-mono); font-size: 0.94em; letter-spacing: -0.01em; }
+  .numeral { font-family: var(--font-display); font-weight: 500; letter-spacing: -0.028em; font-variant-numeric: lining-nums tabular-nums; }
   .prose-tight p + p { margin-top: 0.9em; }
 
   /* ─── Actions ─── */
@@ -153,7 +153,7 @@
   .btn-quiet { --btn-bg: transparent; --btn-fg: currentColor; box-shadow: inset 0 0 0 1.5px var(--rule-strong); }
   .btn-quiet:hover { background: color-mix(in oklab, currentColor, transparent 94%); }
 
-  .link-quiet { display: inline-flex; align-items: center; gap: 0.35rem; min-height: 3rem; font-weight: 520; font-size: 1.02rem; color: var(--color-signal); text-decoration: none; }
+  .link-quiet { display: inline-flex; align-items: center; gap: 0.35rem; min-height: 3rem; font-weight: 500; font-size: 1.02rem; color: var(--color-signal); text-decoration: none; }
   .link-quiet:hover { text-decoration: underline; text-underline-offset: 0.22em; }
   .on-night .link-quiet { color: var(--color-signal-light); }
   .text-link { color: var(--color-signal); text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 0.2em; }

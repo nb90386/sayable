@@ -1,37 +1,138 @@
-import { m, useMotionValueEvent, useTransform, type MotionValue } from "motion/react";
-import { useEffect, useRef } from "react";
+import { m, useMotionTemplate, useMotionValueEvent, useTransform, type MotionValue } from "motion/react";
+import { useEffect, useId, useRef } from "react";
 import { BrokenLayer, FixedLayer } from "@/components/doc/PermitSheet";
-import { PVB, PermitPage } from "@/components/doc/permit";
-import type { Geo } from "./geometry";
+import { PVB, PermitPage, regions } from "@/components/doc/permit";
+import type { Card, Geo, Kind } from "./geometry";
+import { hex, mix, rgb, type Palette } from "./palette";
 
 /**
  * Progress stops for the whole story (0 to 1 over the pinned track).
- * A: hero, B: the hidden problem, C: one becomes thousands, D: the sort,
- * E: the repair, F: the record.
+ * A hero, B the scan finds the problem, C one form becomes the city's collection,
+ * D the collection sorts into piles, E the form comes back and is repaired, F its record.
  */
 export const P = {
-  aHold: 0.05,
-  b0: 0.11,
-  b1: 0.16,
-  bOut: 0.28,
-  c0: 0.3,
-  c1: 0.42,
-  d0: 0.47,
-  d1: 0.61,
-  e0: 0.65,
-  e1: 0.72,
-  fix0: 0.75,
-  fix1: 0.8,
-  f0: 0.84,
+  aHold: 0.03,
+  b0: 0.045,
+  b1: 0.12,
+  scan1: 0.2,
+  path1: 0.245,
+  c0: 0.27,
+  c1: 0.37,
+  cFull: 0.43,
+  d0: 0.46,
+  d1: 0.58,
+  e0: 0.625,
+  e1: 0.69,
+  fix0: 0.705,
+  fix1: 0.79,
+  f0: 0.82,
   f1: 0.9,
 } as const;
 
+/** Where the hero's scan rests once the page has loaded: past the title and the first field. */
+export const SCAN_REST = 0.36;
+
 const clamp01 = (v: number) => (v < 0 ? 0 : v > 1 ? 1 : v);
 const ease = (t: number) => (t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2);
+const lerp = (a: number, b: number, t: number) => a + (b - a) * t;
 
-/** The pile of public documents, drawn on one canvas: hundreds of sheets for the cost of one layer. */
-function Archive({ p, geo }: { p: MotionValue<number>; geo: Geo }) {
+// ── The city's collection, drawn on one canvas ─────────────────────────────
+
+type CardState = { x: number; y: number; w: number; h: number; a: number; haze: number; rot: number; tone: number };
+
+function cardState(c: Card, v: number, geo: Geo): CardState | null {
+  const pc = clamp01((v - P.c0) / (P.cFull - P.c0));
+  const t = ease(clamp01((pc * 1.5 - c.appear * 0.7 - c.delay * 0.6) / 0.55));
+  if (t <= 0) return null;
+  const pd = clamp01((v - P.d0) / (P.d1 - P.d0));
+  const td = ease(clamp01((pd - c.delay) / 0.75));
+  const pe = clamp01((v - P.e0) / (P.e1 - P.e0));
+
+  // out from behind the form into the room
+  let x = lerp(c.ox, c.cx, t);
+  let y = lerp(c.oy, c.cy, t);
+  let s = lerp(c.cs * 0.35, c.cs, t);
+  if (td > 0) {
+    // along a gentle arc onto its pile
+    const mx = (c.cx + c.sx) / 2;
+    const my = Math.min(c.cy, c.sy) - (geo.narrow ? 40 : 90);
+    const u = 1 - td;
+    x = u * u * c.cx + 2 * u * td * mx + td * td * c.sx;
+    y = u * u * c.cy + 2 * u * td * my + td * td * c.sy;
+    s = lerp(c.cs, 0.92, td);
+  }
+  // the piles settle back while the form comes forward
+  y += pe * 26;
+  s *= 1 - 0.12 * pe;
+  return {
+    x,
+    y,
+    w: geo.card.w * s,
+    h: geo.card.h * s,
+    a: t * (1 - pe),
+    haze: lerp(c.haze, 0, td),
+    rot: c.rot * td,
+    tone: td,
+  };
+}
+
+function drawCard(ctx: CanvasRenderingContext2D, kind: Kind, st: CardState, group: number, pal: Palette, ground: [number, number, number], alpha: number) {
+  const { x, y, w, h, haze } = st;
+  const paper = mix(pal.sheet, ground, haze * 0.82);
+  ctx.save();
+  ctx.translate(x, y);
+  if (st.rot) ctx.rotate(st.rot);
+  ctx.globalAlpha = alpha;
+  // contact shadow, stronger when near
+  ctx.fillStyle = `rgba(0,0,0,${0.22 * (1 - haze)})`;
+  ctx.fillRect(-w / 2 + w * 0.03, -h / 2 + h * 0.035, w, h);
+  ctx.fillStyle = rgb(paper);
+  ctx.fillRect(-w / 2, -h / 2, w, h);
+  const ink = rgb(mix(pal.ink, paper, 0.35 + haze * 0.5));
+  const faint = rgb(mix(pal.ink, paper, 0.72 + haze * 0.2));
+  const l = -w / 2 + w * 0.12;
+  const iw = w * 0.76;
+  const T = -h / 2 + h * 0.1;
+  const lh = Math.max(0.7, h * 0.022);
+  ctx.fillStyle = ink;
+  ctx.fillRect(l, T, iw * 0.44, lh);
+  ctx.fillRect(l, T + h * 0.07, iw * (kind === "notice" ? 0.9 : 0.66), Math.max(1, h * 0.045));
+  if (w > 16) {
+    ctx.fillStyle = faint;
+    ctx.strokeStyle = faint;
+    ctx.lineWidth = Math.max(0.5, w * 0.008);
+    const b = T + h * 0.2;
+    if (kind === "permit" || kind === "form") {
+      for (let i = 0; i < 4; i++) ctx.strokeRect(l, b + i * h * 0.15, iw * (i === 1 ? 0.5 : 1), h * 0.07);
+    } else if (kind === "budget") {
+      for (let i = 0; i < 7; i++) ctx.fillRect(l, b + i * h * 0.085, iw, lh * 0.7);
+      for (let i = 1; i < 4; i++) ctx.fillRect(l + (iw * i) / 4, b, lh * 0.7, h * 0.52);
+    } else if (kind === "agenda") {
+      for (let i = 0; i < 7; i++) {
+        ctx.fillRect(l, b + i * h * 0.085, w * 0.04, lh * 1.4);
+        ctx.fillRect(l + w * 0.08, b + i * h * 0.085, iw * (0.5 + ((i * 37) % 40) / 100), lh);
+      }
+    } else if (kind === "notice") {
+      ctx.strokeRect(l, b, iw, h * 0.34);
+      for (let i = 0; i < 4; i++) ctx.fillRect(l + iw * 0.08, b + h * 0.06 + i * h * 0.07, iw * 0.84, lh);
+      for (let i = 0; i < 3; i++) ctx.fillRect(l, b + h * 0.42 + i * h * 0.07, iw, lh);
+    } else {
+      for (let i = 0; i < 11; i++) ctx.fillRect(l, b + i * h * 0.058, iw * (i % 4 === 3 ? 0.6 : 1), lh);
+    }
+  }
+  // the pile's colour, on the top edge, once it has been sorted
+  if (st.tone > 0.02 && group !== 1) {
+    ctx.globalAlpha = alpha * clamp01(st.tone * 1.6);
+    ctx.fillStyle = group === 3 ? pal.check : pal.fix;
+    ctx.fillRect(-w / 2, -h / 2, w, Math.max(2, h * 0.06));
+  }
+  ctx.restore();
+}
+
+function City({ p, geo, pal }: { p: MotionValue<number>; geo: Geo; pal: Palette }) {
   const ref = useRef<HTMLCanvasElement>(null);
+  const last = useRef({ v: 0, t: 0 });
+  const dusk = hex(pal.dusk.base);
 
   const draw = (v: number) => {
     const c = ref.current;
@@ -45,38 +146,37 @@ function Archive({ p, geo }: { p: MotionValue<number>; geo: Geo }) {
     }
     ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
     ctx.clearRect(0, 0, geo.W, geo.H);
-    if (v < P.c0 - 0.005 || v > P.e1 + 0.01) return;
+    const now = performance.now();
+    const dt = Math.max(8, now - last.current.t);
+    const vel = Math.abs(v - last.current.v) / dt;
+    last.current = { v, t: now };
+    if (v < P.c0 - 0.004 || v > P.e1 + 0.01) return;
 
-    const pc = clamp01((v - P.c0) / (P.c1 - P.c0));
+    // Shadows under the piles once they start to form.
     const pd = clamp01((v - P.d0) / (P.d1 - P.d0));
-    const fade = 1 - clamp01((v - P.e0) / (P.e1 - P.e0 - 0.02));
-    const heroShown = v > P.c1 - 0.004 && v < P.e0;
-    const { w, h, k } = geo.tile;
-
-    for (const t of geo.tiles) {
-      if (t.hero && !heroShown) continue;
-      const appear = t.hero ? 1 : clamp01((pc * 1.35 - t.dist) / 0.3);
-      if (appear <= 0) continue;
-      const tt = ease(clamp01((pd - t.delay) / 0.7));
-      const x = t.gx + (t.sx - t.gx) * tt;
-      const y = t.gy + (t.sy - t.gy) * tt;
-      const s = (0.55 + 0.45 * appear) * (1 + (k - 1) * tt);
-      const tw = w * s;
-      const th = h * s;
-      // Archived files settle back once sorted; the rest stay bright.
-      const dim = t.g === 1 ? 1 - 0.5 * tt : 1;
-      ctx.globalAlpha = appear * fade * dim;
-      ctx.fillStyle = "#eceae4";
-      ctx.fillRect(x - tw / 2, y - th / 2, tw, th);
-      ctx.fillStyle = "rgba(23,21,15,0.32)";
-      ctx.fillRect(x - tw / 2 + tw * 0.14, y - th / 2 + th * 0.14, tw * 0.56, Math.max(1, th * 0.05));
-      ctx.fillStyle = "rgba(23,21,15,0.16)";
-      for (let l = 0; l < 3; l++) ctx.fillRect(x - tw / 2 + tw * 0.14, y - th / 2 + th * (0.32 + l * 0.14), tw * 0.72, Math.max(0.6, th * 0.03));
-      if (tt > 0.02 && t.g !== 1) {
-        ctx.globalAlpha = appear * fade * clamp01(tt * 2);
-        ctx.fillStyle = t.g === 3 ? "#8ed3b2" : "#ff9a72";
-        ctx.fillRect(x - tw / 2, y - th / 2, tw, Math.max(2, th * 0.09));
+    const pe = clamp01((v - P.e0) / (P.e1 - P.e0));
+    if (pd > 0) {
+      for (const s of geo.stacks) {
+        const g = ctx.createRadialGradient(s.x, s.base + 4, 2, s.x, s.base + 4, geo.card.w * 0.9);
+        g.addColorStop(0, `rgba(0,0,0,${0.35 * pd * (1 - pe)})`);
+        g.addColorStop(1, "rgba(0,0,0,0)");
+        ctx.fillStyle = g;
+        ctx.fillRect(s.x - geo.card.w, s.base - 10, geo.card.w * 2, 30);
       }
+    }
+
+    // Motion blur: while the collection is moving fast, draw where each card just was, faintly.
+    const moving = (v > P.c0 && v < P.cFull) || (v > P.d0 && v < P.d1 + 0.02);
+    const trail = moving ? Math.min(0.012, vel * 40) : 0;
+    for (const card of geo.cards) {
+      if (trail > 0.0015) {
+        for (let k = 3; k >= 1; k--) {
+          const g = cardState(card, v - trail * k, geo);
+          if (g) drawCard(ctx, card.kind, g, card.g, pal, dusk, g.a * 0.13);
+        }
+      }
+      const st = cardState(card, v, geo);
+      if (st) drawCard(ctx, card.kind, st, card.g, pal, dusk, st.a);
     }
     ctx.globalAlpha = 1;
   };
@@ -90,55 +190,215 @@ function Archive({ p, geo }: { p: MotionValue<number>; geo: Geo }) {
   return <canvas ref={ref} aria-hidden="true" className="absolute inset-0 h-full w-full" />;
 }
 
+// ── The scan: a reading line that tracks the form ──────────────────────────
+
+const ELEMENTS = ["title", "intro", "name", "phone", "address", "work", "signature", "date", "footer"] as const;
+const PROBLEM = new Set(["title", "name", "phone", "address", "work", "signature", "footer"]);
+const DOC_H = 1100;
+
 /**
- * Everything the visitor looks at in the story: the permit form, the archive it
- * belongs to, and the report that comes back. Purely visual; the words live in
- * the copy layer. `p` can be a live scroll value or a fixed one for static figures.
+ * Light, particles and corner marks where the line crosses the form's structure.
+ * Everything is a pure function of the scan position, so scrolling back plays it backwards.
  */
-export function StageVisual({ p, geo, children }: { p: MotionValue<number>; geo: Geo; children?: React.ReactNode }) {
+function ScanFx({ scan, phase, docW }: { scan: MotionValue<number>; phase: MotionValue<number>; docW: number }) {
+  const ref = useRef<HTMLCanvasElement>(null);
+  const draw = () => {
+    const c = ref.current;
+    if (!c) return;
+    const ctx = c.getContext("2d");
+    if (!ctx) return;
+    const back = Math.min(1700, Math.round(docW * Math.min(2, window.devicePixelRatio || 1) * 1.35));
+    const backH = Math.round(back * (DOC_H / 850));
+    if (c.width !== back) {
+      c.width = back;
+      c.height = backH;
+    }
+    const k = back / 850;
+    ctx.setTransform(k, 0, 0, k, 0, 0);
+    ctx.clearRect(0, 0, 850, DOC_H);
+    const ph = phase.get(); // 0 hidden, 1 problem scan, 2 repair scan
+    const on = ph > 0.5;
+    if (!on) return;
+    const s = scan.get();
+    if (s <= 0.001 || s >= 0.999) return;
+    const y = s * DOC_H;
+    const repair = ph > 1.5;
+    const hot = repair ? [27, 140, 100] : [207, 69, 32];
+    const line = repair ? "27,110,82" : "27,90,69";
+
+    // a soft band of light just behind the line
+    const band = ctx.createLinearGradient(0, y - 150, 0, y);
+    band.addColorStop(0, `rgba(${line},0)`);
+    band.addColorStop(1, `rgba(${line},0.09)`);
+    ctx.fillStyle = band;
+    ctx.fillRect(0, y - 150, 850, 150);
+
+    for (const id of ELEMENTS) {
+      const r = regions[id]!;
+      const d = y - r.y;
+      if (d < -10 || d > r.h + 140) continue;
+      const flagged = repair || PROBLEM.has(id);
+      const col = flagged ? hot : [40, 44, 42];
+      // corner marks flash as the line enters, then settle
+      const flash = clamp01(1 - Math.abs(d - Math.min(r.h, 40)) / 90);
+      ctx.strokeStyle = `rgba(${col[0]},${col[1]},${col[2]},${0.25 + 0.6 * flash})`;
+      ctx.lineWidth = 2.2;
+      const L = 14;
+      const x0 = r.x - 8;
+      const x1 = r.x + r.w + 8;
+      const y0 = r.y - 8;
+      const y1 = Math.min(r.y + r.h + 8, y);
+      ctx.beginPath();
+      ctx.moveTo(x0, y0 + L);
+      ctx.lineTo(x0, y0);
+      ctx.lineTo(x0 + L, y0);
+      ctx.moveTo(x1 - L, y0);
+      ctx.lineTo(x1, y0);
+      ctx.lineTo(x1, y0 + L);
+      if (y1 > y0 + L) {
+        ctx.moveTo(x0, y1 - L);
+        ctx.lineTo(x0, y1);
+        ctx.moveTo(x1, y1 - L);
+        ctx.lineTo(x1, y1);
+      }
+      ctx.stroke();
+      // particles thrown off where the line meets the element's edges
+      for (let i = 0; i < 9; i++) {
+        const e = ((i * 53) % 97) / 97;
+        const born = r.y + e * Math.max(r.h, 24);
+        const age = (y - born) / 70;
+        if (age < 0 || age > 1) continue;
+        const side = i % 2 ? 1 : -1;
+        const px = (side > 0 ? x1 : x0) + side * age * (18 + ((i * 29) % 20));
+        const py = born - age * (6 + (i % 3) * 5);
+        const a = (1 - age) * (flagged ? 0.9 : 0.5);
+        ctx.fillStyle = `rgba(${col[0]},${col[1]},${col[2]},${a})`;
+        const sz = 3 + (i % 3);
+        ctx.fillRect(px - sz / 2, py - sz / 2, sz, sz);
+      }
+    }
+  };
+  useMotionValueEvent(scan, "change", draw);
+  useMotionValueEvent(phase, "change", draw);
+  useEffect(() => {
+    draw();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [docW]);
+  return <canvas ref={ref} aria-hidden="true" className="scan-fx" />;
+}
+
+/** A clip rectangle that follows a motion value without re-rendering. */
+function ClipRect({ box }: { box: MotionValue<number[]> }) {
+  const ref = useRef<SVGRectElement>(null);
+  const set = (b: number[]) => {
+    ref.current?.setAttribute("y", String(b[0]));
+    ref.current?.setAttribute("height", String(Math.max(0, b[1]!)));
+  };
+  useMotionValueEvent(box, "change", set);
+  useEffect(() => set(box.get()), [box]);
+  return <rect ref={ref} x="-60" width="970" y="-60" height="0" />;
+}
+
+// ── The stage ───────────────────────────────────────────────────────────────
+
+/**
+ * Everything the visitor looks at in the story: the permit form, the city's
+ * collection it belongs to, and the report that comes back. Purely visual; the
+ * words live in the copy layer. `p` can be a live scroll value or a fixed one.
+ * `intro` is the scan's opening run on page load (0 to 1).
+ */
+export function StageVisual({
+  p,
+  intro,
+  geo,
+  pal,
+  children,
+}: {
+  p: MotionValue<number>;
+  intro: MotionValue<number>;
+  geo: Geo;
+  pal: Palette;
+  children?: React.ReactNode;
+}) {
+  const uid = useId().replace(/:/g, "");
   const { doc, report } = geo;
-  const stops = [0, P.aHold, P.b1, P.bOut, P.c1, P.e0 - 0.01, P.e0, P.e1, P.f0, P.f1, 1];
-  const x = useTransform(p, stops, [doc.a.x, doc.a.x, doc.b.x, doc.b.x, doc.grid.x, doc.sorted.x, doc.sorted.x, doc.e.x, doc.e.x, doc.f.x, doc.f.x]);
-  const y = useTransform(p, stops, [doc.a.y, doc.a.y, doc.b.y, doc.b.y, doc.grid.y, doc.sorted.y, doc.sorted.y, doc.e.y, doc.e.y, doc.f.y, doc.f.y]);
-  const scale = useTransform(p, stops, [doc.a.s, doc.a.s, doc.b.s, doc.b.s, doc.grid.s, doc.sorted.s, doc.sorted.s, doc.e.s, doc.e.s, doc.f.s, doc.f.s]);
-  const rotateX = useTransform(p, [0, P.aHold, P.b1], [doc.a.r, doc.a.r, 0]);
-  const docOpacity = useTransform(p, [P.c1 - 0.012, P.c1 - 0.002, P.e0 - 0.004, P.e0], [1, 0, 0, 1]);
-  // The page casts a deeper shadow while it is close to the reader.
-  const shadow = useTransform(p, [0, P.b1, P.c0, P.c1], [0.5, 1, 1, 0]);
+  const stops = [0, P.aHold, P.b1, P.c0, P.c1, P.d0, P.d1, P.e0, P.e1, P.fix1 + 0.008, P.f0 + 0.03, 1];
+  const pick = (k: "x" | "y" | "s") => [doc.a, doc.a, doc.b, doc.b, doc.city, doc.city, doc.stack, doc.stack, doc.e, doc.e, doc.f, doc.f].map((d) => d[k]);
+  const x = useTransform(p, stops, pick("x"));
+  const y = useTransform(p, stops, pick("y"));
+  const scale = useTransform(p, stops, pick("s"));
+  const rotateX = useTransform(p, [0, P.aHold, P.b1], [doc.a.rx, doc.a.rx, 0]);
+  const rotateY = useTransform(p, [0, P.aHold, P.b1], [doc.a.ry, doc.a.ry, 0]);
+  // The form never leaves: in the city it is a card among cards, lit a little brighter.
+  const glow = useTransform(p, [P.c0, P.c1, P.d1, P.e0, P.e1], [0, 1, 1, 0.6, 0.35]);
+  const ring = useTransform(p, [P.c1 - 0.02, P.c1, P.e0, P.e0 + 0.02], [0, 1, 1, 0]);
 
-  const broken = useTransform(p, [P.b0, P.b1, P.c0, P.c0 + 0.04, P.e0 + 0.01, P.e1 - 0.02, P.fix0, P.fix1 - 0.01], [0, 1, 1, 0, 0, 1, 1, 0]);
-  const brokenDraw = useTransform(p, [P.b0 + 0.01, P.b1 + 0.07, P.e0 + 0.01, P.e1], [0, 1, 1, 1]);
-  const fixed = useTransform(p, [P.fix0, P.fix1], [0, 1]);
-  const fixedDraw = useTransform(p, [P.fix0 + 0.005, P.fix1 + 0.03], [0, 1]);
+  // Scan position, as a share of the page height.
+  const scanB = useTransform([p, intro] as MotionValue<number>[], ([v, i]: number[]) => {
+    const fromScroll = SCAN_REST + (1 - SCAN_REST) * clamp01((v! - P.aHold) / (P.scan1 - P.aHold));
+    return v! <= P.aHold ? SCAN_REST * i! : fromScroll;
+  });
+  const scanE = useTransform(p, [P.fix0, P.fix1], [0, 1]);
+  const scan = useTransform([p, scanB, scanE] as MotionValue<number>[], ([v, b, e]: number[]) => (v! < (P.c0 + P.e0) / 2 ? b! : e!));
+  const phase = useTransform(p, (v): number => (v < P.scan1 + 0.004 ? 1 : v > P.fix0 - 0.004 && v < P.fix1 + 0.004 ? 2 : 0));
+  const scanTop = useTransform(scan, (s) => `${s * 100}%`);
+  const lineO = useTransform([p, scan] as MotionValue<number>[], ([v, s]: number[]) => {
+    const inB = v! < P.scan1;
+    const inE = v! > P.fix0 && v! < P.fix1;
+    return (inB || inE) && s! > 0.004 && s! < 0.996 ? 1 : 0;
+  });
+  const labelB = useTransform(p, (v) => (v < P.c0 ? 1 : 0));
 
-  const rx = useTransform(p, [P.f0, P.f1], [report.from, report.x]);
-  const rOpacity = useTransform(p, [P.f0, P.f0 + 0.03], [0, 1]);
-  const rRotate = useTransform(p, [P.f0, P.f1], [4, -1.2]);
+  // Layers on the page. In the scan, the problems show above the line; in the repair, the fix shows above it and the problems below.
+  const mid = (P.c0 + P.e0) / 2;
+  const brokenO = useTransform(p, [0, P.c0, P.c0 + 0.025, P.e0 + 0.02, P.e1 - 0.005], [1, 1, 0, 0, 1]);
+  const brokenDraw = useTransform(p, [P.scan1 - 0.01, P.path1, P.e0, P.e1], [0, 1, 1, 1]);
+  const brokenBox = useTransform([p, scan] as MotionValue<number>[], ([v, s]: number[]) => (v! < mid ? [-60, s! * DOC_H + 60] : [s! * DOC_H, DOC_H + 60 - s! * DOC_H]));
+  const fixedBox = useTransform(scan, (s) => [-60, s * DOC_H + 60]);
+  const fixedO = useTransform(p, [P.fix0 - 0.005, P.fix0], [0, 1]);
+  const fixedDraw = useTransform(p, [P.fix0, P.fix1 + 0.03], [0, 1]);
+
+  const rx = useTransform(p, [P.f0 + 0.015, P.f1], [report.from, report.x]);
+  const rReveal = useTransform(p, [P.f0 + 0.015, P.f1 - 0.02], [112, 0]);
+  const rClip = useMotionTemplate`inset(-40px calc(${rReveal}% - 40px) -80px -40px)`;
+  const rRotate = useTransform(p, [P.f0 + 0.015, P.f1], [2, -1]);
 
   return (
     <div className="absolute inset-0" aria-hidden="true">
-      <Archive p={p} geo={geo} />
-      <div className="absolute inset-0" style={{ perspective: 2200, perspectiveOrigin: "50% 30%" }}>
-        <m.div
-          className="story-doc"
-          style={{ width: geo.docW, height: geo.docH, marginLeft: -geo.docW / 2, marginTop: -geo.docH / 2, x, y, scale, rotateX, opacity: docOpacity }}
-        >
-          <m.div className="story-doc-shadow" style={{ opacity: shadow }} />
+      <City p={p} geo={geo} pal={pal} />
+      <div className="absolute inset-0" style={{ perspective: 2000, perspectiveOrigin: "60% 40%" }}>
+        <m.div className="story-doc" style={{ width: geo.docW, height: geo.docH, marginLeft: -geo.docW / 2, marginTop: -geo.docH / 2, x, y, scale, rotateX, rotateY }}>
+          <m.div className="story-doc-glow" style={{ opacity: glow }} />
+          <m.div className="story-doc-ring" style={{ opacity: ring }} />
+          <div className="story-doc-under" />
           <svg viewBox={PVB} className="story-doc-page">
+            <defs>
+              <clipPath id={`broken-${uid}`}>
+                <ClipRect box={brokenBox} />
+              </clipPath>
+              <clipPath id={`fixed-${uid}`}>
+                <ClipRect box={fixedBox} />
+              </clipPath>
+            </defs>
             <PermitPage />
-            <m.g style={{ opacity: broken, ["--draw" as string]: brokenDraw }}>
-              <BrokenLayer />
+            <m.g style={{ opacity: brokenO, ["--draw" as string]: brokenDraw }}>
+              <g clipPath={`url(#broken-${uid})`}>
+                <BrokenLayer compact />
+              </g>
             </m.g>
-            <m.g style={{ opacity: fixed, ["--draw" as string]: fixedDraw }}>
+            <m.g style={{ opacity: fixedO, ["--draw" as string]: fixedDraw }} clipPath={`url(#fixed-${uid})`}>
               <FixedLayer />
             </m.g>
           </svg>
+          <ScanFx scan={scan} phase={phase} docW={geo.docW} />
+          <m.div className="scan-line" style={{ top: scanTop, opacity: lineO }}>
+            <m.span style={{ opacity: labelB }}>Reading structure</m.span>
+          </m.div>
         </m.div>
-        <m.div
-          className="story-report"
-          style={{ width: report.w, marginLeft: -report.w / 2, x: rx, y: report.y, rotate: rRotate, opacity: rOpacity }}
-        >
-          <ReportCard />
+        <m.div className="story-report" style={{ width: report.w, marginLeft: -report.w / 2, x: rx, y: report.y, rotate: rRotate }}>
+          <m.div className="report-clip" style={{ clipPath: rClip }}>
+            <ReportCard />
+          </m.div>
         </m.div>
       </div>
       {children}
@@ -148,42 +408,44 @@ export function StageVisual({ p, geo, children }: { p: MotionValue<number>; geo:
 
 /** The record that comes back with a repaired file. Sample content for the fictional form. */
 export function ReportCard() {
-  const rows: [string, string][] = [
-    ["Seven form fields had no spoken name", "Named from the labels printed beside them"],
-    ["Reading order started at the footer", "Now follows the page, top to bottom"],
-    ["Title was tagged as plain text", "Tagged as the main heading"],
-  ];
   return (
     <div className="report-card">
-      <div className="flex items-baseline justify-between gap-4 border-b pb-3 hairline">
-        <p className="mono text-[0.78rem] text-ink-soft">permit-application.pdf</p>
-        <p className="text-[0.78rem] font-[600] text-muted">Sample report</p>
+      <div className="report-head">
+        <div>
+          <p className="report-title">Repair report</p>
+          <p className="report-file">permit-application.pdf</p>
+        </div>
+        <p className="report-sample">Sample · fictional city</p>
       </div>
-      <ol className="mt-1">
-        {rows.map(([was, now]) => (
-          <li key={was} className="grid grid-cols-[0.6rem_1fr] gap-x-3 border-b py-3 hairline">
-            <span className="mt-[0.45rem] h-2 w-2 rounded-full bg-warm" />
-            <span>
-              <span className="block text-[0.9rem] leading-snug text-ink-soft line-through decoration-warm/60">{was}</span>
-              <span className="mt-0.5 block text-[0.95rem] font-[600] leading-snug text-ink">{now}</span>
-            </span>
-          </li>
-        ))}
-      </ol>
-      <dl className="mt-3 grid gap-1.5 text-[0.84rem] leading-snug">
-        <div className="flex gap-2">
-          <dt className="w-[6.2rem] shrink-0 text-muted">Re-checked</dt>
-          <dd className="text-ink">PAC and veraPDF, free tools you can run too</dd>
+      <dl className="report-finding">
+        <div>
+          <dt>Finding</dt>
+          <dd>Seven form fields have no accessible name</dd>
         </div>
-        <div className="flex gap-2">
-          <dt className="w-[6.2rem] shrink-0 text-muted">Listened to</dt>
-          <dd className="text-ink">By a person, with a screen reader</dd>
+        <div>
+          <dt>Evidence</dt>
+          <dd>The fields carry no name or tooltip, so a screen reader says &ldquo;edit text, blank&rdquo;</dd>
         </div>
-        <div className="flex gap-2">
-          <dt className="w-[6.2rem] shrink-0 text-muted">Not claimed</dt>
-          <dd className="text-ink">Legal certification of compliance</dd>
+        <div>
+          <dt>Correction</dt>
+          <dd>Each field named from the label printed beside it</dd>
+        </div>
+        <div>
+          <dt>Re-checked</dt>
+          <dd>PAC and veraPDF, then a person listened with NVDA</dd>
         </div>
       </dl>
+      <ul className="report-more">
+        <li>
+          <span>Reading order started at the footer</span> Now follows the page
+        </li>
+        <li>
+          <span>Title tagged as plain text</span> Now the main heading
+        </li>
+      </ul>
+      <p className="report-limit">
+        <strong>Limits</strong> Plain-language wording was not reviewed. This is a record of the work, not a legal certification.
+      </p>
     </div>
   );
 }
