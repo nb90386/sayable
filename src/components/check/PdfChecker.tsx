@@ -54,6 +54,11 @@ export function PdfChecker() {
   const inputRef = useRef<HTMLInputElement>(null);
   const resultRef = useRef<HTMLHeadingElement>(null);
   const errorRef = useRef<HTMLDivElement>(null);
+  // The error box can mount after the previous panel's exit animation, so focus it when it actually appears.
+  const focusError = useCallback((el: HTMLDivElement | null) => {
+    errorRef.current = el;
+    el?.focus();
+  }, []);
   const [state, setState] = useState<State>({ k: "idle" });
   const [over, setOver] = useState(false);
   const abort = useRef<AbortController | null>(null);
@@ -183,7 +188,7 @@ export function PdfChecker() {
           ) : null}
 
           {state.k === "error" ? (
-            <m.div key="error" ref={errorRef} tabIndex={-1} role="alert" initial={enter} animate={{ opacity: 1, y: 0, transition: tUi }} exit={{ opacity: 0, transition: tUiExit }} className="check-error">
+            <m.div key="error" ref={focusError} tabIndex={-1} role="alert" initial={enter} animate={{ opacity: 1, y: 0, transition: tUi }} exit={{ opacity: 0, transition: tUiExit }} className="check-error">
               <p>{state.message}</p>
             </m.div>
           ) : null}

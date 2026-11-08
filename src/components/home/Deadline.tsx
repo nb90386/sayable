@@ -81,12 +81,14 @@ export function Deadline() {
 
 function DeadlineStep({ i, k, t, p, reduced }: { i: number; k: string; t: string; p: MotionValue<number>; reduced: boolean }) {
   const at = i / (STEPS.length - 1);
-  const o = useTransform(p, [Math.max(0, at - 0.12), at], [0.25, 1]);
+  const fill = useTransform(p, [Math.max(0, at - 0.06), at], [0, 1]);
   return (
-    <m.li className="deadline-step" style={{ opacity: reduced ? 1 : o }}>
-      <span aria-hidden="true" className="deadline-knot" />
+    <li className="deadline-step">
+      <span aria-hidden="true" className="deadline-knot">
+        <m.span style={{ scale: reduced ? 1 : fill }} />
+      </span>
       <span className="deadline-k">{k}</span>
       <span className="deadline-t">{t}</span>
-    </m.li>
+    </li>
   );
 }

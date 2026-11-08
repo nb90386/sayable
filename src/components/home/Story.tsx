@@ -1,11 +1,19 @@
 "use client";
 
-import { m, motionValue, useMotionValueEvent, useReducedMotion, useScroll, useTransform, type MotionValue } from "motion/react";
+import { m, motionValue, useMotionValueEvent, useScroll, useTransform, type MotionValue } from "motion/react";
 import Link from "next/link";
-import { useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState } from "react";
+import { useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState, useSyncExternalStore } from "react";
 import cues from "@/content/audio-cues.json";
 import { geometry, type Geo } from "./geometry";
 import { P, StageVisual } from "./StageVisual";
+
+const RM = "(prefers-reduced-motion: reduce)";
+const subscribeReduced = (cb: () => void) => {
+  const mq = window.matchMedia(RM);
+  mq.addEventListener("change", cb);
+  return () => mq.removeEventListener("change", cb);
+};
+const readReduced = () => window.matchMedia(RM).matches;
 
 const useIso = typeof window === "undefined" ? useEffect : useLayoutEffect;
 
@@ -111,7 +119,7 @@ function SceneCopy({ i, active }: { i: number; active: boolean }) {
     case "problem":
       return (
         <>
-          <h2 className="scene-title">It looks fine. It doesn&apos;t read.</h2>
+          <h2 className="scene-title">It looks fine. It doesn&rsquo;t read.</h2>
           <p className="scene-body">
             This permit form has no tags and seven fields with no name. A screen reader starts at the footer, then says &ldquo;edit text, blank&rdquo; and
             moves on.
@@ -186,11 +194,11 @@ function Hero() {
   return (
     <>
       <h1 id="hero-title" className="display hero-title">
-        Make your city&apos;s PDFs readable for everyone.
+        Make your city&rsquo;s PDFs readable for everyone.
       </h1>
       <div className="hero-side">
         <p className="hero-lede">
-          Sayable finds the PDFs on your website that screen readers can&apos;t read, fixes the ones residents need first, and gives you a record of every check.
+          Sayable finds the PDFs on your website that screen readers can&rsquo;t read, fixes the ones residents need first, and gives you a record of every check.
         </p>
         <div className="mt-7 flex flex-wrap items-center gap-3">
           <Link href="/contact?topic=audit" className="btn">
@@ -234,7 +242,8 @@ function GroupLabels({ p, geo }: { p: MotionValue<number>; geo: Geo }) {
  * the rail lets anyone jump, and reduced motion gets the same scenes as still figures.
  */
 export function Story() {
-  const reduced = useReducedMotion();
+  // The server cannot know the preference, so it renders the moving version and the still one swaps in after hydration.
+  const reduced = useSyncExternalStore(subscribeReduced, readReduced, () => false);
   const track = useRef<HTMLElement>(null);
   const stage = useRef<HTMLDivElement>(null);
   const size = useStageSize(stage);

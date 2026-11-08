@@ -56,41 +56,83 @@ test("internal links resolve", async ({ page, request }) => {
   }
 });
 
-test("signature interactions work by keyboard", async ({ page }) => {
+test("the document story advances by scroll, and every scene is reachable", async ({ page }, info) => {
+  test.skip(info.project.name.includes("mobile"), "the chapter rail is a desktop control; phones scroll the same story");
   test.setTimeout(30_000);
+  await page.addInitScript(() => localStorage.setItem("sayable-consent", JSON.stringify({ v: 1, analytics: false, at: "test" })));
   await page.goto("/");
-  // audio demonstration: one player, a version switch, transcripts behind a disclosure
-  const play = page.getByRole("button", { name: "Hear the problem" });
-  await expect(play).toBeVisible();
-  await page.getByRole("radio", { name: "After repair", exact: true }).click();
-  await expect(page.getByRole("button", { name: "Hear the difference" })).toBeVisible();
-  await page.getByText("Read both transcripts").click();
-  await expect(page.getByRole("list", { name: "Transcript, as posted" })).toContainText("Edit text. Blank.");
-  await expect(page.getByRole("list", { name: "Transcript, after repair" })).toContainText("Applicant name. Edit text. Required.");
-  // product workspace: arrow keys move between stages
-  const discover = page.getByRole("tab", { name: "Discover" });
-  await discover.focus();
-  await page.keyboard.press("ArrowRight");
-  await expect(page.getByRole("tab", { name: "Repair" })).toHaveAttribute("aria-selected", "true");
-  // audio file is served
+  await expect(page.getByRole("heading", { level: 1 })).toHaveText("Make your city’s PDFs readable for everyone.");
+  const repair = page.getByRole("heading", { name: "Repaired by people, one page at a time." });
+  const opacity = (l: typeof repair) => l.evaluate((el) => Number(getComputedStyle(el.closest(".scene-copy")!).opacity));
+  expect(await opacity(repair)).toBeLessThan(0.1);
+  // the chapter rail jumps to a scene, by keyboard
+  const rail = page.getByRole("navigation", { name: "Story chapters" });
+  await rail.getByRole("button", { name: "The repair" }).focus();
+  await page.keyboard.press("Enter");
+  await expect.poll(() => opacity(repair), { timeout: 5000 }).toBeGreaterThan(0.9);
+  await expect(rail.getByRole("button", { name: "The repair" })).toHaveAttribute("aria-current", "step");
+  // the dark chapters turn the header dark too
+  await expect(page.locator("html")).toHaveAttribute("data-hdr", "night");
+  // plain scrolling reaches the record and the header returns to paper
+  await page.evaluate(() => {
+    const el = document.querySelector(".story") as HTMLElement;
+    window.scrollTo(0, el.offsetTop + el.offsetHeight - innerHeight);
+  });
+  await expect.poll(() => opacity(page.getByRole("heading", { name: "With a record you can check yourself." })), { timeout: 5000 }).toBeGreaterThan(0.9);
+  await expect(page.locator("html")).not.toHaveAttribute("data-hdr", "night");
+});
+
+test("narration is opt-in, labelled, and has a transcript", async ({ page }) => {
+  await page.goto("/");
+  const play = page.getByRole("button", { name: /Hear a narration, as posted/ });
+  await expect(play).toHaveCount(1);
+  await expect(page.locator("audio").first()).toHaveAttribute("preload", "none");
+  await expect(page.locator(".listen-transcript").first()).toContainText("Edit text. Blank.");
+  await expect(page.locator(".listen-transcript").first()).toContainText("not a recording");
   const res = await page.request.get("/audio/permit-before.mp3");
   expect(res.status()).toBe(200);
-  // sample report: arrow keys move between findings
-  const firstTab = page.getByRole("tab", { name: "Form fields have no names" });
-  await firstTab.focus();
-  await page.keyboard.press("ArrowDown");
-  await expect(page.getByRole("tab", { name: "Title is tagged as plain text" })).toHaveAttribute("aria-selected", "true");
-  // estimator: moving a slider changes the arithmetic
-  const pages = page.getByLabel("PDF pages on your public website");
+});
+
+test("reduced motion gets the whole story as still figures", async ({ page }) => {
+  await page.emulateMedia({ reducedMotion: "reduce" });
+  await page.goto("/");
+  for (const h of ["It looks fine. It doesn’t read.", "Your city has thousands more like it.", "Start with the documents residents need.", "Repaired by people, one page at a time.", "With a record you can check yourself."]) {
+    const el = page.getByRole("heading", { name: h });
+    await el.scrollIntoViewIfNeeded();
+    await expect(el).toBeVisible();
+    expect(await el.evaluate((n) => Number(getComputedStyle(n).opacity))).toBe(1);
+  }
+  await expect(page.locator(".story")).toHaveCount(0);
+});
+
+test("the workload estimate follows the slider, by keyboard", async ({ page }) => {
+  await page.goto("/");
+  const pages = page.getByLabel(/A city with .* pages of PDFs/);
   await pages.focus();
-  const out = page.locator("output").first();
-  const was = await out.textContent();
-  const sentence = page.locator("[aria-labelledby=value-title] [aria-live=polite] > p").first();
-  const before = await sentence.textContent();
+  const live = page.locator("[aria-labelledby=work-title] [aria-live=polite]");
+  const before = await live.textContent();
+  expect(before).toContain("10,000 pages");
   await page.keyboard.press("ArrowRight");
-  await expect(out).not.toHaveText(was ?? "");
-  // the plain-English explanation follows the slider
-  await expect(sentence).not.toHaveText(before ?? "");
+  await page.keyboard.press("ArrowRight");
+  await expect(live).not.toHaveText(before ?? "");
+  // advanced assumptions stay behind a disclosure until asked for
+  await expect(page.getByLabel("Share residents still use")).toBeHidden();
+  await page.getByText("Change the assumptions").click();
+  await expect(page.getByLabel("Share residents still use")).toBeVisible();
+});
+
+test("navigation starts new pages at the top and Back restores the old position", async ({ page }, info) => {
+  test.skip(info.project.name.includes("mobile"), "desktop navigation");
+  await page.goto("/how-it-works");
+  await page.evaluate(() => window.scrollTo(0, 1200));
+  await page.waitForTimeout(200);
+  await page.getByRole("navigation", { name: "Primary" }).getByRole("link", { name: "Resources" }).click();
+  await page.waitForURL("**/resources");
+  await expect.poll(() => page.evaluate(() => scrollY)).toBe(0);
+  await expect(page).toHaveTitle(/Resources/);
+  await page.goBack();
+  await page.waitForURL("**/how-it-works");
+  await expect.poll(() => page.evaluate(() => scrollY)).toBeGreaterThan(1000);
 });
 
 test("contact form validates and never fakes success", async ({ page }) => {

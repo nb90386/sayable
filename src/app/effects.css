@@ -120,7 +120,7 @@
    (the page sets html[data-hdr="night"]). A soft edge appears only once something is underneath. */
 .site-header { position: fixed; inset-inline: 0; top: 0; z-index: 50; color: var(--color-ink); background: rgb(243 239 231 / 0.78); -webkit-backdrop-filter: blur(18px) saturate(160%); backdrop-filter: blur(18px) saturate(160%); view-transition-name: site-header; transition: background-color 0.35s var(--ease-out-quart), color 0.35s var(--ease-out-quart), box-shadow 0.35s; }
 .site-header[data-scrolled] { box-shadow: 0 1px 0 var(--rule); }
-.site-header[data-open] { background: var(--color-paper); color: var(--color-ink); }
+.site-header[data-open] { background: var(--color-paper); color: var(--color-ink); -webkit-backdrop-filter: none; backdrop-filter: none; }
 html[data-hdr="night"] .site-header:not([data-open]) { background: rgb(20 19 16 / 0.62); color: var(--color-moon); box-shadow: 0 1px 0 var(--rule-night); }
 html[data-hdr="night"] .site-header:not([data-open]) .nav-link { color: var(--color-moon-muted); }
 html[data-hdr="night"] .site-header:not([data-open]) .nav-link:hover, html[data-hdr="night"] .site-header:not([data-open]) .nav-link.is-active { color: var(--color-moon); }
@@ -320,8 +320,10 @@ html[data-hdr="night"] .site-header .text-muted { color: var(--color-moon-muted)
 }
 
 /* Reduced motion: the same scenes as still figures. */
+.still-figure { overflow: hidden; }
 .story-still .hero-copy-still { display: grid; gap: 2rem; padding-bottom: 4rem; }
-@media (min-width: 900px) { .story-still .hero-copy-still { grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr); align-items: end; } }
+@media (min-width: 900px) { .still-figure { overflow: hidden; }
+.story-still .hero-copy-still { grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr); align-items: end; } }
 .still-figure { position: relative; height: min(64svh, 600px); }
 .still-scene.night { background: var(--color-night); color: var(--color-moon); }
 .scene-copy-still .scene-title { font-size: clamp(1.8rem, 1.1rem + 2.1vw, 3rem); }
@@ -337,7 +339,8 @@ html[data-hdr="night"] .site-header .text-muted { color: var(--color-moon-muted)
 .deadline-line { position: relative; display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 1.5rem; margin-top: 2.25rem; padding-top: 1.75rem; }
 .deadline-rule { position: absolute; left: 0; right: 0; top: 0.55rem; height: 2px; background: var(--color-ink); transform-origin: 0 50%; }
 .deadline-step { position: relative; display: grid; gap: 0.35rem; }
-.deadline-knot { position: absolute; top: -1.6rem; left: 0; width: 0.85rem; height: 0.85rem; border-radius: 50%; background: var(--color-paper); box-shadow: inset 0 0 0 2px var(--color-ink); }
+.deadline-knot { position: absolute; top: -1.6rem; left: 0; display: grid; place-items: center; width: 0.85rem; height: 0.85rem; border-radius: 50%; background: var(--color-paper); box-shadow: inset 0 0 0 2px var(--color-ink); }
+.deadline-knot > span { width: 100%; height: 100%; border-radius: 50%; background: var(--color-ink); }
 .deadline-k { font-weight: 700; font-size: 1.02rem; }
 .deadline-t { font-size: 0.95rem; line-height: 1.45; color: var(--color-ink-soft); }
 .deadline-facts { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: clamp(1.5rem, 3vw, 3rem); margin-top: clamp(3.5rem, 8vh, 5.5rem); padding-top: 2rem; border-top: 1px solid var(--rule); }
@@ -428,8 +431,7 @@ html[data-hdr="night"] .site-header .text-muted { color: var(--color-moon-muted)
 .close-permit { z-index: 1; }
 .close-title { font-family: var(--font-display); font-weight: 420; font-size: clamp(2.3rem, 1.3rem + 3.6vw, 4.6rem); line-height: 1.02; letter-spacing: -0.024em; max-width: 14ch; }
 
-.site-main { position: relative; z-index: 1; background: var(--color-paper); }
-@media (min-width: 900px) and (min-height: 760px) {
-  .site-main { border-radius: 0 0 28px 28px; box-shadow: 0 40px 80px -30px rgb(0 0 0 / 0.55); }
-  .site-footer { position: sticky; bottom: 0; z-index: 0; }
-}
+/* The page ends like a sheet lifted off a dark desk: rounded lower edge, a shadow cast onto the footer.
+   The footer stays in normal flow, so nothing in it is ever covered. */
+.site-main { position: relative; z-index: 1; background: var(--color-paper); border-radius: 0 0 clamp(18px, 2.4vw, 32px) clamp(18px, 2.4vw, 32px); box-shadow: 0 36px 70px -34px rgb(0 0 0 / 0.75); }
+.site-footer { position: relative; z-index: 0; margin-top: calc(-1 * clamp(18px, 2.4vw, 32px)); padding-top: clamp(18px, 2.4vw, 32px); }
