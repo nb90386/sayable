@@ -215,8 +215,9 @@ function Hero() {
 /** Kinds of document, named on a few near cards while the collection fills the room. */
 function KindTags({ p, geo }: { p: MotionValue<number>; geo: Geo }) {
   const o = useTransform(p, [P.c1 + 0.01, P.c1 + 0.035, P.d0 - 0.005, P.d0 + 0.02], [0, 1, 1, 0]);
+  const vis = useTransform(o, (v) => (v > 0.01 ? "visible" : "hidden"));
   return (
-    <m.div aria-hidden="true" className="absolute inset-0" style={{ opacity: o }}>
+    <m.div aria-hidden="true" className="absolute inset-0" style={{ opacity: o, visibility: vis }}>
       {geo.tags.map((t) => (
         <span key={t.kind} className="kind-tag" style={{ left: t.x, top: t.y }}>
           {t.label}
@@ -229,8 +230,9 @@ function KindTags({ p, geo }: { p: MotionValue<number>; geo: Geo }) {
 /** The four piles, named once they have formed. */
 function StackLabels({ p, geo }: { p: MotionValue<number>; geo: Geo }) {
   const o = useTransform(p, [P.d1 - 0.04, P.d1, P.e0, P.e0 + 0.03], [0, 1, 1, 0]);
+  const vis = useTransform(o, (v) => (v > 0.01 ? "visible" : "hidden"));
   return (
-    <m.div aria-hidden="true" className="absolute inset-0" style={{ opacity: o }}>
+    <m.div aria-hidden="true" className="absolute inset-0" style={{ opacity: o, visibility: vis }}>
       {geo.stacks.map((g) => (
         <div key={g.key} className="stack-label" data-tone={g.tone} style={{ left: g.x, top: g.base + 12 }}>
           <span className="stack-title">{g.title}</span>

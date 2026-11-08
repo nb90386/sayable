@@ -56,29 +56,48 @@ test("internal links resolve", async ({ page, request }) => {
   }
 });
 
+test("the hero is readable on arrival and the scan runs on the form", async ({ page }) => {
+  await page.goto("/");
+  const h1 = page.getByRole("heading", { level: 1 });
+  await expect(h1).toHaveText("Make your city’s PDFs accessible. Know what to fix first.");
+  // no fade-in: the headline and the primary action are at full opacity from the first frame
+  const chainOpacity = (sel: string) =>
+    page.locator(sel).first().evaluate((el) => {
+      let o = 1;
+      for (let n: Element | null = el; n; n = n.parentElement) o *= Number(getComputedStyle(n).opacity);
+      return o;
+    });
+  expect(await chainOpacity("h1")).toBe(1);
+  expect(await chainOpacity(".hero-actions .btn")).toBe(1);
+  await expect(page.getByRole("link", { name: /Request a Readiness Audit/ }).first()).toBeVisible();
+  // the reading line rests partway down the form once its opening run ends
+  await expect.poll(() => page.locator(".scan-line").evaluate((el) => parseFloat((el as HTMLElement).style.top)), { timeout: 5000 }).toBeGreaterThan(30);
+  await expect(page.getByRole("link", { name: "Skip the story" })).toHaveAttribute("href", "#deadline");
+});
+
 test("the document story advances by scroll, and every scene is reachable", async ({ page }, info) => {
-  test.skip(info.project.name.includes("mobile"), "the chapter rail is a desktop control; phones scroll the same story");
+  test.skip(info.project.name.includes("mobile"), "desktop scroll positions; phones scroll the same story");
   test.setTimeout(30_000);
   await page.addInitScript(() => localStorage.setItem("sayable-consent", JSON.stringify({ v: 1, analytics: false, at: "test" })));
   await page.goto("/");
-  await expect(page.getByRole("heading", { level: 1 })).toHaveText("Make your city’s PDFs readable for everyone.");
-  const repair = page.getByRole("heading", { name: "Repaired by people, one page at a time." });
+  const repair = page.getByRole("heading", { name: "Then a person repairs them." });
   const opacity = (l: typeof repair) => l.evaluate((el) => Number(getComputedStyle(el.closest(".scene-copy")!).opacity));
   expect(await opacity(repair)).toBeLessThan(0.1);
-  // the chapter rail jumps to a scene, by keyboard
-  const rail = page.getByRole("navigation", { name: "Story chapters" });
-  await rail.getByRole("button", { name: "The repair" }).focus();
-  await page.keyboard.press("Enter");
+  // keyboard: focusing a link inside a later scene scrolls the story to it
+  await page.getByRole("link", { name: "PDF repair" }).focus();
   await expect.poll(() => opacity(repair), { timeout: 5000 }).toBeGreaterThan(0.9);
-  await expect(rail.getByRole("button", { name: "The repair" })).toHaveAttribute("aria-current", "step");
-  // the dark chapters turn the header dark too
+  // the collection chapters are dusk, and the header follows
+  const at = (v: number) =>
+    page.evaluate((v) => {
+      const el = document.querySelector(".story") as HTMLElement;
+      window.scrollTo(0, el.offsetTop + v * (el.offsetHeight - innerHeight));
+    }, v);
+  await at(0.41);
+  await expect.poll(() => opacity(page.getByRole("heading", { name: /Your city may have thousands of PDFs/ })), { timeout: 5000 }).toBeGreaterThan(0.9);
   await expect(page.locator("html")).toHaveAttribute("data-hdr", "night");
   // plain scrolling reaches the record and the header returns to paper
-  await page.evaluate(() => {
-    const el = document.querySelector(".story") as HTMLElement;
-    window.scrollTo(0, el.offsetTop + el.offsetHeight - innerHeight);
-  });
-  await expect.poll(() => opacity(page.getByRole("heading", { name: "With a record you can check yourself." })), { timeout: 5000 }).toBeGreaterThan(0.9);
+  await at(1);
+  await expect.poll(() => opacity(page.getByRole("heading", { name: "Every file comes back with its record." })), { timeout: 5000 }).toBeGreaterThan(0.9);
   await expect(page.locator("html")).not.toHaveAttribute("data-hdr", "night");
 });
 
@@ -96,7 +115,9 @@ test("narration is opt-in, labelled, and has a transcript", async ({ page }) => 
 test("reduced motion gets the whole story as still figures", async ({ page }) => {
   await page.emulateMedia({ reducedMotion: "reduce" });
   await page.goto("/");
-  for (const h of ["It looks fine. It doesn’t read.", "Your city has thousands more like it.", "Start with the documents residents need.", "Repaired by people, one page at a time.", "With a record you can check yourself."]) {
+  // the still version swaps in after hydration
+  await expect(page.locator(".story-still")).toBeVisible();
+  for (const h of ["It looks fine. A screen reader hears something else.", "Your city may have thousands of PDFs. Which need attention first?", "Start with the files residents use.", "Then a person repairs them.", "Every file comes back with its record."]) {
     const el = page.getByRole("heading", { name: h });
     await el.scrollIntoViewIfNeeded();
     await expect(el).toBeVisible();

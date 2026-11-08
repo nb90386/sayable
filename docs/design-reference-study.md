@@ -109,8 +109,18 @@ Every recipe defines a `prefers-reduced-motion: reduce` block that sets `transit
 2. **The sheet turns into the report.** At the verification chapter the same element shrinks into the first row of the report, as RTM's panel turns into catalogue card s13. There is no cross-fade to a new illustration.
 3. **Background tone tracks the argument, scrubbed rather than cut.** Use stone paper for intake and inventory, grade to carbon for the deadline and problem chapter, then return to paper for the repair and verification (Carusio d00→d04). Interpolate the colour across about one viewport of scroll on a fixed backdrop layer, not on the section boxes.
 4. **Change tone within a chapter through light, not hue.** Inside the dark chapter, separate priority groups with a soft warm glow or a single vermilion edge behind the active group (RTM d07–d09), not with new background colours.
-5. **One claim per viewport.** Each chapter gets a two-line Newsreader headline with empty space around the object (iPad Pro d04, d06). Newsreader *italic* in viridian is reserved for the single outcome word (Miligram's italic and `#004536` system).
+5. **One claim per viewport.** Each chapter gets one short headline with empty space around the object (iPad Pro d04, d06). *Superseded:* the earlier idea of italic emphasis borrowed from Miligram was dropped. The owner bans italic emphasis, and the type moved to Funnel Display (see FONT-AUDIT.md).
 6. **Show progress in the copy, not a widget.** The chapter label stays fixed on the left and the active step moves (Miligram's "Evolua com", Premotio's "→ Grids"). Do not add a decorative scroll ruler.
 7. **A quiet, single-action ending, bookended.** Close with one sentence, one primary action ("Send us your inventory") and the hero line restated small (Möbius d11, Incroy e00). An optional past-the-end pull may show one verification-log line, `aria-hidden`, with nothing important behind it.
 8. **UI micro-motion on the free transitions.dev scale.** Use 250ms open and 150ms close with `cubic-bezier(0.22,1,0.36,1)` for menus, modals, tabs and route changes (8px, 3px blur). Use 500ms with a 40ms stagger for headline reveals. Keep the overshoot curve only for the one button-to-surface morph. Every transition gets a reduced-motion `none` path.
 9. **Mobile composition is its own design.** Do not shrink the desktop stage. Put the sheet below the headline and never behind the text (RTM m00 shows the failure mode).
+
+
+## How these decisions were applied (8 November 2026)
+
+- **1 and 2.** One sheet persists from the hero to the record. Rather than shrinking into a report row, the report is masked out from under the sheet's edge, so the sheet stays readable as the evidence.
+- **3.** The tone shift is scrubbed, but the dark chapter is the collection (dusk, mineral #1f2b2a), not the problem. The problem is shown in daylight on the form, where the copy stays at full contrast.
+- **4.** Light, not hue, follows the document: a radial pool of light, and a warm glow behind the form card.
+- **7.** The close takes Incroy's rising curved flood as a principle and makes it original: Sayable's own dusk rises with the result in it, and the footer continues in the same dusk. There is no past-the-end message.
+- **8.** The site's menu and route tokens already sit inside the transitions.dev range.
+- **9.** Phones get their own composition: the visual takes the top 55%, the copy the rest, and the piles form a 2×2 grid.
