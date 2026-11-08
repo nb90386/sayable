@@ -1,8 +1,9 @@
 "use client";
 
-import { m, useReducedMotion, useScroll, useTransform, type MotionValue } from "motion/react";
+import { m, useScroll, useTransform, type MotionValue } from "motion/react";
 import Link from "next/link";
 import { useRef } from "react";
+import { usePrefersReducedMotion } from "@/lib/usePrefersReducedMotion";
 
 type Item = { key: string; title: string; line: string; with: "audit" | "repair" };
 const ITEMS: Item[] = [
@@ -94,7 +95,7 @@ function Fanned({ i, p, still, sheet, children }: { i: number; p: MotionValue<nu
 
 /** What the city receives: the story's record widens into the whole deliverable. */
 export function Receive() {
-  const reduced = useReducedMotion();
+  const reduced = usePrefersReducedMotion();
   const ref = useRef<HTMLOListElement>(null);
   const { scrollYProgress } = useScroll({ target: ref, offset: ["start 92%", "center 58%"] });
   return (

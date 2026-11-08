@@ -31,7 +31,7 @@ export type Card = {
   appear: number;
   delay: number;
 };
-export type Stack = { key: string; title: string; note: string; tone: "fix" | "decide" | "check"; x: number; base: number; top: number; count: number };
+export type Stack = { key: string; title: string; note: string; tone: "fix" | "decide" | "check"; x: number; base: number; top: number; count: number; w: number };
 export type Tag = { kind: Kind; label: string; x: number; y: number };
 
 export type Geo = {
@@ -50,7 +50,7 @@ export type Geo = {
 };
 
 /** Illustrative shares. Shown on the page as an illustration, not real data. */
-const STACKS: Omit<Stack, "x" | "base" | "top" | "count">[] = [
+const STACKS: Omit<Stack, "x" | "base" | "top" | "count" | "w">[] = [
   { key: "use", title: "Residents use these now", note: "Fix first", tone: "fix" },
   { key: "old", title: "Archived or out of date", note: "May be excepted. Your team decides.", tone: "decide" },
   { key: "hard", title: "Scans and complex tables", note: "Need a specialist", tone: "fix" },
@@ -167,7 +167,9 @@ export function geometry(W: number, H: number, figure = false, heroBottom = 0): 
   STACKS.forEach((meta, i) => {
     let x: number;
     let base: number;
+    let w: number;
     if (narrow) {
+      w = W * 0.44;
       x = W * (i % 2 === 0 ? 0.27 : 0.73);
       base = top + vzH * (i < 2 ? 0.4 : 0.84);
     } else {
@@ -175,8 +177,9 @@ export function geometry(W: number, H: number, figure = false, heroBottom = 0): 
       const left = (figure ? W / 2 : W * 0.63) - span / 2;
       x = left + (span / 3) * i;
       base = top + avail * 0.7;
+      w = Math.min(208, (span / 3) * 0.94);
     }
-    stacks.push({ ...meta, x, base, top: base - counts[i]! * pileStep - card.h * 0.92, count: counts[i]! });
+    stacks.push({ ...meta, x, base, top: base - counts[i]! * pileStep - card.h * 0.92, count: counts[i]!, w });
   });
   const filled = STACKS.map(() => 0);
   const r2 = rng(5);

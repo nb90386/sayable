@@ -1,7 +1,8 @@
 "use client";
 
-import { m, useReducedMotion, useScroll, useTransform, type MotionValue } from "motion/react";
+import { m, useScroll, useTransform, type MotionValue } from "motion/react";
 import { useRef } from "react";
+import { usePrefersReducedMotion } from "@/lib/usePrefersReducedMotion";
 
 const STEPS = [
   { k: "Find", t: "List every PDF your website links to." },
@@ -17,7 +18,7 @@ const STEPS = [
  * Dates: 28 CFR 35.200 as amended April 20, 2026 (see docs/research/RESEARCH-NOTES.md).
  */
 export function Deadline() {
-  const reduced = useReducedMotion();
+  const reduced = usePrefersReducedMotion();
   const line = useRef<HTMLOListElement>(null);
   const { scrollYProgress } = useScroll({ target: line, offset: ["start 85%", "end 55%"] });
   const draw = useTransform(scrollYProgress, [0, 1], [0, 1]);

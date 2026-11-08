@@ -1,8 +1,9 @@
 "use client";
 
-import { m, useMotionValueEvent, useReducedMotion, useScroll, useTransform } from "motion/react";
+import { m, useMotionValueEvent, useScroll, useTransform } from "motion/react";
 import Link from "next/link";
 import { useRef } from "react";
+import { usePrefersReducedMotion } from "@/lib/usePrefersReducedMotion";
 import { PermitSheet } from "@/components/doc/PermitSheet";
 
 /**
@@ -12,7 +13,7 @@ import { PermitSheet } from "@/components/doc/PermitSheet";
  * which is the same dusk. Nothing is hidden behind the motion.
  */
 export function Close() {
-  const reduced = useReducedMotion();
+  const reduced = usePrefersReducedMotion();
   const ref = useRef<HTMLElement>(null);
   const { scrollYProgress: p } = useScroll({ target: ref, offset: ["start end", "end end"] });
   const rise = useTransform(p, [0.05, 0.62], ["78%", "0%"]);

@@ -71,7 +71,9 @@ test("the hero is readable on arrival and the scan runs on the form", async ({ p
   expect(await chainOpacity(".hero-actions .btn")).toBe(1);
   await expect(page.getByRole("link", { name: /Request a Readiness Audit/ }).first()).toBeVisible();
   // the reading line rests partway down the form once its opening run ends
-  await expect.poll(() => page.locator(".scan-line").evaluate((el) => parseFloat((el as HTMLElement).style.top)), { timeout: 5000 }).toBeGreaterThan(30);
+  await expect
+    .poll(() => page.locator(".scan-line").evaluate((el) => el.getBoundingClientRect().top - el.parentElement!.getBoundingClientRect().top), { timeout: 5000 })
+    .toBeGreaterThan(100);
   await expect(page.getByRole("link", { name: "Skip the story" })).toHaveAttribute("href", "#deadline");
 });
 

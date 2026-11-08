@@ -2,19 +2,13 @@
 
 import { animate, m, motionValue, useMotionTemplate, useMotionValueEvent, useScroll, useTransform, type MotionValue } from "motion/react";
 import Link from "next/link";
-import { useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState, useSyncExternalStore } from "react";
+import { memo, useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState } from "react";
 import cues from "@/content/audio-cues.json";
+import { usePrefersReducedMotion } from "@/lib/usePrefersReducedMotion";
 import { geometry, type Geo } from "./geometry";
 import { PALETTES, PALETTE } from "./palette";
 import { P, StageVisual } from "./StageVisual";
 
-const RM = "(prefers-reduced-motion: reduce)";
-const subscribeReduced = (cb: () => void) => {
-  const mq = window.matchMedia(RM);
-  mq.addEventListener("change", cb);
-  return () => mq.removeEventListener("change", cb);
-};
-const readReduced = () => window.matchMedia(RM).matches;
 
 const useIso = typeof window === "undefined" ? useEffect : useLayoutEffect;
 
@@ -234,7 +228,7 @@ function StackLabels({ p, geo }: { p: MotionValue<number>; geo: Geo }) {
   return (
     <m.div aria-hidden="true" className="absolute inset-0" style={{ opacity: o, visibility: vis }}>
       {geo.stacks.map((g) => (
-        <div key={g.key} className="stack-label" data-tone={g.tone} style={{ left: g.x, top: g.base + 12 }}>
+        <div key={g.key} className="stack-label" data-tone={g.tone} style={{ left: g.x, top: g.base + 12, width: g.w }}>
           <span className="stack-title">{g.title}</span>
           <span className="stack-note">{g.note}</span>
         </div>
@@ -252,7 +246,7 @@ function StackLabels({ p, geo }: { p: MotionValue<number>; geo: Geo }) {
  */
 export function Story() {
   // The server cannot know the preference, so it renders the moving version and the still one swaps in after hydration.
-  const reduced = useSyncExternalStore(subscribeReduced, readReduced, () => false);
+  const reduced = usePrefersReducedMotion();
   const pal = PALETTES[PALETTE];
   const track = useRef<HTMLElement>(null);
   const stage = useRef<HTMLDivElement>(null);
@@ -268,7 +262,9 @@ export function Story() {
     ro.observe(el);
     return () => ro.disconnect();
   }, []);
-  const geo = useMemo(() => (size ? geometry(size.W, size.H, false, heroBottom) : null), [size, heroBottom]);
+  // Only phones place the form under the measured hero copy; desktops ignore it, so it never re-lays the stage there.
+  const hb = size && size.W < 900 ? heroBottom : 0;
+  const geo = useMemo(() => (size ? geometry(size.W, size.H, false, hb) : null), [size, hb]);
   const { scrollYProgress: p } = useScroll({ target: track, offset: ["start start", "end end"] });
   const [active, setActive] = useState(-1);
 
@@ -320,12 +316,7 @@ export function Story() {
         <a href="#deadline" className="skip-story sr-only-focusable">
           Skip the story
         </a>
-        {geo ? (
-          <StageVisual p={p} intro={intro} geo={geo} pal={pal}>
-            <KindTags p={p} geo={geo} />
-            <StackLabels p={p} geo={geo} />
-          </StageVisual>
-        ) : null}
+        {geo ? <Visual p={p} intro={intro} geo={geo} pal={pal} /> : null}
 
         <m.div ref={heroRef} className="hero-copy wrap" style={{ opacity: heroO, y: heroY }}>
           <Hero />
@@ -338,6 +329,16 @@ export function Story() {
     </section>
   );
 }
+
+/** The stage, memoised: scene changes and hero measurement re-render the copy, never the visual. */
+const Visual = memo(function Visual({ p, intro, geo, pal }: { p: MotionValue<number>; intro: MotionValue<number>; geo: Geo; pal: (typeof PALETTES)[keyof typeof PALETTES] }) {
+  return (
+    <StageVisual p={p} intro={intro} geo={geo} pal={pal}>
+      <KindTags p={p} geo={geo} />
+      <StackLabels p={p} geo={geo} />
+    </StageVisual>
+  );
+});
 
 function SceneBlock({ i, p, active, onFocusOutOfView }: { i: number; p: MotionValue<number>; active: boolean; onFocusOutOfView: () => void }) {
   const s = SCENES[i]!;
@@ -364,7 +365,7 @@ function StoryStill() {
   const values = useMemo(() => SCENES.map((s) => motionValue(s.at)), []);
   const done = useMemo(() => motionValue(1), []);
   return (
-    <section className="story-still" aria-labelledby="hero-title">
+    <section className="story-still" aria-labelledby="hero-title" data-sc-act="story">
       <div className="wrap pt-[calc(var(--header-h)+3rem)]">
         <div className="hero-copy-still">
           <Hero />

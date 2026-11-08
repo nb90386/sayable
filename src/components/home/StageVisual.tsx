@@ -207,7 +207,7 @@ function ScanFx({ scan, phase, docW }: { scan: MotionValue<number>; phase: Motio
     if (!c) return;
     const ctx = c.getContext("2d");
     if (!ctx) return;
-    const back = Math.min(1700, Math.round(docW * Math.min(2, window.devicePixelRatio || 1) * 1.35));
+    const back = Math.min(1400, Math.round(docW * Math.min(2, window.devicePixelRatio || 1) * 1.3));
     const backH = Math.round(back * (DOC_H / 850));
     if (c.width !== back) {
       c.width = back;
@@ -341,7 +341,7 @@ export function StageVisual({
   const scanE = useTransform(p, [P.fix0, P.fix1], [0, 1]);
   const scan = useTransform([p, scanB, scanE] as MotionValue<number>[], ([v, b, e]: number[]) => (v! < (P.c0 + P.e0) / 2 ? b! : e!));
   const phase = useTransform(p, (v): number => (v < P.scan1 + 0.004 ? 1 : v > P.fix0 - 0.004 && v < P.fix1 + 0.004 ? 2 : 0));
-  const scanTop = useTransform(scan, (s) => `${s * 100}%`);
+  const scanY = useTransform(scan, (s) => s * geo.docH);
   const lineO = useTransform([p, scan] as MotionValue<number>[], ([v, s]: number[]) => {
     const inB = v! < P.scan1;
     const inE = v! > P.fix0 && v! < P.fix1;
@@ -359,7 +359,8 @@ export function StageVisual({
   const fixedDraw = useTransform(p, [P.fix0, P.fix1 + 0.03], [0, 1]);
 
   const rx = useTransform(p, [P.f0 + 0.015, P.f1], [report.from, report.x]);
-  const rReveal = useTransform(p, [P.f0 + 0.015, P.f1 - 0.02], [112, 0]);
+  const rReveal = useTransform(p, [P.f0 + 0.015, P.f1 - 0.02], [135, 0]);
+  const rOpacity = useTransform(p, [P.f0 + 0.01, P.f0 + 0.02], [0, 1]);
   const rClip = useMotionTemplate`inset(-40px calc(${rReveal}% - 40px) -80px -40px)`;
   const rRotate = useTransform(p, [P.f0 + 0.015, P.f1], [2, -1]);
 
@@ -391,11 +392,11 @@ export function StageVisual({
             </m.g>
           </svg>
           <ScanFx scan={scan} phase={phase} docW={geo.docW} />
-          <m.div className="scan-line" style={{ top: scanTop, opacity: lineO }}>
+          <m.div className="scan-line" style={{ y: scanY, opacity: lineO }}>
             <m.span style={{ opacity: labelB }}>Reading structure</m.span>
           </m.div>
         </m.div>
-        <m.div className="story-report" style={{ width: report.w, marginLeft: -report.w / 2, x: rx, y: report.y, rotate: rRotate }}>
+        <m.div className="story-report" style={{ width: report.w, marginLeft: -report.w / 2, x: rx, y: report.y, rotate: rRotate, opacity: rOpacity }}>
           <m.div className="report-clip" style={{ clipPath: rClip }}>
             <ReportCard />
           </m.div>
