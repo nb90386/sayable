@@ -23,7 +23,7 @@ export function Deadline() {
   const draw = useTransform(scrollYProgress, [0, 1], [0, 1]);
 
   return (
-    <section id="deadline" aria-labelledby="deadline-title" className="deadline">
+    <section id="deadline" aria-labelledby="deadline-title" className="deadline" data-sc-act="deadline">
       <div className="wrap">
         <h2 id="deadline-title" className="deadline-head">
           <span className="deadline-date">April 26, 2027</span>

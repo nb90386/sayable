@@ -293,7 +293,6 @@ export function Story() {
   return (
     <section ref={track} className="story" aria-labelledby="hero-title" data-sc-act="story">
       <m.div ref={stage} className="story-stage" style={{ backgroundColor: bg }}>
-        <div className="story-grain" aria-hidden="true" />
         {geo ? (
           <StageVisual p={p} geo={geo}>
             <GroupLabels p={p} geo={geo} />

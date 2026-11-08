@@ -22,7 +22,7 @@ function Cell({ m, t }: { m: Mark; t: string }) {
 /** Why not a checker: one sharp distinction, an honest ledger, and the long version a click away. */
 export function Difference() {
   return (
-    <section aria-labelledby="diff-title" className="diff">
+    <section aria-labelledby="diff-title" className="diff" data-sc-act="diff">
       <div className="wrap">
         <div className="diff-intro">
           <h2 id="diff-title" className="headline max-w-[19ch]">

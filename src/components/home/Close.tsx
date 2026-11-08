@@ -22,7 +22,7 @@ export function Close() {
   const y0 = useTransform(scrollYProgress, [0, 1], [60, 0]);
 
   return (
-    <section ref={ref} aria-labelledby="close-title" className="close">
+    <section ref={ref} aria-labelledby="close-title" className="close" data-sc-act="close">
       <div className="wrap close-grid">
         <div className="close-stack" aria-hidden="true">
           <m.div className="close-sheet close-cover" style={p ? { rotate: s1, x: x1, y: y0 } : { rotate: -5, x: -18 }}>

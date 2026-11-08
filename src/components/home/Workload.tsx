@@ -55,7 +55,7 @@ export function Workload() {
   ];
 
   return (
-    <section aria-labelledby="work-title" className="work">
+    <section aria-labelledby="work-title" className="work" data-sc-act="work">
       <div className="wrap">
         <h2 id="work-title" className="headline max-w-[18ch]">
           How much work might your city have?
