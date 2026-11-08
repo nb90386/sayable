@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { JetBrains_Mono, Onest } from "next/font/google";
+import { JetBrains_Mono, Newsreader, Public_Sans } from "next/font/google";
 import { Footer } from "@/components/Footer";
 import { Header } from "@/components/Header";
 import { RevealObserver } from "@/components/RevealObserver";
@@ -10,9 +10,11 @@ import { SITE_URL, isProductionDeploy } from "@/content/url";
 import "./globals.css";
 import "./effects.css";
 
-// One family for every role: Onest, a humanist grotesk, warm at display sizes and very clear at body sizes.
-const onest = Onest({ subsets: ["latin"], variable: "--font-onest", display: "swap" });
-// Document annotations only.
+// Display: Newsreader, a text face with optical sizes, so headlines read like a printed public notice.
+const newsreader = Newsreader({ subsets: ["latin"], variable: "--font-newsreader", display: "swap", axes: ["opsz"], weight: "variable" });
+// Text: Public Sans, from the US Web Design System, designed for government services and very clear at small sizes.
+const publicSans = Public_Sans({ subsets: ["latin"], variable: "--font-public", display: "swap", weight: "variable" });
+// File names and machine values only.
 const jetbrains = JetBrains_Mono({ subsets: ["latin"], weight: ["400", "500"], variable: "--font-jetbrains", display: "swap", preload: false });
 
 export const metadata: Metadata = {
@@ -27,18 +29,18 @@ export const metadata: Metadata = {
   robots: isProductionDeploy ? { index: true, follow: true } : { index: false, follow: false },
 };
 
-export const viewport: Viewport = { themeColor: "#f8f9fb" };
+export const viewport: Viewport = { themeColor: "#f3efe7" };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en-US" className={`${onest.variable} ${jetbrains.variable}`}>
+    <html lang="en-US" data-scroll-behavior="smooth" className={`${newsreader.variable} ${publicSans.variable} ${jetbrains.variable}`}>
       <body>
         <a href="#main" className="skip-link sr-only-focusable">
           Skip to content
         </a>
         <MotionProvider>
           <Header />
-          <main id="main" tabIndex={-1} className="outline-none">
+          <main id="main" tabIndex={-1} className="site-main outline-none">
             {children}
           </main>
           <Footer />

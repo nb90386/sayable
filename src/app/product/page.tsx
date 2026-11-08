@@ -3,6 +3,7 @@ import Link from "next/link";
 import { PermitSheet, SheetLegend } from "@/components/doc/PermitSheet";
 import { PageCta, PageIntro, Row, Spec } from "@/components/pages/PageParts";
 import { FileScope, OfferLadder } from "@/components/pages/ProductTables";
+import { Compare } from "@/components/story/Compare";
 
 export const metadata: Metadata = {
   title: "Services and scope",
@@ -112,7 +113,6 @@ export default function ProductPage() {
       <PageIntro
         title="Find, fix and verify every public PDF."
         lede="Sayable is a PDF accessibility service for public agencies. We find the PDFs that need attention, repair them by hand with help from software we are still testing, and check every file the same way. One part is free and yours to use today: the PDF check."
-        note="Discover › Repair › Verify › Publish › Monitor"
       />
 
       <figure className="wrap pb-20 sm:pb-28">
@@ -131,39 +131,25 @@ export default function ProductPage() {
 
       <section aria-labelledby="workflow-title" className="wrap pb-20 sm:pb-28">
         <h2 id="workflow-title" className="headline max-w-[22ch] !text-[length:var(--step-3)]">
-          One workflow. Three stages you can buy today.
+          What you can buy today, and what is still being built.
         </h2>
-        <p className="mt-4 max-w-[60ch] text-ink-soft">
-          Every engagement runs on the same five stages. The first three are delivered by our team today. The last two
-          are software we are building, and we label them that way everywhere.
-        </p>
-        <ol className="relative mt-12 grid gap-y-10 sm:grid-cols-2 lg:grid-cols-5" aria-label="The five stages">
-          <span aria-hidden="true" className="absolute left-0 right-0 top-[7px] hidden h-[2px] bg-[linear-gradient(90deg,var(--color-signal)_0_60%,var(--rule-strong)_60%_100%)] lg:block" />
-          {workflow.map((w, i) => (
-            <li key={w.id} id={w.id} className="relative border-t pt-5 hairline lg:border-t-0 lg:pr-6 lg:pt-0">
-              <span
-                aria-hidden="true"
-                className={`relative hidden h-4 w-4 rounded-full border-[3px] border-paper lg:block ${w.now ? "bg-signal" : "bg-[var(--rule-strong)]"}`}
-              />
-              <p className="numeral text-[1.1rem] text-muted lg:mt-5">{String(i + 1).padStart(2, "0")}</p>
-              <h3 className="title mt-1 text-[1.35rem]">{w.name}</h3>
-              <p className="mt-2 text-[0.95rem] leading-snug text-ink-soft">{w.does}</p>
-              <dl className="mt-4 space-y-1 text-[0.85rem]">
-                <div className="flex gap-2">
-                  <dt className="text-muted">Who</dt>
-                  <dd className="font-[560]">{w.who}</dd>
-                </div>
-                <div className="flex gap-2">
-                  <dt className="text-muted">Status</dt>
-                  <dd className={`font-[600] ${w.now ? "text-signal" : "text-muted"}`}>{w.when}</dd>
-                </div>
-              </dl>
+        <ul className="prod-flow" aria-label="Stages of the work">
+          {workflow.map((w) => (
+            <li key={w.id} id={w.id} data-now={w.now ? "" : undefined}>
+              <h3 className="title text-[1.2rem]">{w.name}</h3>
+              <p className="mt-1.5 text-[0.95rem] leading-snug text-ink-soft">{w.does}</p>
+              <p className="prod-flow-meta">
+                <span className="hx-status" data-state={w.now ? "now" : "soon"}>
+                  {w.when}
+                </span>
+                <span className="text-muted">{w.who}</span>
+              </p>
             </li>
           ))}
-        </ol>
+        </ul>
         <p className="mt-10 max-w-[60ch] text-ink-soft">
-          See the stages on a sample permit form on the{" "}
-          <Link href="/#product-title" className="text-link">
+          See the work on a sample permit form on the{" "}
+          <Link href="/" className="text-link">
             home page
           </Link>
           , or read{" "}
@@ -195,7 +181,11 @@ export default function ProductPage() {
         <FileScope />
       </section>
 
-      <section aria-labelledby="services-title" className="wrap">
+      <div id="compare" className="scroll-mt-[var(--header-h)]">
+        <Compare />
+      </div>
+
+      <section aria-labelledby="services-title" className="wrap pt-20 sm:pt-28">
         <h2 id="services-title" className="headline !text-[length:var(--step-3)]">
           Each service in detail
         </h2>

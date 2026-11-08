@@ -1,39 +1,42 @@
 @import "tailwindcss";
 
 /* ──────────────────────────────────────────────────────────────
-   SAYABLE — MAKE DOCUMENT ACCESSIBILITY VISIBLE
-   Luminous cool white, ink, one structure blue. The document is the
-   product. Blue = structure made visible. Ember = a broken relationship.
-   Onest (all text) · JetBrains Mono (document annotations only).
+   SAYABLE · THE PUBLIC RECORD
+   Warm archive paper, carbon ink, and two colours that always mean something:
+   vermilion = a problem a person would hit, viridian = a repair that was checked.
+   Newsreader (display, the voice of a printed public notice) ·
+   Public Sans (text, built for US government services) ·
+   JetBrains Mono (file names and machine values only).
    ────────────────────────────────────────────────────────────── */
 
 @theme {
-  --color-paper: #f8f9fb;
-  --color-paper-deep: #eef1f5;
-  --color-sheet: #ffffff;
-  --color-surface: #e7ebf1;
-  --color-ink: #12151b;
-  --color-ink-soft: #3a414d;
-  --color-muted: #535b69;
-  /* the one accent: structure made visible */
-  --color-signal: #2458e8;
-  --color-signal-deep: #1a44c2;
-  --color-signal-wash: #e6edfd;
-  --color-signal-light: #8fb0ff;
-  /* a broken relationship (functional, sparse) */
-  --color-warm: #e5521f;
-  --color-warm-wash: #fdebe3;
-  --color-ember: #b53d12;
-  --color-ember-wash: #fdebe3;
-  /* cinematic scenes */
-  --color-night: #10141c;
-  --color-night-raise: #1a202b;
-  --color-moon: #f3f5f8;
-  --color-moon-muted: #a9b1bf;
-  --color-signal-night: #ff8f66;
+  --color-paper: #f3efe7;
+  --color-paper-deep: #eae4d8;
+  --color-sheet: #fffdf8;
+  --color-surface: #e4ddcf;
+  --color-ink: #17150f;
+  --color-ink-soft: #3d3931;
+  --color-muted: #5f5a50;
+  /* repaired and checked (also links and focus) */
+  --color-signal: #1b5a45;
+  --color-signal-deep: #134535;
+  --color-signal-wash: #dcebe1;
+  --color-signal-light: #8ed3b2;
+  /* a problem a person would hit */
+  --color-warm: #cf4520;
+  --color-warm-wash: #f6e0d5;
+  --color-ember: #a33612;
+  --color-ember-wash: #f6e0d5;
+  /* carbon chapters */
+  --color-night: #141310;
+  --color-night-raise: #1f1d18;
+  --color-moon: #f3efe7;
+  --color-moon-muted: #aba495;
+  --color-signal-night: #ff9a72;
 
-  --font-serif: var(--font-onest), ui-sans-serif, system-ui, sans-serif;
-  --font-sans: var(--font-onest), ui-sans-serif, system-ui, sans-serif;
+  --font-display: var(--font-newsreader), "Iowan Old Style", Georgia, serif;
+  --font-serif: var(--font-newsreader), "Iowan Old Style", Georgia, serif;
+  --font-sans: var(--font-public), ui-sans-serif, system-ui, sans-serif;
   --font-mono: var(--font-jetbrains), ui-monospace, "SF Mono", Menlo, monospace;
 
   --ease-out-quart: cubic-bezier(0.25, 1, 0.5, 1);
@@ -43,26 +46,28 @@
 
 :root {
   --step--1: clamp(0.84rem, 0.82rem + 0.1vw, 0.9rem);
-  --step-0: clamp(1.0625rem, 1.03rem + 0.16vw, 1.1875rem);
-  --step-1: clamp(1.2rem, 1.12rem + 0.4vw, 1.45rem);
-  --step-2: clamp(1.5rem, 1.3rem + 0.9vw, 2.15rem);
-  --step-3: clamp(2rem, 1.6rem + 1.9vw, 3.2rem);
-  --step-4: clamp(2.5rem, 1.8rem + 3.1vw, 4.6rem);
-  --step-5: clamp(2.9rem, 1.9rem + 4.4vw, 6rem);
+  --step-0: clamp(1.0625rem, 1.03rem + 0.16vw, 1.15rem);
+  --step-1: clamp(1.18rem, 1.1rem + 0.4vw, 1.4rem);
+  --step-2: clamp(1.5rem, 1.3rem + 0.9vw, 2.1rem);
+  --step-3: clamp(2rem, 1.55rem + 1.9vw, 3.1rem);
+  --step-4: clamp(2.4rem, 1.7rem + 3vw, 4.3rem);
+  --step-5: clamp(2.8rem, 1.8rem + 4.2vw, 5.6rem);
 
-  --gutter: clamp(1.1rem, 0.5rem + 2.6vw, 3rem);
+  --gutter: clamp(1rem, 0.5rem + 2.6vw, 3rem);
   --max: 82rem;
-  --rule: rgb(18 21 27 / 0.1);
-  --rule-strong: rgb(18 21 27 / 0.24);
-  --rule-night: rgb(243 245 248 / 0.14);
+  --rule: rgb(23 21 15 / 0.11);
+  --rule-strong: rgb(23 21 15 / 0.26);
+  --rule-night: rgb(243 239 231 / 0.14);
   --shadow-sheet:
     0 0.5px 0 rgb(255 255 255 / 0.9) inset,
-    0 1px 2px rgb(16 20 28 / 0.06),
-    0 18px 36px -18px rgb(16 20 28 / 0.22),
-    0 60px 110px -50px rgb(16 20 28 / 0.38);
-  --radius-sheet: 6px;
-  --radius-ui: 14px;
+    0 1px 2px rgb(40 30 12 / 0.07),
+    0 18px 36px -18px rgb(40 30 12 / 0.22),
+    0 60px 110px -50px rgb(40 30 12 / 0.36);
+  --radius-sheet: 4px;
+  --radius-ui: 12px;
   --header-h: 3.5rem;
+  --dur-enter: 220ms;
+  --dur-exit: 170ms;
   color-scheme: light;
 }
 
@@ -84,11 +89,11 @@
     font-family: var(--font-sans);
     font-size: var(--step-0);
     line-height: 1.58;
-    letter-spacing: -0.006em;
+    letter-spacing: 0;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     overflow-x: clip;
-    font-feature-settings: "ss01" 1;
+    font-feature-settings: "kern" 1;
   }
   ::selection { background: var(--color-signal); color: #fff; }
   :focus-visible { outline: 2.5px solid var(--color-signal); outline-offset: 3px; border-radius: 4px; }
@@ -104,25 +109,23 @@
   .grid-12 { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: clamp(1rem, 2vw, 2rem); }
 
   /* ─── Type roles ─── */
-  .display { font-family: var(--font-sans); font-weight: 650; letter-spacing: -0.042em; line-height: 0.98; }
-  .display .tone { font-style: normal; color: var(--color-signal); }
-  .on-night .display .tone { color: var(--color-signal-light); }
-  .display .tone.broken { color: var(--color-ember); }
-  .headline { font-family: var(--font-sans); font-weight: 640; letter-spacing: -0.036em; line-height: 1.02; font-size: var(--step-4); }
+  .display { font-family: var(--font-display); font-weight: 420; letter-spacing: -0.022em; line-height: 1; font-optical-sizing: auto; }
+  .display .tone { color: inherit; }
+  .headline { font-family: var(--font-display); font-weight: 420; letter-spacing: -0.02em; line-height: 1.04; font-size: var(--step-4); font-optical-sizing: auto; }
   .headline .tone { font-style: normal; color: var(--color-muted); }
   .on-night .headline .tone { color: var(--color-moon-muted); }
-  .title { font-family: var(--font-sans); font-weight: 600; letter-spacing: -0.022em; line-height: 1.15; }
-  .lede { font-size: var(--step-1); line-height: 1.45; color: var(--color-muted); max-width: 38ch; letter-spacing: -0.012em; }
+  .title { font-family: var(--font-sans); font-weight: 650; letter-spacing: -0.016em; line-height: 1.2; }
+  .lede { font-size: var(--step-1); line-height: 1.45; color: var(--color-muted); max-width: 40ch; letter-spacing: -0.01em; }
   .on-night .lede { color: var(--color-moon-muted); }
-  .tag { font-family: var(--font-mono); font-size: 0.78rem; line-height: 1.45; letter-spacing: -0.01em; color: var(--color-signal); white-space: normal; }
+  .tag { font-family: var(--font-sans); font-size: 0.82rem; font-weight: 600; line-height: 1.45; letter-spacing: 0; color: var(--color-muted); white-space: normal; }
   .mono { font-family: var(--font-mono); font-feature-settings: "zero" 1; letter-spacing: -0.01em; }
-  .numeral { font-family: var(--font-sans); font-weight: 600; letter-spacing: -0.04em; font-variant-numeric: tabular-nums; }
+  .numeral { font-family: var(--font-display); font-weight: 420; letter-spacing: -0.02em; font-variant-numeric: lining-nums tabular-nums; }
   .prose-tight p + p { margin-top: 0.9em; }
 
   /* ─── Actions ─── */
   .btn {
-    --btn-bg: var(--color-signal);
-    --btn-fg: #fff;
+    --btn-bg: var(--color-ink);
+    --btn-fg: var(--color-paper);
     position: relative;
     display: inline-flex;
     align-items: center;
@@ -130,22 +133,23 @@
     gap: 0.6rem;
     min-height: 3rem;
     padding: 0 1.4rem;
-    font-weight: 560;
-    font-size: 1.02rem;
-    letter-spacing: -0.01em;
+    font-weight: 600;
+    font-size: 1rem;
+    letter-spacing: -0.005em;
     color: var(--btn-fg);
     background: var(--btn-bg);
     border-radius: 999px;
     text-decoration: none;
     transition: background-color 0.25s, transform 0.35s var(--ease-out-expo);
   }
-  .btn:hover { background: color-mix(in oklab, var(--btn-bg), #000 12%); }
+  .btn:hover { background: color-mix(in oklab, var(--btn-bg), var(--color-signal) 28%); }
   .btn, .press { transition-property: background-color, color, box-shadow, transform; transition-duration: 0.16s; transition-timing-function: cubic-bezier(0.22, 1, 0.36, 1); }
   .btn:active, .press:active { transform: scale(0.97); transition-duration: 0.06s; }
   .btn .arrow { transition: transform 0.35s var(--ease-out-expo); }
   .btn:hover .arrow { transform: translateX(2px); }
   .btn-night { --btn-bg: var(--color-moon); --btn-fg: var(--color-night); }
   .btn-night:hover { background: #fff; }
+  .btn-quiet:hover, .btn-night:hover { color: var(--btn-fg); }
   .btn-quiet { --btn-bg: transparent; --btn-fg: currentColor; box-shadow: inset 0 0 0 1.5px var(--rule-strong); }
   .btn-quiet:hover { background: color-mix(in oklab, currentColor, transparent 94%); }
 
@@ -181,4 +185,18 @@
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation-duration: 0.001ms !important; animation-iteration-count: 1 !important; transition-duration: 0.001ms !important; }
   .js-motion [data-reveal] { opacity: 1 !important; transform: none !important; }
+}
+
+/* ─── Page transitions (React ViewTransition, see app/template.tsx) ─── */
+::view-transition { pointer-events: none; }
+::view-transition-old(.page-out) { animation: 120ms cubic-bezier(0.4, 0, 1, 1) both vt-fade reverse; }
+::view-transition-new(.page-in) { animation: 200ms cubic-bezier(0.22, 1, 0.36, 1) 100ms both vt-fade, 320ms cubic-bezier(0.22, 1, 0.36, 1) 100ms both vt-rise; }
+::view-transition-group(site-header) { animation: none; z-index: 100; }
+::view-transition-old(site-header) { display: none; }
+::view-transition-new(site-header) { animation: none; }
+@keyframes vt-fade { from { opacity: 0; } to { opacity: 1; } }
+@keyframes vt-rise { from { translate: 0 12px; } to { translate: 0 0; } }
+@media (prefers-reduced-motion: reduce) {
+  ::view-transition-new(.page-in) { animation: 120ms linear both vt-fade; }
+  ::view-transition-old(.page-out) { animation: 80ms linear both vt-fade reverse; }
 }

@@ -91,7 +91,7 @@ const piles = [
 
 /** Edges of a stack of sheets: a white sheet then a hairline, repeated. */
 const edgeShadow = (k: number) =>
-  Array.from({ length: k }, (_, j) => `0 ${(j + 1) * 3}px 0 -1px #fff, 0 ${(j + 1) * 3 + 1}px 0 -1px rgb(18 21 27 / 0.16)`).join(", ");
+  Array.from({ length: k }, (_, j) => `0 ${(j + 1) * 3}px 0 -1px #fff, 0 ${(j + 1) * 3 + 1}px 0 -1px rgb(23 21 15 / 0.16)`).join(", ");
 
 /** Three paper piles: where each kind of file lands after the recommendation. */
 export function SortPiles() {

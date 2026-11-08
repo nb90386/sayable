@@ -227,17 +227,16 @@ export default function ReadinessAuditPage() {
           <h2 id="receive" className="headline !text-[length:var(--step-3)]">
             What&rsquo;s in the report
           </h2>
-          <ol className="mt-8 grid border-t hairline md:grid-cols-2 md:gap-x-12">
+          <ul className="mt-8 grid border-t hairline md:grid-cols-2 md:gap-x-12">
             {deliverables.map((d, i) => (
-              <li key={d.t} className="grid grid-cols-[2.5rem_1fr] gap-x-3 border-b py-5 hairline">
-                <span className="tag pt-1.5">{String(i + 1).padStart(2, "0")}</span>
+              <li key={d.t} className="grid border-b py-5 hairline">
                 <div>
                   <h3 className="title text-[1.15rem]">{d.t}</h3>
                   <p className="mt-1.5 text-[0.975rem] text-ink-soft">{d.d}</p>
                 </div>
               </li>
             ))}
-          </ol>
+          </ul>
           <h3 className="title mt-14 text-[length:var(--step-2)]">Three pages from a sample report</h3>
           <div className="mt-6">
             <ReportPages />

@@ -57,7 +57,7 @@ export default function AgenciesPage() {
           <ol className="mt-10 border-t hairline">
             {moments.map((m, i) => (
               <li key={m.t} className="grid-12 gap-y-3 border-b py-8 hairline">
-                <p className="tag col-span-12 md:col-span-2">{String(i + 1).padStart(2, "0")} {m.when}</p>
+                <p className="tag col-span-12 md:col-span-2">{m.when}</p>
                 <h3 className="title col-span-12 text-[1.35rem] md:col-span-4">{m.t}</h3>
                 <p className="col-span-12 max-w-[58ch] text-ink-soft md:col-span-6">{m.d}</p>
               </li>

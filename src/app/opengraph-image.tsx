@@ -4,9 +4,9 @@ export const alt = "Sayable: many city PDFs can't be read by people who use scre
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
-const INK = "#12151b";
-const PAPER = "#f8f9fb";
-const SIGNAL = "#2458e8";
+const INK = "#17150f";
+const PAPER = "#f3efe7";
+const SIGNAL = "#1b5a45";
 const MUTED = "#535b69";
 
 /** Social preview: the claim on the left, the signature document on the right with its reading path. */
@@ -25,7 +25,7 @@ export default function OpengraphImage() {
             <svg width="30" height="35" viewBox="0 0 24 28">
               <rect x="1" y="1" width="20" height="26" rx="4" fill={INK} />
               <path d="M5 7.5c5 0 9 1.5 9 4.5s-8 2.5-8 6 4 4 10 4" fill="none" stroke={PAPER} strokeWidth="1.9" strokeLinecap="round" />
-              <circle cx="19.5" cy="22" r="3.2" fill="#e5521f" stroke={INK} strokeWidth="1.2" />
+              <circle cx="19.5" cy="22" r="3.2" fill="#cf4520" stroke={INK} strokeWidth="1.2" />
             </svg>
             <span style={{ fontSize: 34, fontWeight: 600, letterSpacing: -1 }}>Sayable</span>
           </div>

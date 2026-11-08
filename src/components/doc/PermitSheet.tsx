@@ -48,15 +48,15 @@ export function BrokenLayer() {
   const unnamed = ["name", "phone", "address", "work", "signature"];
   return (
     <g>
-      <path d={orderedPath(brokenOrder, true)} fill="none" stroke="#e5521f" strokeWidth="2.4" strokeOpacity="0.85" strokeLinecap="round" className="sheet-path" pathLength={100} />
+      <path d={orderedPath(brokenOrder, true)} fill="none" stroke="#cf4520" strokeWidth="2.4" strokeOpacity="0.85" strokeLinecap="round" className="sheet-path" pathLength={100} />
       {unnamed.map((id) => {
         const r = regions[id]!;
         return (
           <g key={id}>
-            <rect x={r.x - 6} y={r.y - 6} width={r.w + 12} height={r.h + 12} rx="8" fill="rgb(229 82 31 / 0.06)" stroke="#e5521f" strokeWidth="2.4" strokeDasharray="10 7" />
+            <rect x={r.x - 6} y={r.y - 6} width={r.w + 12} height={r.h + 12} rx="8" fill="rgb(207 69 32 / 0.06)" stroke="#cf4520" strokeWidth="2.4" strokeDasharray="10 7" />
             <g transform={`translate(${r.x + r.w - 196} ${r.y - 18})`} className="ann-chip">
-              <rect width="202" height="30" rx="15" fill="#b53d12" />
-              <text x="16" y="20.5" fontFamily="var(--font-mono)" fontSize="14" fill="#fff">
+              <rect width="202" height="30" rx="15" fill="#a33612" />
+              <text x="16" y="20.5" fontFamily="var(--font-sans)" fontWeight="600" fontSize="14" fill="#fff">
                 no accessible name
               </text>
             </g>
@@ -64,8 +64,8 @@ export function BrokenLayer() {
         );
       })}
       <g transform={`translate(${regions.title!.x} ${regions.title!.y - 26})`} className="ann-chip">
-        <rect width="226" height="30" rx="15" fill="#fff" stroke="#e5521f" strokeWidth="2" />
-        <text x="16" y="20.5" fontFamily="var(--font-mono)" fontSize="14" fill="#b53d12">
+        <rect width="226" height="30" rx="15" fill="#fff" stroke="#cf4520" strokeWidth="2" />
+        <text x="16" y="20.5" fontFamily="var(--font-sans)" fontWeight="600" fontSize="14" fill="#a33612">
           tagged as text, not H1
         </text>
       </g>
@@ -73,7 +73,7 @@ export function BrokenLayer() {
         const a = anchor(id);
         return (
           <g key={id} transform={`translate(${a.x} ${a.y})`}>
-            <circle r="16" fill="#b53d12" />
+            <circle r="16" fill="#a33612" />
             <text y="6" textAnchor="middle" fontFamily="var(--font-sans)" fontWeight="600" fontSize="16" fill="#fff">
               {i + 1}
             </text>
@@ -81,8 +81,8 @@ export function BrokenLayer() {
         );
       })}
       <g transform={`translate(${regions.footer!.x} ${regions.footer!.y - 40})`} className="ann-chip">
-        <rect width="178" height="30" rx="15" fill="#fff" stroke="#e5521f" strokeWidth="2" />
-        <text x="16" y="20.5" fontFamily="var(--font-mono)" fontSize="14" fill="#b53d12">
+        <rect width="178" height="30" rx="15" fill="#fff" stroke="#cf4520" strokeWidth="2" />
+        <text x="16" y="20.5" fontFamily="var(--font-sans)" fontWeight="600" fontSize="14" fill="#a33612">
           read first: footer
         </text>
       </g>
@@ -93,7 +93,7 @@ export function BrokenLayer() {
 export function FixedLayer() {
   return (
     <g>
-      <path d={orderedPath(fixedOrder, false)} fill="none" stroke="#2458e8" strokeWidth="3.2" strokeLinecap="round" className="sheet-path" pathLength={100} />
+      <path d={orderedPath(fixedOrder, false)} fill="none" stroke="#1b5a45" strokeWidth="3.2" strokeLinecap="round" className="sheet-path" pathLength={100} />
       {fixedOrder.map((id, i) => {
         const r = regions[id]!;
         const a = anchor(id);
@@ -101,17 +101,17 @@ export function FixedLayer() {
         const w = label ? label.length * 9.2 + 26 : 0;
         return (
           <g key={id}>
-            <rect x={r.x - 6} y={r.y - 6} width={r.w + 12} height={r.h + 12} rx="8" fill="rgb(36 88 232 / 0.05)" stroke="#2458e8" strokeWidth="2" />
+            <rect x={r.x - 6} y={r.y - 6} width={r.w + 12} height={r.h + 12} rx="8" fill="rgb(27 90 69 / 0.05)" stroke="#1b5a45" strokeWidth="2" />
             {label ? (
               <g transform={`translate(${r.x + r.w - w + 6} ${r.y - 20})`} className="ann-chip">
-                <rect width={w} height="28" rx="14" fill="#2458e8" />
+                <rect width={w} height="28" rx="14" fill="#1b5a45" />
                 <text x="13" y="19.5" fontFamily="var(--font-mono)" fontSize="14" fill="#fff">
                   {label}
                 </text>
               </g>
             ) : null}
             <g transform={`translate(${a.x} ${a.y})`}>
-              <circle r="16" fill="#12151b" />
+              <circle r="16" fill="#17150f" />
               <text y="5.5" textAnchor="middle" fontFamily="var(--font-sans)" fontWeight="600" fontSize="15" fill="#fff">
                 {i + 1}
               </text>

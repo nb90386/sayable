@@ -200,12 +200,7 @@ export function Header() {
 
   let row = 0;
   return (
-    <header
-      className={`fixed inset-x-0 top-0 z-50 transition-[background-color,border-color] duration-300 ${
-        scrolled || open ? "border-b bg-paper hairline" : "border-b border-transparent bg-paper"
-      }`}
-      style={{ height: "var(--header-h)" }}
-    >
+    <header className="site-header" data-scrolled={scrolled || open ? "" : undefined} data-open={open ? "" : undefined} style={{ height: "var(--header-h)" }}>
       <div className="wrap flex h-full items-center justify-between gap-6">
         <Link href="/" className="relative z-10 -ml-1 rounded-sm px-1 py-2 no-underline" aria-label="Sayable home">
           <Wordmark />
@@ -263,7 +258,7 @@ export function Header() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1, transition: tUi }}
             exit={{ opacity: 0, transition: tUiExit }}
-            className="fixed inset-x-0 bottom-0 top-[var(--header-h)] overflow-y-auto bg-paper lg:hidden"
+            className="fixed inset-x-0 bottom-0 top-[var(--header-h)] overflow-y-auto bg-paper text-ink lg:hidden"
           >
             <nav aria-label="Mobile" className="wrap flex min-h-full flex-col pb-10 pt-4">
               {nav.map((g) => (

@@ -33,7 +33,7 @@ const footerCols = [
 
 export function Footer() {
   return (
-    <footer className="night on-night relative overflow-hidden">
+    <footer className="site-footer night on-night overflow-hidden">
       <div className="wrap pb-10 pt-20 sm:pt-28">
         <div className="grid-12 gap-y-14">
           <div className="col-span-12 md:col-span-6">

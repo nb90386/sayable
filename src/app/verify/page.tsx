@@ -262,8 +262,7 @@ export default function VerifyPage() {
           </h2>
           <ol className="grid-12 mt-10">
             {rules.map((r, i) => (
-              <li key={r.t} className={`col-span-12 grid grid-cols-[3rem_1fr] gap-x-4 border-t py-7 hairline md:col-span-6 ${i % 2 ? "md:pl-8" : "md:pr-8"}`}>
-                <span className="tag pt-1.5">{String(i + 1).padStart(2, "0")}</span>
+              <li key={r.t} className={`col-span-12 border-t py-7 hairline md:col-span-6 ${i % 2 ? "md:pl-8" : "md:pr-8"}`}>
                 <div>
                   <h3 className="title text-[1.25rem]">{r.t}</h3>
                   <p className="mt-2 max-w-[52ch] text-ink-soft">{r.d}</p>
