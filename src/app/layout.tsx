@@ -29,7 +29,7 @@ export const metadata: Metadata = {
   robots: isProductionDeploy ? { index: true, follow: true } : { index: false, follow: false },
 };
 
-export const viewport: Viewport = { themeColor: "#f3efe7" };
+export const viewport: Viewport = { themeColor: "#ecebe7" };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (

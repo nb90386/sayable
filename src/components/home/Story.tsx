@@ -151,7 +151,7 @@ function SceneCopy({ i, active }: { i: number; active: boolean }) {
             <Link href="/readiness-audit" className="text-link">
               Readiness Audit
             </Link>
-            : available now.
+            : available now. <span className="md:hidden">The picture is an illustration, not real data.</span>
           </Availability>
         </>
       );
@@ -247,11 +247,22 @@ export function Story() {
   const track = useRef<HTMLElement>(null);
   const stage = useRef<HTMLDivElement>(null);
   const size = useStageSize(stage);
-  const geo = useMemo(() => (size ? geometry(size.W, size.H) : null), [size]);
+  const heroRef = useRef<HTMLDivElement>(null);
+  const [heroBottom, setHeroBottom] = useState(0);
+  useIso(() => {
+    const el = heroRef.current;
+    if (!el) return;
+    const set = () => setHeroBottom(Math.round(el.offsetTop + el.offsetHeight));
+    set();
+    const ro = new ResizeObserver(set);
+    ro.observe(el);
+    return () => ro.disconnect();
+  }, []);
+  const geo = useMemo(() => (size ? geometry(size.W, size.H, false, heroBottom) : null), [size, heroBottom]);
   const { scrollYProgress: p } = useScroll({ target: track, offset: ["start start", "end end"] });
   const [active, setActive] = useState(-1);
 
-  const bg = useTransform(p, [0.05, 0.09, P.f0 + 0.015, P.f0 + 0.045], ["#f3efe7", "#141310", "#141310", "#f3efe7"]);
+  const bg = useTransform(p, [0.05, 0.09, P.f0 + 0.015, P.f0 + 0.045], ["#ecebe7", "#141310", "#141310", "#ecebe7"]);
   const heroO = useTransform(p, [0, P.aHold, P.aHold + 0.04], [1, 1, 0]);
   const heroY = useTransform(p, [0, P.aHold + 0.04], [0, -60]);
   const railO = useTransform(p, [P.b0 - 0.02, P.b0, 0.985, 1], [0, 1, 1, 0]);
@@ -289,7 +300,7 @@ export function Story() {
           </StageVisual>
         ) : null}
 
-        <m.div className="hero-copy wrap" style={{ opacity: heroO, y: heroY }}>
+        <m.div ref={heroRef} className="hero-copy wrap" style={{ opacity: heroO, y: heroY }}>
           <Hero />
         </m.div>
 

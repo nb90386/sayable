@@ -66,7 +66,7 @@ function Archive({ p, geo }: { p: MotionValue<number>; geo: Geo }) {
       // Archived files settle back once sorted; the rest stay bright.
       const dim = t.g === 1 ? 1 - 0.5 * tt : 1;
       ctx.globalAlpha = appear * fade * dim;
-      ctx.fillStyle = "#efe9dc";
+      ctx.fillStyle = "#eceae4";
       ctx.fillRect(x - tw / 2, y - th / 2, tw, th);
       ctx.fillStyle = "rgba(23,21,15,0.32)";
       ctx.fillRect(x - tw / 2 + tw * 0.14, y - th / 2 + th * 0.14, tw * 0.56, Math.max(1, th * 0.05));
@@ -157,7 +157,7 @@ export function ReportCard() {
     <div className="report-card">
       <div className="flex items-baseline justify-between gap-4 border-b pb-3 hairline">
         <p className="mono text-[0.78rem] text-ink-soft">permit-application.pdf</p>
-        <p className="text-[0.74rem] font-[600] text-muted">Sample report</p>
+        <p className="text-[0.78rem] font-[600] text-muted">Sample report</p>
       </div>
       <ol className="mt-1">
         {rows.map(([was, now]) => (

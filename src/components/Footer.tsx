@@ -67,7 +67,7 @@ export function Footer() {
           </nav>
         </div>
 
-        <div className="mt-20 grid gap-8 border-t pt-8 text-[0.875rem] text-moon-muted md:grid-cols-[1fr_auto]" style={{ borderColor: "var(--rule-night)" }}>
+        <div className="mt-20 grid gap-8 border-t pt-8 text-[0.875rem] text-moon-muted lg:grid-cols-[1fr_auto]" style={{ borderColor: "var(--rule-night)" }}>
           <p className="max-w-[70ch]">
             Sayable reports what was checked and what the results were. We do not certify legal compliance, and nothing
             on this site is legal advice.{" "}

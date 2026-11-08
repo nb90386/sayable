@@ -5,7 +5,7 @@ export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
 const INK = "#17150f";
-const PAPER = "#f3efe7";
+const PAPER = "#ecebe7";
 const SIGNAL = "#1b5a45";
 const MUTED = "#535b69";
 

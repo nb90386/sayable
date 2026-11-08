@@ -10,10 +10,10 @@
    ────────────────────────────────────────────────────────────── */
 
 @theme {
-  --color-paper: #f3efe7;
-  --color-paper-deep: #eae4d8;
-  --color-sheet: #fffdf8;
-  --color-surface: #e4ddcf;
+  --color-paper: #ecebe7;
+  --color-paper-deep: #e1dfd9;
+  --color-sheet: #fbfaf8;
+  --color-surface: #d9d6cf;
   --color-ink: #17150f;
   --color-ink-soft: #3d3931;
   --color-muted: #5f5a50;
@@ -30,8 +30,8 @@
   /* carbon chapters */
   --color-night: #141310;
   --color-night-raise: #1f1d18;
-  --color-moon: #f3efe7;
-  --color-moon-muted: #aba495;
+  --color-moon: #eeede9;
+  --color-moon-muted: #a7a49d;
   --color-signal-night: #ff9a72;
 
   --font-display: var(--font-newsreader), "Iowan Old Style", Georgia, serif;

@@ -26,7 +26,7 @@ export function Close() {
       <div className="wrap close-grid">
         <div className="close-stack" aria-hidden="true">
           <m.div className="close-sheet close-cover" style={p ? { rotate: s1, x: x1, y: y0 } : { rotate: -5, x: -18 }}>
-            <p className="text-[0.7rem] font-[650] uppercase tracking-[0.12em] text-muted">Sample · fictional city</p>
+            <p className="text-[0.78rem] font-[600] text-muted">Sample, fictional city</p>
             <p className="mt-3 font-display text-[1.45rem] leading-[1.05]">PDF Readiness Audit</p>
             <p className="mt-1 text-[0.8rem] text-muted">City of Alder Creek</p>
             <div className="mt-5 grid gap-1.5">
@@ -37,17 +37,17 @@ export function Close() {
                 ["May be excepted", "w-[46%]"],
               ].map(([k, w]) => (
                 <div key={k}>
-                  <p className="text-[0.66rem] text-muted">{k}</p>
+                  <p className="text-[0.72rem] text-muted">{k}</p>
                   <div className={`mt-0.5 h-1.5 rounded-full bg-ink/25 ${w}`} />
                 </div>
               ))}
             </div>
           </m.div>
           <m.div className="close-sheet close-report" style={p ? { rotate: s2, x: x2, y: y0 } : { rotate: 3, x: 22 }}>
-            <p className="mono text-[0.62rem] text-muted">permit-application.pdf</p>
+            <p className="mono text-[0.7rem] text-muted">permit-application.pdf</p>
             <p className="mt-2 text-[0.8rem] font-[650]">Repair report</p>
             {["Fields named", "Reading order fixed", "Heading tagged", "Listened to"].map((t) => (
-              <p key={t} className="mt-1.5 flex items-center gap-1.5 text-[0.7rem]">
+              <p key={t} className="mt-1.5 flex items-center gap-1.5 text-[0.76rem]">
                 <span className="text-signal" data-icon="check" />
                 {t}
               </p>

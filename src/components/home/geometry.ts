@@ -55,13 +55,13 @@ const RATIO = 1100 / 850;
  * `figure` lays the same objects out for a static, centred illustration
  * (reduced motion and the no-animation fallback) instead of the scroll stage.
  */
-export function geometry(W: number, H: number, figure = false): Geo {
+export function geometry(W: number, H: number, figure = false, heroBottom = 0): Geo {
   const narrow = W < 900;
   const g = Math.max(16, Math.min(48, W * 0.035));
   const top = figure ? 0 : HEADER;
 
   // Visual zone: on phones the lower part of the stage belongs to the copy.
-  const vz: Rect = narrow && !figure ? { x: g, y: top + 8, w: W - 2 * g, h: H * 0.57 - top - 8 } : { x: g, y: top, w: W - 2 * g, h: H - top };
+  const vz: Rect = narrow && !figure ? { x: g, y: top + 8, w: W - 2 * g, h: H * 0.53 - top - 8 } : { x: g, y: top, w: W - 2 * g, h: H - top };
 
   const docW = narrow ? Math.min(W * 0.66, (vz.h - 24) / RATIO, 420) : Math.min(W * 0.34, ((H - top) * 0.72) / RATIO, 560);
   const docH = docW * RATIO;
@@ -186,7 +186,7 @@ export function geometry(W: number, H: number, figure = false): Geo {
       }
     : narrow
       ? {
-          a: { x: W / 2, y: H * 0.74 + (docH * 1.06) / 2, s: 1.06, r: 16 },
+          a: { x: W / 2, y: Math.max(H * 0.74, heroBottom + 24) + (docH * 1.06) / 2, s: 1.06, r: 16 },
           b: { x: W / 2, y: cy, s: 1 },
           grid: { x: heroTile.gx, y: heroTile.gy, s: tileS },
           sorted: { x: heroTile.sx, y: heroTile.sy, s: tileS * tile.k },
@@ -194,7 +194,7 @@ export function geometry(W: number, H: number, figure = false): Geo {
           f: { x: W * 0.4, y: cy - 10, s: 0.8 },
         }
       : {
-          a: { x: W / 2, y: H * 0.5 + (docH * 1.55) / 2, s: 1.55, r: 26 },
+          a: { x: W / 2, y: Math.max(H * 0.5, heroBottom + 32) + (docH * 1.55) / 2, s: 1.55, r: 26 },
           b: { x: W * 0.6, y: top + (H - top) / 2, s: 1 },
           grid: { x: heroTile.gx, y: heroTile.gy, s: tileS },
           sorted: { x: heroTile.sx, y: heroTile.sy, s: tileS * tile.k },
@@ -206,7 +206,7 @@ export function geometry(W: number, H: number, figure = false): Geo {
   const report = figure
     ? { x: narrow ? W / 2 : W * 0.66, y: H / 2, w: narrow ? Math.min(W - 2 * g, 380) : Math.min(440, W * 0.4), from: W + 60 }
     : narrow
-      ? { x: W / 2 + 8, y: cy + 16, w: reportW, from: W + reportW }
+      ? { x: W / 2 + 8, y: cy - 6, w: reportW, from: W + reportW }
       : { x: W * 0.5 + docW * 0.43 + reportW * 0.42, y: top + (H - top) / 2 + 20, w: reportW, from: W + reportW };
 
   const sortedBottom = Math.max(...tiles.map((t) => t.sy)) + sh / 2;

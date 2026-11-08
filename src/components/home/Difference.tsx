@@ -25,7 +25,7 @@ export function Difference() {
     <section aria-labelledby="diff-title" className="diff">
       <div className="wrap">
         <div className="diff-intro">
-          <h2 id="diff-title" className="headline max-w-[16ch]">
+          <h2 id="diff-title" className="headline max-w-[19ch]">
             A checker looks at one file. Your city has thousands.
           </h2>
           <p className="lede !max-w-[44ch]">
