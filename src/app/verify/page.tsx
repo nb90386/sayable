@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { PageIntro } from "@/components/pages/PageParts";
+import { VerifyFlow } from "@/components/pages/VerifyFlow";
 import { BuyerCta } from "@/components/pages/buyer/BuyerCta";
 
 export const metadata: Metadata = {
@@ -93,6 +94,42 @@ export default function VerifyPage() {
         lede="A PDF can pass a validator and still be unreadable with a screen reader. Sayable layers automated checks with human review and reports each result separately."
         note="Technical validation, not a legal determination"
       />
+
+      <section aria-labelledby="flow" className="border-t hairline py-16 sm:py-24">
+        <div className="wrap">
+          <h2 id="flow" className="headline max-w-[22ch] !text-[length:var(--step-3)]">
+            One finding, from discovery to review
+          </h2>
+          <p className="mt-4 max-w-[60ch] text-ink-soft">
+            Every fix follows the same chain. Software does what it can see. A person does what needs judgment. Each stage says plainly what it cannot tell you.
+          </p>
+          <div className="mt-10">
+            <VerifyFlow />
+          </div>
+        </div>
+      </section>
+
+      <section aria-labelledby="checked-against" className="border-t hairline py-12 sm:py-16">
+        <div className="wrap grid-12 gap-y-6">
+          <div className="col-span-12 lg:col-span-4">
+            <h2 id="checked-against" className="sp-h2">Standards we check against</h2>
+            <p className="mt-3 max-w-[36ch] text-[0.95rem] text-muted">These are the references our checks are built on. They are not certifications, and Sayable holds none of them.</p>
+          </div>
+          <ul className="col-span-12 grid gap-x-8 border-t hairline md:grid-cols-3 lg:col-span-8">
+            {[
+              ["WCAG 2.1 Level AA", "The web accessibility guidelines the ADA Title II rule adopts.", "https://www.w3.org/TR/WCAG21/"],
+              ["PDF/UA (ISO 14289-1)", "The standard for accessible PDF structure that veraPDF validates against.", "https://www.iso.org/standard/64599.html"],
+              ["DOJ ADA Title II web rule", "The rule for state and local government web content, with its dates and exceptions.", "https://www.ada.gov/resources/web-rule-first-steps/"],
+            ].map(([t, d, h]) => (
+              <li key={t} className="border-b py-5 hairline md:border-b-0">
+                <h3 className="sp-h3">{t}</h3>
+                <p className="mt-2 text-[0.95rem] text-ink-soft">{d}</p>
+                <p className="mt-2"><a href={h} className="text-link" rel="noopener noreferrer">Read the source<span className="sr-only"> for {t}</span></a></p>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </section>
 
       <section aria-labelledby="layers" className="border-t hairline py-16 sm:py-24">
         <div className="wrap">

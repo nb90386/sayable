@@ -2,7 +2,8 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { PermitSheet, SheetLegend } from "@/components/doc/PermitSheet";
 import { PageCta, PageIntro, Reveal } from "@/components/pages/PageParts";
-import { FindingReview } from "@/components/pages/FindingReview";
+import { BeforeAfter, ProductMock } from "@/components/pages/ProductMock";
+import { Workflow } from "@/components/pages/Workflow";
 import { FileScope, OfferLadder } from "@/components/pages/ProductTables";
 import { Compare } from "@/components/story/Compare";
 
@@ -21,6 +22,14 @@ const laterItems = [
   { name: "Agenda Desk", state: "soon", d: "Meeting packets repaired and checked on a clock. Limited pilot by arrangement, turnaround agreed in writing." },
   { name: "Team check before posting", state: "soon", d: "A version of the free check for staff that also fixes routine problems. In development." },
   { name: "Monitoring", state: "soon", d: "Notices new uploads and recurring problems. Planned. Not available." },
+];
+
+const stages = [
+  { name: "Find", d: "Crawl the public site and list every linked PDF with the page that links to it.", who: "Software finds. A person reads the list.", now: true, status: "Available now" },
+  { name: "Prioritize", d: "Sort into fix, convert, archive or delete, and rank the files residents use.", who: "A person ranks. Your team decides.", now: true, status: "Available now" },
+  { name: "Repair", d: "Names, headings, reading order, tables and forms put right.", who: "Done by people. Software in testing drafts routine fixes.", now: true, status: "Available now, by people" },
+  { name: "Verify", d: "veraPDF and our semantic check, then a person on tables, forms and scans.", who: "Software checks. A person reviews.", now: true, status: "Available now" },
+  { name: "Keep up", d: "Notice new uploads and recurring problems before they pile up.", who: "Software watches. A person reviews.", now: false, status: "Planned. Not available" },
 ];
 
 const details = [
@@ -76,14 +85,42 @@ export default function ProductPage() {
         </p>
       </section>
 
-      <section aria-labelledby="flow-title" className="sp-section sp-band">
+      <section aria-labelledby="wf-title" className="sp-section sp-band">
+        <div className="wrap">
+          <Reveal as="h2" id="wf-title" className="sp-h2 max-w-[24ch]">
+            Five stages, one record
+          </Reveal>
+          <p className="sp-lede mt-4">Software finds and drafts. A person decides. Nothing is marked done until it is checked again.</p>
+          <div className="mt-10">
+            <Workflow stages={stages} label="The five stages and what is available" />
+          </div>
+        </div>
+      </section>
+
+      <section aria-labelledby="flow-title" className="sp-section">
         <div className="wrap">
           <Reveal as="h2" id="flow-title" className="sp-h2 max-w-[24ch]">
             From a finding to a reviewed fix
           </Reveal>
-          <p className="sp-lede mt-4">Software finds and drafts. A person decides. Nothing is marked done until it is checked again.</p>
+          <p className="sp-lede mt-4">Pick a file, then a finding. Each one has a plain-language version for a city manager, the technical detail for whoever repairs it, and where it stands in review.</p>
           <div className="mt-10">
-            <FindingReview />
+            <ProductMock />
+          </div>
+        </div>
+      </section>
+
+      <section aria-labelledby="ba-title" className="sp-section sp-band">
+        <div className="wrap">
+          <div className="grid-12 items-start gap-y-6">
+            <div className="col-span-12 lg:col-span-4">
+              <Reveal as="h2" id="ba-title" className="sp-h2">
+                The page does not change. What a reader hears does.
+              </Reveal>
+              <p className="mt-4 text-ink-soft">One form field, before and after repair. Switch the view to compare the structure behind it and what a screen reader says.</p>
+            </div>
+            <div className="col-span-12 lg:col-span-8">
+              <BeforeAfter />
+            </div>
           </div>
         </div>
       </section>

@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { InventoryRowDiagram } from "@/components/pages/guide/Diagrams";
 import { GuideLayout } from "@/components/pages/guide/GuideLayout";
 import { DataTable, GuideSection, H3, Note, UL } from "@/components/pages/guide/GuideParts";
 import { resources } from "@/content/resources";
@@ -82,6 +83,7 @@ export default function Page() {
       </GuideSection>
 
       <GuideSection id="record" title="What to record for each file">
+        <InventoryRowDiagram />
         <UL>
           <li>
             <strong>URL.</strong> The exact address, since the same file name can exist in several folders.

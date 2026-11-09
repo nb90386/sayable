@@ -123,6 +123,10 @@ export function Workload() {
           ) : null}
         </p>
 
+        <p className="work-assume">
+          Assumes {a.inUse}% of pages are still in use, {a.complex}% are forms, tables or scans, {MIN.simple[0]} to {MIN.simple[1]} minutes for a simple page and{" "}
+          {MIN.complex[0]} to {MIN.complex[1]} for a complex one.
+        </p>
         <details className="work-details">
           <summary>Change the assumptions</summary>
           <div className="work-adv">

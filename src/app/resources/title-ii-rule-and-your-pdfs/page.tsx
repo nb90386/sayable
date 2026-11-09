@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { DatesDiagram } from "@/components/pages/guide/Diagrams";
 import { GuideLayout } from "@/components/pages/guide/GuideLayout";
 import { DataTable, GuideSection, Note, OL, UL } from "@/components/pages/guide/GuideParts";
 import { resources } from "@/content/resources";
@@ -66,6 +67,7 @@ export default function Page() {
             ["Special district governments, whatever their size", "April 26, 2028"],
           ]}
         />
+        <DatesDiagram />
         <p>
           In May 2026 the National Federation of the Blind sued the Department of Justice, asking a court to undo the extension and restore the
           earlier dates. As of this writing we know of no ruling. DOJ has also said it may propose further changes. Plan for the dates above, and

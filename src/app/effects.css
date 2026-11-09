@@ -496,6 +496,8 @@ html[data-hdr="night"] .site-header .text-muted { color: var(--color-moon-muted)
 .work-foot { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 1.25rem 2rem; margin-top: 2.25rem; }
 .work-foot p { max-width: 52ch; font-size: 0.88rem; color: var(--color-muted); }
 
+.work-assume { margin-top: 0.9rem; font-size: 0.92rem; line-height: 1.5; color: var(--color-muted); max-width: 70ch; font-variant-numeric: tabular-nums; }
+
 /* ─── Close: the dusk rises with a curved edge and carries the result ── */
 .close { position: relative; height: 175vh; background: var(--color-paper); }
 .close-stage { position: sticky; top: 0; height: 100vh; height: 100svh; overflow: hidden; }

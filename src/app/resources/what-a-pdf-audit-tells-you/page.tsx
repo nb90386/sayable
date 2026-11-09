@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { ReportStatesDiagram } from "@/components/pages/guide/Diagrams";
 import { GuideLayout } from "@/components/pages/guide/GuideLayout";
 import { GuideSection, H3, Note, UL } from "@/components/pages/guide/GuideParts";
 import { resources } from "@/content/resources";
@@ -141,6 +142,7 @@ export default function Page() {
           A fair report has three states. Items nobody examined are not passes. Be wary of any score that counts
           untested things as fine.
         </p>
+        <ReportStatesDiagram />
         <H3>Look for human review notes</H3>
         <p>
           The things software cannot judge should appear as items for a person to review, not be silently skipped.

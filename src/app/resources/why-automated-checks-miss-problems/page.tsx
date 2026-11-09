@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { ReadingOrderDiagram } from "@/components/pages/guide/Diagrams";
 import { GuideLayout } from "@/components/pages/guide/GuideLayout";
 import { DataTable, GuideSection, H3, OL, UL } from "@/components/pages/guide/GuideParts";
 import { resources } from "@/content/resources";
@@ -43,6 +44,7 @@ export default function Page() {
           headers when the real headers are in the first column passes. Each of these can leave a screen reader user
           unable to use the page, and each is invisible to the test.
         </p>
+        <ReadingOrderDiagram />
       </GuideSection>
 
       <GuideSection id="table" title="Detect, suggest or judge">

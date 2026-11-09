@@ -2,7 +2,8 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { PageIntro, Reveal } from "@/components/pages/PageParts";
 import { BuyerCta } from "@/components/pages/buyer/BuyerCta";
-import { ReportPages, SampleCover, ScopeFunnel } from "@/components/pages/audit/SampleReport";
+import { SampleCover, ScopeFunnel } from "@/components/pages/audit/SampleReport";
+import { AuditDeck } from "@/components/pages/audit/AuditDeck";
 
 export const metadata: Metadata = {
   title: "Readiness Audit",
@@ -48,6 +49,25 @@ const notIncluded = [
 ];
 
 const faqs = [
+  {
+    q: "How do cities usually buy a service like this?",
+    a: (
+      <>
+        <p>
+          As a fixed-scope service with a written quote. We send a scope and one flat fee in writing before you commit, so your purchasing office can route it through whatever process your city uses. Nothing starts until you agree to the quote.
+        </p>
+        <p>The usual sequence: you request an audit, we hold a 30-minute scoping call, you receive a written quote, we crawl and review, then we deliver the report and walk through it with your team.</p>
+      </>
+    ),
+  },
+  {
+    q: "What does IT need to provide?",
+    a: (
+      <p>
+        Your public website address. No logins, no credentials and no access to your systems. If documents live in a public portal that is hard to find by links, tell us where it is.
+      </p>
+    ),
+  },
   {
     q: "How is this different from a free PDF checker?",
     a: (
@@ -151,6 +171,28 @@ export default function ReadinessAuditPage() {
         </div>
       </div>
 
+      <section aria-labelledby="sample" className="sp-section">
+        <div className="wrap">
+          <div className="grid-12 items-end gap-y-4">
+            <Reveal as="h2" id="sample" className="sp-h2 col-span-12 lg:col-span-6">
+              Open a sample report
+            </Reveal>
+            <p className="col-span-12 max-w-[52ch] text-ink-soft lg:col-span-5 lg:col-start-8">
+              Six pages from a made-up report, each as it would appear in yours. Choose a page to read it. The files, counts and findings are fictional (City of Alder Creek, aldercreek.example). Effort is shown by type of page, never as a price.
+            </p>
+          </div>
+          <div className="mt-10">
+            <AuditDeck />
+          </div>
+          <div className="mt-10 flex flex-wrap items-center gap-x-8 gap-y-3">
+            <Link href="/contact?topic=audit" className="btn">
+              Request a Readiness Audit <span className="arrow" aria-hidden="true" data-icon="arrow-r"></span>
+            </Link>
+            <span className="text-[0.95rem] text-muted">One flat fee, quoted in writing after a 30-minute call.</span>
+          </div>
+        </div>
+      </section>
+
       <section aria-labelledby="receive" className="sp-section sp-band">
         <div className="wrap">
           <Reveal as="h2" id="receive" className="sp-h2 max-w-[20ch]">
@@ -164,15 +206,6 @@ export default function ReadinessAuditPage() {
               </li>
             ))}
           </ul>
-          <Reveal as="h3" className="sp-h3 mt-14 !text-[length:var(--step-2)]">
-            Three pages from a sample report
-          </Reveal>
-          <Reveal kind="depth" className="mt-6">
-            <ReportPages />
-          </Reveal>
-          <p className="mt-6 max-w-[62ch] text-[0.9rem] text-muted">
-            Sample. Fictional city (City of Alder Creek, aldercreek.example). The files and numbers are made up to show the shape of the report. It is not a client report, and the estimate shows effort, not a price.
-          </p>
         </div>
       </section>
 
@@ -220,6 +253,42 @@ export default function ReadinessAuditPage() {
           <p className="mt-6 max-w-[62ch] text-ink-soft">
             We do not promise a date before we have seen your site. The written quote sets out the schedule, and you agree to it before anything starts.
           </p>
+        </div>
+      </section>
+
+      <section aria-labelledby="scope-price" className="sp-section sp-band">
+        <div className="wrap">
+          <div className="grid-12 gap-y-8">
+            <Reveal as="h2" id="scope-price" className="sp-h2 col-span-12 lg:col-span-5">
+              Scope and pricing
+            </Reveal>
+            <div className="col-span-12 lg:col-span-7">
+              <div className="hx-doc p-6 sm:p-9">
+                <p className="sp-h3">Custom, quoted for your site</p>
+                <p className="mt-2 text-ink-soft">One flat fee, quoted in writing before you commit. We publish no price, because it depends on your site.</p>
+                <h3 className="mt-7 text-[0.9rem] font-[600] text-muted">Every audit includes</h3>
+                <ul className="mt-2 border-t hairline">
+                  {deliverables.map((d) => (
+                    <li key={d.t} className="flex items-start gap-3 border-b py-2.5 hairline">
+                      <span aria-hidden="true" className="mt-[0.5em] h-2 w-2 flex-none rounded-full bg-signal" />
+                      {d.t}
+                    </li>
+                  ))}
+                </ul>
+                <h3 className="mt-7 text-[0.9rem] font-[600] text-muted">What changes the estimate</h3>
+                <ul className="mt-2 grid gap-1.5 text-ink-soft">
+                  <li>The number of PDFs on your site</li>
+                  <li>The share that are forms, tables or scans</li>
+                  <li>How many sites or portals hold documents</li>
+                </ul>
+                <div className="mt-8">
+                  <Link href="/contact?topic=audit" className="btn">
+                    Request a Readiness Audit <span className="arrow" aria-hidden="true" data-icon="arrow-r"></span>
+                  </Link>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </section>
 

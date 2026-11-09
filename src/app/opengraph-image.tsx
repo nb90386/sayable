@@ -1,77 +1,14 @@
-import { ImageResponse } from "next/og";
+import { OG_SIZE, ScanMotif, ogImage } from "@/components/pages/og";
 
-export const alt = "Sayable: many city PDFs can't be read by people who use screen readers. A permit form with its reading order drawn through it.";
-export const size = { width: 1200, height: 630 };
+export const alt = "Sayable: a sample city permit form with the Sayable scan line partway down, problems marked above it as corrected.";
+export const size = OG_SIZE;
 export const contentType = "image/png";
 
-const INK = "#17150f";
-const PAPER = "#ecebe7";
-const SIGNAL = "#1b5a45";
-const MUTED = "#535b69";
-
-/** Social preview: the claim on the left, the signature document on the right with its reading path. */
 export default function OpengraphImage() {
-  const rows = [
-    { w: 300, label: "2" },
-    { w: 300, label: "3" },
-    { w: 210, label: "4" },
-    { w: 300, label: "5" },
-  ];
-  return new ImageResponse(
-    (
-      <div style={{ width: "100%", height: "100%", display: "flex", background: PAPER, color: INK, fontFamily: "sans-serif" }}>
-        <div style={{ display: "flex", flexDirection: "column", justifyContent: "space-between", padding: "72px 0 64px 80px", width: 640 }}>
-          <div style={{ display: "flex", alignItems: "center", gap: 14 }}>
-            <svg width="30" height="35" viewBox="0 0 24 28">
-              <rect x="1" y="1" width="20" height="26" rx="4" fill={INK} />
-              <path d="M5 7.5c5 0 9 1.5 9 4.5s-8 2.5-8 6 4 4 10 4" fill="none" stroke={PAPER} strokeWidth="1.9" strokeLinecap="round" />
-              <circle cx="19.5" cy="22" r="3.2" fill="#cf4520" stroke={INK} strokeWidth="1.2" />
-            </svg>
-            <span style={{ fontSize: 34, fontWeight: 600, letterSpacing: -1 }}>Sayable</span>
-          </div>
-          <div style={{ display: "flex", flexDirection: "column" }}>
-            <span style={{ fontSize: 60, fontWeight: 700, letterSpacing: -2.6, lineHeight: 1.04 }}>Many city PDFs can&apos;t be read by people who use</span>
-            <span style={{ fontSize: 60, fontWeight: 700, letterSpacing: -2.6, lineHeight: 1.04, color: SIGNAL }}>screen readers.</span>
-            <span style={{ marginTop: 28, fontSize: 28, lineHeight: 1.35, color: MUTED, maxWidth: 520 }}>
-              Find the PDFs that fall short, fix the ones residents use most, and keep a record of what was checked.
-            </span>
-          </div>
-          <span style={{ fontSize: 22, color: MUTED }}>Free PDF check · Readiness Audits for cities</span>
-        </div>
-        <div style={{ display: "flex", position: "relative", width: 560, height: 630 }}>
-          <div
-            style={{
-              position: "absolute",
-              left: 70,
-              top: 70,
-              width: 420,
-              height: 560,
-              display: "flex",
-              flexDirection: "column",
-              background: "#ffffff",
-              borderRadius: 14,
-              boxShadow: "0 30px 60px -20px rgba(16,20,28,0.35), 0 0 0 1px rgba(18,21,27,0.06)",
-              padding: "44px 40px",
-            }}
-          >
-            <div style={{ display: "flex", width: 200, height: 22, background: INK, borderRadius: 4 }} />
-            <div style={{ display: "flex", width: 140, height: 10, background: "#c9ced8", borderRadius: 3, marginTop: 14 }} />
-            {rows.map((r) => (
-              <div key={r.label} style={{ display: "flex", flexDirection: "column", marginTop: 26 }}>
-                <div style={{ display: "flex", width: 110, height: 9, background: "#9aa1ad", borderRadius: 3 }} />
-                <div style={{ display: "flex", width: r.w, height: 34, border: "1.5px solid #c9ced8", borderRadius: 6, marginTop: 8 }} />
-              </div>
-            ))}
-          </div>
-          <svg width="560" height="630" viewBox="0 0 560 630" style={{ position: "absolute", left: 0, top: 0 }}>
-            <path d="M 58 140 C 30 200, 70 240, 58 300 S 30 400, 58 460 S 80 540, 58 600" fill="none" stroke={SIGNAL} strokeWidth="4" strokeLinecap="round" />
-            {[140, 255, 340, 425, 510].map((y) => (
-              <circle key={y} cx="58" cy={y} r="13" fill={SIGNAL} stroke={PAPER} strokeWidth="5" />
-            ))}
-          </svg>
-        </div>
-      </div>
-    ),
-    size,
-  );
+  return ogImage({
+    title: "Make your city\u2019s PDFs accessible. Know what to fix first.",
+    sub: "Find the problems in your public PDFs, repair what residents need, and keep a record of every check.",
+    foot: "Free PDF check · Readiness Audit · PDF repair",
+    motif: <ScanMotif />,
+  });
 }

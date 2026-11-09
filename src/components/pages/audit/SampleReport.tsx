@@ -5,9 +5,9 @@ const n = (i: number) => ({ "--n": i }) as CSSProperties;
 
 const counts = [
   { label: "Must fix", value: 212, color: "var(--color-warm)" },
-  { label: "Archive candidate", value: 703, color: "#8a93a3" },
+  { label: "Archive candidate", value: 703, color: "var(--color-muted)" },
   { label: "Convert to web page", value: 96, color: "var(--color-signal)" },
-  { label: "Delete candidate", value: 273, color: "#d3d8e0" },
+  { label: "Delete candidate", value: 273, color: "#8f8a7e" },
 ];
 const total = counts.reduce((a, c) => a + c.value, 0);
 

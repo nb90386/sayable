@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { PageIntro, Reveal } from "@/components/pages/PageParts";
 import { BuyerCta } from "@/components/pages/buyer/BuyerCta";
+import { PriorityMap } from "@/components/pages/gov/PriorityMap";
 import { DocExamples } from "@/components/pages/gov/DocExamples";
 
 export const metadata: Metadata = {
@@ -41,8 +42,8 @@ export default function GovernmentPage() {
   return (
     <>
       <PageIntro
-        title="Which of your PDFs would a resident get stuck on?"
-        lede="The ADA Title II web rule applies WCAG 2.1 AA to a government's web content, PDFs included. The date is April 26, 2027 for governments with a total population of 50,000 or more, and April 26, 2028 for those under 50,000 and for special district governments."
+        title="A resident can’t read your council agenda."
+        lede="Which of your PDFs would a resident get stuck on? The ADA Title II web rule applies WCAG 2.1 AA to a government's web content, PDFs included. The date is April 26, 2027 for governments with a total population of 50,000 or more, and April 26, 2028 for those under 50,000 and for special district governments."
         note="Some content is excepted, such as archived material and older documents not used to access current services. Your counsel decides what applies to you."
       />
 
@@ -64,7 +65,10 @@ export default function GovernmentPage() {
           <p className="sp-lede mt-4">
             Most sites hold thousands of PDFs added over many years, and nobody has the full list. Repair cost follows the number of files, so the first move is to shrink the pile. We promise no savings figure. The audit gives you your own numbers.
           </p>
-          <ol className="mt-10 grid border-t hairline md:grid-cols-4 md:gap-x-8">
+          <div className="mt-10">
+            <PriorityMap />
+          </div>
+          <ol className="mt-12 grid border-t hairline md:grid-cols-4 md:gap-x-8">
             {sortSteps.map((s) => (
               <li key={s.t} className="border-b py-5 hairline md:border-b-0">
                 <h3 className="sp-h3">{s.t}</h3>
