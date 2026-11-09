@@ -135,3 +135,17 @@ Reduced motion renders the same scenes as still figures in reading order, and th
 - **Status:** a filled viridian dot means available now; a hollow ring means planned or in pilot.
 - **Comparison ledger:** six rows, and Sayable loses on cost.
 - **Estimator:** one logarithmic slider. The other assumptions sit behind a disclosure. Hours only, never savings.
+
+## Final pass additions (8 November 2026)
+
+- **Sayable scan:**
+  - The line starts at the top of the form.
+  - Findings are explained in plain words in a numbered scan log, numbered to match the marks in the form's margin.
+  - Technical identifiers appear only under "Technical details".
+  - Never put developer jargon (H1, TU, artifact) on the main visual.
+- **Deadline workspace:**
+  - One fictional city's PDF list moves through Find, Prioritize, Repair, Verify and Keep up as the reader scrolls.
+  - Rows re-sort with Motion shared layout.
+  - Under reduced motion it is not pinned.
+- **Motion tokens (CSS):** `--dur-press` 90ms, `--dur-fast` 150ms, `--dur-base` 220ms, `--dur-slow` 350ms, `--dur-enter` 220ms, `--dur-exit` 150ms, `--ease-out` cubic-bezier(0.22,1,0.36,1).
+- **Motion tokens (JS, `src/lib/motion.ts`):** `DUR.ui` 0.22, `DUR.uiExit` 0.15, `POPOVER_FROM` 0.97.
