@@ -154,17 +154,17 @@
 .dx-fig { justify-self: center; width: min(100%, 25rem); padding-bottom: 0; }
 .dx-sheet { position: relative; padding: 1.1rem 1.2rem 1.3rem; border-radius: 4px; background: var(--color-sheet); box-shadow: var(--shadow-sheet); font-size: 0.78rem; line-height: 1.35; color: var(--color-ink); font-family: Georgia, "Times New Roman", serif; }
 .dx-sheet h4 { font-family: Georgia, serif; font-size: 0.95rem; font-weight: 700; border-bottom: 1.5px solid var(--color-ink); padding-bottom: 0.35rem; margin-bottom: 0.7rem; }
-.dx-sheet .sm { font-family: var(--font-sans); font-size: 0.7rem; color: var(--color-muted); }
+.dx-sheet .sm { font-family: var(--font-sans); font-size: 0.8rem; color: var(--color-muted); }
 .dx-field { display: grid; grid-template-columns: 5.5rem 1fr; gap: 0.5rem; align-items: center; margin-top: 0.45rem; font-family: var(--font-sans); font-size: 0.72rem; }
 .dx-box { height: 1.15rem; border: 1px solid #9a968c; background: #fff; border-radius: 2px; }
 .dx-box[data-bad] { border: 1.5px dashed var(--color-warm); background: color-mix(in oklab, var(--color-ember-wash), white 40%); }
-.dx-note { position: relative; margin: 0.9rem 0 0 auto; max-width: 16rem; padding: 0.5rem 0.7rem; border-radius: 8px; background: var(--color-ink); color: var(--color-paper); font-family: var(--font-sans); font-size: 0.76rem; line-height: 1.3; box-shadow: 0 10px 24px -12px rgb(0 0 0 / 0.45); }
+.dx-note { position: relative; margin: 0.9rem 0 0 auto; max-width: 16rem; padding: 0.5rem 0.7rem; border-radius: 8px; background: var(--color-ink); color: var(--color-paper); font-family: var(--font-sans); font-size: 0.84rem; line-height: 1.3; box-shadow: 0 10px 24px -12px rgb(0 0 0 / 0.45); }
 .dx-note b { font-weight: 600; }
 .dx-line { height: 0.42rem; border-radius: 2px; background: #cfcbc1; margin-top: 0.4rem; }
-.dx-tbl { width: 100%; border-collapse: collapse; margin-top: 0.4rem; font-family: var(--font-sans); font-size: 0.7rem; }
+.dx-tbl { width: 100%; border-collapse: collapse; margin-top: 0.4rem; font-family: var(--font-sans); font-size: 0.8rem; }
 .dx-tbl td, .dx-tbl th { border: 1px solid #cfcbc1; padding: 0.22rem 0.4rem; text-align: left; font-weight: 400; }
 .dx-tbl thead th { background: #efede6; font-weight: 600; }
-.dx-flag { display: inline-block; margin-top: 0.6rem; padding: 0.15rem 0.5rem; border-radius: 999px; font-family: var(--font-sans); font-size: 0.7rem; font-weight: 600; }
+.dx-flag { display: inline-block; margin-top: 0.6rem; padding: 0.15rem 0.5rem; border-radius: 999px; font-family: var(--font-sans); font-size: 0.8rem; font-weight: 600; }
 .dx-flag[data-tone="bad"] { background: var(--color-ember-wash); color: var(--color-ember); }
 .dx-flag[data-tone="ok"] { background: var(--color-signal-wash); color: var(--color-signal-deep); }
 
