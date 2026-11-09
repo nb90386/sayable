@@ -1,9 +1,9 @@
 import { PVB, PermitPage, regions } from "./permit";
 
 /** Broken structure, as the file is posted: what a screen reader actually meets. */
-const brokenOrder = ["footer", "title", "address", "name", "signature", "work", "phone"];
+export const brokenOrder = ["footer", "title", "address", "name", "signature", "work", "phone"];
 /** Repaired structure: reading order and names. */
-const fixedOrder = ["title", "intro", "name", "phone", "address", "work", "signature", "date"];
+export const fixedOrder = ["title", "intro", "name", "phone", "address", "work", "signature", "date"];
 
 const fixedNames: Record<string, string> = {
   title: "Heading",
@@ -20,7 +20,7 @@ const anchor = (id: string) => {
   return { x: r.x - 26, y: r.y + Math.min(r.h / 2, 22) };
 };
 
-function orderedPath(ids: string[], tangled: boolean) {
+export function orderedPath(ids: string[], tangled: boolean) {
   let d = "";
   ids.forEach((id, i) => {
     const p = anchor(id);
@@ -48,11 +48,13 @@ function orderedPath(ids: string[], tangled: boolean) {
  * `compact` keeps two name chips instead of seven. `plain` drops every technical chip and the
  * reading-order numbers: the homepage explains each problem in words beside the form instead.
  */
-export function BrokenLayer({ compact = false, plain = false }: { compact?: boolean; plain?: boolean }) {
-  const unnamed = ["name", "phone", "address", "work", "signature"];
+export function BrokenLayer({ compact = false, plain = false, skip = [], noPath = false }: { compact?: boolean; plain?: boolean; skip?: string[]; noPath?: boolean }) {
+  const unnamed = ["name", "phone", "address", "work", "signature"].filter((id) => !skip.includes(id));
   return (
     <g>
-      <path d={orderedPath(brokenOrder, true)} fill="none" stroke="#cf4520" strokeWidth="2.4" strokeOpacity="0.85" strokeLinecap="round" className="sheet-path" pathLength={100} />
+      {noPath ? null : (
+        <path d={orderedPath(brokenOrder, true)} fill="none" stroke="#cf4520" strokeWidth="2.4" strokeOpacity="0.85" strokeLinecap="round" className="sheet-path" pathLength={100} />
+      )}
       {unnamed.map((id) => {
         const r = regions[id]!;
         return (

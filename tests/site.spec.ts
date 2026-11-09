@@ -70,17 +70,6 @@ test("the hero is readable on arrival and the scan runs on the form", async ({ p
   expect(await chainOpacity("h1")).toBe(1);
   expect(await chainOpacity(".hero-actions .btn")).toBe(1);
   await expect(page.getByRole("link", { name: /Request a Readiness Audit/ }).first()).toBeVisible();
-  // the reading line rests partway down the form once its opening run ends
-  await expect
-    .poll(
-      () =>
-        page.locator(".scan-line").evaluate((el) => {
-          const doc = el.parentElement!.getBoundingClientRect();
-          return (el.getBoundingClientRect().top - doc.top) / doc.height;
-        }),
-      { timeout: 5000 },
-    )
-    .toBeGreaterThan(0.15);
   await expect(page.getByRole("link", { name: "Skip the story" })).toHaveAttribute("href", "#deadline");
   // the scan is named for people, and its findings are in plain words (technical identifiers only in Details)
   await expect(page.locator(".scan-line")).toContainText("Sayable scan");
@@ -89,12 +78,54 @@ test("the hero is readable on arrival and the scan runs on the form", async ({ p
   await expect(page.getByText("Technical details").first()).toBeAttached();
 });
 
-test("the scan starts at the top of the form", async ({ page }) => {
-  await page.emulateMedia({ reducedMotion: "no-preference" });
-  await page.goto("/", { waitUntil: "domcontentloaded" });
-  // before the arrival run begins, the line sits at the top edge of the page
-  const start = await page.locator(".scan-line").evaluate((el) => el.getBoundingClientRect().top - el.parentElement!.getBoundingClientRect().top);
-  expect(start).toBeLessThan(40);
+test("the scan is driven only by scroll: idle, forward, reverse and reload", async ({ page }, info) => {
+  test.skip(info.project.name.includes("mobile"), "desktop scroll positions; the same mapping runs on phones");
+  test.setTimeout(45_000);
+  await page.addInitScript(() => localStorage.setItem("sayable-consent", JSON.stringify({ v: 1, analytics: false, at: "test" })));
+  await page.goto("/");
+  const line = () =>
+    page.locator(".scan-line").evaluate((el) => {
+      const doc = el.parentElement!.getBoundingClientRect();
+      return (el.getBoundingClientRect().top - doc.top) / doc.height;
+    });
+  const states = () => page.locator(".scan-log-wrap .scan-log").getAttribute("data-states");
+  const at = (v: number) =>
+    page.evaluate((v) => {
+      document.documentElement.style.scrollBehavior = "auto";
+      const el = document.querySelector(".story") as HTMLElement;
+      window.scrollTo(0, el.offsetTop + v * (el.offsetHeight - innerHeight));
+    }, v);
+
+  // 1–4: at the top the line rests at the top edge, the first problem shows, and nothing moves while idle
+  const start = await line();
+  expect(start).toBeLessThan(0.02);
+  expect(await states()).toBe("1000");
+  await page.waitForTimeout(10_000);
+  expect(Math.abs((await line()) - start)).toBeLessThan(0.002);
+  expect(await states()).toBe("1000");
+
+  // 5–7: partway, the line is over the applicant-name field and that finding is shown, not yet corrected
+  await at(0.35 * 0.235);
+  await expect.poll(line).toBeGreaterThan(0.3);
+  expect(await line()).toBeLessThan(0.4);
+  await expect.poll(states).toBe("2100");
+  await expect(page.locator(".scan-log-wrap li").nth(1)).toContainText("A screen reader can’t tell what this field is for.");
+
+  // 8–9: farther, the field's illustrative correction appears
+  await at(0.45 * 0.235);
+  await expect.poll(states).toBe("2200");
+  await expect(page.locator(".scan-log-wrap li").nth(1)).toHaveAttribute("data-fixed", "");
+
+  // 10–11: scrolling back returns the line and the states, with no correction left behind
+  await at(0.05 * 0.235);
+  await expect.poll(states).toBe("1000");
+  await expect.poll(line).toBeLessThan(0.08);
+
+  // a reload partway restores the same state from the scroll position alone
+  await at(0.63 * 0.235);
+  await expect.poll(states).toBe("2210");
+  await page.reload();
+  await expect.poll(states, { timeout: 8000 }).toBe("2210");
 });
 
 test("the deadline names the right governments and walks through the work by scroll", async ({ page }, info) => {

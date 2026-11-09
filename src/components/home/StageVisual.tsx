@@ -1,6 +1,6 @@
 import { m, useMotionTemplate, useMotionValueEvent, useTransform, type MotionValue } from "motion/react";
 import { useEffect, useId, useRef } from "react";
-import { BrokenLayer, FixedLayer } from "@/components/doc/PermitSheet";
+import { BrokenLayer, FixedLayer, brokenOrder, fixedOrder, orderedPath } from "@/components/doc/PermitSheet";
 import { PVB, PermitPage, regions } from "@/components/doc/permit";
 import type { Card, Geo, Kind } from "./geometry";
 import { hex, mix, rgb, type Palette } from "./palette";
@@ -14,8 +14,8 @@ export const P = {
   aHold: 0.03,
   b0: 0.045,
   b1: 0.12,
-  scan1: 0.2,
-  path1: 0.245,
+  scan1: 0.235,
+  path1: 0.255,
   c0: 0.27,
   c1: 0.37,
   cFull: 0.43,
@@ -29,24 +29,57 @@ export const P = {
   f1: 0.9,
 } as const;
 
-/** The scan starts at the top of the form; on arrival it runs just past the title, the first finding. */
-export const INTRO_TO = 0.2;
-
 /**
- * What the Sayable scan finds on the sample form, in document order, in plain words.
- * `at` is where the element starts, as a share of the page height. The technical
- * identifiers sit in the story's Details for specialists.
+ * What the Sayable scan finds on the sample form, in document order, in plain words,
+ * and the illustrative correction that follows each one. `at` is where the element
+ * starts and `fix` where its correction appears, as shares of the page height. The
+ * scan line is driven only by scroll: nothing moves until the visitor scrolls. The
+ * first finding is visible from the start, so the problem is clear before any scroll.
+ * Technical identifiers live in the story's Technical details for specialists.
  */
 export const FINDINGS = [
-  { id: "title", at: 118 / 1100, text: "This title isn\u2019t recognized as a heading.", detail: "Tagged as a paragraph (P), not H1." },
-  { id: "name", at: 318 / 1100, text: "A screen reader can\u2019t tell what this field is for.", detail: "Form field with no accessible name (empty TU); seven fields like it." },
-  { id: "work", at: 652 / 1100, text: "These checkboxes have no names and aren\u2019t grouped.", detail: "Three check boxes, no names, no group label." },
-  { id: "footer", at: 1022 / 1100, text: "The page is read starting at the footer.", detail: "Tag order begins with the footer text, not marked as an artifact." },
+  {
+    id: "title",
+    at: 0,
+    fix: 0.17,
+    text: "This title isn\u2019t recognized as a heading.",
+    fixText: "Now identified as the form\u2019s main heading.",
+    detail: "Tagged as a paragraph (P); retagged as H1.",
+  },
+  {
+    id: "name",
+    at: 318 / 1100,
+    fix: 318 / 1100 + 0.075,
+    text: "A screen reader can\u2019t tell what this field is for.",
+    fixText: "The field is now named \u201cApplicant name\u201d.",
+    detail: "Field had no accessible name (empty TU); seven fields like it.",
+  },
+  {
+    id: "work",
+    at: 652 / 1100,
+    fix: 652 / 1100 + 0.075,
+    text: "These checkboxes have no names and aren\u2019t grouped.",
+    fixText: "Each option is labeled and grouped under its question.",
+    detail: "Three check boxes, no names, no group label; now named and grouped as \u201cType of work\u201d.",
+  },
+  {
+    id: "footer",
+    at: 1010 / 1100,
+    fix: 0.975,
+    text: "The page is read starting at the footer.",
+    fixText: "The reading order now follows the page.",
+    detail: "Tag order began with the footer text; footer now marked as an artifact and order follows the layout.",
+  },
 ] as const;
 
-/** The scan position for a scroll progress `v` and the arrival run `i` (both 0 to 1). */
-export const scanFrom = (v: number, i: number) =>
-  v <= P.aHold ? INTRO_TO * i : INTRO_TO + (1 - INTRO_TO) * clamp01((v - P.aHold) / (P.scan1 - P.aHold));
+/**
+ * The scan position (share of the page) for a scroll progress `v`. Zero until the visitor scrolls.
+ * On phones the form first travels up into view, so the scan waits until it has settled.
+ */
+export const scanFrom = (v: number, narrow = false) => {
+  const from = narrow ? P.b1 - 0.01 : 0;
+  return clamp01((v - from) / (P.scan1 - from));
+};
 
 const clamp01 = (v: number) => (v < 0 ? 0 : v > 1 ? 1 : v);
 const ease = (t: number) => (t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2);
@@ -300,11 +333,11 @@ function ScanFx({ scan, phase, docW }: { scan: MotionValue<number>; phase: Motio
     if (!repair) {
       FINDINGS.forEach((f, n) => {
         const r = regions[f.id]!;
-        const a = clamp01((y - r.y - 6) / 40);
+        const a = n === 0 ? 1 : clamp01((s - f.at) / 0.03);
         if (a <= 0) return;
         const cy = r.y + Math.min(r.h / 2, 24);
         ctx.globalAlpha = a;
-        ctx.fillStyle = "#a33612";
+        ctx.fillStyle = s >= f.fix ? "#1b5a45" : "#a33612";
         ctx.beginPath();
         ctx.arc(34, cy, 19, 0, Math.PI * 2);
         ctx.fill();
@@ -326,6 +359,50 @@ function ScanFx({ scan, phase, docW }: { scan: MotionValue<number>; phase: Motio
   return <canvas ref={ref} aria-hidden="true" className="scan-fx" />;
 }
 
+const CHIP: Record<string, string> = { title: "Heading", name: "\u201cApplicant name\u201d", work: "\u201cType of work\u201d, grouped" };
+
+/** One finding on the form: its problem while the scan is on it, then its illustrative correction. */
+function Correction({ f, first, scan }: { f: (typeof FINDINGS)[number]; first: boolean; scan: MotionValue<number> }) {
+  const broken = useTransform(scan, (s) => (s >= f.fix ? clamp01(1 - (s - f.fix) / 0.02) : first ? 1 : clamp01((s - f.at) / 0.02)));
+  const fixed = useTransform(scan, (s) => clamp01((s - f.fix) / 0.02));
+  if (f.id === "footer") {
+    return (
+      <>
+        <m.path style={{ opacity: broken }} d={orderedPath(brokenOrder, true)} fill="none" stroke="#cf4520" strokeWidth="2.6" strokeOpacity="0.9" strokeLinecap="round" />
+        <m.path style={{ opacity: fixed }} d={orderedPath(fixedOrder, false)} fill="none" stroke="#1b5a45" strokeWidth="3.2" strokeLinecap="round" />
+      </>
+    );
+  }
+  const r = regions[f.id]!;
+  const label = CHIP[f.id] ?? "";
+  const w = label.length * 8.6 + 30;
+  return (
+    <>
+      <m.rect style={{ opacity: broken }} x={r.x - 6} y={r.y - 6} width={r.w + 12} height={r.h + 12} rx="8" fill="rgb(207 69 32 / 0.07)" stroke="#cf4520" strokeWidth="2.6" strokeDasharray="10 7" />
+      <m.g style={{ opacity: fixed }}>
+        <rect x={r.x - 6} y={r.y - 6} width={r.w + 12} height={r.h + 12} rx="8" fill="rgb(27 90 69 / 0.06)" stroke="#1b5a45" strokeWidth="2.4" />
+        <g transform={`translate(${r.x + r.w - w + 6} ${r.y - 22})`}>
+          <rect width={w} height="30" rx="15" fill="#1b5a45" />
+          <text x="15" y="20.5" fontFamily="var(--font-sans)" fontWeight="600" fontSize="15" fill="#fff">
+            {label}
+          </text>
+        </g>
+      </m.g>
+    </>
+  );
+}
+
+/** The four findings and their corrections, all driven by the same scan position. */
+function ScanCorrections({ scan }: { scan: MotionValue<number> }) {
+  return (
+    <g>
+      {FINDINGS.map((f, i) => (
+        <Correction key={f.id} f={f} first={i === 0} scan={scan} />
+      ))}
+    </g>
+  );
+}
+
 /** A clip rectangle that follows a motion value without re-rendering. */
 function ClipRect({ box }: { box: MotionValue<number[]> }) {
   const ref = useRef<SVGRectElement>(null);
@@ -344,17 +421,14 @@ function ClipRect({ box }: { box: MotionValue<number[]> }) {
  * Everything the visitor looks at in the story: the permit form, the city's
  * collection it belongs to, and the report that comes back. Purely visual; the
  * words live in the copy layer. `p` can be a live scroll value or a fixed one.
- * `intro` is the scan's opening run on page load (0 to 1).
  */
 export function StageVisual({
   p,
-  intro,
   geo,
   pal,
   children,
 }: {
   p: MotionValue<number>;
-  intro: MotionValue<number>;
   geo: Geo;
   pal: Palette;
   children?: React.ReactNode;
@@ -373,7 +447,7 @@ export function StageVisual({
   const ring = useTransform(p, [P.c1 - 0.02, P.c1, P.e0, P.e0 + 0.02], [0, 1, 1, 0]);
 
   // Scan position, as a share of the page height.
-  const scanB = useTransform([p, intro] as MotionValue<number>[], ([v, i]: number[]) => scanFrom(v!, i!));
+  const scanB = useTransform(p, (v) => scanFrom(v, geo.narrow));
   const scanE = useTransform(p, [P.fix0, P.fix1], [0, 1]);
   const scan = useTransform([p, scanB, scanE] as MotionValue<number>[], ([v, b, e]: number[]) => (v! < (P.c0 + P.e0) / 2 ? b! : e!));
   const phase = useTransform(p, (v): number => (v < P.scan1 + 0.004 ? 1 : v > P.fix0 - 0.004 && v < P.fix1 + 0.004 ? 2 : 0));
@@ -387,7 +461,8 @@ export function StageVisual({
 
   // Layers on the page. In the scan, the problems show above the line; in the repair, the fix shows above it and the problems below.
   const mid = (P.c0 + P.e0) / 2;
-  const brokenO = useTransform(p, [0, P.c0, P.c0 + 0.025, P.e0 + 0.02, P.e1 - 0.005], [1, 1, 0, 0, 1]);
+  const brokenB = useTransform(p, [0, P.c0, P.c0 + 0.025], [1, 1, 0]);
+  const brokenE = useTransform(p, [P.e0 + 0.02, P.e1 - 0.005], [0, 1]);
   const brokenDraw = useTransform(p, [P.scan1 - 0.01, P.path1, P.e0, P.e1], [0, 1, 1, 1]);
   const brokenBox = useTransform([p, scan] as MotionValue<number>[], ([v, s]: number[]) => (v! < mid ? [-60, s! * DOC_H + 60] : [s! * DOC_H, DOC_H + 60 - s! * DOC_H]));
   const fixedBox = useTransform(scan, (s) => [-60, s * DOC_H + 60]);
@@ -418,7 +493,13 @@ export function StageVisual({
               </clipPath>
             </defs>
             <PermitPage />
-            <m.g style={{ opacity: brokenO, ["--draw" as string]: brokenDraw }}>
+            <m.g style={{ opacity: brokenB }}>
+              <g clipPath={`url(#broken-${uid})`}>
+                <BrokenLayer plain noPath skip={["name", "work"]} />
+              </g>
+              <ScanCorrections scan={scanB} />
+            </m.g>
+            <m.g style={{ opacity: brokenE, ["--draw" as string]: brokenDraw }}>
               <g clipPath={`url(#broken-${uid})`}>
                 <BrokenLayer plain />
               </g>

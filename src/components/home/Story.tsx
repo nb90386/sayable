@@ -1,6 +1,6 @@
 "use client";
 
-import { animate, m, motionValue, useMotionTemplate, useMotionValueEvent, useScroll, useTransform, type MotionValue } from "motion/react";
+import { m, motionValue, useMotionTemplate, useMotionValueEvent, useScroll, useTransform, type MotionValue } from "motion/react";
 import Link from "next/link";
 import { memo, useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState } from "react";
 import cues from "@/content/audio-cues.json";
@@ -123,7 +123,7 @@ function SceneCopy({ i, active, extra }: { i: number; active: boolean; extra?: R
             <ol>
               {FINDINGS.map((f) => (
                 <li key={f.id}>
-                  {f.text} <span>{f.detail}</span>
+                  {f.text} {f.fixText} <span>{f.detail}</span>
                 </li>
               ))}
             </ol>
@@ -215,28 +215,36 @@ function Hero() {
 }
 
 /** The scan's findings so far, in plain words, numbered like the marks in the form's margin. Visual only; the same text is in the story's Technical details. */
-function ScanLog({ p, intro, className = "" }: { p: MotionValue<number>; intro: MotionValue<number>; className?: string }) {
-  const scan = useTransform([p, intro] as MotionValue<number>[], ([v, i]: number[]) => scanFrom(v!, i!));
-  const count = (s: number) => FINDINGS.filter((f) => s >= f.at + 0.025).length;
-  const [n, setN] = useState(0);
-  useMotionValueEvent(scan, "change", (s) => {
-    const k = count(s);
-    setN((prev) => (prev === k ? prev : k));
+function ScanLog({ p, narrow = false, className = "" }: { p: MotionValue<number>; narrow?: boolean; className?: string }) {
+  const scan = useTransform(p, (v) => scanFrom(v, narrow));
+  // 0 not reached, 1 found, 2 corrected; the first finding is visible before any scroll
+  const states = (sv: number) => FINDINGS.map((f, i) => (sv >= f.fix ? 2 : i === 0 || sv >= f.at ? 1 : 0)).join("");
+  const [st, setSt] = useState(() => states(0));
+  useMotionValueEvent(scan, "change", (sv) => {
+    const k = states(sv);
+    setSt((prev) => (prev === k ? prev : k));
   });
+  const current = st.lastIndexOf("1");
   return (
-    <div className={`scan-log ${className}`} aria-hidden="true">
+    <div className={`scan-log ${className}`} aria-hidden="true" data-states={st}>
       <p className="scan-log-head">
         <span className="scan-log-dot" />
         Sayable scan
-        <span className="scan-log-file">Sample form, fictional city</span>
+        <span className="scan-log-file">Sample form, fictional city. Scroll to scan.</span>
       </p>
       <ol>
-        {FINDINGS.map((f, i) => (
-          <li key={f.id} data-found={i < n ? "" : undefined} data-current={i === n - 1 ? "" : undefined}>
-            <span className="scan-log-n">{i + 1}</span>
-            <span className="scan-log-t">{f.text}</span>
-          </li>
-        ))}
+        {FINDINGS.map((f, i) => {
+          const v = st[i];
+          return (
+            <li key={f.id} data-found={v !== "0" ? "" : undefined} data-fixed={v === "2" ? "" : undefined} data-current={i === current ? "" : undefined}>
+              <span className="scan-log-n">{i + 1}</span>
+              <span className="scan-log-t">
+                <span className="scan-log-problem">{f.text}</span>
+                <span className="scan-log-fix">{f.fixText}</span>
+              </span>
+            </li>
+          );
+        })}
       </ol>
     </div>
   );
@@ -304,16 +312,6 @@ export function Story() {
   const { scrollYProgress: p } = useScroll({ target: track, offset: ["start start", "end end"] });
   const [active, setActive] = useState(-1);
 
-  // The scan's opening run: once, on arrival, from the top of the form past its title and first field.
-  const intro = useMemo(() => motionValue(0), []);
-  useEffect(() => {
-    if (p.get() > P.aHold) {
-      intro.set(1);
-      return;
-    }
-    const c = animate(intro, 1, { duration: 1.6, delay: 0.45, ease: [0.45, 0, 0.2, 1] });
-    return () => c.stop();
-  }, [intro, p]);
 
   // One room, changing light: day, dusk while the collection fills it, morning for the repair, day for the record.
   const lightStops = [0, P.c0 - 0.005, P.c1 - 0.025, P.e0 + 0.005, P.e1, P.f0, P.f1];
@@ -353,10 +351,10 @@ export function Story() {
         <a href="#deadline" className="skip-story sr-only-focusable">
           Skip the story
         </a>
-        {geo ? <Visual p={p} intro={intro} geo={geo} pal={pal} /> : null}
+        {geo ? <Visual p={p} geo={geo} pal={pal} /> : null}
 
         <m.div className="scan-log-wrap" style={{ opacity: logO }}>
-          <ScanLog p={p} intro={intro} />
+          <ScanLog p={p} />
         </m.div>
 
         <m.div ref={heroRef} className="hero-copy wrap" style={{ opacity: heroO, y: heroY }}>
@@ -364,7 +362,7 @@ export function Story() {
         </m.div>
 
         {SCENES.map((s, i) => (
-          <SceneBlock key={s.id} i={i} p={p} intro={intro} narrow={!!geo?.narrow} active={active === i} onFocusOutOfView={() => active !== i && jump(i)} />
+          <SceneBlock key={s.id} i={i} p={p} narrow={!!geo?.narrow} active={active === i} onFocusOutOfView={() => active !== i && jump(i)} />
         ))}
       </m.div>
     </section>
@@ -372,9 +370,9 @@ export function Story() {
 }
 
 /** The stage, memoised: scene changes and hero measurement re-render the copy, never the visual. */
-const Visual = memo(function Visual({ p, intro, geo, pal }: { p: MotionValue<number>; intro: MotionValue<number>; geo: Geo; pal: (typeof PALETTES)[keyof typeof PALETTES] }) {
+const Visual = memo(function Visual({ p, geo, pal }: { p: MotionValue<number>; geo: Geo; pal: (typeof PALETTES)[keyof typeof PALETTES] }) {
   return (
-    <StageVisual p={p} intro={intro} geo={geo} pal={pal}>
+    <StageVisual p={p} geo={geo} pal={pal}>
       <KindTags p={p} geo={geo} />
       <StackLabels p={p} geo={geo} />
     </StageVisual>
@@ -384,14 +382,12 @@ const Visual = memo(function Visual({ p, intro, geo, pal }: { p: MotionValue<num
 function SceneBlock({
   i,
   p,
-  intro,
   narrow,
   active,
   onFocusOutOfView,
 }: {
   i: number;
   p: MotionValue<number>;
-  intro: MotionValue<number>;
   narrow: boolean;
   active: boolean;
   onFocusOutOfView: () => void;
@@ -409,7 +405,7 @@ function SceneBlock({
       style={{ opacity: o, y }}
       onFocusCapture={onFocusOutOfView}
     >
-      <SceneCopy i={i} active={active} extra={s.id === "problem" ? <ScanLog p={p} intro={intro} className="scan-log-inline" /> : undefined} />
+      <SceneCopy i={i} active={active} extra={s.id === "problem" ? <ScanLog p={p} narrow={narrow} className="scan-log-inline" /> : undefined} />
     </m.div>
   );
 }
@@ -420,7 +416,6 @@ function StoryStill() {
   const size = useStageSize(box);
   const geo = useMemo(() => (size ? geometry(size.W, size.H, true) : null), [size]);
   const values = useMemo(() => SCENES.map((s) => motionValue(s.at)), []);
-  const done = useMemo(() => motionValue(1), []);
   return (
     <section className="story-still" aria-labelledby="hero-title" data-sc-act="story">
       <div className="wrap pt-[calc(var(--header-h)+3rem)]">
@@ -436,7 +431,7 @@ function StoryStill() {
             </div>
             <div ref={i === 0 ? box : undefined} className="still-figure">
               {geo ? (
-                <StageVisual p={values[i]!} intro={done} geo={geo} pal={PALETTES[PALETTE]}>
+                <StageVisual p={values[i]!} geo={geo} pal={PALETTES[PALETTE]}>
                   {s.id === "sort" ? <StackLabels p={values[i]!} geo={geo} /> : null}
                 </StageVisual>
               ) : null}

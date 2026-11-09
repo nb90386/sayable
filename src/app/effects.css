@@ -238,7 +238,12 @@ html[data-hdr="night"] .site-header .text-muted { color: var(--color-moon-muted)
 .scan-log li:not([data-found]) .scan-log-n { opacity: 0.18; transform: scale(0.85); background: var(--color-ink); }
 .scan-log li:not([data-found]) .scan-log-t { color: transparent; background: linear-gradient(rgb(23 21 15 / 0.07), rgb(23 21 15 / 0.07)) left center / 72% 0.45rem no-repeat; }
 .scan-log-t { transition: color var(--dur-base) var(--ease-out); }
-.scan-log li[data-current] .scan-log-t { font-weight: 600; }
+.scan-log li[data-current] .scan-log-problem { font-weight: 600; }
+.scan-log-t { display: grid; gap: 0.15rem; }
+.scan-log-fix { display: none; color: var(--color-signal); font-weight: 600; }
+.scan-log li[data-fixed] .scan-log-problem { color: var(--color-muted); text-decoration: line-through; text-decoration-color: rgb(163 54 18 / 0.45); }
+.scan-log li[data-fixed] .scan-log-fix { display: block; }
+.scan-log li[data-fixed] .scan-log-n { background: var(--color-signal); }
 .scan-log-inline { display: none; }
 .scene-details { margin-top: 0.9rem; font-size: 0.9rem; color: var(--color-ink-soft); }
 .scene-details summary { cursor: pointer; width: fit-content; text-decoration: underline; text-decoration-color: var(--rule-strong); text-underline-offset: 0.2em; }
@@ -250,6 +255,7 @@ html[data-hdr="night"] .site-header .text-muted { color: var(--color-moon-muted)
   .scan-log-inline { display: block; margin-top: 0.7rem; }
   .scan-log-inline .scan-log-head { display: none; }
   .scan-log-inline li { padding: 0.3rem 0; font-size: 0.9rem; }
+  .scan-log-inline li[data-fixed] .scan-log-problem { display: none; }
   .scene-copy .scene-body-wide, .scene-copy .scene-details { display: none; }
   .scene-copy[data-active] .scene-details { display: none; }
 }
