@@ -130,7 +130,7 @@ export function ContactForm({ contactEmail, defaultInterest }: { contactEmail: s
         role="status"
         className="sheet p-8 sm:p-10"
         initial={reduced ? false : { opacity: 0, scale: 0.98 }}
-        animate={reduced ? undefined : { opacity: 1, scale: [0.98, 1.012, 1], transition: { duration: 0.42, ease: EASE_OUT, times: [0, 0.55, 1] } }}
+        animate={reduced ? undefined : { opacity: 1, scale: 1, transition: { duration: 0.25, ease: EASE_OUT } }}
       >
         <p className="stamp">
           <span aria-hidden="true" data-icon="check"></span> Request received

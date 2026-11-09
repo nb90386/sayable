@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { PageIntro } from "@/components/pages/PageParts";
+import { PageIntro, Reveal } from "@/components/pages/PageParts";
 import { BuyerCta } from "@/components/pages/buyer/BuyerCta";
 import { ReportPages, SampleCover, ScopeFunnel } from "@/components/pages/audit/SampleReport";
 
@@ -12,54 +12,39 @@ export const metadata: Metadata = {
 };
 
 const buckets = [
-  {
-    name: "Must fix",
-    text: "Documents people use to apply for, get or take part in a service. Permit applications, utility assistance forms, current fee schedules.",
-  },
-  {
-    name: "Archive candidate",
-    text: "Old reference material that no one needs to act on. Your team confirms it meets the conditions for a clearly marked archive.",
-  },
-  {
-    name: "Delete candidate",
-    text: "Duplicates, expired notices, superseded drafts. Nothing is removed unless your team agrees.",
-  },
-  {
-    name: "Convert to web page",
-    text: "A two-page hours-and-locations flyer that residents would rather read on their phone. Moving it can be cheaper than repairing it.",
-  },
+  { name: "Must fix", tone: "var(--color-warm)", text: "Files people use to apply for, get or take part in a service: permit applications, utility assistance forms, current fee schedules." },
+  { name: "Convert to web page", tone: "var(--color-signal)", text: "A two-page hours flyer residents would rather read on a phone. Moving it can cost less than repairing it." },
+  { name: "Archive candidate", tone: "#8a93a3", text: "Old reference material nobody acts on. Your team confirms it meets the conditions for a clearly marked archive." },
+  { name: "Delete candidate", tone: "#b9bec8", text: "Duplicates, expired notices, superseded drafts. Nothing is removed unless your team agrees." },
 ];
 
 const deliverables = [
-  { t: "A written report", d: "Plain language, written for a city manager and an ADA coordinator. It says what we looked at, what we found and what we recommend." },
-  { t: "The full inventory as a spreadsheet", d: "Every PDF, the page that links to it, and the recommendation with the reason." },
-  { t: "A ranked list", d: "Must-fix files in the order we suggest working on them, with forms and service documents first." },
-  { t: "An effort estimate", d: "By type of page: simple text pages, tables, forms and scans. It shows where the hours go." },
-  { t: "A recommended plan", d: "What to do first, what to leave, and what to put in place so new files start clean." },
+  { t: "A written report", d: "Plain language for a city manager and an ADA coordinator: what we looked at, what we found, what we recommend." },
+  { t: "The inventory, as a spreadsheet", d: "Every PDF, the page that links to it, and a recommendation with the reason." },
+  { t: "A ranked list", d: "Must-fix files in the order we suggest working on them, service documents first." },
+  { t: "An effort estimate", d: "By type of page (text, tables, forms, scans), so you can see where the hours go." },
+  { t: "A recommended plan", d: "What to do first, what to leave, and how to keep new files clean." },
 ];
 
-const provide = [
-  { t: "Your public website address", d: "Required. This is where the crawl starts." },
-  { t: "A 30-minute call", d: "Someone who knows the website and can say where documents live. This is also where we scope the audit and answer your questions." },
-  { t: "One contact", d: "Someone who can answer questions and receive the report." },
-  { t: "Known document locations", d: "Optional but helpful. Document portals, agenda systems or file libraries that are public but hard to find by following links." },
-  { t: "Priority services", d: "Optional. A short list of services residents rely on most, so we can rank those first." },
+const after = [
+  { t: "You send a request", who: "You", d: "Your website address and a contact. No documents, no logins." },
+  { t: "A 30-minute call", who: "You and us", d: "Where documents live, which services residents rely on, your timing. We answer your questions." },
+  { t: "A written quote", who: "Us", d: "A scope and one flat fee, sized to your site. Nothing starts until you agree to it." },
+  { t: "The audit", who: "Us", d: "We crawl your public site, inventory every linked PDF and check the files that matter." },
+  { t: "Report and walkthrough", who: "You and us", d: "You receive the report and spreadsheet, and we go through them with your team." },
 ];
 
-const steps = [
-  { n: "1", t: "Send a request", d: "Your website address and a contact. A few minutes, no documents and no logins." },
-  { n: "2", t: "Short call", d: "We ask about your site, your team and your timing. Thirty minutes is usually enough." },
-  { n: "3", t: "Written quote", d: "We send a scope and one flat fee in writing, based on the size of your site. Nothing starts until you agree to it." },
-  { n: "4", t: "Audit", d: "We crawl your public site, inventory the files and check the ones that matter." },
-  { n: "5", t: "Report and review", d: "You get the report and the spreadsheet, and we walk your team through them." },
+const need = [
+  ["Your public website address", "Where the crawl starts."],
+  ["Someone who knows where documents live", "For the call. Portals or agenda systems that are public but hard to find by links help a lot."],
+  ["One contact", "To answer questions and receive the report."],
 ];
 
 const notIncluded = [
-  "Repairing the documents. That is a separate scope, and you choose whether to do it with us.",
-  "Legal advice. We explain what the rules cover in plain language. Your counsel decides what applies to you.",
-  "A compliance determination. We report what was checked. We do not say a file or a site is compliant.",
-  "Documents behind logins, unless we agree otherwise in writing.",
-  "Other file types. Sayable works on PDFs only, not Word, PowerPoint, Excel or web pages.",
+  "Repair of the documents. That is a separate scope, and you choose who does it.",
+  "Legal advice or a compliance determination. We report what was checked.",
+  "Documents behind logins, unless agreed in writing.",
+  "File types other than PDF.",
 ];
 
 const faqs = [
@@ -106,11 +91,7 @@ const faqs = [
     a: (
       <>
         <p>
-          Yes. The audit stands on its own. You can use the report to plan work with your own staff, another vendor or us. If you want a smaller first step, we can talk about a{" "}
-          <Link href="/contact?topic=pilot" className="text-link">
-            pilot on a limited set of files
-          </Link>
-          .
+          Yes. The audit stands on its own. You can use the report to plan work with your own staff, another vendor or us. If you want a smaller first step, say so in your request and we can scope a limited set of files.
         </p>
       </>
     ),
@@ -136,18 +117,17 @@ export default function ReadinessAuditPage() {
     <>
       <PageIntro
         title="Know which PDFs matter before you fix any of them."
-        lede="The Readiness Audit is a written inventory of every PDF on your public website, sorted by what to do with it, with check results for the files that count."
-        note="Public documents only"
+        lede="A written inventory of every PDF on your public website, sorted by what to do with it, with check results for the files that count."
       />
 
-      <div className="wrap pb-20 sm:pb-28">
+      <div className="wrap pb-16 sm:pb-24">
         <div className="grid-12 items-center gap-y-12">
           <div className="col-span-12 lg:col-span-5">
             <dl className="border-t hairline">
               {[
                 ["Scope", "Your public website and the PDFs linked from it."],
-                ["Your time", "One 30-minute call, then a review of the report."],
-                ["Price", "One flat fee, quoted in writing after the call, based on the size of your site."],
+                ["Your time", "One 30-minute call, then a walkthrough of the report."],
+                ["Cost", "One flat fee, quoted in writing after the call. No price is published, because it depends on the size of your site."],
               ].map(([k, v]) => (
                 <div key={k} className="grid gap-x-6 gap-y-1 border-b py-4 hairline sm:grid-cols-[6rem_1fr]">
                   <dt className="text-[0.85rem] font-[600] text-muted">{k}</dt>
@@ -159,179 +139,123 @@ export default function ReadinessAuditPage() {
               <Link href="/contact?topic=audit" className="btn">
                 Request a Readiness Audit <span className="arrow" aria-hidden="true" data-icon="arrow-r"></span>
               </Link>
-              <Link href="/contact?topic=pilot" className="link-quiet">
-                Discuss a pilot
-              </Link>
             </div>
-            <p className="mt-4 max-w-[44ch] text-[0.9rem] text-muted">
-              The audit is a human-assisted service, available now. It does not commit you to any further work.
+            <p className="mt-4 flex max-w-[44ch] items-start gap-2 text-[0.9rem] text-muted">
+              <span className="hx-status" data-state="now">Available now</span>
+              <span>A service done by people with software help. It does not commit you to repairs.</span>
             </p>
           </div>
-          <div className="col-span-12 lg:col-span-6 lg:col-start-7">
+          <Reveal kind="depth" className="col-span-12 lg:col-span-6 lg:col-start-7">
             <SampleCover />
-          </div>
+          </Reveal>
         </div>
       </div>
 
-      <section aria-labelledby="who" className="border-t hairline py-16 sm:py-24">
-        <div className="wrap grid-12 gap-y-6">
-          <h2 id="who" className="headline col-span-12 !text-[length:var(--step-3)] lg:col-span-5">
-            Who it is for
-          </h2>
-          <div className="prose-tight col-span-12 max-w-[60ch] text-ink-soft lg:col-span-6 lg:col-start-7">
-            <p>
-              Cities, counties and special districts that publish documents online and are not sure what is out there. Often the website has been growing for fifteen years. Nobody owns the PDF library. Someone has been asked to make sure it works for everyone.
-            </p>
-            <p>
-              The audit also suits a clerk or IT director who needs a number and a plan before asking for budget.
-            </p>
-            <p>
-              The ADA Title II web rule date is April 26, 2027 for cities with 50,000 or more residents, and April 26, 2028 for smaller governments and special districts. An inventory is the first step toward knowing what that means for your site.
-            </p>
-          </div>
+      <section aria-labelledby="receive" className="sp-section sp-band">
+        <div className="wrap">
+          <Reveal as="h2" id="receive" className="sp-h2 max-w-[20ch]">
+            What you receive
+          </Reveal>
+          <ul className="mt-8 grid border-t hairline md:grid-cols-2 md:gap-x-12 lg:grid-cols-3">
+            {deliverables.map((d) => (
+              <li key={d.t} className="border-b py-5 hairline">
+                <h3 className="sp-h3">{d.t}</h3>
+                <p className="mt-1.5 text-[0.975rem] text-ink-soft">{d.d}</p>
+              </li>
+            ))}
+          </ul>
+          <Reveal as="h3" className="sp-h3 mt-14 !text-[length:var(--step-2)]">
+            Three pages from a sample report
+          </Reveal>
+          <Reveal kind="depth" className="mt-6">
+            <ReportPages />
+          </Reveal>
+          <p className="mt-6 max-w-[62ch] text-[0.9rem] text-muted">
+            Sample. Fictional city (City of Alder Creek, aldercreek.example). The files and numbers are made up to show the shape of the report. It is not a client report, and the estimate shows effort, not a price.
+          </p>
         </div>
       </section>
 
-      <section aria-labelledby="assessed" className="border-t hairline py-16 sm:py-24">
+      <section aria-labelledby="assessed" className="sp-section">
         <div className="wrap">
           <div className="grid-12 gap-y-6">
-            <h2 id="assessed" className="headline col-span-12 !text-[length:var(--step-3)] lg:col-span-5">
-              What we assess
-            </h2>
-            <div className="prose-tight col-span-12 max-w-[60ch] text-ink-soft lg:col-span-6 lg:col-start-7">
-              <p>
-                The scope is plain: your public website and the PDFs linked from it. Every PDF we find is inventoried. Check results come from the must-fix files, or from a stated sample when there are too many to check one by one.
-              </p>
-            </div>
+            <Reveal as="h2" id="assessed" className="sp-h2 col-span-12 lg:col-span-5">
+              How the files are sorted
+            </Reveal>
+            <p className="col-span-12 max-w-[56ch] text-ink-soft lg:col-span-6 lg:col-start-7">
+              Every PDF we find is inventoried and placed in one of four groups. Sorting is a recommendation with reasons, and your team makes the decision. The ADA Title II web rule dates are April 26, 2027 for governments with a total population of 50,000 or more, and April 26, 2028 for those under 50,000 and special district governments. An inventory is the first step toward knowing what that means for your site.
+            </p>
           </div>
-          <div className="mt-10">
-            <ScopeFunnel />
-          </div>
-          <h3 className="title mt-16 text-[length:var(--step-2)]">Every file goes into one of four groups</h3>
-          <dl className="mt-6 border-t hairline">
+          <dl className="mt-10 grid gap-x-12 border-t hairline md:grid-cols-2">
             {buckets.map((b) => (
-              <div key={b.name} className="grid gap-x-8 gap-y-2 border-b py-6 hairline md:grid-cols-[16rem_1fr]">
-                <dt className="title text-[1.35rem]">{b.name}</dt>
-                <dd className="max-w-[62ch] text-ink-soft">{b.text}</dd>
+              <div key={b.name} className="border-b py-5 hairline">
+                <dt className="flex items-center gap-2.5 sp-h3">
+                  <span aria-hidden="true" className="h-2.5 w-2.5 flex-none rounded-full" style={{ background: b.tone }} />
+                  {b.name}
+                </dt>
+                <dd className="mt-1.5 max-w-[52ch] text-[0.975rem] text-ink-soft">{b.text}</dd>
               </div>
             ))}
           </dl>
-          <p className="mt-6 max-w-[62ch] text-[0.95rem] text-muted">
-            Sorting is a recommendation with reasons. Your team makes the decision. The rules for archived content have conditions, and the report reminds you of them.
-          </p>
-        </div>
-      </section>
-
-      <section aria-labelledby="receive" className="border-t bg-paper-deep/50 py-16 hairline sm:py-24">
-        <div className="wrap">
-          <h2 id="receive" className="headline !text-[length:var(--step-3)]">
-            What&rsquo;s in the report
-          </h2>
-          <ul className="mt-8 grid border-t hairline md:grid-cols-2 md:gap-x-12">
-            {deliverables.map((d, i) => (
-              <li key={d.t} className="grid border-b py-5 hairline">
-                <div>
-                  <h3 className="title text-[1.15rem]">{d.t}</h3>
-                  <p className="mt-1.5 text-[0.975rem] text-ink-soft">{d.d}</p>
-                </div>
-              </li>
-            ))}
-          </ul>
-          <h3 className="title mt-14 text-[length:var(--step-2)]">Three pages from a sample report</h3>
-          <div className="mt-6">
-            <ReportPages />
+          <div className="mt-12">
+            <ScopeFunnel />
           </div>
-          <p className="mt-6 max-w-[62ch] text-[0.9rem] text-muted">
-            Sample. Fictional city. Made-up files and numbers, to show the shape of the report. It is not a real client report, and the estimate shows effort, not a price.
-          </p>
         </div>
       </section>
 
-      <section aria-labelledby="provide" className="border-t hairline py-16 sm:py-24">
-        <div className="wrap grid-12 gap-y-8">
-          <h2 id="provide" className="headline col-span-12 !text-[length:var(--step-3)] lg:col-span-5">
-            What we need from you
-          </h2>
-          <ul className="col-span-12 border-t hairline lg:col-span-6 lg:col-start-7">
-            {provide.map((p) => (
-              <li key={p.t} className="border-b py-5 hairline">
-                <h3 className="title text-[1.15rem]">{p.t}</h3>
-                <p className="mt-1.5 text-ink-soft">{p.d}</p>
-              </li>
-            ))}
-          </ul>
-        </div>
-      </section>
-
-      <section aria-labelledby="scoping" className="border-t hairline py-16 sm:py-24">
+      <section aria-labelledby="scoping" className="sp-section sp-band">
         <div className="wrap">
-          <h2 id="scoping" className="headline !text-[length:var(--step-3)]">
-            How to request one
-          </h2>
-          <ol className="relative mt-12 grid gap-y-8 sm:grid-cols-2 lg:grid-cols-5 lg:gap-x-6">
-            <span aria-hidden="true" className="absolute left-0 right-0 top-[7px] hidden h-[2px] bg-signal/25 lg:block" />
-            {steps.map((s) => (
-              <li key={s.n} className="relative border-t pt-4 hairline lg:border-t-0 lg:pt-0">
-                <span aria-hidden="true" className="relative hidden h-4 w-4 rounded-full border-[3px] border-paper bg-signal lg:block" />
-                <p className="numeral mt-3 text-[1.6rem] lg:mt-5">
-                  <span className="sr-only">Step </span>
-                  {s.n}
-                </p>
-                <h3 className="title mt-2 text-[1.15rem]">{s.t}</h3>
-                <p className="mt-2 text-[0.975rem] text-ink-soft">{s.d}</p>
+          <Reveal as="h2" id="scoping" className="sp-h2 max-w-[24ch]">
+            What happens after you request one
+          </Reveal>
+          <ol className="au-after mt-10">
+            {after.map((s) => (
+              <li key={s.t}>
+                <h3>{s.t}</h3>
+                <p>{s.d}</p>
+                <p className="who">{s.who}</p>
               </li>
             ))}
           </ol>
-          <div className="mt-12 grid-12 gap-y-8 border-t pt-8 hairline">
-            <div className="col-span-12 lg:col-span-5">
-              <h3 className="title text-[length:var(--step-2)]">How long it takes</h3>
-            </div>
-            <div className="prose-tight col-span-12 max-w-[60ch] text-ink-soft lg:col-span-6 lg:col-start-7">
-              <p>
-                It depends on how big your site is and how many files need checking. A small site takes less time than a large one. We do not promise a date before we have seen your site. The written quote sets out the schedule, and you agree to it before anything starts.
-              </p>
-              <div className="mt-6">
-                <Link href="/contact?topic=audit" className="btn">
-                  Request a Readiness Audit <span className="arrow" aria-hidden="true" data-icon="arrow-r"></span>
-                </Link>
-              </div>
-            </div>
+          <p className="mt-6 max-w-[62ch] text-ink-soft">
+            We do not promise a date before we have seen your site. The written quote sets out the schedule, and you agree to it before anything starts.
+          </p>
+        </div>
+      </section>
+
+      <section aria-labelledby="provide" className="sp-section">
+        <div className="wrap grid-12 gap-y-10">
+          <div className="col-span-12 lg:col-span-5">
+            <Reveal as="h2" id="provide" className="sp-h2">
+              What we need from you
+            </Reveal>
+            <ul className="mt-6 border-t hairline">
+              {need.map(([t, d]) => (
+                <li key={t} className="border-b py-4 hairline">
+                  <h3 className="font-[600]">{t}</h3>
+                  <p className="mt-1 text-[0.975rem] text-ink-soft">{d}</p>
+                </li>
+              ))}
+            </ul>
+          </div>
+          <div className="col-span-12 lg:col-span-5 lg:col-start-8">
+            <h2 id="limits" className="sp-h2">
+              What is not included
+            </h2>
+            <ul className="mt-6 border-t hairline">
+              {notIncluded.map((n) => (
+                <li key={n} className="border-b py-4 text-[0.975rem] text-ink-soft hairline">
+                  {n}
+                </li>
+              ))}
+            </ul>
           </div>
         </div>
       </section>
 
-      <section aria-labelledby="limits" className="border-t hairline py-16 sm:py-24">
+      <section aria-labelledby="faq" className="pb-16 sm:pb-24">
         <div className="wrap grid-12 gap-y-8">
-          <h2 id="limits" className="headline col-span-12 !text-[length:var(--step-3)] lg:col-span-5">
-            What is not included
-          </h2>
-          <ul className="col-span-12 border-t hairline lg:col-span-6 lg:col-start-7">
-            {notIncluded.map((n) => (
-              <li key={n} className="border-b py-4 text-ink-soft hairline">
-                {n}
-              </li>
-            ))}
-          </ul>
-        </div>
-      </section>
-
-      <section aria-labelledby="price" className="night on-night">
-        <div className="wrap grid-12 gap-y-6 py-16 sm:py-24">
-          <h2 id="price" className="headline col-span-12 !text-[length:var(--step-3)] lg:col-span-5">
-            Price
-          </h2>
-          <div className="col-span-12 lg:col-span-6 lg:col-start-7">
-            <p className="numeral text-[clamp(2rem,1.4rem+2.4vw,3.4rem)]">One flat fee, in writing</p>
-            <p className="mt-4 max-w-[52ch] text-moon-muted">
-              The fee is set by the size of your site and quoted in writing after a short scoping call. You see the price before anything starts, and the audit does not commit you to any further work.
-            </p>
-          </div>
-        </div>
-      </section>
-
-      <section aria-labelledby="faq" className="py-16 sm:py-24">
-        <div className="wrap grid-12 gap-y-8">
-          <h2 id="faq" className="headline col-span-12 !text-[length:var(--step-3)] lg:col-span-4">
+          <h2 id="faq" className="sp-h2 col-span-12 lg:col-span-4">
             Questions buyers ask
           </h2>
           <div className="col-span-12 border-t hairline lg:col-span-7 lg:col-start-6">
@@ -353,7 +277,6 @@ export default function ReadinessAuditPage() {
         title="Start with an inventory."
         body="Tell us your website address and who we should talk to. We will set up a short call and send a written scope."
         primary={{ href: "/contact?topic=audit", label: "Request a Readiness Audit" }}
-        secondary={{ href: "/contact?topic=pilot", label: "Discuss a pilot" }}
       />
     </>
   );

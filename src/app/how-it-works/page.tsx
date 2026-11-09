@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { PageCta, PageIntro } from "@/components/pages/PageParts";
+import { PageCta, PageIntro, Reveal } from "@/components/pages/PageParts";
 import { CheckColumns, CrawlLog, SortPiles, TagTreePair } from "@/components/pages/hiw/Artifacts";
 import { StatusChips } from "@/components/pages/hiw/StageParts";
 
@@ -10,56 +10,65 @@ export const metadata: Metadata = {
   alternates: { canonical: "/how-it-works" },
 };
 
-function Ask({ k, v }: { k: string; v: string }) {
-  return (
-    <div className="hiw-field">
-      <p className="hiw-field-k">{k}</p>
-      <p className="hiw-field-v">{v}</p>
-    </div>
-  );
-}
-
 export default function HowItWorksPage() {
   return (
     <>
       <PageIntro
         title="Three steps, and you decide at the end."
-        lede="You send your website address. We find and sort every PDF it links to. You get a plan, and choose what happens next."
+        lede="You send a website address. We find and sort every PDF it links to. You get a plan and choose what happens next."
       />
 
-      {/* Step one: what the city provides, shown as the request itself */}
-      <section aria-labelledby="hiw-1" className="hiw-step">
-        <div className="wrap hiw-one">
-          <div>
-            <h2 id="hiw-1" className="hiw-title">
-              Show us where your documents live.
-            </h2>
-            <p className="hiw-body">
-              Your website address is enough to start. Tell us about any agenda system or document portal you also use, and spend half an hour with us on
-              which services residents rely on most.
+      <section aria-labelledby="hiw-1" className="wrap pb-16 sm:pb-24">
+        <h2 id="hiw-1" className="sr-only">
+          Who does what
+        </h2>
+        <Reveal as="ol" className="sp-ledger">
+          <li>
+            <h3>You provide</h3>
+            <ul>
+              <li>Your website address</li>
+              <li>Any agenda system or document portal you also use</li>
+              <li>A 30-minute call about which services residents rely on</li>
+            </ul>
+            <p className="mt-4 text-[0.9rem] text-muted">No logins, no file exports, no documents sent to us. About an hour of your time.</p>
+          </li>
+          <li>
+            <h3>Sayable does</h3>
+            <ul>
+              <li>Crawls your public site and records every linked PDF and the page that links to it</li>
+              <li>Sorts each file with a recommendation and a reason</li>
+              <li>Checks the files that matter</li>
+            </ul>
+            <div className="mt-4">
+              <StatusChips items={[{ label: "Available now, as a service", state: "now" }]} />
+            </div>
+          </li>
+          <li>
+            <h3>You receive</h3>
+            <ul>
+              <li>A written report and the inventory as a spreadsheet</li>
+              <li>A ranked must-fix list and an effort estimate</li>
+              <li>A walkthrough with your team</li>
+            </ul>
+            <p className="mt-4 text-[0.9rem]">
+              <Link href="/readiness-audit" className="text-link">
+                See a sample report
+              </Link>
             </p>
-            <p className="hiw-time">Your time: about an hour, in total.</p>
-          </div>
-          <figure className="hiw-request" aria-label="What we ask for">
-            <Ask k="Website" v="www.aldercreek.example.gov" />
-            <Ask k="Other places PDFs live" v="Agenda portal, document library" />
-            <Ask k="A short call" v="Which services matter most to residents" />
-            <figcaption>No logins, no file exports, no documents sent to us.</figcaption>
-          </figure>
-        </div>
+          </li>
+        </Reveal>
       </section>
 
       {/* Step two: the work, at full width */}
       <section aria-labelledby="hiw-2" className="hiw-step hiw-band">
         <div className="wrap">
           <div className="hiw-two-head">
-            <h2 id="hiw-2" className="hiw-title">
-              We find every PDF and sort the work.
-            </h2>
+            <Reveal as="h2" id="hiw-2" className="hiw-title">
+              What we do with your site.
+            </Reveal>
             <div>
               <p className="hiw-body">
-                We go through your public site, record every linked PDF and the page that links to it, and check what kind of file it is. Then each one gets a
-                recommendation with a reason. Your team makes the final call.
+                A polite crawl finds every linked PDF. Each file then gets a recommendation with a reason. Your team makes the final call.
               </p>
               <div className="mt-5">
                 <StatusChips items={[{ label: "Available now, as a service", state: "now" }]} />
@@ -78,16 +87,9 @@ export default function HowItWorksPage() {
       {/* Step three: the decision */}
       <section aria-labelledby="hiw-3" className="hiw-step">
         <div className="wrap">
-          <h2 id="hiw-3" className="hiw-title max-w-[20ch]">
-            You get a plan, and choose what happens next.
-          </h2>
-          <p className="hiw-body mt-5">
-            A written report, the full inventory as a spreadsheet, an effort estimate, and a walkthrough with your team.{" "}
-            <Link href="/readiness-audit" className="text-link">
-              See a sample report
-            </Link>
-            .
-          </p>
+          <Reveal as="h2" id="hiw-3" className="hiw-title max-w-[20ch]">
+            Then you choose what happens next.
+          </Reveal>
           <ul className="hiw-choices">
             <li>
               <h3>We repair the must-fix files</h3>

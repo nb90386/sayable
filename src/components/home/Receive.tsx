@@ -103,11 +103,21 @@ export function Receive() {
       <div className="wrap">
         <div className="receive-intro">
           <h2 id="receive-title" className="headline max-w-[16ch]">
-            Not a score. A plan your team can work through.
+            Start with a clear picture of your documents.
           </h2>
-          <p className="lede !max-w-[40ch]">
-            A Readiness Audit gives you the first four. Every repaired file adds a record. Nothing ships as a percentage or a badge.
-          </p>
+          <div>
+            <p className="lede !max-w-[42ch]">
+              A Readiness Audit gives you an inventory, prioritized findings and a practical plan. Not a score or a badge. Every file we repair adds its record.
+            </p>
+            <div className="mt-7 flex flex-wrap items-center gap-x-6 gap-y-3">
+              <Link href="/contact?topic=audit" className="btn">
+                Request a Readiness Audit <span className="arrow" aria-hidden="true" data-icon="arrow-r" />
+              </Link>
+              <Link href="/readiness-audit" className="text-link">
+                What the audit includes
+              </Link>
+            </div>
+          </div>
         </div>
         <ol ref={ref} className="receive-row">
           {ITEMS.map((it, i) => (
@@ -118,11 +128,6 @@ export function Receive() {
             </Fanned>
           ))}
         </ol>
-        <p className="mt-10 text-[0.95rem] text-muted">
-          <Link href="/readiness-audit" className="text-link">
-            What the audit includes, what you provide, and how long it takes
-          </Link>
-        </p>
       </div>
     </section>
   );

@@ -12,9 +12,9 @@ export const EASE_MOVE = [0.65, 0, 0.35, 1] as const;
 
 export const DUR = {
   /** Menus, dropdowns, popovers, small surfaces. */
-  ui: 0.2,
-  /** Exits are 20% shorter than entrances. */
-  uiExit: 0.16,
+  ui: 0.22,
+  /** Exits are about 30% shorter than entrances (matches --dur-enter / --dur-exit in CSS). */
+  uiExit: 0.15,
   /** Indicators and knobs travelling between options. */
   move: 0.32,
   /** Story-level reveals (hero, demos). */
@@ -27,7 +27,7 @@ export const STAGGER = 0.03;
 export const settleDelay = (parent: number) => +(parent * 0.12).toFixed(3);
 
 export const PRESS_SCALE = 0.97;
-export const POPOVER_FROM = 0.95;
+export const POPOVER_FROM = 0.97;
 
 export const tUi: Transition = { duration: DUR.ui, ease: EASE_OUT };
 export const tUiExit: Transition = { duration: DUR.uiExit, ease: EASE_OUT };

@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { PermitSheet, SheetLegend } from "@/components/doc/PermitSheet";
-import { PageCta, PageIntro, Row, Spec } from "@/components/pages/PageParts";
+import { PageCta, PageIntro, Reveal } from "@/components/pages/PageParts";
+import { FindingReview } from "@/components/pages/FindingReview";
 import { FileScope, OfferLadder } from "@/components/pages/ProductTables";
 import { Compare } from "@/components/story/Compare";
 
@@ -11,100 +12,23 @@ export const metadata: Metadata = {
   alternates: { canonical: "/product" },
 };
 
-const workflow = [
-  {
-    id: "discover",
-    name: "Discover",
-    does: "Crawl your public site, list every linked PDF, and sort each one by what it is and how residents use it.",
-    who: "Software, reviewed by your team",
-    when: "Available now, in the audit",
-    now: true,
-  },
-  {
-    id: "repair",
-    name: "Repair",
-    does: "Software we are testing drafts routine fixes and a person checks them. Tables, forms, reading order and scans are done by a person. Visible content is never changed.",
-    who: "Software and people",
-    when: "Available now, as a service",
-    now: true,
-  },
-  {
-    id: "verify",
-    name: "Verify",
-    does: "Check every file with the PDF/UA validator and human review, plus our semantic check (in testing), then report what each one found.",
-    who: "Software and people",
-    when: "Available now, as a service",
-    now: true,
-  },
-  {
-    id: "publish",
-    name: "Publish",
-    does: "Let staff check a document before it goes live, with plain-language fixes.",
-    who: "Self-serve tool",
-    when: "In development",
-    now: false,
-  },
-  {
-    id: "monitor",
-    name: "Monitor",
-    does: "Notice new uploads and recurring problems before they pile up again.",
-    who: "Software",
-    when: "Planned",
-    now: false,
-  },
+const nowItems = [
+  { name: "Free PDF check", href: "/check", d: "One file, plain-English findings. Runs in your browser; the file is never uploaded." },
+  { name: "Readiness Audit", href: "/readiness-audit", d: "Inventory of every linked PDF, sorted, with a ranked list, effort estimate and plan. Flat fee, quoted in writing." },
+  { name: "PDF repair", href: "/contact?topic=repair", d: "Done and checked by people. Software we are testing drafts routine fixes. Each file returns with a check report." },
+];
+const laterItems = [
+  { name: "Agenda Desk", state: "soon", d: "Meeting packets repaired and checked on a clock. Limited pilot by arrangement, turnaround agreed in writing." },
+  { name: "Team check before posting", state: "soon", d: "A version of the free check for staff that also fixes routine problems. In development." },
+  { name: "Monitoring", state: "soon", d: "Notices new uploads and recurring problems. Planned. Not available." },
 ];
 
-const offers = [
-  {
-    id: "audit",
-    n: "Offer 01",
-    title: "Readiness Audit",
-    kicker: "Know what you have before you fix any of it.",
-    body: "We inventory every PDF linked from your public website and sort each one into a recommendation: must fix, archive candidate, delete candidate, or better as a web page. Must-fix files are checked and ranked by risk. Forms and documents people use to apply for services come first.",
-    spec: [
-      "Inventory of publicly linked documents, with where each one is linked from",
-      "Recommendations with reasons, which your team reviews and decides on",
-      "Check results for must-fix files, or for a sample if the set is very large",
-      "Effort estimate by page type: simple pages versus tables, forms and scans",
-      "A written report and the full inventory as a spreadsheet",
-    ],
-  },
-  {
-    id: "package",
-    n: "Offer 02",
-    title: "Readiness Package",
-    kicker: "The audit, then the repairs.",
-    body: "Everything in the audit, followed by remediation of the documents that must be fixed. Routine structure is drafted by software and checked by a person. Tables, lists, reading order, scanned pages and forms go to a person. Every file is re-checked after its last change and delivered with its own check report.",
-    spec: [
-      "Software-drafted fixes limited to tags, order, alternative text and field names. Visible content is never changed.",
-      "Human remediation for the parts software doesn't handle reliably",
-      "A check report per file: what was checked, what changed, who changed it",
-    ],
-  },
-  {
-    id: "agenda",
-    n: "Offer 03",
-    title: "Agenda Desk",
-    kicker: "Meeting packets, turned around on a clock.",
-    body: "Clerks send each agenda packet as it's ready, and we return it repaired and checked before the posting deadline. We are offering this as a limited pilot, with the turnaround agreed in writing for each city, while we measure how long real packets take.",
-    spec: ["Limited pilot, by arrangement", "Turnaround agreed in writing per city", "Same checks and reports as every other file"],
-  },
-  {
-    id: "check",
-    n: "Offer 04",
-    title: "Check before posting",
-    kicker: "Stop new problems at the door.",
-    body: "Staff can check a PDF before posting it with our free check, today. It runs in the browser, so the file is never uploaded, and it explains what it finds in plain English. A team version that also fixes routine problems is planned, not available yet.",
-    spec: ["Free single-file check: available now at /check", "Automatic fixing and team features: planned"],
-  },
-  {
-    id: "partners",
-    n: "Offer 05",
-    title: "Agency and overflow work",
-    kicker: "For agencies and remediation firms.",
-    body: "The same process and the same checks, with reports that can carry your name on request. It's for website agencies with municipal clients and remediation firms with more work than hands.",
-    spec: ["Per-page work scoped with you", "Reports without Sayable branding on request"],
-  },
+const details = [
+  { id: "audit", t: "Readiness Audit", d: "Every linked PDF inventoried, must-fix files checked and ranked, one written report.", link: { href: "/readiness-audit", label: "What the audit includes" } },
+  { id: "package", t: "Readiness Package", d: "The audit, then repair of the must-fix files. Tables, lists, reading order, scans and forms go to a person. Every file is re-checked after its last change." },
+  { id: "agenda", t: "Agenda Desk", d: "Clerks send each packet as it is ready; we return it repaired and checked. A limited pilot while we measure how long real packets take." },
+  { id: "check", t: "Check before posting", d: "The free check works today. Automatic fixing and team features are planned, not available." },
+  { id: "partners", t: "Agency and overflow work", d: "The same process and checks for website agencies and remediation firms. Reports without Sayable branding on request." },
 ];
 
 export default function ProductPage() {
@@ -112,71 +36,90 @@ export default function ProductPage() {
     <>
       <PageIntro
         title="Find, fix and verify every public PDF."
-        lede="Sayable is a PDF accessibility service for public agencies. We find the PDFs that need attention, repair them by hand with help from software we are still testing, and check every file the same way. One part is free and yours to use today: the PDF check."
+        lede="A PDF accessibility service for public agencies, and one free tool. Here is what you can use today, and what is still being built."
       />
 
-      <figure className="wrap pb-20 sm:pb-28">
-        <div className="mx-auto max-w-[760px]">
-          <PermitSheet
-            layer="fixed"
-            label="A sample permit application after the Repair and Verify stages: a level-one heading, every field named, and a reading order from the title to the date."
-          />
-          <SheetLegend layer="fixed" className="mt-6" />
-        </div>
-        <figcaption className="mx-auto mt-6 max-w-[56ch] text-center text-[0.95rem] text-ink-soft">
-          What you get back: the same form, unchanged for sighted readers, with its structure named and ordered for
-          everyone else. <span className="text-muted">Illustrative sample. Fictional city.</span>
-        </figcaption>
-      </figure>
-
-      <section aria-labelledby="workflow-title" className="wrap pb-20 sm:pb-28">
-        <h2 id="workflow-title" className="headline max-w-[22ch] !text-[length:var(--step-3)]">
-          What you can buy today, and what is still being built.
+      <section aria-labelledby="avail-title" className="wrap pb-16 sm:pb-24">
+        <h2 id="avail-title" className="sr-only">
+          Available now and planned
         </h2>
-        <ul className="prod-flow" aria-label="Stages of the work">
-          {workflow.map((w) => (
-            <li key={w.id} id={w.id} data-now={w.now ? "" : undefined}>
-              <h3 className="title text-[1.2rem]">{w.name}</h3>
-              <p className="mt-1.5 text-[0.95rem] leading-snug text-ink-soft">{w.does}</p>
-              <p className="prod-flow-meta">
-                <span className="hx-status" data-state={w.now ? "now" : "soon"}>
-                  {w.when}
-                </span>
-                <span className="text-muted">{w.who}</span>
-              </p>
-            </li>
-          ))}
-        </ul>
-        <p className="mt-10 max-w-[60ch] text-ink-soft">
-          See the work on a sample permit form on the{" "}
-          <Link href="/" className="text-link">
-            home page
-          </Link>
-          , or read{" "}
-          <Link href="/verify" className="text-link">
-            how verification works
-          </Link>
-          .
+        <div className="grid gap-x-16 gap-y-12 lg:grid-cols-2">
+          <div>
+            <Reveal as="h3" className="sp-h2 !text-[length:var(--step-2)]">Available now</Reveal>
+            <ul className="mt-5 border-t hairline">
+              {nowItems.map((i) => (
+                <li key={i.name} className="border-b py-5 hairline">
+                  <p className="hx-status" data-state="now">
+                    <Link href={i.href} className="text-link">{i.name}</Link>
+                  </p>
+                  <p className="mt-1.5 max-w-[52ch] text-[0.975rem] text-ink-soft">{i.d}</p>
+                </li>
+              ))}
+            </ul>
+          </div>
+          <div>
+            <Reveal as="h3" className="sp-h2 !text-[length:var(--step-2)]">Pilot or planned</Reveal>
+            <ul className="mt-5 border-t hairline">
+              {laterItems.map((i) => (
+                <li key={i.name} className="border-b py-5 hairline">
+                  <p className="hx-status" data-state="soon">{i.name}</p>
+                  <p className="mt-1.5 max-w-[52ch] text-[0.975rem] text-ink-soft">{i.d}</p>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
+        <p className="mt-6 text-[0.9rem] text-muted">
+          <span className="hx-status" data-state="now">Filled dot: available now</span>
+          <span className="mx-3" aria-hidden="true">/</span>
+          <span className="hx-status" data-state="soon">Hollow ring: pilot or planned</span>
         </p>
       </section>
 
-      <section aria-labelledby="ladder-title" className="wrap pb-20 sm:pb-28">
-        <h2 id="ladder-title" className="headline max-w-[22ch] !text-[length:var(--step-3)]">
-          What you can buy, and what is free.
-        </h2>
+      <section aria-labelledby="flow-title" className="sp-section sp-band">
+        <div className="wrap">
+          <Reveal as="h2" id="flow-title" className="sp-h2 max-w-[24ch]">
+            From a finding to a reviewed fix
+          </Reveal>
+          <p className="sp-lede mt-4">Software finds and drafts. A person decides. Nothing is marked done until it is checked again.</p>
+          <div className="mt-10">
+            <FindingReview />
+          </div>
+        </div>
+      </section>
+
+      <figure className="wrap sp-section">
+        <div className="mx-auto max-w-[760px]">
+          <Reveal kind="depth">
+            <PermitSheet
+              layer="fixed"
+              label="A sample permit application after the Repair and Verify stages: a level-one heading, every field named, and a reading order from the title to the date."
+            />
+          </Reveal>
+          <SheetLegend layer="fixed" className="mt-6" />
+        </div>
+        <figcaption className="mx-auto mt-6 max-w-[56ch] text-center text-[0.95rem] text-ink-soft">
+          What you get back: the same form, unchanged for sighted readers, with its structure named and ordered for everyone else.{" "}
+          <span className="text-muted">Illustrative sample. Fictional city.</span>
+        </figcaption>
+      </figure>
+
+      <section aria-labelledby="ladder-title" className="wrap pb-16 sm:pb-24">
+        <Reveal as="h2" id="ladder-title" className="sp-h2 max-w-[22ch]">
+          What it costs
+        </Reveal>
         <p className="mt-4 max-w-[60ch] text-ink-soft">
-          Most cities start with the free check or a Readiness Audit. We quote every paid job in writing before any work starts.
+          The check is free. We quote every paid job in writing before any work starts, and publish no prices.
         </p>
         <OfferLadder />
       </section>
 
-      <section aria-labelledby="scope-title" className="wrap pb-20 sm:pb-28">
-        <h2 id="scope-title" className="headline max-w-[22ch] !text-[length:var(--step-3)]">
-          PDFs only. Here is exactly what that covers.
-        </h2>
+      <section aria-labelledby="scope-title" className="wrap pb-16 sm:pb-24">
+        <Reveal as="h2" id="scope-title" className="sp-h2 max-w-[22ch]">
+          PDFs only. Here is what that covers.
+        </Reveal>
         <p className="mt-4 max-w-[60ch] text-ink-soft">
-          We focus on PDFs, the format cities use for most forms, agendas and notices. Doing one format well beats doing five badly. We
-          don&apos;t work on Word, PowerPoint or Excel files, or on web pages.
+          We do not work on Word, PowerPoint or Excel files, or on web pages.
         </p>
         <FileScope />
       </section>
@@ -185,39 +128,27 @@ export default function ProductPage() {
         <Compare />
       </div>
 
-      <section aria-labelledby="services-title" className="wrap pt-20 sm:pt-28">
-        <h2 id="services-title" className="headline !text-[length:var(--step-3)]">
-          Each service in detail
+      <section aria-labelledby="services-title" className="wrap pt-16 sm:pt-24">
+        <h2 id="services-title" className="sp-h2">
+          Each service in a line
         </h2>
+        <dl className="mt-8 border-t hairline pb-16 sm:pb-24">
+          {details.map((o) => (
+            <div key={o.id} id={o.id} className="grid scroll-mt-[var(--header-h)] gap-x-10 gap-y-1 border-b py-5 hairline md:grid-cols-[14rem_1fr]">
+              <dt className="sp-h3">{o.t}</dt>
+              <dd className="max-w-[62ch] text-ink-soft">
+                {o.d}
+                {o.link ? (
+                  <>
+                    {" "}
+                    <Link href={o.link.href} className="text-link">{o.link.label}</Link>.
+                  </>
+                ) : null}
+              </dd>
+            </div>
+          ))}
+        </dl>
       </section>
-      <div className="wrap pb-24">
-        {offers.map((o) => (
-          <Row key={o.id} id={o.id} n={o.n} title={o.title} kicker={o.kicker}>
-            <p>{o.body}</p>
-            <Spec items={o.spec} />
-            {o.id === "audit" ? (
-              <p className="mt-6">
-                <Link href="/readiness-audit" className="text-link">
-                  What the Readiness Audit includes and costs
-                </Link>
-              </p>
-            ) : null}
-          </Row>
-        ))}
-        <div className="border-t pt-10 hairline">
-          <p className="max-w-[60ch] text-ink-soft">
-            Want the mechanics? See{" "}
-            <Link href="/how-it-works" className="text-link">
-              how each stage works
-            </Link>{" "}
-            or{" "}
-            <Link href="/verify" className="text-link">
-              the rules we hold ourselves to
-            </Link>
-            .
-          </p>
-        </div>
-      </div>
       <PageCta />
     </>
   );

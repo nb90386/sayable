@@ -29,8 +29,24 @@ export const P = {
   f1: 0.9,
 } as const;
 
-/** Where the hero's scan rests once the page has loaded: past the title and the first field. */
-export const SCAN_REST = 0.36;
+/** The scan starts at the top of the form; on arrival it runs just past the title, the first finding. */
+export const INTRO_TO = 0.2;
+
+/**
+ * What the Sayable scan finds on the sample form, in document order, in plain words.
+ * `at` is where the element starts, as a share of the page height. The technical
+ * identifiers sit in the story's Details for specialists.
+ */
+export const FINDINGS = [
+  { id: "title", at: 118 / 1100, text: "This title isn\u2019t recognized as a heading.", detail: "Tagged as a paragraph (P), not H1." },
+  { id: "name", at: 318 / 1100, text: "A screen reader can\u2019t tell what this field is for.", detail: "Form field with no accessible name (empty TU); seven fields like it." },
+  { id: "work", at: 652 / 1100, text: "These checkboxes have no names and aren\u2019t grouped.", detail: "Three check boxes, no names, no group label." },
+  { id: "footer", at: 1022 / 1100, text: "The page is read starting at the footer.", detail: "Tag order begins with the footer text, not marked as an artifact." },
+] as const;
+
+/** The scan position for a scroll progress `v` and the arrival run `i` (both 0 to 1). */
+export const scanFrom = (v: number, i: number) =>
+  v <= P.aHold ? INTRO_TO * i : INTRO_TO + (1 - INTRO_TO) * clamp01((v - P.aHold) / (P.scan1 - P.aHold));
 
 const clamp01 = (v: number) => (v < 0 ? 0 : v > 1 ? 1 : v);
 const ease = (t: number) => (t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2);
@@ -220,13 +236,14 @@ function ScanFx({ scan, phase, docW }: { scan: MotionValue<number>; phase: Motio
     const on = ph > 0.5;
     if (!on) return;
     const s = scan.get();
-    if (s <= 0.001 || s >= 0.999) return;
+    const live = s > 0.001 && s < 0.999;
     const y = s * DOC_H;
     const repair = ph > 1.5;
     const hot = repair ? [27, 140, 100] : [207, 69, 32];
     const line = repair ? "27,110,82" : "27,90,69";
 
     // a soft band of light just behind the line
+    if (live) {
     const band = ctx.createLinearGradient(0, y - 150, 0, y);
     band.addColorStop(0, `rgba(${line},0)`);
     band.addColorStop(1, `rgba(${line},0.09)`);
@@ -276,6 +293,28 @@ function ScanFx({ scan, phase, docW }: { scan: MotionValue<number>; phase: Motio
         const sz = 3 + (i % 3);
         ctx.fillRect(px - sz / 2, py - sz / 2, sz, sz);
       }
+    }
+    }
+
+    // Numbered marks in the margin, matching the findings listed beside the form.
+    if (!repair) {
+      FINDINGS.forEach((f, n) => {
+        const r = regions[f.id]!;
+        const a = clamp01((y - r.y - 6) / 40);
+        if (a <= 0) return;
+        const cy = r.y + Math.min(r.h / 2, 24);
+        ctx.globalAlpha = a;
+        ctx.fillStyle = "#a33612";
+        ctx.beginPath();
+        ctx.arc(34, cy, 19, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.fillStyle = "#fff";
+        ctx.font = "600 21px system-ui, sans-serif";
+        ctx.textAlign = "center";
+        ctx.textBaseline = "middle";
+        ctx.fillText(String(n + 1), 34, cy + 1);
+        ctx.globalAlpha = 1;
+      });
     }
   };
   useMotionValueEvent(scan, "change", draw);
@@ -334,10 +373,7 @@ export function StageVisual({
   const ring = useTransform(p, [P.c1 - 0.02, P.c1, P.e0, P.e0 + 0.02], [0, 1, 1, 0]);
 
   // Scan position, as a share of the page height.
-  const scanB = useTransform([p, intro] as MotionValue<number>[], ([v, i]: number[]) => {
-    const fromScroll = SCAN_REST + (1 - SCAN_REST) * clamp01((v! - P.aHold) / (P.scan1 - P.aHold));
-    return v! <= P.aHold ? SCAN_REST * i! : fromScroll;
-  });
+  const scanB = useTransform([p, intro] as MotionValue<number>[], ([v, i]: number[]) => scanFrom(v!, i!));
   const scanE = useTransform(p, [P.fix0, P.fix1], [0, 1]);
   const scan = useTransform([p, scanB, scanE] as MotionValue<number>[], ([v, b, e]: number[]) => (v! < (P.c0 + P.e0) / 2 ? b! : e!));
   const phase = useTransform(p, (v): number => (v < P.scan1 + 0.004 ? 1 : v > P.fix0 - 0.004 && v < P.fix1 + 0.004 ? 2 : 0));
@@ -345,7 +381,7 @@ export function StageVisual({
   const lineO = useTransform([p, scan] as MotionValue<number>[], ([v, s]: number[]) => {
     const inB = v! < P.scan1;
     const inE = v! > P.fix0 && v! < P.fix1;
-    return (inB || inE) && s! > 0.004 && s! < 0.996 ? 1 : 0;
+    return (inB || inE) && s! < 0.996 ? 1 : 0;
   });
   const labelB = useTransform(p, (v) => (v < P.c0 ? 1 : 0));
 
@@ -384,7 +420,7 @@ export function StageVisual({
             <PermitPage />
             <m.g style={{ opacity: brokenO, ["--draw" as string]: brokenDraw }}>
               <g clipPath={`url(#broken-${uid})`}>
-                <BrokenLayer compact />
+                <BrokenLayer plain />
               </g>
             </m.g>
             <m.g style={{ opacity: fixedO, ["--draw" as string]: fixedDraw }} clipPath={`url(#fixed-${uid})`}>
@@ -393,7 +429,7 @@ export function StageVisual({
           </svg>
           <ScanFx scan={scan} phase={phase} docW={geo.docW} />
           <m.div className="scan-line" style={{ y: scanY, opacity: lineO }}>
-            <m.span style={{ opacity: labelB }}>Reading structure</m.span>
+            <m.span style={{ opacity: labelB }}>Sayable scan</m.span>
           </m.div>
         </m.div>
         <m.div className="story-report" style={{ width: report.w, marginLeft: -report.w / 2, x: rx, y: report.y, rotate: rRotate, opacity: rOpacity }}>

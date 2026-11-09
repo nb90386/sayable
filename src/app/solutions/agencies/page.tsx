@@ -46,18 +46,17 @@ export default function AgenciesPage() {
       <PageIntro
         title="Your client's site is ready. Their PDF library may not be."
         lede="For website agencies with government clients and remediation firms that want a careful partner for document work."
-        note="Service, not software"
       />
 
       <section aria-labelledby="moments" className="border-t hairline py-16 sm:py-24">
         <div className="wrap">
-          <h2 id="moments" className="headline max-w-[16ch] !text-[length:var(--step-3)]">
+          <h2 id="moments" className="sp-h2 max-w-[16ch]">
             Where we fit in your work
           </h2>
           <ol className="mt-10 border-t hairline">
-            {moments.map((m, i) => (
+            {moments.map((m) => (
               <li key={m.t} className="grid-12 gap-y-3 border-b py-8 hairline">
-                <p className="tag col-span-12 md:col-span-2">{m.when}</p>
+                <p className="col-span-12 text-[0.9rem] font-[600] text-muted md:col-span-2">{m.when}</p>
                 <h3 className="title col-span-12 text-[1.35rem] md:col-span-4">{m.t}</h3>
                 <p className="col-span-12 max-w-[58ch] text-ink-soft md:col-span-6">{m.d}</p>
               </li>
@@ -73,7 +72,7 @@ export default function AgenciesPage() {
               What is on offer, plainly
             </h2>
             <p className="mt-6 max-w-[42ch] text-ink-soft">
-              Sayable is a service: people doing the work, with software we are still testing for the routine parts. You send us work and we send back repaired, checked files and reports. We are not offering a tool you plug into your own systems.
+              A service, not software: people do the work, with software we are still testing for the routine parts. You send files; we return repaired, checked files and reports.
             </p>
           </div>
           <div className="col-span-12 overflow-x-auto lg:col-span-6 lg:col-start-7" tabIndex={0} role="region" aria-label="What is and is not offered">

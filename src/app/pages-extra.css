@@ -97,7 +97,7 @@
 .hiw-details details { border-bottom: 1px solid var(--rule); }
 .hiw-details summary { display: flex; align-items: center; justify-content: space-between; gap: 1rem; min-height: 4rem; cursor: pointer; font-size: var(--step-1); font-weight: 600; list-style: none; }
 .hiw-details summary::-webkit-details-marker { display: none; }
-.hiw-details summary::after { content: "+"; font-weight: 300; font-size: 1.6rem; transition: transform 0.2s var(--ease-out-quart); }
+.hiw-details summary::after { content: "+"; font-weight: 300; font-size: 1.6rem; transition: transform var(--dur-base) var(--ease-out-quart); }
 .hiw-details details[open] summary::after { transform: rotate(45deg); }
 .hiw-detail-body { padding-bottom: 2rem; }
 .hiw-detail-body > p { max-width: 68ch; color: var(--color-ink-soft); }
@@ -110,3 +110,90 @@
 @media (max-width: 1023px) { .prod-flow > li + li { border-top: 1px solid var(--rule); } }
 .prod-flow > li:not([data-now]) h3 { color: var(--color-ink-soft); }
 .prod-flow-meta { display: grid; gap: 0.3rem; margin-top: 1rem; font-size: 0.85rem; }
+
+/* ─── Quiet entrances for subpages (RevealObserver adds .is-in) ───
+   Overrides the site default (10px, 0.8s) with 8px and 220ms ease-out. Text rises; product visuals
+   enter with a slight scale. Reduced motion never hides anything: the observer does not run. */
+@media (prefers-reduced-motion: no-preference) {
+  .js-motion .q-rise[data-reveal] { transform: translate3d(0, 8px, 0); transition: opacity 220ms ease-out, transform 220ms ease-out; }
+  .js-motion .q-depth[data-reveal] { transform: translate3d(0, 12px, 0) scale(0.985); transform-origin: 50% 100%; transition: opacity 240ms ease-out, transform 240ms ease-out; }
+  .js-motion .q-rise[data-reveal].is-in, .js-motion .q-depth[data-reveal].is-in { opacity: 1; transform: none; }
+}
+
+/* ─── Shared subpage pieces ─── */
+.sp-lede { max-width: 52ch; color: var(--color-ink-soft); font-size: var(--step-1); line-height: 1.45; }
+.sp-h2 { font-family: var(--font-display); font-weight: 500; font-size: var(--step-3); line-height: 1.04; letter-spacing: -0.028em; text-wrap: balance; }
+.sp-h3 { font-family: var(--font-display); font-weight: 500; font-size: var(--step-1); line-height: 1.15; letter-spacing: -0.02em; }
+.sp-section { padding-block: clamp(3.5rem, 8vh, 6rem); }
+.sp-band { background: var(--color-paper-deep); }
+
+/* Three-column ledger: you provide / we do / you receive */
+.sp-ledger { display: grid; border-top: 1px solid var(--rule-strong); }
+.sp-ledger > li { padding-block: 1.5rem; }
+.sp-ledger > li + li { border-top: 1px solid var(--rule); }
+@media (min-width: 900px) {
+  .sp-ledger { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .sp-ledger > li { padding-inline: 0 2rem; }
+  .sp-ledger > li + li { border-top: 0; border-left: 1px solid var(--rule); padding-left: 2rem; }
+}
+.sp-ledger h3 { font-family: var(--font-display); font-weight: 500; font-size: var(--step-2); line-height: 1.1; letter-spacing: -0.028em; }
+.sp-ledger ul { margin-top: 1rem; display: grid; gap: 0.6rem; color: var(--color-ink-soft); }
+.sp-ledger ul li { padding-left: 1.1rem; position: relative; }
+.sp-ledger ul li::before { content: ""; position: absolute; left: 0; top: 0.62em; width: 0.4rem; height: 1.5px; background: var(--color-muted); }
+
+/* ─── Real documents (government page): small mockups ─── */
+.dx { display: grid; gap: 2.5rem; }
+.dx-row { display: grid; gap: 1.5rem 3rem; align-items: center; padding-block: 2.5rem; border-top: 1px solid var(--rule-strong); }
+@media (min-width: 900px) {
+  .dx-row { grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr); }
+  .dx-row:nth-child(even) .dx-text { order: 2; }
+}
+.dx-text h3 { font-family: var(--font-display); font-weight: 500; font-size: var(--step-2); line-height: 1.08; letter-spacing: -0.028em; }
+.dx-text p { margin-top: 0.75rem; max-width: 46ch; color: var(--color-ink-soft); }
+.dx-text .dx-why { color: var(--color-ink); }
+.dx-fig { justify-self: center; width: min(100%, 25rem); padding-bottom: 0; }
+.dx-sheet { position: relative; padding: 1.1rem 1.2rem 1.3rem; border-radius: 4px; background: var(--color-sheet); box-shadow: var(--shadow-sheet); font-size: 0.78rem; line-height: 1.35; color: var(--color-ink); font-family: Georgia, "Times New Roman", serif; }
+.dx-sheet h4 { font-family: Georgia, serif; font-size: 0.95rem; font-weight: 700; border-bottom: 1.5px solid var(--color-ink); padding-bottom: 0.35rem; margin-bottom: 0.7rem; }
+.dx-sheet .sm { font-family: var(--font-sans); font-size: 0.7rem; color: var(--color-muted); }
+.dx-field { display: grid; grid-template-columns: 5.5rem 1fr; gap: 0.5rem; align-items: center; margin-top: 0.45rem; font-family: var(--font-sans); font-size: 0.72rem; }
+.dx-box { height: 1.15rem; border: 1px solid #9a968c; background: #fff; border-radius: 2px; }
+.dx-box[data-bad] { border: 1.5px dashed var(--color-warm); background: color-mix(in oklab, var(--color-ember-wash), white 40%); }
+.dx-note { position: relative; margin: 0.9rem 0 0 auto; max-width: 16rem; padding: 0.5rem 0.7rem; border-radius: 8px; background: var(--color-ink); color: var(--color-paper); font-family: var(--font-sans); font-size: 0.76rem; line-height: 1.3; box-shadow: 0 10px 24px -12px rgb(0 0 0 / 0.45); }
+.dx-note b { font-weight: 600; }
+.dx-line { height: 0.42rem; border-radius: 2px; background: #cfcbc1; margin-top: 0.4rem; }
+.dx-tbl { width: 100%; border-collapse: collapse; margin-top: 0.4rem; font-family: var(--font-sans); font-size: 0.7rem; }
+.dx-tbl td, .dx-tbl th { border: 1px solid #cfcbc1; padding: 0.22rem 0.4rem; text-align: left; font-weight: 400; }
+.dx-tbl thead th { background: #efede6; font-weight: 600; }
+.dx-flag { display: inline-block; margin-top: 0.6rem; padding: 0.15rem 0.5rem; border-radius: 999px; font-family: var(--font-sans); font-size: 0.7rem; font-weight: 600; }
+.dx-flag[data-tone="bad"] { background: var(--color-ember-wash); color: var(--color-ember); }
+.dx-flag[data-tone="ok"] { background: var(--color-signal-wash); color: var(--color-signal-deep); }
+
+/* ─── Product: finding → review ─── */
+.fr { display: grid; gap: 1rem; align-items: stretch; }
+@media (min-width: 900px) { .fr { grid-template-columns: minmax(0, 1fr) 2.5rem minmax(0, 1fr); gap: 0; } }
+.fr-card { padding: 1.25rem 1.35rem; border-radius: 12px; background: var(--color-sheet); box-shadow: var(--shadow-sheet); display: grid; gap: 0.7rem; align-content: start; }
+.fr-card h3 { font-family: var(--font-display); font-weight: 500; font-size: var(--step-1); line-height: 1.15; letter-spacing: -0.02em; }
+.fr-k { font-size: 0.8rem; font-weight: 650; color: var(--color-muted); }
+.fr-card[data-tone="bad"] { box-shadow: var(--shadow-sheet), inset 0 3px 0 var(--color-warm); }
+.fr-card[data-tone="ok"] { box-shadow: var(--shadow-sheet), inset 0 3px 0 var(--color-signal); }
+.fr-arrow { display: none; align-self: center; justify-self: center; color: var(--color-muted); }
+@media (min-width: 900px) { .fr-arrow { display: block; } }
+.fr-diff { font-family: var(--font-mono); font-size: 0.8rem; line-height: 1.5; padding: 0.6rem 0.75rem; border-radius: 8px; background: var(--color-paper); box-shadow: inset 0 0 0 1px var(--rule-strong); }
+.fr-diff .del { color: var(--color-ember); }
+.fr-diff .add { color: var(--color-signal-deep); }
+
+/* ─── Audit: what happens after you request ─── */
+.au-after { display: grid; border-top: 1px solid var(--rule-strong); }
+.au-after > li { display: grid; gap: 0.25rem 2rem; padding-block: 1.25rem; border-bottom: 1px solid var(--rule); }
+@media (min-width: 760px) { .au-after > li { grid-template-columns: 14rem minmax(0, 1fr) 11rem; align-items: baseline; } }
+.au-after h3 { font-family: var(--font-display); font-weight: 500; font-size: var(--step-1); letter-spacing: -0.02em; }
+.au-after p { color: var(--color-ink-soft); }
+.au-after .who { font-size: 0.86rem; font-weight: 600; color: var(--color-muted); }
+
+/* ─── About ─── */
+.ab-split { display: grid; gap: 2rem 4rem; }
+@media (min-width: 900px) { .ab-split { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); } }
+.ab-list { border-top: 1px solid var(--rule-strong); }
+.ab-list > div { padding-block: 1rem; border-bottom: 1px solid var(--rule); display: grid; gap: 0.2rem; }
+.ab-list dt { font-weight: 600; }
+.ab-list dd { color: var(--color-ink-soft); }

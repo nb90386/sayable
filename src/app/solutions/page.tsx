@@ -34,15 +34,14 @@ export default function SolutionsPage() {
     <>
       <PageIntro
         title="Built for the people who publish public information."
-        lede="Different teams meet the same problem at different moments. Pick the one closest to yours."
-        note="Public documents only"
-      />
+        lede="Pick the one closest to your job. Both start from the same written inventory of what you publish."
+              />
 
       <div className="wrap pb-16">
         <ul className="border-t hairline">
           {paths.map((p) => (
             <li key={p.id} className="grid-12 gap-y-5 border-b py-12 hairline sm:py-16">
-              <h2 className="headline col-span-12 !text-[length:var(--step-3)] lg:col-span-5">{p.who}</h2>
+              <h2 className="sp-h2 col-span-12 lg:col-span-5">{p.who}</h2>
               <div className="col-span-12 lg:col-span-6 lg:col-start-7">
                 <p className="text-[length:var(--step-1)] leading-[1.35] text-ink-soft">{p.moment}</p>
                 <p className="mt-4 max-w-[52ch] text-ink-soft">{p.start}</p>
@@ -54,14 +53,14 @@ export default function SolutionsPage() {
           ))}
         </ul>
         <p className="mt-10 max-w-[62ch] text-ink-soft">
-          Clerks and agenda teams: it is Thursday afternoon and the council packet has to be posted before the weekend. See the{" "}
+          Clerks and agenda teams: see the{" "}
           <Link href="/solutions/government#agenda" className="text-link">
-            Agenda Desk section for government teams
-          </Link>
-          .
+            Agenda Desk pilot
+          </Link>{" "}
+          for packets that must be posted on a deadline.
         </p>
         <p className="mt-6 max-w-[62ch] text-[0.9rem] text-muted">
-          The situations above are illustrations of common moments, not customer stories.
+          The moments above are illustrations, not customer stories.
         </p>
       </div>
 

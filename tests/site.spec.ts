@@ -72,9 +72,51 @@ test("the hero is readable on arrival and the scan runs on the form", async ({ p
   await expect(page.getByRole("link", { name: /Request a Readiness Audit/ }).first()).toBeVisible();
   // the reading line rests partway down the form once its opening run ends
   await expect
-    .poll(() => page.locator(".scan-line").evaluate((el) => el.getBoundingClientRect().top - el.parentElement!.getBoundingClientRect().top), { timeout: 5000 })
-    .toBeGreaterThan(100);
+    .poll(
+      () =>
+        page.locator(".scan-line").evaluate((el) => {
+          const doc = el.parentElement!.getBoundingClientRect();
+          return (el.getBoundingClientRect().top - doc.top) / doc.height;
+        }),
+      { timeout: 5000 },
+    )
+    .toBeGreaterThan(0.15);
   await expect(page.getByRole("link", { name: "Skip the story" })).toHaveAttribute("href", "#deadline");
+  // the scan is named for people, and its findings are in plain words (technical identifiers only in Details)
+  await expect(page.locator(".scan-line")).toContainText("Sayable scan");
+  await expect(page.locator(".scan-log-wrap li").first()).toContainText("This title isn’t recognized as a heading.");
+  await expect(page.locator("body")).not.toContainText("tagged as text, not H1");
+  await expect(page.getByText("Technical details").first()).toBeAttached();
+});
+
+test("the scan starts at the top of the form", async ({ page }) => {
+  await page.emulateMedia({ reducedMotion: "no-preference" });
+  await page.goto("/", { waitUntil: "domcontentloaded" });
+  // before the arrival run begins, the line sits at the top edge of the page
+  const start = await page.locator(".scan-line").evaluate((el) => el.getBoundingClientRect().top - el.parentElement!.getBoundingClientRect().top);
+  expect(start).toBeLessThan(40);
+});
+
+test("the deadline names the right governments and walks through the work by scroll", async ({ page }, info) => {
+  test.skip(info.project.name.includes("mobile"), "same sequence on phones; desktop positions here");
+  await page.goto("/");
+  const dl = page.locator("#deadline");
+  await expect(dl).toContainText("total population of 50,000 or more");
+  await expect(dl).toContainText("special district governments");
+  await expect(dl).not.toContainText("serving 50,000");
+  const at = (v: number) =>
+    page.evaluate((v) => {
+      document.documentElement.style.scrollBehavior = "auto";
+      const t = document.querySelector(".dl-track") as HTMLElement;
+      window.scrollTo(0, t.getBoundingClientRect().top + window.scrollY + v * (t.offsetHeight - innerHeight));
+    }, v);
+  await at(0.05);
+  await expect(page.locator(".dl-steps li[data-current]")).toContainText("Find");
+  await at(0.95);
+  await expect(page.locator(".dl-steps li[data-current]")).toContainText("Keep up");
+  await expect(page.locator(".dl-row[data-kind='new']")).toContainText("Checked before posting");
+  // and the offer follows straight after
+  await expect(page.locator(".receive").getByRole("link", { name: /Request a Readiness Audit/ })).toBeVisible();
 });
 
 test("the document story advances by scroll, and every scene is reachable", async ({ page }, info) => {

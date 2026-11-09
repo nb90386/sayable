@@ -102,7 +102,7 @@ export default function Page() {
           mobile apps of state and local governments. PDFs posted on a public website are within its reach.
         </p>
         <p>
-          As originally written, compliance dates were April 24, 2026 for entities with a population of 50,000 or
+          As originally written, compliance dates were April 24, 2026 for entities with a total population of 50,000 or
           more and April 26, 2027 for smaller entities and special district governments. In April 2026 the
           Department published an interim final rule that moved each date back a year, to April 26, 2027 and April
           26, 2028 respectively. The standard itself did not change. See the{" "}

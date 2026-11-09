@@ -6,13 +6,13 @@ const brokenOrder = ["footer", "title", "address", "name", "signature", "work", 
 const fixedOrder = ["title", "intro", "name", "phone", "address", "work", "signature", "date"];
 
 const fixedNames: Record<string, string> = {
-  title: "H1",
-  name: 'Field "Applicant name"',
-  phone: 'Field "Daytime phone"',
-  address: 'Field "Site address"',
-  work: 'Group "Type of work"',
-  signature: 'Field "Applicant signature"',
-  date: 'Field "Date"',
+  title: "Heading",
+  name: '"Applicant name"',
+  phone: '"Daytime phone"',
+  address: '"Site address"',
+  work: '"Type of work", grouped',
+  signature: '"Applicant signature"',
+  date: '"Date"',
 };
 
 const anchor = (id: string) => {
@@ -44,8 +44,11 @@ function orderedPath(ids: string[], tangled: boolean) {
   return d;
 }
 
-/** `compact` keeps one name chip, so the scan reveals a few clear problems instead of a wall of labels. */
-export function BrokenLayer({ compact = false }: { compact?: boolean }) {
+/**
+ * `compact` keeps two name chips instead of seven. `plain` drops every technical chip and the
+ * reading-order numbers: the homepage explains each problem in words beside the form instead.
+ */
+export function BrokenLayer({ compact = false, plain = false }: { compact?: boolean; plain?: boolean }) {
   const unnamed = ["name", "phone", "address", "work", "signature"];
   return (
     <g>
@@ -55,7 +58,7 @@ export function BrokenLayer({ compact = false }: { compact?: boolean }) {
         return (
           <g key={id}>
             <rect x={r.x - 6} y={r.y - 6} width={r.w + 12} height={r.h + 12} rx="8" fill="rgb(207 69 32 / 0.06)" stroke="#cf4520" strokeWidth="2.4" strokeDasharray="10 7" />
-            {!compact || id === "name" || id === "signature" ? (
+            {!plain && (!compact || id === "name" || id === "signature") ? (
               <g transform={`translate(${r.x + r.w - 196} ${r.y - 18})`} className="ann-chip">
                 <rect width="202" height="30" rx="15" fill="#a33612" />
                 <text x="16" y="20.5" fontFamily="var(--font-sans)" fontWeight="600" fontSize="14.5" fill="#fff">
@@ -66,13 +69,15 @@ export function BrokenLayer({ compact = false }: { compact?: boolean }) {
           </g>
         );
       })}
+      {plain ? null : (
       <g transform={`translate(${regions.title!.x} ${regions.title!.y - 26})`} className="ann-chip">
         <rect width="226" height="30" rx="15" fill="#fff" stroke="#cf4520" strokeWidth="2" />
         <text x="16" y="20.5" fontFamily="var(--font-sans)" fontWeight="600" fontSize="14" fill="#a33612">
           tagged as text, not H1
         </text>
       </g>
-      {brokenOrder.map((id, i) => {
+      )}
+      {plain ? null : brokenOrder.map((id, i) => {
         const a = anchor(id);
         return (
           <g key={id} transform={`translate(${a.x} ${a.y})`}>
@@ -83,12 +88,14 @@ export function BrokenLayer({ compact = false }: { compact?: boolean }) {
           </g>
         );
       })}
+      {plain ? null : (
       <g transform={`translate(${regions.footer!.x} ${regions.footer!.y - 40})`} className="ann-chip">
         <rect width="178" height="30" rx="15" fill="#fff" stroke="#cf4520" strokeWidth="2" />
         <text x="16" y="20.5" fontFamily="var(--font-sans)" fontWeight="600" fontSize="14" fill="#a33612">
           read first: footer
         </text>
       </g>
+      )}
     </g>
   );
 }
@@ -155,13 +162,13 @@ export function PermitSheet({
 }
 
 const brokenNotes: Record<string, string> = {
-  footer: "Footer is read first",
-  title: "Title tagged as text, not a heading",
-  address: "Site address field has no name",
-  name: "Applicant name field has no name",
-  signature: "Signature field has no name",
-  work: "Check boxes have no names",
-  phone: "Phone field has no name",
+  footer: "Read first, before the title",
+  title: "Not recognized as a heading",
+  address: "Site address: no readable label",
+  name: "Applicant name: no readable label",
+  signature: "Signature: no readable label",
+  work: "Check boxes: no names",
+  phone: "Phone: no readable label",
 };
 const fixedNotes: Record<string, string> = {
   title: "Heading level 1",

@@ -30,7 +30,7 @@ export default function Page() {
   return (
     <GuideLayout
       title={r.title}
-      summary="State and local governments must make their websites, and the documents on them, meet WCAG 2.1 AA. For governments of 50,000 people or more that starts on April 26, 2027. Not every old PDF has to be fixed, but anything people use to get a service does."
+      summary="State and local governments must make their websites, and the documents on them, meet WCAG 2.1 AA. For governments with a total population of 50,000 or more that starts on April 26, 2027. Not every old PDF has to be fixed, but anything people use to get a service does."
       readingMinutes={r.readingMinutes}
       updated={r.updated}
       contents={contents}
@@ -61,8 +61,8 @@ export default function Page() {
           caption="Compliance dates as of November 2026"
           head={["Who", "Date"]}
           rows={[
-            ["State and local governments with 50,000 people or more", "April 26, 2027"],
-            ["State and local governments under 50,000 people", "April 26, 2028"],
+            ["State and local governments with a total population of 50,000 or more", "April 26, 2027"],
+            ["State and local governments with a total population under 50,000", "April 26, 2028"],
             ["Special district governments, whatever their size", "April 26, 2028"],
           ]}
         />

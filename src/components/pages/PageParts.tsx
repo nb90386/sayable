@@ -1,4 +1,29 @@
+import "@/app/pages-extra.css";
 import Link from "next/link";
+
+/**
+ * Quiet entrance for subpages, driven by the site's RevealObserver (data-reveal).
+ * "rise": headings and text move up 8px. "depth": product visuals enter with a slight scale.
+ * 220ms ease-out, one element at a time, and nothing at all with reduced motion (see pages-extra.css).
+ */
+export function Reveal({
+  as: Tag = "div",
+  kind = "rise",
+  className,
+  children,
+  ...rest
+}: {
+  as?: React.ElementType;
+  kind?: "rise" | "depth";
+  className?: string;
+  children: React.ReactNode;
+} & Record<string, unknown>) {
+  return (
+    <Tag data-reveal="" className={`${kind === "depth" ? "q-depth" : "q-rise"} ${className ?? ""}`} {...rest}>
+      {children}
+    </Tag>
+  );
+}
 
 /** Opening block shared by supporting pages: title, lede, and a structural margin note. */
 export function PageIntro({
@@ -19,7 +44,7 @@ export function PageIntro({
         </div>
         <div className="col-span-12 grid gap-6 border-t pt-8 hairline md:col-span-10 md:col-start-3 md:grid-cols-[1fr_auto] lg:col-span-8 lg:col-start-5">
           <p className="lede !max-w-[46ch]">{lede}</p>
-          {note ? <p className="tag self-start !text-muted md:text-right">{note}</p> : null}
+          {note ? <p className="self-start text-[0.9rem] text-muted md:max-w-[14rem] md:text-right">{note}</p> : null}
         </div>
       </div>
     </header>
@@ -69,7 +94,7 @@ export function PageCta({ title = "Start with what you already publish.", body }
               "Tell us about your site and your documents. We'll scope an audit, or start with a small sample so you can judge the work before committing."}
           </p>
           <div className="mt-8 flex flex-wrap items-center gap-x-8 gap-y-3">
-            <Link href="/contact" className="btn btn-night">
+            <Link href="/contact?topic=audit" className="btn btn-night">
               Request an audit <span className="arrow" aria-hidden="true" data-icon="arrow-r"></span>
             </Link>
             <Link href="/verify" className="link-quiet text-moon">

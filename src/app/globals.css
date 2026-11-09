@@ -66,8 +66,14 @@
   --radius-sheet: 4px;
   --radius-ui: 12px;
   --header-h: 3.5rem;
+  /* Motion scale (transitions.dev ranges): press, exits, entrances, larger surfaces. Exits run about 30% faster than entrances. */
+  --dur-press: 90ms;
+  --dur-fast: 150ms;
+  --dur-base: 220ms;
+  --dur-slow: 350ms;
   --dur-enter: 220ms;
-  --dur-exit: 170ms;
+  --dur-exit: 150ms;
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
   color-scheme: light;
 }
 
@@ -140,12 +146,12 @@
     background: var(--btn-bg);
     border-radius: 999px;
     text-decoration: none;
-    transition: background-color 0.25s, transform 0.35s var(--ease-out-expo);
+    transition: background-color var(--dur-base), transform var(--dur-slow) var(--ease-out-expo);
   }
   .btn:hover { background: color-mix(in oklab, var(--btn-bg), var(--color-signal) 28%); }
-  .btn, .press { transition-property: background-color, color, box-shadow, transform; transition-duration: 0.16s; transition-timing-function: cubic-bezier(0.22, 1, 0.36, 1); }
+  .btn, .press { transition-property: background-color, color, box-shadow, transform; transition-duration: var(--dur-fast); transition-timing-function: cubic-bezier(0.22, 1, 0.36, 1); }
   .btn:active, .press:active { transform: scale(0.97); transition-duration: 0.06s; }
-  .btn .arrow { transition: transform 0.35s var(--ease-out-expo); }
+  .btn .arrow { transition: transform var(--dur-slow) var(--ease-out-expo); }
   .btn:hover .arrow { transform: translateX(2px); }
   .btn-night { --btn-bg: var(--color-moon); --btn-fg: var(--color-night); }
   .btn-night:hover { background: #fff; }

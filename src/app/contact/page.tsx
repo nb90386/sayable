@@ -11,17 +11,17 @@ const steps = [
   {
     n: "01",
     title: "A short scoping call",
-    body: "We ask where your documents live, roughly how many there are, which ones residents use to apply for things, and what your deadline is.",
+    body: "Where your documents live, roughly how many there are, which ones residents use to apply for things, and your timing.",
   },
   {
     n: "02",
-    title: "A small sample first",
-    body: "We can start with a handful of your published documents, so you can see the inventory, the fixes and the check reports before committing to more.",
+    title: "Optionally, a small sample first",
+    body: "Ask for a handful of your published documents to be done first, to judge the work before committing to more.",
   },
   {
     n: "03",
-    title: "A fixed written scope",
-    body: "You get a plain description of what we'll inventory, check and repair, what stays with your team, and when each part will be delivered.",
+    title: "A written scope and fee",
+    body: "What we will inventory, check or repair, what stays with your team, one flat fee for an audit, and the schedule. Nothing starts until you agree.",
   },
 ];
 
@@ -36,15 +36,15 @@ export default async function ContactPage({ searchParams }: { searchParams: Prom
             Tell us what you <span className="tone">publish.</span>
           </h1>
           <p className="lede mt-8">
-            Cities, counties, agencies and the firms who publish for them. We reply from a person, not an autoresponder.
+            Cities, counties, agencies and the firms who publish for them. Tell us your website and what you need; we will reply to set up a short call.
           </p>
 
           <h2 className="title mt-14 text-[1.15rem]">What happens after you write</h2>
           <ol className="mt-4 border-t hairline">
             {steps.map((s) => (
-              <li key={s.n} className="border-b py-6 hairline">
+              <li key={s.title} className="border-b py-6 hairline">
                 <div>
-                  <h3 className="font-serif text-[1.35rem] leading-snug tracking-[-0.01em]">{s.title}</h3>
+                  <h3 className="sp-h3">{s.title}</h3>
                   <p className="mt-2 text-[0.975rem] text-ink-soft">{s.body}</p>
                 </div>
               </li>

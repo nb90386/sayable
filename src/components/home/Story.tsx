@@ -7,7 +7,7 @@ import cues from "@/content/audio-cues.json";
 import { usePrefersReducedMotion } from "@/lib/usePrefersReducedMotion";
 import { geometry, type Geo } from "./geometry";
 import { PALETTES, PALETTE } from "./palette";
-import { P, StageVisual } from "./StageVisual";
+import { FINDINGS, P, StageVisual, scanFrom } from "./StageVisual";
 
 
 const useIso = typeof window === "undefined" ? useEffect : useLayoutEffect;
@@ -24,7 +24,7 @@ type Scene = {
 };
 
 const SCENES: Scene[] = [
-  { id: "problem", rail: "The problem", win: [P.b0 + 0.02, P.b1 - 0.01, P.path1 + 0.005, P.c0 + 0.005], at: 0.2, pos: "left", dark: false },
+  { id: "problem", rail: "The problem", win: [P.b0 + 0.02, P.b1 - 0.01, P.path1 + 0.005, P.c0 + 0.005], at: 0.2, pos: "top", dark: false },
   { id: "scale", rail: "The scale", win: [P.c1 - 0.02, P.c1 + 0.005, P.d0 - 0.015, P.d0 + 0.01], at: 0.41, pos: "top", dark: true },
   { id: "sort", rail: "Priorities", win: [P.d0 + 0.02, P.d0 + 0.05, P.e0 - 0.025, P.e0], at: 0.57, pos: "top", dark: true },
   { id: "repair", rail: "The repair", win: [P.e1 - 0.005, P.e1 + 0.02, P.fix1 - 0.005, P.fix1 + 0.012], at: 0.77, pos: "right", dark: false },
@@ -109,16 +109,25 @@ function Availability({ children }: { children: React.ReactNode }) {
 }
 
 /** The words for each scene. Real headings and paragraphs, in reading order. */
-function SceneCopy({ i, active }: { i: number; active: boolean }) {
+function SceneCopy({ i, active, extra }: { i: number; active: boolean; extra?: React.ReactNode }) {
   switch (SCENES[i]!.id) {
     case "problem":
       return (
         <>
           <h2 className="scene-title">It looks fine. A screen reader hears something else.</h2>
-          <p className="scene-body">
-            It starts at the footer, then says &ldquo;edit text, blank&rdquo; for each field. Nobody can fill this form in without help.
-          </p>
+          <p className="scene-body scene-body-wide">Each numbered finding is something a resident using a screen reader would run into on this form.</p>
+          {extra}
           <Listen which="before" active={active} />
+          <details className="scene-details">
+            <summary>Technical details</summary>
+            <ol>
+              {FINDINGS.map((f) => (
+                <li key={f.id}>
+                  {f.text} <span>{f.detail}</span>
+                </li>
+              ))}
+            </ol>
+          </details>
           <Availability>
             <Link href="/check" className="text-link">
               Check one of your PDFs free
@@ -186,8 +195,7 @@ function Hero() {
         Make your city&rsquo;s PDFs accessible. Know what to fix first.
       </h1>
       <p className="hero-lede">
-        Sayable finds the PDFs on your website that screen readers can&rsquo;t use, sorts out which ones residents need, and repairs them with a record of
-        every check.
+        Sayable finds the accessibility problems in your city&rsquo;s public PDFs, shows what to fix first, repairs them, and records every check.
       </p>
       <div className="hero-actions">
         <Link href="/contact?topic=audit" className="btn">
@@ -199,10 +207,38 @@ function Hero() {
       </div>
       <p className="hero-meta">
         <a href="#deadline" className="hero-deadline">
-          Federal deadline for cities of 50,000 or more: April 26, 2027
+          Federal deadline for governments of 50,000 or more people: April 26, 2027
         </a>
       </p>
     </>
+  );
+}
+
+/** The scan's findings so far, in plain words, numbered like the marks in the form's margin. Visual only; the same text is in the story's Technical details. */
+function ScanLog({ p, intro, className = "" }: { p: MotionValue<number>; intro: MotionValue<number>; className?: string }) {
+  const scan = useTransform([p, intro] as MotionValue<number>[], ([v, i]: number[]) => scanFrom(v!, i!));
+  const count = (s: number) => FINDINGS.filter((f) => s >= f.at + 0.025).length;
+  const [n, setN] = useState(0);
+  useMotionValueEvent(scan, "change", (s) => {
+    const k = count(s);
+    setN((prev) => (prev === k ? prev : k));
+  });
+  return (
+    <div className={`scan-log ${className}`} aria-hidden="true">
+      <p className="scan-log-head">
+        <span className="scan-log-dot" />
+        Sayable scan
+        <span className="scan-log-file">Sample form, fictional city</span>
+      </p>
+      <ol>
+        {FINDINGS.map((f, i) => (
+          <li key={f.id} data-found={i < n ? "" : undefined} data-current={i === n - 1 ? "" : undefined}>
+            <span className="scan-log-n">{i + 1}</span>
+            <span className="scan-log-t">{f.text}</span>
+          </li>
+        ))}
+      </ol>
+    </div>
   );
 }
 
@@ -289,6 +325,7 @@ export function Story() {
 
   const heroY = useTransform(p, [P.aHold, P.b0 + 0.035], [0, -(heroBottom + 40)]);
   const heroO = useTransform(p, [P.b0 + 0.015, P.b0 + 0.035], [1, 0]);
+  const logO = useTransform(p, [P.path1 + 0.005, P.c0 + 0.005], [1, 0]);
 
   useMotionValueEvent(p, "change", (v) => {
     const a = sceneAt(v);
@@ -318,12 +355,16 @@ export function Story() {
         </a>
         {geo ? <Visual p={p} intro={intro} geo={geo} pal={pal} /> : null}
 
+        <m.div className="scan-log-wrap" style={{ opacity: logO }}>
+          <ScanLog p={p} intro={intro} />
+        </m.div>
+
         <m.div ref={heroRef} className="hero-copy wrap" style={{ opacity: heroO, y: heroY }}>
           <Hero />
         </m.div>
 
         {SCENES.map((s, i) => (
-          <SceneBlock key={s.id} i={i} p={p} active={active === i} onFocusOutOfView={() => active !== i && jump(i)} />
+          <SceneBlock key={s.id} i={i} p={p} intro={intro} narrow={!!geo?.narrow} active={active === i} onFocusOutOfView={() => active !== i && jump(i)} />
         ))}
       </m.div>
     </section>
@@ -340,10 +381,26 @@ const Visual = memo(function Visual({ p, intro, geo, pal }: { p: MotionValue<num
   );
 });
 
-function SceneBlock({ i, p, active, onFocusOutOfView }: { i: number; p: MotionValue<number>; active: boolean; onFocusOutOfView: () => void }) {
+function SceneBlock({
+  i,
+  p,
+  intro,
+  narrow,
+  active,
+  onFocusOutOfView,
+}: {
+  i: number;
+  p: MotionValue<number>;
+  intro: MotionValue<number>;
+  narrow: boolean;
+  active: boolean;
+  onFocusOutOfView: () => void;
+}) {
   const s = SCENES[i]!;
-  const o = useTransform(p, s.win, [0, 1, 1, i === SCENES.length - 1 ? 1 : 0]);
-  const y = useTransform(p, [s.win[0], s.win[1]], [14, 0]);
+  // On phones the form crosses the copy area on its way up, so the first words wait until it has settled.
+  const win: Scene["win"] = narrow && s.id === "problem" ? [P.b1 - 0.02, P.b1 + 0.005, s.win[2], s.win[3]] : s.win;
+  const o = useTransform(p, win, [0, 1, 1, i === SCENES.length - 1 ? 1 : 0]);
+  const y = useTransform(p, [win[0], win[1]], [14, 0]);
   return (
     <m.div
       className={`scene-copy ${s.dark ? "on-night" : ""}`}
@@ -352,7 +409,7 @@ function SceneBlock({ i, p, active, onFocusOutOfView }: { i: number; p: MotionVa
       style={{ opacity: o, y }}
       onFocusCapture={onFocusOutOfView}
     >
-      <SceneCopy i={i} active={active} />
+      <SceneCopy i={i} active={active} extra={s.id === "problem" ? <ScanLog p={p} intro={intro} className="scan-log-inline" /> : undefined} />
     </m.div>
   );
 }
