@@ -1,0 +1,663 @@
+[
+ [
+  "v2:f3e9d60003e5ef08ba1ac6f53d195a7b734de2d2576e45e3105204511fe1585b",
+  {
+   "firstImpression": "As an agency owner, the top of the site is clear and honest: a countdown to April 26, 2027 with a toggle for 2028, then a fictional permit form showing what a screen reader hears. It is aimed at a city ADA coordinator, not at me. My question is whether this fits a client document workflow. The answer only shows up on /solutions/agencies, and even there it stops at \"You send files; we return repaired, checked files and reports.\" It never says how files travel, how they get back into the client's CMS, whether filenames and URLs stay the same, or what happens to next month's uploads. The plain statements (\"Not offered\", \"Planned. Not available yet\") earn trust. The animated homepage story is long, and I had to scroll past it before I found anything about my own work.",
+   "tasks": [
+    {
+     "task": "Understand what Sayable does",
+     "result": "easy",
+     "note": "The hero says it plainly: 'Sayable finds your public PDFs, shows which to fix first, and has people repair and check them.'"
+    },
+    {
+     "task": "Find the deadline relevant to you",
+     "result": "found with effort",
+     "note": "The countdown and toggle are clear for one city. I have about a dozen clients across both tiers, and nothing helps me sort them. The 'other than special district governments' exception only appears on /about."
+    },
+    {
+     "task": "Understand the public-document problem",
+     "result": "easy",
+     "note": "The permit form narration works well. It is something I could show a client's council."
+    },
+    {
+     "task": "Identify what Sayable offers today vs planned",
+     "result": "easy",
+     "note": "/about and /solutions/agencies label each item: available, pilot, planned, not offered. This is the strongest part of the site."
+    },
+    {
+     "task": "Understand the customer deliverable",
+     "result": "found with effort",
+     "note": "The audit deliverable is well shown (report, spreadsheet, ranked list, sample deck). The repair deliverable is vague. Nothing says what file format comes back, whether URLs and filenames are kept, or how files are handed off for re-upload."
+    },
+    {
+     "task": "Find and complete the next step (inquiry)",
+     "result": "easy",
+     "note": "The form has a 'Website agency' role and an 'Agency or overflow work' topic. It has no field for number of client sites or library size. The agency page CTA 'Talk to us about a partnership' leads to the same generic form."
+    }
+   ],
+   "issues": [
+    {
+     "severity": "P1",
+     "page": "/solutions/agencies",
+     "problem": "The site never explains how repair works mechanically: how files are sent, what format comes back, whether filenames and URLs are kept, and who re-uploads to the CMS. For an agency, that is the whole fit question.",
+     "quote": "You send files; we return repaired, checked files and reports.",
+     "fix": "Add a short 'How files move' block: how files are transferred (e.g. a shared folder or secure link, as agreed in scope), that the same filename is returned, that the original is kept alongside, and that the agency or client re-uploads. State only what is actually true today."
+    },
+    {
+     "severity": "P1",
+     "page": "/solutions/agencies",
+     "problem": "Nothing covers the ongoing flow. After the backlog is done, my clients post new agendas and notices every week. The monitoring that would handle this is 'Planned', and the agency page does not say what an agency should do in the meantime.",
+     "quote": "Notices new uploads and recurring problems. Planned. Not available.",
+     "fix": "On the agency page, say what is available now for new files: the free in-browser check before posting, per-batch repair, and the Agenda Desk pilot. Link to the 'keep new files clean' guidance."
+    },
+    {
+     "severity": "P1",
+     "page": "/ (homepage)",
+     "problem": "The homepage is entirely city-facing. An agency visitor has to find Solutions > Agencies on their own. The long animated story comes before any sign that agencies are served.",
+     "fix": "Add a one-line route near the hero or after the story, such as 'Build sites for cities? See how we work with agencies', linking to /solutions/agencies."
+    },
+    {
+     "severity": "P1",
+     "page": "/solutions/agencies",
+     "problem": "'Software we are still testing' and a semantic check '(still in testing)' raise the question of whether my client's files are the test bed. Nothing says what happens when that check is unsure.",
+     "quote": "our semantic check against the rendered page (still in testing)",
+     "fix": "Add one sentence: results from software in testing never ship without a person's review, and the report marks which items a person checked."
+    },
+    {
+     "severity": "P2",
+     "page": "/solutions/agencies",
+     "problem": "Unbranded reports are on offer, but confidentiality and who owns the client relationship are not addressed. An agency's first worry about a partner is being bypassed.",
+     "quote": "On request, reports can be delivered without Sayable branding",
+     "fix": "State the policy plainly. If one exists, say that Sayable does not contact an agency's clients directly without agreement, and that the terms are written into the scope."
+    },
+    {
+     "severity": "P2",
+     "page": "/solutions/agencies",
+     "problem": "Scope is per city, but agencies need a multi-client arrangement. Nothing says whether a dozen sites mean a dozen calls and a dozen quotes.",
+     "quote": "One flat fee, quoted in writing after the call.",
+     "fix": "Say whether one call can cover several client sites and whether quotes can be grouped. No prices are needed."
+    },
+    {
+     "severity": "P2",
+     "page": "/readiness-audit",
+     "problem": "The crawl is described as link-based. Many small-city sites keep documents in vendor agenda or document portals, and how those are handled matters to me.",
+     "quote": "Document portals you point us to are included.",
+     "fix": "Briefly say how portal PDFs that are not linked from pages are found, for example through a list of portals the client names, and what happens if a portal blocks crawling."
+    },
+    {
+     "severity": "P2",
+     "page": "/contact",
+     "problem": "The form asks nothing an agency needs to scope multi-site work. The agency CTA leads to the same generic form, so 'partnership' feels like a label only.",
+     "quote": "Talk to us about a partnership",
+     "fix": "When 'Website agency' is selected, show optional fields for number of client sites and approximate PDF volume. Alternatively, pre-select 'Agency or overflow work' from the agency page link."
+    },
+    {
+     "severity": "P3",
+     "page": "/ (homepage)",
+     "problem": "The countdown leads with a single date. Agencies with clients in both tiers need both dates side by side, including the special-district rule.",
+     "fix": "Under the toggle, add a static line with both dates and who each one covers, including special districts."
+    },
+    {
+     "severity": "P3",
+     "page": "/solutions/agencies",
+     "problem": "The tool names are jargon without context. A non-specialist agency PM won't know what veraPDF or PDF/UA-1 mean.",
+     "quote": "Every file gets a veraPDF PDF/UA-1 check",
+     "fix": "Add a short gloss: 'an open-source automated check against the PDF accessibility standard'."
+    }
+   ],
+   "wouldInquire": "Probably yes, as a low-commitment test on one client with a large PDF library before a relaunch, because the audit needs no logins and is quoted up front. I would hold back on remediation until they show me how files go back and forth, how the ongoing flow works, and how confidentiality works for my client relationships."
+  }
+ ],
+ [
+  "v2:5292aff06fba1b6a6cb208605789cc4ce0e12b7d753abb7b768f66a193cf59bb",
+  {
+   "firstImpression": "Speaking as a clerk in a city of about 80,000, the date reaches me in two seconds: April 26, 2027, and I'm over 50,000. What Sayable actually does takes longer to find, because at 1440px the cookie banner covers the one sentence that explains it. The homepage story uses a permit form, so my central question is only half answered there: forms, yes; agendas, packets and minutes, barely. The agenda answer is on /solutions/government (\"Agenda packets on a clock\") and on /product (\"Agenda Desk\"). It's a limited pilot, and the homepage and How it works pages describe it as if it were already a normal stage of the service. The site is careful and honest about what is illustrative. But it never addresses the two things a clerk worries about: records retention, and posting deadlines set by state open-meetings law.",
+   "tasks": [
+    {
+     "task": "Understand what Sayable does",
+     "result": "found with effort",
+     "note": "The hero sentence 'Sayable finds your public PDFs, shows which to fix first, and has people repair and check them' is clear, but the cookie banner covers it at 1440px. After that comes a long animated permit-form story before the offer is restated."
+    },
+    {
+     "task": "Find the deadline relevant to me",
+     "result": "easy",
+     "note": "The 50,000+ toggle is on by default and shows April 26, 2027. The explanation of total population from the 2020 Census is helpful. The note about the NFB lawsuit is useful and doesn't overstate."
+    },
+    {
+     "task": "Understand the public-document problem",
+     "result": "found with effort",
+     "note": "The permit form example is vivid. Agendas and packets are only covered properly on /solutions/government (the budget table read out of order, scanned hearing notices). On the homepage, agendas appear only as file names in an illustration."
+    },
+    {
+     "task": "Identify what is offered today vs planned",
+     "result": "found with effort",
+     "note": "/product has a clear 'Available now / Pilot or planned' split. The homepage 'Keep up: New agendas and notices made accessible before they go up' and How it works 'Each meeting packet comes back repaired and checked before it goes up' read as if this exists now. The pilot label is easy to miss."
+    },
+    {
+     "task": "Understand the customer deliverable",
+     "result": "easy",
+     "note": "The /readiness-audit sample report, the spreadsheet inventory, the four groups and the per-file repair record are concrete and believable. Nothing says what an agenda-packet deliverable looks like: one repaired PDF, a record per packet, or a record per item."
+    },
+    {
+     "task": "Find and complete the next step (inquiry)",
+     "result": "easy",
+     "note": "The contact form has a 'Clerk or records' role and an 'Agenda and meeting-packet turnaround' option, which is good. I would still hesitate, because pilot terms, volume limits and what I'd need to send are not stated."
+    }
+   ],
+   "issues": [
+    {
+     "severity": "P0",
+     "page": "/readiness-audit, /how-it-works, /solutions/government",
+     "problem": "'Delete candidate' is shown on council minutes and expired notices without any mention of records retention. Minutes are often permanent records under state law. A clerk will read 'delete' as destroying records and stop trusting the offer.",
+     "quote": "Delete candidate: Duplicates, expired notices, superseded drafts. Nothing is removed unless your team agrees.",
+     "fix": "Rename it 'Remove from website' and add a line: 'Taking a file off the website is not destroying the record. Follow your state retention schedule; the original stays in your records system.' Never use minutes as the example for delete."
+    },
+    {
+     "severity": "P1",
+     "page": "/ (Find/Prioritize/Repair/Verify/Keep up), /how-it-works",
+     "problem": "Agenda and notice turnaround is shown as a standard stage, but it is only a limited pilot. This conflicts with /product. For a clerk, this is the product that matters most, so the mismatch reads as overpromising.",
+     "quote": "Keep up \u2014 New agendas and notices made accessible before they go up.",
+     "fix": "Label 'Keep up' as 'Limited pilot' in the homepage stages and in the illustration ('Checked before posting'), matching the /product legend."
+    },
+    {
+     "severity": "P1",
+     "page": "/solutions/government (Agenda packets on a clock)",
+     "problem": "The 24 to 48 hour aim is not tied to legal posting windows. Many states require agendas 72 hours before the meeting, and some 24. It also says nothing about volume caps or late items, or what happens when a supplemental item arrives the day before.",
+     "quote": "aiming for 24 to 48 hours while we measure real packets",
+     "fix": "Say plainly that the clerk must send the packet early enough for repair plus their state's posting deadline. Describe how late additions and supplements are handled, and state the pilot's packet size limit and number of meetings per month."
+    },
+    {
+     "severity": "P1",
+     "page": "/how-it-works, /readiness-audit",
+     "problem": "Most cities' agendas live on a third-party agenda-management platform, not the city CMS. It is unclear whether the crawl covers those platforms, and whether repaired packets can be re-uploaded there or the platform regenerates the PDF.",
+     "quote": "Portals or agenda systems that are public but hard to find by links help a lot.",
+     "fix": "Add a short 'Agenda and document portals' note. Say whether the crawl follows links into hosted agenda and document portals and whether repaired files are returned for the clerk to re-post. State that Sayable does not change the clerk's publishing system."
+    },
+    {
+     "severity": "P1",
+     "page": "/ (homepage story)",
+     "problem": "My central question is meeting documents, and the homepage teaches the problem only through a permit form. The agenda packet example, the best clerk content on the site, is buried on a subpage.",
+     "quote": "A resident who is blind needs a permit to build a ramp to their front door.",
+     "fix": "Add one short homepage panel or link: 'Agendas and packets: tables read out of order, scanned notices', linking to the government page's agenda section."
+    },
+    {
+     "severity": "P2",
+     "page": "/solutions/government (What each person gets: City clerk)",
+     "problem": "The clerk is offered 'the free check to use before posting', but it only finds problems and doesn't fix them. The site doesn't say what the clerk does about a failed agenda at 4pm on a Friday.",
+     "quote": "The free check to use before posting. Repair of agenda packets is a pilot",
+     "fix": "Spell out the clerk's workflow today: check, then fix in the source document (Word template tips), then re-check. Link a guide on making agenda templates accessible at the source."
+    },
+    {
+     "severity": "P2",
+     "page": "/ , /solutions/government",
+     "problem": "The archive and pre-date exception is explained, but not how it applies to past minutes and packets, which is a clerk's largest pile. It also doesn't say that new agendas posted after the date are not excepted.",
+     "quote": "Archived content and documents posted before the date can be excepted, unless people use them to apply for or take part in a service.",
+     "fix": "Add a clerk-specific line: 'Agendas and minutes posted after the date must conform; older ones may qualify as archived if kept in a marked archive area and unchanged. Your counsel decides.'"
+    },
+    {
+     "severity": "P2",
+     "page": "/ (hero at 1440px)",
+     "problem": "The cookie banner covers the sentence explaining what Sayable does, right under the countdown.",
+     "fix": "Make the banner a slim bottom bar, or place it so it doesn't cover the hero body copy."
+    },
+    {
+     "severity": "P2",
+     "page": "/ (whole page)",
+     "problem": "Too much text and repetition. The same Alder Creek form and repair report render several times, and it takes long scrolling to reach the offer and the fee model.",
+     "fix": "Cut the homepage to: date, the problem in one example, the audit, the agenda pilot, the CTA. Move the estimator and the comparison table to /how-it-works."
+    },
+    {
+     "severity": "P3",
+     "page": "/product",
+     "problem": "'Agenda Desk' is an internal-sounding name used nowhere else. Other pages say 'Agenda packets on a clock' and 'Agenda and meeting-packet turnaround'.",
+     "fix": "Use one name for the pilot everywhere, matching the contact form option."
+    }
+   ],
+   "wouldInquire": "Probably, through the contact form choosing 'Agenda and meeting-packet turnaround'. But I would ask first: 1) How do you work with our agenda platform, and does a repaired packet survive re-upload? 2) Can you meet our state's posting deadline with late supplements? 3) What exactly does 'delete candidate' mean for our retention schedule? Without written answers on posting deadlines and retention, I wouldn't bring this to the city manager."
+  }
+ ],
+ [
+  "v2:bc76cf487554d7ce6b6cb63da2ca043b3bfaddca5af7f0b56130fbfc0f5a3393",
+  {
+   "firstImpression": "As a blind resident, the permit story is the most honest PDF-barrier demo I have seen on a vendor site. The narration follows real failure modes: unnamed \"edit text, blank\" fields, checkboxes with no group question, a title that is not a heading, and reading order that starts in the footer. It is clearly labelled \"An illustrative narration made with a text-to-speech voice, not a recording of a screen reader\". The source also shows care. The countdown digits are aria-hidden, with one sr-only sentence (\"About 167 days remain\"), so the timer does not spam my screen reader every second. The Listen button has a real aria-label, the slider has aria-valuetext, and the x-ray toggle uses aria-pressed. My worries are elsewhere. The homepage repeats the same mock form and repair report about six times in the text output. The h1 crams a date and a long sentence together. The scan section is mostly aria-hidden, so it tells me \"scroll to watch\" and then shows me nothing. And the page is very long for something I have to listen to line by line.",
+   "tasks": [
+    {
+     "task": "Understand what Sayable does",
+     "result": "easy",
+     "note": "The hero paragraph says it plainly: 'Sayable finds your public PDFs, shows which to fix first, and has people repair and check them.' It sits under the countdown, so I reach it after the date and the Washington, D.C. timing note."
+    },
+    {
+     "task": "Find the deadline relevant to me",
+     "result": "easy",
+     "note": "The h1 is the date. There is a population toggle ('Population 50,000 or more' / 'Under 50,000 or special district'), and 'Which date applies' explains the 2020 Census basis. I need to check that the Segmented control announces its selected state."
+    },
+    {
+     "task": "Understand the public-document problem",
+     "result": "easy",
+     "note": "The resident story, 'A resident who is blind needs a permit to build a ramp', together with the line-by-line announcements is strong and accurate in kind. I can choose a line and hear the narration."
+    },
+    {
+     "task": "Identify what is offered today vs planned",
+     "result": "found with effort",
+     "note": "'Readiness Audit, available now' and 'PDF repair, a service available now' are present. But 'Software we are still testing drafts routine fixes' and the free in-browser checker blur what is a product and what is a service. These labels are scattered in small captions, not in one place."
+    },
+    {
+     "task": "Understand the customer deliverable",
+     "result": "found with effort",
+     "note": "The 'What the audit includes' list (Inventory, Findings, Priorities, Effort and plan, Records) is clear. I do not know whether the report itself is an accessible tagged PDF or HTML, which is the first thing I would ask a vendor selling accessibility."
+    },
+    {
+     "task": "Find and complete the inquiry",
+     "result": "easy",
+     "note": "The contact form has visible labels, says 'All fields are required unless marked optional', and uses a real label for the honeypot. The honeypot is labelled 'Leave this empty' and a screen reader will announce it. That is confusing unless it is also hidden from assistive technology."
+    }
+   ],
+   "issues": [
+    {
+     "severity": "P1",
+     "page": "/",
+     "problem": "The same mock form and repair report appear about six times in the page text. This looks like sticky stage panels left in the DOM for each story step. If any of these copies is not aria-hidden or inert, a screen-reader user hears 'CITY OF ALDER CREEK \u00b7 BUILDING DIVISION \u2026 Form BD-12' and 'Seven form fields have no accessible name' over and over. On a page that criticizes repetitive, unnavigable documents, that is a credibility killer.",
+     "quote": "CITY OF ALDER CREEK \u00b7 BUILDING DIVISION Residential Permit Application \u2026 (repeated 6x)",
+     "fix": "Expose one copy to the accessibility tree: the Resident sheet, labelled 'Sample residential permit application'. Mark every decorative stage repeat aria-hidden plus inert. Then confirm with an NVDA browse-mode pass and a VoiceOver rotor headings pass."
+    },
+    {
+     "severity": "P1",
+     "page": "/",
+     "problem": "The scan section is built for sighted scrolling. It says 'Scroll to move the scan down the page' and 'Watch it scan', but the scan log and stage are aria-hidden. A screen-reader user gets an instruction they cannot act on and the heading 'Four problems on one page.' with no list of the four problems.",
+     "quote": "Scroll to move the scan down the page. Each problem is named in plain words, then the correction a person would make is shown.",
+     "fix": "Give non-visual users a real ordered list of the four findings, each with its problem and correction, kept visually hidden or shown under 'Technical details'. Word the instruction so it does not depend on scrolling, e.g. 'Four problems on one page, each with its correction:'."
+    },
+    {
+     "severity": "P1",
+     "page": "/",
+     "problem": "The finding counts do not agree. The repair report says seven fields have no name, the structure overlay numbers eight items, the heading says 'Four problems', and the narration notes that the date field 'is never reached'. An accessibility reviewer will count and will doubt the rigor.",
+     "quote": "Seven form fields have no accessible name",
+     "fix": "Reconcile the numbers. Say how many unnamed fields there are, including or excluding the date and why, and explain that 'four problems' means four kinds of problem: names, grouping, heading, order."
+    },
+    {
+     "severity": "P2",
+     "page": "/",
+     "problem": "The h1 combines the date with a long kicker sentence. The heading announced is 'April 26, 2027 The federal accessibility deadline for state and local governments with a total population of 50,000 or more.' That is long when navigating by heading, and the h1 text changes when the toggle changes.",
+     "quote": "April 26, 2027 The federal accessibility deadline for state and local governments\u2026",
+     "fix": "Use a short, stable h1 such as 'The ADA Title II deadline for your city'. Make the date plus the sr-only remaining-days sentence the content that updates. Announce toggle changes with a polite live region that gives only the new date."
+    },
+    {
+     "severity": "P2",
+     "page": "/",
+     "problem": "The narration simulates screen-reader output but shows no wording or evidence from a real screen reader. A skeptical committee member would ask whether anyone actually listened to this PDF with NVDA, JAWS or VoiceOver.",
+     "quote": "An illustrative narration made with a text-to-speech voice, not a recording of a screen reader.",
+     "fix": "Keep the honest label. Add one line naming what the narration was modelled on, e.g. 'Based on how NVDA 2024 reads the untagged sample in Acrobat Reader'. Offer the sample PDF as before and after downloads so people can check it with their own screen reader."
+    },
+    {
+     "severity": "P2",
+     "page": "/",
+     "problem": "The deliverable's own accessibility is never stated. A blind ADA coordinator needs to read the audit report and the per-file records themselves.",
+     "quote": "Every file comes back with its record.",
+     "fix": "State the format: 'Reports are delivered as accessible HTML and tagged PDF, checked with a screen reader.' Make the sample report itself screen-reader navigable."
+    },
+    {
+     "severity": "P2",
+     "page": "/",
+     "problem": "The 'Re-checked \u2026 a person listened with a screen reader' claim does not say which screen reader, which viewer, or what the person's qualifications are. Without that I cannot judge it, and 'listened' could mean a sighted tester.",
+     "quote": "Automated PDF/UA checks, then a person listened with a screen reader",
+     "fix": "Name the assistive technology and viewer combinations tested, and say whether testers include daily screen-reader users. Make no certification claims."
+    },
+    {
+     "severity": "P2",
+     "page": "/contact",
+     "problem": "The honeypot field is labelled 'Leave this empty' and the source shows a real label/htmlFor. If it is only visually hidden, screen-reader users and voice-control users meet a strange extra field. Some will fill it in and get silently rejected.",
+     "quote": "Leave this empty",
+     "fix": "Hide the honeypot wrapper with aria-hidden and tabindex=-1 on the input, or use a time-based or token check instead. Make sure a rejected submission shows an accessible error instead of failing silently."
+    },
+    {
+     "severity": "P3",
+     "page": "/",
+     "problem": "The homepage is extremely long for linear listening: countdown, story, scan, piles, repair, record, audit list, dates, legal context, comparison table, estimator. There is no skip-to-section or in-page table of contents.",
+     "quote": "Checking one PDF is not the same as managing a city's documents.",
+     "fix": "Make sure every section has a real h2 so the headings list works. Add a skip link to 'Request a Readiness Audit'. Move the comparison table and estimator to /how-it-works."
+    },
+    {
+     "severity": "P3",
+     "page": "/",
+     "problem": "'Check one of your PDFs free. It runs in your browser' sits inside the demo and it is unclear whether it is a product offer. The status of the 'software we are still testing' is also vague.",
+     "quote": "Software we are still testing drafts routine fixes. A person checks every one.",
+     "fix": "Add one short 'Available now / In testing' line near the CTA that lists the audit, repair, the free checker, and the drafting software, each with its status."
+    }
+   ],
+   "wouldInquire": "Yes, cautiously. The demo shows the barrier honestly, and the 'illustrative, not a recording' and 'not a legal certification' labels earn trust. Before recommending Sayable to the committee, I would ask three things. Who does the screen-reader verification, and with which tools? Is the audit report itself accessible? And please fix the repeated form copies the homepage exposes to assistive technology, because a vendor whose own page reads badly with a screen reader is hard to defend."
+  }
+ ],
+ [
+  "v2:5111528425a3028bdaa7aed2bb5a36de07ea5b36e56db6750bb544092943d15b",
+  {
+   "firstImpression": "I'm the IT director, and my first reaction is that the homepage was written for the clerk and the ADA coordinator, not for me. The giant April 26, 2027 date and countdown sell urgency. Nothing above the fold says where my files go, what touches my CMS or what hits my servers. The /security page is the best thing on the site for my role. It is honest: no SOC 2, no claims it can't back up, specific security headers, and a browser-only PDF check that names pdf.js, a 25 MB limit and a 400-page cap. The crawler rules show up once, as a small sample line (\"robots.txt respected \u00b7 1 request per second \u00b7 no logins\"). That is the kind of detail I want, but it is buried. What's missing is everything after the audit. How do repaired files get back to me, and in what form? Who replaces them in the CMS? What happens to the URLs? Where are my files stored during repair? On every one of these the site says \"agreed in writing\", a placeholder and not an answer. The privacy notice still literally reads \"To be confirmed before launch: legal entity name\". I would not send a vendor-risk intake to a company whose legal name is a placeholder. My overall read: the people behind this think carefully about honesty and how they validate files, but they haven't yet worked out how this fits a city's systems.",
+   "tasks": [
+    {
+     "task": "Understand what Sayable does",
+     "result": "easy",
+     "note": "The hero's supporting line and /product are clear: crawl the public site, inventory and rank the PDFs, have people repair them, check with veraPDF plus a semantic check. The 'Available now / Pilot or planned' split on /product helps."
+    },
+    {
+     "task": "Find the deadline relevant to you",
+     "result": "easy",
+     "note": "April 26, 2027 for 50,000+, with a toggle for smaller governments. Clear, though the countdown is far more prominent than anything I need to act on as IT."
+    },
+    {
+     "task": "Understand the public-document problem",
+     "result": "easy",
+     "note": "Thousands of PDFs linked from the CMS, nobody knows which are duplicates, scans or untagged forms. The Solutions line 'The CMS accepts any upload' rings true for me."
+    },
+    {
+     "task": "Identify what Sayable offers today vs planned",
+     "result": "easy",
+     "note": "/product labels it explicitly: the check, the audit and repair are available; Agenda Desk is a pilot; the staff check is in development; monitoring is planned. Credible. The homepage blurs it a little by showing the after-posting workflow alongside things that are available."
+    },
+    {
+     "task": "Understand the customer deliverable",
+     "result": "found with effort",
+     "note": "The audit deliverable is clear: a spreadsheet inventory, ranked list, effort estimate and plan. The repair deliverable is vague: 'Each file returns with a check report'. Nothing covers return format, transfer method, filename or URL preservation, versioning, or who uploads the fixed files to the CMS."
+    },
+    {
+     "task": "Find and complete the next step (inquiry)",
+     "result": "found with effort",
+     "note": "'Request an Audit' is in the header and the form is short. The role list includes IT, which is good. But the form can't attach a security questionnaire, and the vulnerability-reporting path is the same general form. There's also no named person or company I could vet before submitting."
+    }
+   ],
+   "issues": [
+    {
+     "severity": "P0",
+     "page": "/privacy",
+     "problem": "The privacy notice ships with placeholder text for the legal entity, address and retention period. For vendor risk this is disqualifying: I can't run a vendor check, a W-9 or an insurance check on an unnamed entity, and the placeholder retention period undercuts the whole data-handling story.",
+     "quote": "Sayable is operated by To be confirmed before launch: legal entity name, at To be confirmed before launch: registered address. ... Contact form submissions are kept for To be confirmed before launch: retention period.",
+     "fix": "Fill in the real entity name, state of registration, address and a concrete retention period (for example, 'deleted 12 months after last contact') before any buyer sees the site, or hide the page and block launch until they exist."
+    },
+    {
+     "severity": "P1",
+     "page": "/security, /how-it-works",
+     "problem": "Every file-handling question for repair work is put off to 'a written agreement': where files are stored, who can access them, the transfer method, encryption, retention and deletion, and whether any third-party or AI service processes them ('Software we are testing drafts routine fixes'). Even public files pass through your systems, and I need your default practice before a call.",
+     "quote": "Handling, storage location and retention are agreed for each engagement before we receive the files. These are our commitments for client work, to be set out in that agreement, and not a description of fixed policy.",
+     "fix": "State a default practice. Where repair files are stored (provider and region), how they are transferred, who on the team can access them, when they are deleted after delivery, and whether the drafting software sends file content to any outside model or service. Say plainly that a city can request something stricter."
+    },
+    {
+     "severity": "P1",
+     "page": "/how-it-works, /product",
+     "problem": "There's no integration or return story. I can't tell whether repaired PDFs come back as a zip, through a shared drive or some other way, whether filenames and URLs are kept, or who swaps them into the CMS, agenda system or document portal. Replacing 200 files without breaking links is the IT cost I'm actually trying to estimate.",
+     "quote": "People do the work, with software for routine fixes. Every file comes back with a report.",
+     "fix": "Add a short 'How repaired files come back' section. Cover the delivery format, the transfer method, keeping the original filename so the CMS can overwrite in place, a manifest that maps each file to its source URL, and a clear statement that the city's staff upload the files (or what you need if you do it)."
+    },
+    {
+     "severity": "P1",
+     "page": "/how-it-works",
+     "problem": "The crawler is my biggest operational concern, and its behavior is shown once, as a tiny label on a fictional sample. I need to know its user-agent string, the source IPs or ranges I'd allowlist in our WAF, a rough duration for 1,284 files, whether it follows links to off-domain portals (Granicus, Laserfiche and so on), and how to stop it.",
+     "quote": "robots.txt respected \u00b7 1 request per second \u00b7 no logins",
+     "fix": "Move this into a stated crawler policy on /security or the audit FAQ. Give the user-agent, how to identify or allowlist it, the rate limit, which domains it will follow (only those agreed in scope), a contact to stop a crawl, and the fact that it only reads public URLs."
+    },
+    {
+     "severity": "P2",
+     "page": "/security",
+     "problem": "Vulnerability reports and security questionnaires go through the general contact form, which has no attachment field and asks me not to include sensitive details. There's no security.txt, no named contact and no response-time commitment.",
+     "quote": "We do not have a dedicated security email yet. Please do not include sensitive details in the first message.",
+     "fix": "Set up a security@ address (cheap, and needs no certification) and publish /.well-known/security.txt. Add a 'Security questionnaire' option to the form's topic list and say how fast you reply."
+    },
+    {
+     "severity": "P2",
+     "page": "/about, /contact",
+     "problem": "I can't find a named person accountable for data handling, or anyone at all. An early-stage vendor with no certifications is asking me to trust people, so I need to know who they are.",
+     "quote": "Early-stage company. No security certifications.",
+     "fix": "Name the founder(s) and the person responsible for security and data handling on /about and /security, with a short real background. No invented credentials."
+    },
+    {
+     "severity": "P2",
+     "page": "/product, /verify",
+     "problem": "'Software we are testing drafts routine fixes' raises questions about AI and data processing, and they go unanswered. Is it a hosted model? Is document content retained or used for training? That is a procurement and records question.",
+     "quote": "Done and checked by people. Software we are testing drafts routine fixes.",
+     "fix": "Say what the drafting software is in general terms (in-house or third-party, local or hosted), whether city files are ever used to train or improve it, and offer to switch it off for an engagement."
+    },
+    {
+     "severity": "P2",
+     "page": "/security",
+     "problem": "The website security section reads like a padded list. I don't need your HSTS and X-Frame-Options headers; I can scan for them. What I'd put in my risk register is the risk to my files and my site, and that gets far less space.",
+     "quote": "Security headers: Content-Security-Policy, HTTP Strict Transport Security (HSTS), X-Content-Type-Options: nosniff, ...",
+     "fix": "Reorder /security: engagement data handling and the crawler first, the free check second, marketing-site headers last and collapsed."
+    },
+    {
+     "severity": "P3",
+     "page": "/ (capture)",
+     "problem": "The homepage screenshot shows the Next.js dev indicator (the 'N' badge, bottom left) under the consent banner. If I saw that on a live site I'd assume it was a non-production build.",
+     "quote": "",
+     "fix": "Take captures from a production build and confirm that no dev overlay ships."
+    },
+    {
+     "severity": "P3",
+     "page": "/",
+     "problem": "The homepage has no route for IT. The countdown and the resident story are aimed at clerks, and the IT path ('The details, for IT and procurement') sits at the bottom of /how-it-works.",
+     "quote": "The details, for IT and procurement",
+     "fix": "Add a one-line link near the hero or in the footer, such as 'For IT: what we access, what we don't, how files come back', pointing to /security."
+    }
+   ],
+   "wouldInquire": "Not yet. I'd wait until there's a real legal entity in the privacy notice and a written default for repair file handling: storage, transfer, deletion and any third-party or AI processing. Once those exist, I'd be comfortable submitting a low-risk inquiry for the audit. It only needs our public URL and no credentials, which is the part I trust today. I'd still ask for the crawler's user-agent and stop contact before letting it run."
+  }
+ ],
+ [
+  "v2:46d90425e7883f12cb593729d06e5efce91995e9a737074b1df2905cb93fc865",
+  {
+   "firstImpression": "The first thing on the page is a huge \"April 26, 2027\" with a ticking countdown. It is clear and correctly split by population, but it reads like a fear-based sales device. The cookie banner covers the value proposition at 1440px. Under the hero the site is careful and honest. It says \"not a legal certification\", \"We never certify\", separates available from planned, and admits its benchmarks are small. That honesty is the site's strongest trust asset. Some things still hold me back. The legal section compresses two different exceptions into one sentence. It cites an enforcement example and a court case without visible links. And I cannot find a single named person, reviewer qualification, address or direct email, so I could not take this to counsel or procurement.",
+   "tasks": [
+    {
+     "task": "Understand what Sayable does",
+     "result": "easy",
+     "note": "The hero says it plainly: \"Sayable finds your public PDFs, shows which to fix first, and has people repair and check them.\" The resident story with the screen reader makes the problem concrete."
+    },
+    {
+     "task": "Find the deadline relevant to me",
+     "result": "easy",
+     "note": "The population toggle and the \"Which date applies\" block are clear, and the 2020 Census clarification helps. I had to trust the site's account of an \"April 20, 2026 interim final rule\" extension. I could not see the Federal Register citation in the text."
+    },
+    {
+     "task": "Understand the public-document problem",
+     "result": "easy",
+     "note": "The permit-form narration (\"Edit text. Blank.\") is the most persuasive thing on the site. I could show it to a department head."
+    },
+    {
+     "task": "Identify what is offered today vs planned",
+     "result": "found with effort",
+     "note": "The clearest list is on /about (\"What we offer today\": the audit and repair are available, Agenda Desk is a limited pilot, monitoring is planned). The homepage scatters status tags instead (\"Readiness Audit, available now\", \"PDF repair, a service available now\"), and \"Software we are still testing\" turns up in several places."
+    },
+    {
+     "task": "Understand the customer deliverable",
+     "result": "found with effort",
+     "note": "/readiness-audit lists the report, inventory spreadsheet, ranked list, effort estimate and plan, and the sample report is good. The per-file repair record is described on /verify. But repair is excluded from the audit, and I could not find a sample repair deliverable or a repair turnaround."
+    },
+    {
+     "task": "Find and complete the next step (inquiry)",
+     "result": "found with effort",
+     "note": "The CTAs are everywhere and the form is short, with a role option for \"ADA coordinator\". But there is no direct email, phone, mailing address or named contact. Security reports also have to go through the same form."
+    }
+   ],
+   "issues": [
+    {
+     "severity": "P0",
+     "page": "/ (Why it matters now)",
+     "problem": "The exceptions are collapsed into one sentence that misstates the rule. The archived-content exception and the preexisting-documents exception are separate tests. The archived exception requires content made before the date, kept only for reference, not altered, and held in a clearly marked archive area. The 'unless used to apply for or take part in a service' carve-out belongs to the preexisting-documents exception. An ADA coordinator who relied on this sentence could wrongly treat a whole folder as excepted.",
+     "quote": "Archived content and documents posted before the date can be excepted, unless people use them to apply for or take part in a service.",
+     "fix": "Split it into two short items. Give the archived-content exception with its conditions and the preexisting-conventional-documents exception with its 'currently used to apply for, access or participate' limit. Link each one to the section of 28 CFR 35.201 it comes from."
+    },
+    {
+     "severity": "P0",
+     "page": "/ (Why it matters now), /about, /readiness-audit",
+     "problem": "The site's whole urgency rests on the 2027/2028 dates coming from an 'April 20, 2026 interim final rule' and a pending NFB case. Both are presented as plain text names with no Federal Register citation, docket link or 'last verified' date. If any of this is wrong or changes, the countdown becomes a liability, and I cannot check it from the page.",
+     "quote": "Sources: ADA.gov first steps, the April 20, 2026 interim final rule, the plaintiffs' announcement.",
+     "fix": "Link the Federal Register citation (volume, page and docket number) and the CourtListener/PACER docket for No. 1:26-cv-02007 directly. Add a visible 'Legal status last checked: <date>' line next to the countdown, and commit to updating it."
+    },
+    {
+     "severity": "P1",
+     "page": "/ (Why it matters now)",
+     "problem": "The enforcement claims are asserted without support. 'Settlements usually require...' is a generalization with no source. The Orange County, Florida clerk 2014 example has no link, and I cannot tell if it was a DOJ settlement, an OCR matter or private litigation.",
+     "quote": "In 2014 the Orange County, Florida clerk settled a complaint about scanned court PDFs on those terms.",
+     "fix": "Link the settlement agreement on ADA.gov or the court record. Replace 'usually' with 'DOJ settlements such as [linked examples] have required...', or cut the example if it cannot be sourced."
+    },
+    {
+     "severity": "P1",
+     "page": "/about, /verify",
+     "problem": "Every promise depends on 'a person' or 'a trained reviewer', but the site never says who that person is or what training they have. No founder or team is named and no qualification is stated. 'Trusted human review' cannot be checked when the human is anonymous.",
+     "quote": "A trained reviewer looks at the parts software handles unreliably: tables, forms, scans and complex reading order.",
+     "fix": "Name the people who do the review and state their actual, verifiable background: which screen readers they test with, how long they have done PDF remediation, and any credentials they really hold. If reviewers are contractors, say so and describe how they are vetted."
+    },
+    {
+     "severity": "P1",
+     "page": "/verify",
+     "problem": "The validation process is described only in the abstract, and the 'semantic check' is a research prototype. The published numbers, 13 of 32 pages passing with no hand work and no blind-user validation yet, show the automation is immature. The site never ties that back to what it means for my delivered files.",
+     "quote": "No blind screen-reader users have confirmed our checker's verdicts yet. A study with real users is planned.",
+     "fix": "Add one plain statement such as 'Because of this, every delivered file is reviewed by a person with [named screen reader]; the prototype never decides pass/fail on its own.' Offer a downloadable sample check report (fictional file) showing the exact fields listed under 'What a check report records'."
+    },
+    {
+     "severity": "P1",
+     "page": "/contact",
+     "problem": "The only way to reach the company is a form. There is no email, phone, mailing address, legal entity name or person, and security reports go through the same form. A public-sector buyer usually needs a named contact and an entity to put on a vendor record before even scheduling a call.",
+     "quote": "We do not have a dedicated security email yet.",
+     "fix": "Publish a real reply-to email address, the registered company name and state, a mailing address, and the name of the person who will reply."
+    },
+    {
+     "severity": "P2",
+     "page": "/",
+     "problem": "The ticking seconds counter makes the deadline feel urgent in a way the site's careful copy then has to walk back, because the dates are under legal challenge. It reads as pressure selling to a compliance officer. The cookie banner also covers the subhead at desktop width.",
+     "quote": "Counted to the start of April 26, 2027 in Washington, D.C. The rule sets a date, not a time of day.",
+     "fix": "Show days remaining only, put 'Dates in effect as of <date>; under challenge, see below' directly beneath it, and move the consent banner so it doesn't cover the hero copy."
+    },
+    {
+     "severity": "P2",
+     "page": "/, /readiness-audit, /product",
+     "problem": "The audit and the repair are blurred. The homepage sells 'find, prioritize, repair, verify, keep up' as one flow, but the audit page excludes repair. 'Keep up' (checking files before posting) looks like Agenda Desk, which is only a pilot, or monitoring, which is planned.",
+     "quote": "Keep up \u2014 New agendas and notices made accessible before they go up.",
+     "fix": "Mark each step in the five-step strip with its status (Audit: available; Repair: available, separate scope; Keep up: pilot by arrangement), and use the same labels everywhere."
+    },
+    {
+     "severity": "P2",
+     "page": "/ (estimator)",
+     "problem": "The hour ranges look precise ('900 to 2,600 hours') but come from minutes-per-page assumptions with no stated basis. A finance office will quote them back to me.",
+     "quote": "3 to 12 minutes for a simple page and 15 to 30 for a complex one.",
+     "fix": "Say where the per-page minutes come from (Sayable's own internal tests, and on how many pages), or label them clearly as placeholders. Keep the 'not a quote' line next to the result, not below it."
+    },
+    {
+     "severity": "P3",
+     "page": "/",
+     "problem": "The homepage is long and repeats the same sample form and repair report five times in its text. The legal context, which I came for, is buried below the story and scan sections.",
+     "quote": "Most of the work happens before the date. Finding it comes first.",
+     "fix": "Add an in-page 'Legal context' anchor near the hero (next to 'Which date applies?') and trim the repeated report card to one instance."
+    }
+   ],
+   "wouldInquire": "Not yet. I would make an inquiry only after I can check the legal claims myself: linked Federal Register and docket citations, the exceptions stated correctly, and a sourced enforcement example. I would also need to know who actually reviews the files and how to reach a named person outside a web form. The honesty about limits is unusually good and makes me want to try the 'small sample first' offer once those gaps are closed."
+  }
+ ],
+ [
+  "v2:b1bee0722e24e0ce44b20af9fbb6792af0ec17ddc087f986d2baea1a48cc135f",
+  {
+   "firstImpression": "I'm a city manager signing off under a small-purchase threshold. I worked out the deadline and the problem within about 20 seconds: there's a countdown to April 26, 2027 and a permit form a screen reader can't read. That's a strong, honest opening. The careful labelling helps trust: \"illustration, not real data\", \"not a certification\", \"early-stage company\". But I couldn't answer my actual question, which is whether this fits under my threshold and who I'd be signing with. There's no price range or fee basis, no named person or company entity, no email or phone number, and the privacy page literally says \"To be confirmed before launch\". Getting a clear picture of the deliverable meant reading the long /readiness-audit page. The homepage repeats the same sample form five times in its text, which makes it feel long.",
+   "tasks": [
+    {
+     "task": "Understand what Sayable does",
+     "result": "easy",
+     "note": "Homepage hero: \"Sayable finds your public PDFs, shows which to fix first, and has people repair and check them.\" This is clear and concrete."
+    },
+    {
+     "task": "Find the deadline relevant to me",
+     "result": "easy",
+     "note": "The countdown has a population toggle and explains that total population means the 2020 Census figure. That last point is useful; I'd have mixed up population served with total population."
+    },
+    {
+     "task": "Understand the public-document problem",
+     "result": "easy",
+     "note": "The screen-reader permit story is persuasive. The legal context section (complaints and lawsuits, NFB v. DOJ, exceptions) is what I'd forward to counsel."
+    },
+    {
+     "task": "Identify what is offered today vs planned",
+     "result": "found with effort",
+     "note": "The /product table is the clearest view: Readiness Audit, repair and Readiness Package are available, Agenda Desk is a pilot, monitoring is planned. On the homepage this is scattered across small captions like \"Readiness Audit, available now.\" The Readiness Package appears only on /product, and the audit page says repair is \"a separate scope, and you choose who does it\", so it's unclear whether audit-then-repair is one purchase or two."
+    },
+    {
+     "task": "Understand the customer deliverable",
+     "result": "found with effort",
+     "note": "/readiness-audit lists it: a written report, an inventory spreadsheet, a ranked must-fix list, an effort estimate, a plan and a walkthrough, plus a six-page sample deck. The list is good, but there's no turnaround time (\"We do not promise a date before we have seen your site\"). I also couldn't tell how many files get checked, because the page only says \"a stated sample\"."
+    },
+    {
+     "task": "Find and complete the next step (inquiry)",
+     "result": "found with effort",
+     "note": "The CTA is easy to find. The form's role dropdown has no option for city manager, finance or procurement. There's no email or phone alternative, and no named person to expect a reply from. The privacy page shows unfinished placeholders for the provider, retention period and privacy email."
+    }
+   ],
+   "issues": [
+    {
+     "severity": "P0",
+     "page": "/privacy",
+     "problem": "Placeholder text has shipped on a public page, so the site reads as unfinished and its data handling can't be verified. A procurement or IT reviewer will stop here.",
+     "quote": "The service that receives them is To be confirmed before launch: provider name. ... kept for To be confirmed before launch: retention period. ... A dedicated privacy email is To be confirmed before launch: privacy contact email.",
+     "fix": "Fill in the real provider (e.g. Resend), a concrete retention period and a monitored address. If any of these isn't decided, state an interim commitment such as \"deleted within 90 days\" rather than leaving placeholder text."
+    },
+    {
+     "severity": "P0",
+     "page": "/about, /contact, footer",
+     "problem": "There's no identifiable vendor: no legal entity name, founder or responsible person, mailing address, email or phone number. I can't put an anonymous web form on a purchase order or check a vendor registration.",
+     "quote": "Sayable is an early-stage company that starts as a service. We would rather say that plainly than imply a bigger operation.",
+     "fix": "Add the legal business name, state of registration, a named person responsible for delivery with a short background, and a direct email address. Say whether you can provide a W-9, a certificate of insurance and a signed quote on letterhead."
+    },
+    {
+     "severity": "P1",
+     "page": "/readiness-audit, /product",
+     "problem": "No price is given, not even a basis or range, so I can't tell whether this fits under my small-purchase threshold without a call. That's the main reason I'd hold off on inquiring.",
+     "quote": "One flat fee, quoted in writing before you commit. We publish no price, because it depends on your site.",
+     "fix": "Without inventing prices, state what the fee depends on (number of PDFs or pages, number of portals). Say plainly that quotes are designed to fit within typical small-purchase or micro-purchase limits, if that's true. Also list what a buyer needs for a quote: site URL, rough PDF count."
+    },
+    {
+     "severity": "P1",
+     "page": "/readiness-audit, /product",
+     "problem": "The relationship between the audit and repair is confusing. The audit excludes repair, \"Readiness Package\" appears only in the product table, and I can't tell whether I'm buying one thing or two.",
+     "quote": "Repair of the documents. That is a separate scope, and you choose who does it.",
+     "fix": "Add a single three-row section, \"Audit only / Audit + repair (Readiness Package) / Repair only\", to /readiness-audit and the homepage closing CTA. Give each row its deliverable and how it's quoted."
+    },
+    {
+     "severity": "P1",
+     "page": "/readiness-audit",
+     "problem": "The scope of checking is vague. I can't tell how many files actually get checked versus just inventoried, which is the core of what I'm paying for.",
+     "quote": "The must-fix files. If there are too many to check one by one, a stated sample, and the report says which.",
+     "fix": "State the rule in plain terms, e.g. \"every service file up to N is checked individually; beyond that, a sample of X% stated in the quote\". Or say the quote will name the exact number of files checked."
+    },
+    {
+     "severity": "P1",
+     "page": "/contact",
+     "problem": "The form doesn't fit the budget owner. The role options don't include city manager, finance or procurement, and the topic options don't include \"get a quote under our purchase threshold\".",
+     "quote": "Your role: ADA coordinator / Clerk or records / Web or communications / IT / Website agency / Accessibility or remediation firm / Something else",
+     "fix": "Add \"City manager or administrator\" and \"Finance or procurement\" roles, plus a \"Written quote for budgeting\" topic. Add an optional field for the purchasing threshold or deadline."
+    },
+    {
+     "severity": "P2",
+     "page": "/readiness-audit",
+     "problem": "There's no timeline at all, and I need to know whether this lands before budget season and the 2027 date.",
+     "quote": "We do not promise a date before we have seen your site.",
+     "fix": "Give a typical range conditioned on site size, e.g. \"most audits are scheduled to deliver within N weeks of signing; the quote fixes the date\", but only if Sayable can stand behind it. Otherwise say the quote will always include a committed delivery date."
+    },
+    {
+     "severity": "P2",
+     "page": "/ (homepage)",
+     "problem": "The homepage is too long and repetitive for an executive skim. The same sample form and repair report repeat four or five times, and the legal, comparison and estimator sections all compete with the call to action.",
+     "quote": "Seven form fields have no accessible name (repeated block); \"How much work might your city have? ... Every number here is a guess you can change.\"",
+     "fix": "Show the sample form once with aria-hidden duplicates in the animation, and move the estimator and comparison table to /readiness-audit. Add a three-line \"What you buy, what you get, how it's quoted\" summary near the top."
+    },
+    {
+     "severity": "P2",
+     "page": "/readiness-audit (FAQ)",
+     "problem": "The procurement answers are buried in a collapsed FAQ at the bottom of a long page, and nothing in the navigation points a budget owner to them.",
+     "quote": "How do cities usually buy a service like this?",
+     "fix": "Add a short \"For procurement\" anchor or page, linked from the nav and from the contact page. Cover how cities buy, what paperwork you provide, payment terms and the absence of a SOC 2 certification."
+    },
+    {
+     "severity": "P3",
+     "page": "/how-it-works, /product",
+     "problem": "Technical jargon reaches the budget-owner path and makes the reading heavier without helping my decision.",
+     "quote": "Widget annotation has no /TU entry and is not inside a Form structure element.",
+     "fix": "Keep raw validator output behind the \"Technical details\" disclosures and lead with the plain-language line, which already exists."
+    }
+   ],
+   "wouldInquire": "Probably yes, but only to ask for a price and whether this fits under our small-purchase limit. And only after checking who the company is, because there's no name, address or direct email, and the privacy page placeholders make me worry the form isn't monitored. My first message would be: \"Roughly what does an audit cost for a site with about 1,500 PDFs? Can you quote under $X? Do you provide a W-9 and an insurance certificate? When could you deliver?\""
+  }
+ ]
+]

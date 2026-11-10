@@ -67,8 +67,8 @@ Roles:
 
 The story lives in `src/components/home/Story.tsx`, `StageVisual.tsx`, `geometry.ts` and `palette.ts`. It is one pinned stage: 820vh on desktop, 700vh on phones. Motion's `useScroll` is the only scroll controller. Every value is a pure function of scroll progress, so the story reverses exactly and survives resizes and deep links.
 
-1. **Hero.** The headline, lede and both actions are at full opacity from the first frame. The form lies large on the right, turned a little towards the copy (rotateX 9°, rotateY -13°).
-   - On arrival the reading line makes one 1.6 s run down the form, ending past the title and the first field.
+1. **Scan intro.** "Sayable reads the form the way a screen reader does." The form lies large on the right, turned a little towards the copy (rotateX 9°, rotateY -13°).
+   - The reading line rests at the top edge until the visitor scrolls (no arrival run since Sprint 4).
    - This is the scanner from the original hero (`Opening.tsx` at commit e416ec9), recovered. The structure layer is clipped above the line, as it was, and the line now moves inside the document's own coordinate space.
 2. **The scan.**
    - Scrolling continues the line down the form. Above it, the problems appear:
@@ -149,3 +149,10 @@ Reduced motion renders the same scenes as still figures in reading order, and th
   - Under reduced motion it is not pinned.
 - **Motion tokens (CSS):** `--dur-press` 90ms, `--dur-fast` 150ms, `--dur-base` 220ms, `--dur-slow` 350ms, `--dur-enter` 220ms, `--dur-exit` 150ms, `--ease-out` cubic-bezier(0.22,1,0.36,1).
 - **Motion tokens (JS, `src/lib/motion.ts`):** `DUR.ui` 0.22, `DUR.uiExit` 0.15, `POPOVER_FROM` 0.97.
+
+## Market-ready additions (9 November 2026)
+
+- **Deadline hero** (`DeadlineHero.tsx`, `src/lib/deadline.ts`): the date in Funnel Display 500 at up to 14.5rem, filled with a top-lit ink gradient and a one-pixel highlight below. Days, hours and minutes sit on paper tiles (sheet surface, inset top highlight, two-layer shadow). Changed digits slide 55% down into place over 220 ms, and the old digit leaves in 150 ms; reduced motion swaps them instantly. The numbers render only on the client, ticking on the minute. There are no seconds: this is a deadline for planning, not a sale.
+- **Resident demo** (`Resident.tsx`): the form, held sticky beside the announcement list on desktop and pinned compact above it on phones. Vermilion dashes mark problem lines and fields; viridian marks repaired ones. The structure overlay reuses the scanner's broken and fixed layers.
+- **Desktop privacy bar**: one slim pill along the bottom, at 1000px and wider.
+- Supporting-page heroes (`PageHero.tsx`, `hiw/HeroFlow.tsx`, `about/DocStructure.tsx`, `solutions/Workflows.tsx`) use the same paper, Georgia document type, vermilion and viridian.
