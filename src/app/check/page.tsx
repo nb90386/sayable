@@ -39,7 +39,7 @@ export default function CheckPage() {
               form fields, image descriptions, headings and tables. Nothing is sent to Sayable or anyone else. Close the tab and it is gone.
             </p>
             <p className="mt-4 max-w-[52ch] text-ink-soft">
-              It looks for the problems software can see for certain. It does not run the full PDF/UA rule set the way veraPDF or PAC do, and it cannot
+              It looks for the problems software can see for certain. It does not run the full PDF/UA rule set the way a dedicated validator does, and it cannot
               judge meaning. Treat it as a first look, not a verdict.
             </p>
           </div>

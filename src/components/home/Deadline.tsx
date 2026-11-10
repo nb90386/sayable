@@ -45,22 +45,25 @@ export function Deadline() {
   return (
     <section id="deadline" aria-labelledby="deadline-title" className="deadline" data-sc-act="deadline">
       <div className="wrap deadline-top">
-        <div>
-          <p className="deadline-date" aria-hidden="true">
-            April 26, 2027
+        <h2 id="deadline-title" className="deadline-title">
+          Most of the work happens before the date. Finding it comes first.
+        </h2>
+        <div id="rule" className="dl-rule" tabIndex={-1}>
+          <p className="dl-rule-head">Which date applies</p>
+          <dl className="dl-dates">
+            <div>
+              <dt>April 26, 2027</dt>
+              <dd>State and local governments with a total population of 50,000 or more.</dd>
+            </div>
+            <div>
+              <dt>April 26, 2028</dt>
+              <dd>Governments with a total population under 50,000, and all special district governments.</dd>
+            </div>
+          </dl>
+          <p className="dl-rule-note">
+            Total population is your city or county&rsquo;s population in the 2020 Census, not the number of people you serve or your staff. The standard is
+            WCAG 2.1 AA, for web content and mobile apps.
           </p>
-          <h2 id="deadline-title" className="deadline-title">
-            The deadline is approaching. Finding the work comes first.
-          </h2>
-        </div>
-        <div className="deadline-rule-text">
-          <p>
-            <strong>April 26, 2027</strong> for state and local governments with a total population of 50,000 or more.
-          </p>
-          <p>
-            <strong>April 26, 2028</strong> for smaller governments and for special district governments.
-          </p>
-          <p className="text-muted">The standard is WCAG 2.1 AA, under the Justice Department&rsquo;s ADA Title II web rule.</p>
         </div>
       </div>
 
@@ -85,44 +88,72 @@ export function Deadline() {
       </div>
 
       <div className="wrap">
-        <dl className="deadline-faq">
-          <div>
-            <dt>Does every old PDF need fixing?</dt>
-            <dd>
-              Not always. Archived files kept only for reference, and documents posted before the date that nobody needs to use a service, may be excepted.
-              Your team decides and writes the decision down.
-            </dd>
-          </div>
-          <div>
-            <dt>Can we wait for the date?</dt>
-            <dd>Residents can already ask for any document in a form they can use. That duty applies today.</dd>
-          </div>
-          <div>
-            <dt>Is there a fine?</dt>
-            <dd>
-              Not an automatic one. People can complain to the Justice Department or go to court. In 2014 the{" "}
-              <a href="https://archive.ada.gov/occ.htm" className="text-link" rel="noopener noreferrer">
-                Orange County, Florida clerk
-              </a>{" "}
-              settled a complaint about scanned court PDFs by agreeing to fix them and train staff.
-            </dd>
-          </div>
-        </dl>
-        <p className="deadline-source">
-          Sources:{" "}
-          <a href="https://www.ada.gov/resources/web-rule-first-steps/" className="text-link" rel="noopener noreferrer">
-            ADA.gov first steps
-          </a>
-          ,{" "}
-          <a href="https://www.ada.gov/resources/small-entity-compliance-guide/" className="text-link" rel="noopener noreferrer">
-            small entity compliance guide
-          </a>
-          . A lawsuit filed in May 2026 asks a court to restore the earlier dates; there is no ruling yet.{" "}
-          <a href="/resources/title-ii-rule-and-your-pdfs" className="text-link">
-            Our plain-English guide to the rule
-          </a>
-          .
-        </p>
+        <div className="why-now" aria-labelledby="why-title">
+          <h3 id="why-title" className="why-title">
+            Why it matters now
+          </h3>
+          <dl className="why-list">
+            <div>
+              <dt>Residents can already ask.</dt>
+              <dd>
+                The ADA&rsquo;s effective communication duty applies today. Anyone can ask for a document in a form they can use, even when an exception
+                covers the file.
+              </dd>
+            </div>
+            <div>
+              <dt>Complaints and lawsuits are how the rule is enforced.</dt>
+              <dd>
+                There is no automatic fine per document. People can complain to the Justice Department or sue in federal court, and settlements usually require
+                repairing documents, training staff and reporting progress. In 2014 the{" "}
+                <a href="https://archive.ada.gov/occ.htm" className="text-link" rel="noopener noreferrer">
+                  Orange County, Florida clerk
+                </a>{" "}
+                settled a complaint about scanned court PDFs on those terms.
+              </dd>
+            </div>
+            <div>
+              <dt>The dates themselves are being challenged.</dt>
+              <dd>
+                In May 2026 the National Federation of the Blind sued the Justice Department in federal court in Maryland, arguing the one-year extension was
+                issued unlawfully (
+                <a href="https://clearinghouse.net/case/48281/" className="text-link" rel="noopener noreferrer">
+                  No. 1:26-cv-02007
+                </a>
+                ). As of November 2026 the court has not ruled, and the dates above are the ones in effect. Filing the case did not change them.
+              </dd>
+            </div>
+            <div>
+              <dt>Not every old file needs fixing.</dt>
+              <dd>
+                Archived content and documents posted before the date can be excepted, unless people use them to apply for or take part in a service. Your
+                team decides, case by case, and writes the decision down.
+              </dd>
+            </div>
+          </dl>
+          <p className="deadline-source">
+            General information, not legal advice. Sources:{" "}
+            <a href="https://www.ada.gov/resources/web-rule-first-steps/" className="text-link" rel="noopener noreferrer">
+              ADA.gov first steps
+            </a>
+            ,{" "}
+            <a href="https://www.govinfo.gov/app/details/FR-2026-04-20/2026-07663" className="text-link" rel="noopener noreferrer">
+              the April 20, 2026 interim final rule
+            </a>
+            ,{" "}
+            <a
+              href="https://democracyforward.org/news/press-releases/national-federation-of-the-blind-sues-trump-vance-administration-over-delays-to-critical-website-accessibility-protections/"
+              className="text-link"
+              rel="noopener noreferrer"
+            >
+              the plaintiffs&rsquo; announcement
+            </a>
+            .{" "}
+            <a href="/resources/title-ii-rule-and-your-pdfs" className="text-link">
+              Our plain-English guide to the rule
+            </a>
+            .
+          </p>
+        </div>
       </div>
     </section>
   );

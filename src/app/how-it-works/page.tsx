@@ -1,24 +1,29 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { PageCta, PageIntro, Reveal } from "@/components/pages/PageParts";
+import { PageCta, Reveal } from "@/components/pages/PageParts";
+import { PageHero } from "@/components/pages/PageHero";
+import { HeroFlow } from "@/components/pages/hiw/HeroFlow";
 import { CheckColumns, CrawlLog, SortPiles, TagTreePair } from "@/components/pages/hiw/Artifacts";
 import { StatusChips } from "@/components/pages/hiw/StageParts";
 
 export const metadata: Metadata = {
   title: "How it works",
-  description: "Three steps: you send your website address, we find and sort every PDF, and you get a plan and decide what happens next.",
+  description: "Share your website address. Sayable finds the PDFs it links to, checks them, and organizes what needs attention into a plan you decide on.",
   alternates: { canonical: "/how-it-works" },
 };
 
 export default function HowItWorksPage() {
   return (
     <>
-      <PageIntro
-        title="Three steps, and you decide at the end."
-        lede="You send a website address. We find and sort every PDF it links to. You get a plan and choose what happens next."
-      />
+      <PageHero
+        layout="stack"
+        title="From your city website to a clear plan."
+        lede="Share your website address. We find the PDFs it links to, check them, and organize what needs attention."
+      >
+        <HeroFlow />
+      </PageHero>
 
-      <section aria-labelledby="hiw-1" className="wrap pb-16 sm:pb-24">
+      <section aria-labelledby="hiw-1" className="wrap border-t pt-4 pb-16 hairline sm:pb-24">
         <h2 id="hiw-1" className="sr-only">
           Who does what
         </h2>
@@ -70,9 +75,6 @@ export default function HowItWorksPage() {
               <p className="hiw-body">
                 A polite crawl finds every linked PDF. Each file then gets a recommendation with a reason. Your team makes the final call.
               </p>
-              <div className="mt-5">
-                <StatusChips items={[{ label: "Available now, as a service", state: "now" }]} />
-              </div>
             </div>
           </div>
           <div className="mt-12">

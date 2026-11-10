@@ -3,7 +3,6 @@
 import { m, motionValue, useMotionTemplate, useMotionValueEvent, useScroll, useTransform, type MotionValue } from "motion/react";
 import Link from "next/link";
 import { memo, useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState } from "react";
-import cues from "@/content/audio-cues.json";
 import { usePrefersReducedMotion } from "@/lib/usePrefersReducedMotion";
 import { geometry, type Geo } from "./geometry";
 import { PALETTES, PALETTE } from "./palette";
@@ -56,68 +55,19 @@ function useStageSize(ref: React.RefObject<HTMLElement | null>) {
   return size;
 }
 
-/** A short narration of the form, played only when asked. */
-function Listen({ which, active }: { which: "before" | "after"; active: boolean }) {
-  const data = cues[which];
-  const audio = useRef<HTMLAudioElement>(null);
-  const [playing, setPlaying] = useState(false);
-  const [t, setT] = useState(0);
-  useEffect(() => {
-    if (!active && audio.current && !audio.current.paused) audio.current.pause();
-  }, [active]);
-  const toggle = () => {
-    const a = audio.current;
-    if (!a) return;
-    if (a.paused) {
-      if (a.ended || a.currentTime >= a.duration - 0.05) a.currentTime = 0;
-      void a.play();
-    } else a.pause();
-  };
-  const secs = Math.round(data.duration);
-  return (
-    <div className="mt-6">
-      <div className="flex items-center gap-3">
-        <button type="button" onClick={toggle} className="listen-btn press" aria-pressed={playing}>
-          <span aria-hidden="true" data-icon={playing ? "pause" : "play"} />
-          {playing ? "Pause" : which === "before" ? "Hear a narration, as posted" : "Hear a narration, repaired"}
-          <span className="font-[400] opacity-70">{secs} s</span>
-        </button>
-        <span aria-hidden="true" className="listen-bar">
-          <span style={{ transform: `scaleX(${data.duration ? t / data.duration : 0})` }} />
-        </span>
-      </div>
-      <audio
-        ref={audio}
-        src={data.src}
-        preload="none"
-        onPlay={() => setPlaying(true)}
-        onPause={() => setPlaying(false)}
-        onEnded={() => setPlaying(false)}
-        onTimeUpdate={(e) => setT(e.currentTarget.currentTime)}
-      />
-      <details className="listen-transcript mt-3">
-        <summary>Transcript</summary>
-        <p>{data.cues.map((c) => c.text).join(" ")}</p>
-        <p>An illustrative narration of what a screen reader would announce, not a recording of one.</p>
-      </details>
-    </div>
-  );
-}
-
 function Availability({ children }: { children: React.ReactNode }) {
   return <p className="avail">{children}</p>;
 }
 
 /** The words for each scene. Real headings and paragraphs, in reading order. */
-function SceneCopy({ i, active, extra }: { i: number; active: boolean; extra?: React.ReactNode }) {
+function SceneCopy({ i, extra }: { i: number; active?: boolean; extra?: React.ReactNode }) {
   switch (SCENES[i]!.id) {
     case "problem":
       return (
         <>
-          <h2 className="scene-title">It looks fine. A screen reader hears something else.</h2>
-          <p className="scene-body scene-body-wide">Each numbered finding is something a resident using a screen reader would run into on this form.</p>
+          <h2 className="scene-title">Four problems on one page.</h2>
+          <p className="scene-body scene-body-wide">Each numbered finding is something the resident would run into. The correction a person makes appears as the scan passes it.</p>
           {extra}
-          <Listen which="before" active={active} />
           <details className="scene-details">
             <summary>Technical details</summary>
             <ol>
@@ -164,7 +114,6 @@ function SceneCopy({ i, active, extra }: { i: number; active: boolean; extra?: R
             Fields get their names, the reading order follows the page, and the title becomes a heading. Software we are still testing drafts routine fixes. A
             person checks every one.
           </p>
-          <Listen which="after" active={active} />
           <Availability>
             <Link href="/product" className="text-link">
               PDF repair
@@ -188,27 +137,15 @@ function SceneCopy({ i, active, extra }: { i: number; active: boolean; extra?: R
   }
 }
 
-function Hero() {
+function ScanIntro() {
   return (
     <>
-      <h1 id="hero-title" className="hero-title">
-        Make your city&rsquo;s PDFs accessible. Know what to fix first.
-      </h1>
+      <h2 id="scan-title" className="hero-title scan-intro-title">
+        Sayable reads the form the way a screen reader does.
+      </h2>
       <p className="hero-lede">
-        Sayable finds the accessibility problems in your city&rsquo;s public PDFs, shows what to fix first, repairs them, and records every check.
-      </p>
-      <div className="hero-actions">
-        <Link href="/contact?topic=audit" className="btn">
-          Request a Readiness Audit <span className="arrow" aria-hidden="true" data-icon="arrow-r" />
-        </Link>
-        <Link href="/check" className="btn btn-quiet">
-          Check a PDF, free
-        </Link>
-      </div>
-      <p className="hero-meta">
-        <a href="#deadline" className="hero-deadline">
-          Federal deadline for governments of 50,000 or more people: April 26, 2027
-        </a>
+        Scroll to move the scan down the page. Each problem is named in plain words, then the correction a person would make is shown. An illustration of
+        the work, not a live scan.
       </p>
     </>
   );
@@ -346,9 +283,9 @@ export function Story() {
   if (reduced) return <StoryStill />;
 
   return (
-    <section ref={track} className="story" aria-labelledby="hero-title" data-sc-act="story">
+    <section ref={track} className="story" aria-labelledby="scan-title" data-sc-act="story">
       <m.div ref={stage} className="story-stage" style={{ background: bg }}>
-        <a href="#deadline" className="skip-story sr-only-focusable">
+        <a href="#receive" className="skip-story sr-only-focusable">
           Skip the story
         </a>
         {geo ? <Visual p={p} geo={geo} pal={pal} /> : null}
@@ -358,7 +295,7 @@ export function Story() {
         </m.div>
 
         <m.div ref={heroRef} className="hero-copy wrap" style={{ opacity: heroO, y: heroY }}>
-          <Hero />
+          <ScanIntro />
         </m.div>
 
         {SCENES.map((s, i) => (
@@ -417,10 +354,10 @@ function StoryStill() {
   const geo = useMemo(() => (size ? geometry(size.W, size.H, true) : null), [size]);
   const values = useMemo(() => SCENES.map((s) => motionValue(s.at)), []);
   return (
-    <section className="story-still" aria-labelledby="hero-title" data-sc-act="story">
+    <section className="story-still" aria-labelledby="scan-title" data-sc-act="story">
       <div className="wrap pt-[calc(var(--header-h)+3rem)]">
         <div className="hero-copy-still">
-          <Hero />
+          <ScanIntro />
         </div>
       </div>
       {SCENES.map((s, i) => (

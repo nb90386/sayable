@@ -1,6 +1,6 @@
-import { createHmac } from "node:crypto";
 import { NextResponse } from "next/server";
 import { str, validateContact } from "@/lib/contact";
+import { channels, deliver, makeLead } from "@/lib/deliver";
 
 export const runtime = "nodejs";
 
@@ -43,27 +43,21 @@ export async function POST(req: Request) {
     return NextResponse.json({ ok: false, code: "invalid", errors }, { status: 400 });
   }
 
-  const url = process.env.CONTACT_WEBHOOK_URL?.trim();
-  if (!url) {
+  const c = channels();
+  if (!c.email && !c.webhook) {
     return NextResponse.json(
       { ok: false, code: "not_configured", message: "Online requests are not connected yet. Nothing was sent." },
       { status: 503 },
     );
   }
 
-  const json = JSON.stringify({ ...payload, receivedAt: new Date().toISOString(), source: "sayable-site/contact" });
-  const headers: Record<string, string> = { "content-type": "application/json" };
-  const secret = process.env.CONTACT_WEBHOOK_SECRET?.trim();
-  if (secret) headers["x-sayable-signature"] = createHmac("sha256", secret).update(json).digest("hex");
-
-  try {
-    const res = await fetch(url, { method: "POST", headers, body: json, signal: AbortSignal.timeout(8000) });
-    if (!res.ok) throw new Error(`webhook ${res.status}`);
-  } catch {
+  const lead = makeLead(payload);
+  const { ok } = await deliver(lead);
+  if (!ok.length) {
     return NextResponse.json(
       { ok: false, code: "delivery_failed", message: "We couldn't deliver your request. Nothing was sent; please try again." },
       { status: 502 },
     );
   }
-  return NextResponse.json({ ok: true });
+  return NextResponse.json({ ok: true, id: lead.id });
 }

@@ -56,10 +56,11 @@ test("internal links resolve", async ({ page, request }) => {
   }
 });
 
-test("the hero is readable on arrival and the scan runs on the form", async ({ page }) => {
+test("the hero leads with the federal date and the offer, at full opacity", async ({ page }) => {
   await page.goto("/");
   const h1 = page.getByRole("heading", { level: 1 });
-  await expect(h1).toHaveText("Make your city’s PDFs accessible. Know what to fix first.");
+  await expect(h1).toContainText("April 26, 2027");
+  await expect(h1).toContainText("total population of 50,000 or more");
   // no fade-in: the headline and the primary action are at full opacity from the first frame
   const chainOpacity = (sel: string) =>
     page.locator(sel).first().evaluate((el) => {
@@ -68,14 +69,76 @@ test("the hero is readable on arrival and the scan runs on the form", async ({ p
       return o;
     });
   expect(await chainOpacity("h1")).toBe(1);
-  expect(await chainOpacity(".hero-actions .btn")).toBe(1);
-  await expect(page.getByRole("link", { name: /Request a Readiness Audit/ }).first()).toBeVisible();
-  await expect(page.getByRole("link", { name: "Skip the story" })).toHaveAttribute("href", "#deadline");
+  expect(await chainOpacity(".dh .btn")).toBe(1);
+  await expect(page.locator(".dh").getByRole("link", { name: /Request a Readiness Audit/ })).toBeInViewport();
+  await expect(page.locator(".dh")).toContainText("Sayable finds your public PDFs");
+  await expect(page.getByRole("link", { name: "Skip the story" })).toHaveAttribute("href", "#receive");
   // the scan is named for people, and its findings are in plain words (technical identifiers only in Details)
   await expect(page.locator(".scan-line")).toContainText("Sayable scan");
   await expect(page.locator(".scan-log-wrap li").first()).toContainText("This title isn’t recognized as a heading.");
   await expect(page.locator("body")).not.toContainText("tagged as text, not H1");
   await expect(page.getByText("Technical details").first()).toBeAttached();
+  // no competitor brands in the sales story
+  await expect(page.locator("main")).not.toContainText(/CommonLook|Equidox|ChatGPT|Acrobat/);
+});
+
+test.describe("the deadline countdown", () => {
+  // 2026-11-09 17:00 UTC is 167 days 11 hours before 2027-04-26 00:00 US Eastern (04:00 UTC)
+  const NOW = new Date("2026-11-09T17:00:00Z");
+  const read = (page: import("@playwright/test").Page) =>
+    page.locator(".cd .cd-num").evaluateAll((els) => els.map((e) => e.textContent));
+
+  for (const tz of ["America/Los_Angeles", "America/New_York", "Pacific/Auckland", "UTC"]) {
+    test(`counts to the same instant in ${tz}, with no hydration mismatch`, async ({ browser }) => {
+      const ctx = await browser.newContext({ timezoneId: tz });
+      const page = await ctx.newPage();
+      const errors: string[] = [];
+      page.on("console", (m) => m.type() === "error" && errors.push(m.text()));
+      page.on("pageerror", (e) => errors.push(e.message));
+      await page.clock.setFixedTime(NOW);
+      await page.goto("/");
+      await expect.poll(() => read(page)).toEqual(["167", "11", "00", "00"]);
+      await expect(page.locator(".dh-count .sr-only")).toHaveText("About 167 days remain until April 26, 2027.");
+      expect(errors.filter((e) => /hydrat|did not match/i.test(e))).toEqual([]);
+      await ctx.close();
+    });
+  }
+
+  test("switches to the 2028 date without guessing, and back", async ({ page }) => {
+    await page.clock.setFixedTime(NOW);
+    await page.goto("/");
+    await page.getByRole("radio", { name: "Under 50,000 or special district" }).click();
+    await expect(page.getByRole("heading", { level: 1 })).toContainText("April 26, 2028");
+    await expect.poll(() => read(page)).toEqual(["533", "11", "00", "00"]);
+    await page.getByRole("radio", { name: "Population 50,000 or more" }).click();
+    await expect(page.getByRole("heading", { level: 1 })).toContainText("April 26, 2027");
+  });
+
+  test("one second before the date, then the date itself: never negative", async ({ page }) => {
+    await page.clock.setFixedTime(new Date("2027-04-26T03:59:59Z"));
+    await page.goto("/");
+    await expect.poll(() => read(page)).toEqual(["000", "00", "00", "01"]);
+    await page.clock.setFixedTime(new Date("2027-04-26T04:00:00Z"));
+    await expect.poll(() => read(page), { timeout: 4000 }).toEqual(["000", "00", "00", "00"]);
+    await expect(page.locator(".cd-basis")).toHaveText("The compliance date arrived on April 26, 2027.");
+    await page.clock.setFixedTime(new Date("2028-01-01T00:00:00Z"));
+    await page.reload();
+    await expect.poll(() => read(page)).toEqual(["000", "00", "00", "00"]);
+    await expect(page.locator(".dh-count .sr-only")).toHaveText("The compliance date, April 26, 2027, has arrived.");
+  });
+
+  test("ticks once a second while the page is open", async ({ page }) => {
+    await page.clock.install({ time: NOW });
+    await page.goto("/");
+    await page.clock.pauseAt(new Date(NOW.getTime() + 2000));
+    const secs = async () => {
+      const [d, h, m, s] = (await read(page)).map(Number);
+      return d! * 86400 + h! * 3600 + m! * 60 + s!;
+    };
+    await expect.poll(secs).toBe(167 * 86400 + 11 * 3600 - 2);
+    await page.clock.runFor(3000);
+    await expect.poll(secs).toBe(167 * 86400 + 11 * 3600 - 5);
+  });
 });
 
 test("the scan is driven only by scroll: idle, forward, reverse and reload", async ({ page }, info) => {
@@ -176,15 +239,31 @@ test("the document story advances by scroll, and every scene is reachable", asyn
   await expect(page.locator("html")).not.toHaveAttribute("data-hdr", "night");
 });
 
-test("narration is opt-in, labelled, and has a transcript", async ({ page }) => {
+test("the resident demo: opt-in narration, synced lines, the structure, and an honest label", async ({ page }) => {
+  await page.addInitScript(() => localStorage.setItem("sayable-consent", JSON.stringify({ v: 1, analytics: false, at: "test" })));
   await page.goto("/");
-  const play = page.getByRole("button", { name: /Hear a narration, as posted/ });
-  await expect(play).toHaveCount(1);
-  await expect(page.locator("audio").first()).toHaveAttribute("preload", "none");
-  await expect(page.locator(".listen-transcript").first()).toContainText("Edit text. Blank.");
-  await expect(page.locator(".listen-transcript").first()).toContainText("not a recording");
-  const res = await page.request.get("/audio/permit-before.mp3");
-  expect(res.status()).toBe(200);
+  const res = page.locator(".res");
+  await expect(res.getByRole("heading", { name: "People should be able to use public documents on their own." })).toBeVisible();
+  await expect(page.locator(".res audio")).toHaveAttribute("preload", "none");
+  await expect(res).toContainText("not a recording of a screen reader");
+  // every word is on screen, as posted
+  await expect(res.locator(".res-list")).toContainText("Edit text. Blank.");
+  // choosing a line marks it, without playing anything
+  await res.locator(".res-list button").nth(3).click();
+  await expect(res.locator(".res-list li").nth(3)).toHaveAttribute("data-on", "");
+  await expect(res.locator(".res-focus")).toHaveAttribute("data-tone", "problem");
+  // the hidden structure can be shown
+  await res.getByRole("button", { name: "Show the structure a screen reader gets" }).click();
+  await expect(res.getByRole("button", { name: "Show the structure a screen reader gets" })).toHaveAttribute("aria-pressed", "true");
+  // after repair, the same field is named
+  await res.getByRole("radio", { name: "After repair" }).click();
+  await expect(res.locator(".res-list")).toContainText("Applicant name. Edit text. Required.");
+  expect((await page.request.get("/audio/permit-after.mp3")).status()).toBe(200);
+  // playback reports progress, and pausing works
+  await res.getByRole("button", { name: /Play narration, after repair/ }).click();
+  await expect.poll(() => res.locator(".res-seek").inputValue().then(Number), { timeout: 8000 }).toBeGreaterThan(0.3);
+  await res.getByRole("button", { name: "Pause narration" }).click();
+  await expect(res.getByRole("button", { name: /Play narration/ })).toBeVisible();
 });
 
 test("reduced motion gets the whole story as still figures", async ({ page }) => {
@@ -192,7 +271,7 @@ test("reduced motion gets the whole story as still figures", async ({ page }) =>
   await page.goto("/");
   // the still version swaps in after hydration
   await expect(page.locator(".story-still")).toBeVisible();
-  for (const h of ["It looks fine. A screen reader hears something else.", "Your city may have thousands of PDFs. Which need attention first?", "Start with the files residents use.", "Then a person repairs them.", "Every file comes back with its record."]) {
+  for (const h of ["Four problems on one page.", "Your city may have thousands of PDFs. Which need attention first?", "Start with the files residents use.", "Then a person repairs them.", "Every file comes back with its record."]) {
     const el = page.getByRole("heading", { name: h });
     await el.scrollIntoViewIfNeeded();
     await expect(el).toBeVisible();

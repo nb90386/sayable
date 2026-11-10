@@ -550,7 +550,7 @@ export function ReportCard() {
         </div>
         <div>
           <dt>Re-checked</dt>
-          <dd>PAC and veraPDF, then a person listened with NVDA</dd>
+          <dd>Automated PDF/UA checks, then a person listened with a screen reader</dd>
         </div>
       </dl>
       <ul className="report-more">

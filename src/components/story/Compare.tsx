@@ -3,7 +3,7 @@ import Link from "next/link";
 type Mark = "yes" | "part" | "no";
 type Cell = { m: Mark; t: string };
 
-const TOOLS = ["Acrobat Pro", "Free checkers (PAC, veraPDF)", "ChatGPT and similar", "Sayable"] as const;
+const TOOLS = ["A PDF editor", "A free checker", "A general AI assistant", "Sayable"] as const;
 
 /** Tasks, not features. Each tool is described by what it actually does for a city team. */
 const TASKS: { task: string; cells: [Cell, Cell, Cell, Cell] }[] = [
@@ -29,15 +29,15 @@ const TASKS: { task: string; cells: [Cell, Cell, Cell, Cell] }[] = [
     task: "Find technical problems in a file",
     cells: [
       { m: "yes", t: "Built-in checker, with some items left to check by hand" },
-      { m: "yes", t: "Thorough PDF/UA rule checks" },
+      { m: "yes", t: "Thorough rule checks against the PDF standard" },
       { m: "part", t: "Can comment on a file, but is not a validator" },
-      { m: "yes", t: "The same validators, plus our own checks" },
+      { m: "yes", t: "Standard validators, plus our own checks" },
     ],
   },
   {
     task: "Repair tags, field names and reading order",
     cells: [
-      { m: "part", t: "Yes, by a trained person. Autotag is only a start" },
+      { m: "part", t: "Yes, by a trained person. Automatic tagging is only a start" },
       { m: "no", t: "Checks only" },
       { m: "no", t: "Explains the steps; doesn't reliably edit a PDF's tags" },
       { m: "yes", t: "Done for you" },
@@ -56,7 +56,7 @@ const TASKS: { task: string; cells: [Cell, Cell, Cell, Cell] }[] = [
     task: "Confirm it makes sense when read aloud",
     cells: [
       { m: "part", t: "Left to you" },
-      { m: "part", t: "PAC's preview helps a trained reviewer" },
+      { m: "part", t: "Some previews help a trained reviewer" },
       { m: "no", t: "Can't listen to your PDF" },
       { m: "yes", t: "A person reviews every repaired file" },
     ],
@@ -96,26 +96,26 @@ function Glyph({ m }: { m: Mark }) {
   return <span aria-hidden="true" className={`cmp-glyph cmp-${m}`} />;
 }
 
-/** Chapter: the honest answer to "we already have Acrobat and ChatGPT". */
+/** Chapter: the honest answer to "we already have tools for this". Tools are named by kind, not by brand. */
 export function Compare() {
   return (
     <section data-sc-act="compare" aria-labelledby="compare-title" className="py-[clamp(7rem,14vh,11rem)]">
       <div className="wrap">
         <div className="mx-auto max-w-[1100px]">
           <h2 id="compare-title" className="headline max-w-[18ch]">
-            Why not just use Acrobat <span className="tone">or ChatGPT?</span>
+            Why not use the tools we already have?
           </h2>
           <div className="mt-6 grid gap-6 md:grid-cols-2 md:gap-12">
             <p className="lede !max-w-[48ch]">Keep using them. They are good tools. But finding a problem in one file is a small part of the work.</p>
             <p className="max-w-[54ch] text-ink-soft">
-              Acrobat can repair a PDF in the hands of someone trained to use it, and ChatGPT can draft a good image description. Neither tells you which
+              A PDF editor can repair a file in the hands of someone trained to use it, and an AI assistant can draft a good image description. Neither tells you which
               of your thousands of PDFs need fixing, and neither confirms that a repaired file makes sense when heard. A checker can pass a file whose tags
               exist but are wrong. That is the work Sayable takes on: the inventory, the sorting, the hard pages, and a record your staff can re-check in
               the same free tools.
             </p>
             <p className="max-w-[54ch] text-ink-soft md:col-start-2">
-              Established remediation firms and products, such as CommonLook, Equidox and CivicPlus, do much of this work too, and some of it very well.
-              Whoever you talk to, including us, ask how they find your files, decide what to fix, and check the result with a person.
+              Other remediation firms and products do much of this work too, and some of it very well. Whoever you talk to, including us, ask how they
+              find your files, decide what to fix, and check the result with a person.
             </p>
           </div>
 
@@ -184,7 +184,7 @@ export function Compare() {
             </Link>
           </div>
           <p className="mt-4 text-[0.84rem] text-muted">
-            Based on each product&apos;s public documentation as of November 2026. Products change; tell us if something here is out of date.
+            Describes each kind of tool in general, as of November 2026. Individual products differ; tell us if something here seems wrong.
           </p>
         </div>
       </div>

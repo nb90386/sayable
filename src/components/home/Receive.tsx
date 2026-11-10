@@ -99,7 +99,7 @@ export function Receive() {
   const ref = useRef<HTMLOListElement>(null);
   const { scrollYProgress } = useScroll({ target: ref, offset: ["start 92%", "center 58%"] });
   return (
-    <section aria-labelledby="receive-title" className="receive" data-sc-act="receive">
+    <section id="receive" aria-labelledby="receive-title" className="receive" data-sc-act="receive">
       <div className="wrap">
         <div className="receive-intro">
           <h2 id="receive-title" className="headline max-w-[16ch]">

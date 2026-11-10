@@ -26,22 +26,22 @@ export function Difference() {
       <div className="wrap">
         <div className="diff-intro">
           <h2 id="diff-title" className="headline max-w-[19ch]">
-            A checker looks at one file. Your city has thousands.
+            Checking one PDF is not the same as managing a city&rsquo;s documents.
           </h2>
           <p className="lede !max-w-[44ch]">
-            Acrobat, PAC and ChatGPT are good at single documents, and firms like CommonLook and Equidox take on large projects too. What we add is the order of
-            the work, and proof that it was done.
+            A single-file checker is useful, and your team may already have one. A backlog also needs the files found, the ones residents use put first,
+            repairs made by people, and a record of each check. That is the work we organize.
           </p>
         </div>
 
         <table className="diff-table">
-          <caption className="sr-only">A PDF checker compared with Sayable</caption>
+          <caption className="sr-only">Checking one file compared with a Sayable audit and repair</caption>
           <thead>
             <tr>
               <th scope="col">
                 <span className="sr-only">Task</span>
               </th>
-              <th scope="col">A PDF checker</th>
+              <th scope="col">Checking one file</th>
               <th scope="col">Sayable</th>
             </tr>
           </thead>
@@ -61,7 +61,7 @@ export function Difference() {
         </table>
         <p className="mt-6 text-[0.95rem] text-muted">
           <Link href="/product#compare" className="text-link">
-            Compare Acrobat, free checkers, ChatGPT and Sayable task by task
+            See the work compared, task by task
           </Link>
         </p>
       </div>
