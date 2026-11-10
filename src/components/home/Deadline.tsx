@@ -9,7 +9,7 @@ const STEPS = [
   { k: "Prioritize", t: "What residents use now first. Archived files flagged for your team to decide." },
   { k: "Repair", t: "The documents people need, fixed and checked by a person." },
   { k: "Verify", t: "Each file re-checked, with a record of what changed and what wasn’t claimed." },
-  { k: "Keep up", t: "New agendas and notices made accessible before they go up." },
+  { k: "Keep up", t: "New agendas and notices checked before they go up. Repair of new packets is a limited pilot." },
 ];
 
 type Row = { id: string; file: string; from: string; issue: "fix" | "ok" | "old"; rank: number };
@@ -88,7 +88,7 @@ export function Deadline() {
       </div>
 
       <div className="wrap">
-        <div className="why-now" aria-labelledby="why-title">
+        <div id="why-now" className="why-now">
           <h3 id="why-title" className="why-title">
             Why it matters now
           </h3>
@@ -123,10 +123,13 @@ export function Deadline() {
               </dd>
             </div>
             <div>
-              <dt>Not every old file needs fixing.</dt>
+              <dt>Not every old file needs fixing. Two exceptions, with conditions.</dt>
               <dd>
-                Archived content and documents posted before the date can be excepted, unless people use them to apply for or take part in a service. Your
-                team decides, case by case, and writes the decision down.
+                <strong>Archived content:</strong> made before the date, kept only for reference, research or recordkeeping, not changed after it was archived,
+                and kept in an area clearly marked as archived.{" "}
+                <strong>Documents posted before the date</strong>, such as old PDFs, are also excepted, unless people use them now to apply for, get or take part
+                in a service. New agendas and minutes posted after the date are covered. Your team decides case by case, with your counsel, and writes the
+                decision down.
               </dd>
             </div>
           </dl>
@@ -178,7 +181,7 @@ function Workspace({ step }: { step: number }) {
             <span className="dl-file">council-agenda-0512.pdf</span>
             <span className="dl-from">new this week</span>
             <span className="dl-state" data-s="check">
-              Checked before posting
+              Pilot: checked before posting
             </span>
           </m.li>
         ) : null}

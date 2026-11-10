@@ -117,6 +117,7 @@ export function Receive() {
                 What the audit includes
               </Link>
             </div>
+            <p className="receive-quote">One flat fee, quoted in writing after a 30-minute call. Nothing starts until you agree to the scope.</p>
           </div>
         </div>
         <ol ref={ref} className="receive-row">
@@ -128,6 +129,16 @@ export function Receive() {
             </Fanned>
           ))}
         </ol>
+        <nav className="receive-roles" aria-label="The part of the work that is yours">
+          <p>Your part of the work:</p>
+          <ul>
+            <li><Link href="/solutions#clerks" className="text-link">City clerks and agendas</Link></li>
+            <li><Link href="/solutions#ada" className="text-link">ADA coordinators</Link></li>
+            <li><Link href="/security" className="text-link">IT: what we access and how files move</Link></li>
+            <li><Link href="/solutions/agencies" className="text-link">Website agencies</Link></li>
+            <li><Link href="/readiness-audit#faq" className="text-link">Procurement</Link></li>
+          </ul>
+        </nav>
       </div>
     </section>
   );

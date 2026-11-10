@@ -33,8 +33,8 @@ const roles = [
 
 const sortSteps = [
   { t: "Inventory", d: "Every PDF linked from your public site, and the page that links to it." },
-  { t: "Sort", d: "Must fix, archive candidate, delete candidate, or better as a web page." },
-  { t: "Your team decides", d: "Archive and delete candidates are reviewed by your team. They are not repaired by default." },
+  { t: "Sort", d: "Must fix, archive candidate, take off the website, or better as a web page." },
+  { t: "Your team decides", d: "Archive candidates and files to take down are reviewed by your team, under your records retention schedule. They are not repaired by default." },
   { t: "Repair what is left", d: "Only the must-fix files, in the order that serves residents first." },
 ];
 

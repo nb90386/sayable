@@ -5,11 +5,11 @@ import Link from "next/link";
 import { useState, useSyncExternalStore } from "react";
 import { Segmented } from "@/components/motion/Segmented";
 import { track } from "@/lib/analytics";
-import { DEADLINES, remaining, type DeadlineKey } from "@/lib/deadline";
+import { DEADLINES, LEGAL_CHECKED, remainingMinutes, type DeadlineKey } from "@/lib/deadline";
 import { EASE_OUT } from "@/lib/motion";
 import { usePrefersReducedMotion } from "@/lib/usePrefersReducedMotion";
 
-/** A clock that ticks on each whole second. The server snapshot is null, so the numbers only ever render on the client. */
+/** A clock that ticks on each whole minute. The server snapshot is null, so the numbers only ever render on the client. */
 let now = 0;
 const listeners = new Set<() => void>();
 let timer: ReturnType<typeof setTimeout> | undefined;
@@ -20,7 +20,7 @@ function schedule() {
       listeners.forEach((l) => l());
       schedule();
     },
-    1000 - (Date.now() % 1000) + 5,
+    60_000 - (Date.now() % 60_000) + 5,
   );
 }
 function subscribe(cb: () => void) {
@@ -34,7 +34,11 @@ function subscribe(cb: () => void) {
     if (!listeners.size && timer) clearTimeout(timer);
   };
 }
-const read = () => now || Date.now();
+// The snapshot must stay the same between ticks, or React re-renders on every check.
+const read = () => {
+  if (!now) now = Date.now();
+  return now;
+};
 const useNow = () =>
   useSyncExternalStore<number | null>(subscribe, read, () => null);
 
@@ -85,7 +89,7 @@ function Unit({
   const s = String(value).padStart(pad, "0");
   return (
     <div className="cd-unit">
-      <span className="cd-num" data-ready={ready ? "" : undefined}>
+      <span className="cd-num" data-ready={ready ? "" : undefined} data-v={ready ? s : undefined}>
         {ready ? (
           s
             .split("")
@@ -109,7 +113,7 @@ export function DeadlineHero() {
   const d = DEADLINES[which];
   const t = useNow();
   const still = usePrefersReducedMotion();
-  const r = t === null ? null : remaining(t, d.startsAtUtc);
+  const r = t === null ? null : remainingMinutes(t, d.startsAtUtc);
   const ready = r !== null;
 
   return (
@@ -175,13 +179,6 @@ export function DeadlineHero() {
                 still={still}
                 ready={ready}
               />
-              <Unit
-                value={r?.seconds ?? 0}
-                pad={2}
-                label="seconds"
-                still={still}
-                ready={ready}
-              />
             </div>
             <p className="sr-only">
               {r === null
@@ -194,6 +191,12 @@ export function DeadlineHero() {
               {r?.passed
                 ? `The compliance date arrived on ${d.date}.`
                 : `Counted to the start of ${d.date} in Washington, D.C. The rule sets a date, not a time of day.`}
+            </p>
+            <p className="cd-basis">
+              Dates in effect as of {LEGAL_CHECKED}. The extension is being challenged in court.{" "}
+              <a href="#why-now" className="text-link">
+                What that means
+              </a>
             </p>
           </div>
         </div>

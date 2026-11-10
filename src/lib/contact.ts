@@ -4,6 +4,7 @@ export const INTERESTS = [
   { value: "pilot", label: "A pilot on a sample of documents" },
   { value: "agenda", label: "Agenda and meeting-packet turnaround" },
   { value: "partner", label: "Agency or overflow work" },
+  { value: "quote", label: "A written quote for budgeting" },
 ] as const;
 
 export const ROLES = [
@@ -11,6 +12,8 @@ export const ROLES = [
   { value: "clerk", label: "Clerk or records" },
   { value: "web", label: "Web or communications" },
   { value: "it", label: "IT" },
+  { value: "manager", label: "City manager or administrator" },
+  { value: "procurement", label: "Finance or procurement" },
   { value: "agency", label: "Website agency" },
   { value: "remediation", label: "Accessibility or remediation firm" },
   { value: "other", label: "Something else" },

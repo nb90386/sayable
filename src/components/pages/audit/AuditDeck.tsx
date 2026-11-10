@@ -12,7 +12,7 @@ const buckets = [
   { name: "Must fix", value: 212, color: "var(--color-warm)", note: "Service documents residents use" },
   { name: "Archive candidate", value: 703, color: "var(--color-muted)", note: "Old reference material" },
   { name: "Convert to web page", value: 96, color: "var(--color-signal)", note: "Short and mostly text" },
-  { name: "Delete candidate", value: 273, color: "#8f8a7e", note: "Duplicates and expired notices" },
+  { name: "Take off the website", value: 273, color: "#8f8a7e", note: "Duplicates and expired notices" },
 ];
 const TOTAL = buckets.reduce((a, b) => a + b.value, 0);
 
@@ -80,7 +80,7 @@ function Summary() {
       <h4 className="dk-h4">What we recommend</h4>
       <ul className="dk-list">
         <li>Repair the five highest-ranked service files within the first month. They are listed on page 12.</li>
-        <li>Ask department heads to confirm the 703 archive candidates and the 273 delete candidates. Nothing is removed without your decision.</li>
+        <li>Ask department heads to confirm the 703 archive candidates and the 273 files to take off the website. The records themselves stay under your retention schedule; nothing changes without your decision.</li>
         <li>Move 96 short flyers to web pages, where they are easier to read on a phone.</li>
       </ul>
     </>
@@ -134,7 +134,7 @@ function Inventory() {
   return (
     <>
       <p className="dk-lead-sm">Every PDF, by recommendation. The full list, with the page that links to each file, comes as a spreadsheet.</p>
-      <div className="dk-stack" role="img" aria-label="A bar divided into four parts: must fix 212, archive candidate 703, convert to web page 96, delete candidate 273">
+      <div className="dk-stack" role="img" aria-label="A bar divided into four parts: must fix 212, archive candidate 703, convert to web page 96, take off the website 273">
         {buckets.map((b) => (
           <span key={b.name} style={{ width: `${(b.value / TOTAL) * 100}%`, background: b.color }} />
         ))}

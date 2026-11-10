@@ -7,6 +7,9 @@
  * start of that date in Washington, D.C. (US Eastern Time). In late April the
  * Eastern zone is on daylight time (UTC-4), so midnight there is 04:00 UTC.
  */
+/** When the dates and the litigation status were last checked against primary sources. */
+export const LEGAL_CHECKED = "November 9, 2026";
+
 export type DeadlineKey = "large" | "small";
 
 export const DEADLINES: Record<DeadlineKey, { date: string; year: number; label: string; who: string; startsAtUtc: number }> = {
@@ -40,4 +43,15 @@ export function remaining(now: number, target: number): Remaining {
     seconds: s % 60,
     passed: false,
   };
+}
+
+/**
+ * Days, hours and minutes left, with the minutes rounded up: the display only reads all zeros
+ * once the date has begun, never one minute early. Never negative.
+ */
+export function remainingMinutes(now: number, target: number): Remaining {
+  const ms = target - now;
+  if (!(ms > 0)) return { days: 0, hours: 0, minutes: 0, seconds: 0, passed: true };
+  const mins = Math.ceil(ms / 60_000);
+  return { days: Math.floor(mins / 1440), hours: Math.floor((mins % 1440) / 60), minutes: mins % 60, seconds: 0, passed: false };
 }

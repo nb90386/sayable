@@ -120,7 +120,7 @@ export function SortPiles() {
         ))}
       </ul>
       <p className="mt-9 max-w-[62ch] text-[0.95rem] text-ink-soft">
-        A fourth group, Delete candidate (273 files here), holds duplicates and expired notices, such as <span className="mono text-[0.85rem]">fee-schedule-2019.pdf</span>. Nothing is removed unless your team agrees.
+        A fourth group, Take off the website (273 files here), holds duplicates and expired notices, such as <span className="mono text-[0.85rem]">fee-schedule-2019.pdf</span>. The record itself stays in your records system under your retention schedule, and nothing changes unless your team agrees.
       </p>
       <figcaption className="mt-3 max-w-[60ch] text-[0.9rem] text-muted">Sample. Fictional city. Counts are made up to show the shape of a result.</figcaption>
     </figure>

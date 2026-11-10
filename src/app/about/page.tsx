@@ -30,7 +30,7 @@ const today = [
 
 const involve = [
   { t: "Request a Readiness Audit", d: "An inventory of the PDFs your site links to, a ranked list of what to fix first, and a plan.", href: "/contact?topic=audit", cta: "Request an audit" },
-  { t: "Talk about a pilot", d: "If you publish meeting packets on a deadline, we can talk about the limited Agenda Desk pilot.", href: "/contact", cta: "Start a conversation" },
+  { t: "Talk about a pilot", d: "If you publish meeting packets on a deadline, we can talk about the limited Agenda Desk pilot.", href: "/contact?topic=agenda", cta: "Start a conversation" },
   { t: "Tell us what screen-reader users hit", d: "If you rely on a screen reader, we want to hear which documents fail you and what a good result sounds like.", href: "/contact", cta: "Send feedback" },
 ];
 

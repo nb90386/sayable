@@ -86,7 +86,7 @@ test.describe("the deadline countdown", () => {
   // 2026-11-09 17:00 UTC is 167 days 11 hours before 2027-04-26 00:00 US Eastern (04:00 UTC)
   const NOW = new Date("2026-11-09T17:00:00Z");
   const read = (page: import("@playwright/test").Page) =>
-    page.locator(".cd .cd-num").evaluateAll((els) => els.map((e) => e.textContent));
+    page.locator(".cd .cd-num").evaluateAll((els) => els.map((e) => e.getAttribute("data-v")));
 
   for (const tz of ["America/Los_Angeles", "America/New_York", "Pacific/Auckland", "UTC"]) {
     test(`counts to the same instant in ${tz}, with no hydration mismatch`, async ({ browser }) => {
@@ -97,7 +97,7 @@ test.describe("the deadline countdown", () => {
       page.on("pageerror", (e) => errors.push(e.message));
       await page.clock.setFixedTime(NOW);
       await page.goto("/");
-      await expect.poll(() => read(page)).toEqual(["167", "11", "00", "00"]);
+      await expect.poll(() => read(page)).toEqual(["167", "11", "00"]);
       await expect(page.locator(".dh-count .sr-only")).toHaveText("About 167 days remain until April 26, 2027.");
       expect(errors.filter((e) => /hydrat|did not match/i.test(e))).toEqual([]);
       await ctx.close();
@@ -109,7 +109,7 @@ test.describe("the deadline countdown", () => {
     await page.goto("/");
     await page.getByRole("radio", { name: "Under 50,000 or special district" }).click();
     await expect(page.getByRole("heading", { level: 1 })).toContainText("April 26, 2028");
-    await expect.poll(() => read(page)).toEqual(["533", "11", "00", "00"]);
+    await expect.poll(() => read(page)).toEqual(["533", "11", "00"]);
     await page.getByRole("radio", { name: "Population 50,000 or more" }).click();
     await expect(page.getByRole("heading", { level: 1 })).toContainText("April 26, 2027");
   });
@@ -117,27 +117,25 @@ test.describe("the deadline countdown", () => {
   test("one second before the date, then the date itself: never negative", async ({ page }) => {
     await page.clock.setFixedTime(new Date("2027-04-26T03:59:59Z"));
     await page.goto("/");
-    await expect.poll(() => read(page)).toEqual(["000", "00", "00", "01"]);
+    await expect.poll(() => read(page)).toEqual(["000", "00", "01"]);
     await page.clock.setFixedTime(new Date("2027-04-26T04:00:00Z"));
-    await expect.poll(() => read(page), { timeout: 4000 }).toEqual(["000", "00", "00", "00"]);
-    await expect(page.locator(".cd-basis")).toHaveText("The compliance date arrived on April 26, 2027.");
+    await page.reload();
+    await expect.poll(() => read(page)).toEqual(["000", "00", "00"]);
+    await expect(page.locator(".cd-basis").first()).toHaveText("The compliance date arrived on April 26, 2027.");
     await page.clock.setFixedTime(new Date("2028-01-01T00:00:00Z"));
     await page.reload();
-    await expect.poll(() => read(page)).toEqual(["000", "00", "00", "00"]);
+    await expect.poll(() => read(page)).toEqual(["000", "00", "00"]);
     await expect(page.locator(".dh-count .sr-only")).toHaveText("The compliance date, April 26, 2027, has arrived.");
   });
 
-  test("ticks once a second while the page is open", async ({ page }) => {
+  test("ticks on the minute while the page is open", async ({ page }) => {
     await page.clock.install({ time: NOW });
     await page.goto("/");
-    await page.clock.pauseAt(new Date(NOW.getTime() + 2000));
-    const secs = async () => {
-      const [d, h, m, s] = (await read(page)).map(Number);
-      return d! * 86400 + h! * 3600 + m! * 60 + s!;
-    };
-    await expect.poll(secs).toBe(167 * 86400 + 11 * 3600 - 2);
-    await page.clock.runFor(3000);
-    await expect.poll(secs).toBe(167 * 86400 + 11 * 3600 - 5);
+    await page.clock.pauseAt(new Date(NOW.getTime() + 1000));
+    await expect.poll(() => read(page)).toEqual(["167", "11", "00"]);
+    await page.clock.runFor(60_000);
+    await expect.poll(() => read(page)).toEqual(["167", "10", "59"]);
+    await expect(page.locator(".dh")).toContainText("Dates in effect as of November 9, 2026");
   });
 });
 
@@ -208,7 +206,7 @@ test("the deadline names the right governments and walks through the work by scr
   await expect(page.locator(".dl-steps li[data-current]")).toContainText("Find");
   await at(0.95);
   await expect(page.locator(".dl-steps li[data-current]")).toContainText("Keep up");
-  await expect(page.locator(".dl-row[data-kind='new']")).toContainText("Checked before posting");
+  await expect(page.locator(".dl-row[data-kind='new']")).toContainText("checked before posting");
   // and the offer follows straight after
   await expect(page.locator(".receive").getByRole("link", { name: /Request a Readiness Audit/ })).toBeVisible();
 });
@@ -271,7 +269,7 @@ test("reduced motion gets the whole story as still figures", async ({ page }) =>
   await page.goto("/");
   // the still version swaps in after hydration
   await expect(page.locator(".story-still")).toBeVisible();
-  for (const h of ["Four problems on one page.", "Your city may have thousands of PDFs. Which need attention first?", "Start with the files residents use.", "Then a person repairs them.", "Every file comes back with its record."]) {
+  for (const h of ["Four kinds of problem on one page.", "Your city may have thousands of PDFs. Which need attention first?", "Start with the files residents use.", "Then a person repairs them.", "Every file comes back with its record."]) {
     const el = page.getByRole("heading", { name: h });
     await el.scrollIntoViewIfNeeded();
     await expect(el).toBeVisible();
@@ -314,6 +312,24 @@ test("contact form validates and never fakes success", async ({ page }) => {
   await page.goto("/contact");
   await page.getByRole("button", { name: /send|request/i }).last().click();
   await expect(page.locator("[aria-invalid='true']").first()).toBeVisible();
+});
+
+test("contact form keeps every answer on a failed delivery, and confirms only a real one", async ({ page }) => {
+  let reply: { status: number; body: object } = { status: 502, body: { ok: false, code: "delivery_failed", message: "We couldn't deliver your request. Nothing was sent; please try again." } };
+  await page.route("**/api/contact", (r) => r.fulfill({ status: reply.status, contentType: "application/json", body: JSON.stringify(reply.body) }));
+  await page.goto("/contact?topic=quote");
+  await page.getByLabel("Name").fill("Test Person");
+  await page.getByLabel("Work email").fill("tester@city.example");
+  await page.getByLabel("Organization").fill("City of Testville");
+  await page.getByLabel("Your role").selectOption("procurement");
+  await expect(page.getByRole("radio", { name: "A written quote for budgeting" })).toBeChecked();
+  await page.getByRole("button", { name: /Send request/ }).click();
+  await expect(page.locator("form [role=alert]")).toContainText("Nothing was sent");
+  await expect(page.getByLabel("Organization")).toHaveValue("City of Testville");
+  await expect(page.getByText("Your request reached us")).toHaveCount(0);
+  reply = { status: 200, body: { ok: true, id: "test" } };
+  await page.getByRole("button", { name: /Send request/ }).click();
+  await expect(page.getByRole("status")).toContainText("Thank you. Your request reached us.");
 });
 
 test("mobile menu opens, traps Escape, and closes", async ({ page }, info) => {

@@ -683,3 +683,13 @@ html[data-hdr="night"] .site-header .text-muted { color: var(--color-moon-muted)
   .res-figure-foot .res-caption { display: none; }
   .res-xray-btn { min-height: 2.5rem; font-size: 0.86rem; }
 }
+.receive-quote { margin-top: 1rem; font-size: 0.92rem; line-height: 1.45; color: var(--color-muted); max-width: 46ch; }
+.receive-roles { margin-top: clamp(2.5rem, 6vh, 4rem); padding-top: 1.25rem; border-top: 1px solid var(--rule); display: flex; flex-wrap: wrap; align-items: baseline; gap: 0.5rem 1.5rem; font-size: 0.98rem; }
+.receive-roles p { font-weight: 650; }
+.receive-roles ul { display: flex; flex-wrap: wrap; gap: 0.5rem 1.5rem; }
+.receive-roles li { min-height: 2.75rem; display: flex; align-items: center; }
+/* On wide screens the privacy choice is one slim bar along the bottom, clear of the hero copy. */
+@media (min-width: 1000px) {
+  .consent-banner { left: 0; right: 0; margin-inline: auto; width: min(60rem, calc(100vw - 32px)); display: flex; align-items: center; justify-content: space-between; gap: 1.5rem; padding: 0.6rem 0.75rem 0.6rem 1.25rem; border-radius: 999px; }
+  .consent-banner > div { margin-top: 0 !important; flex: none; flex-wrap: nowrap; }
+}

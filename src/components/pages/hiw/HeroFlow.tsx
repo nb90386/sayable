@@ -88,7 +88,7 @@ export function HeroFlow() {
                 <b className="numeral">703</b>
               </li>
               <li>
-                <span>Delete, you confirm</span>
+                <span>Take off the site, you confirm</span>
                 <b className="numeral">273</b>
               </li>
             </ol>

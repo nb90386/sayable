@@ -65,7 +65,7 @@ function SceneCopy({ i, extra }: { i: number; active?: boolean; extra?: React.Re
     case "problem":
       return (
         <>
-          <h2 className="scene-title">Four problems on one page.</h2>
+          <h2 className="scene-title">Four kinds of problem on one page.</h2>
           <p className="scene-body scene-body-wide">Each numbered finding is something the resident would run into. The correction a person makes appears as the scan passes it.</p>
           {extra}
           <details className="scene-details">
@@ -144,8 +144,8 @@ function ScanIntro() {
         Sayable reads the form the way a screen reader does.
       </h2>
       <p className="hero-lede">
-        Scroll to move the scan down the page. Each problem is named in plain words, then the correction a person would make is shown. An illustration of
-        the work, not a live scan.
+        As you scroll, the scan moves down the page. Each problem is named in plain words, then the correction a person would make is shown. The four
+        findings and their corrections are also listed under Technical details. An illustration of the work, not a live scan.
       </p>
     </>
   );

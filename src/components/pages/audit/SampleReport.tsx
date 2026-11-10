@@ -7,7 +7,7 @@ const counts = [
   { label: "Must fix", value: 212, color: "var(--color-warm)" },
   { label: "Archive candidate", value: 703, color: "var(--color-muted)" },
   { label: "Convert to web page", value: 96, color: "var(--color-signal)" },
-  { label: "Delete candidate", value: 273, color: "#8f8a7e" },
+  { label: "Take off the website", value: 273, color: "#8f8a7e" },
 ];
 const total = counts.reduce((a, c) => a + c.value, 0);
 
@@ -65,7 +65,7 @@ const inventory = [
   ["building-permit-application.pdf", "Must fix", "Form fields have no names"],
   ["agenda-packet-0312.pdf", "Must fix", "Tables read out of order"],
   ["utility-assistance-form.pdf", "Must fix", "Scanned image, no text"],
-  ["fee-schedule-2019.pdf", "Delete candidate", "Replaced by the 2025 schedule"],
+  ["fee-schedule-2019.pdf", "Take off the website", "Replaced by the 2025 schedule"],
   ["pool-hours-flyer.pdf", "Convert to web page", "Two pages, mostly text"],
 ] as const;
 

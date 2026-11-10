@@ -446,7 +446,7 @@
 .hf-plan { display: grid; gap: 0.45rem; }
 .hf-plan li { display: flex; align-items: baseline; justify-content: space-between; gap: 0.5rem; font-size: 0.82rem; line-height: 1.25; padding-bottom: 0.45rem; border-bottom: 1px solid var(--rule); }
 .hf-plan li:first-child { color: var(--color-ink); font-weight: 600; }
-.hf-plan li:first-child b { color: var(--color-warm); }
+.hf-plan li:first-child b { color: var(--color-ember); }
 .hf-plan li:nth-child(2) b { color: var(--color-signal); }
 .hf-plan b { font-size: 1.15rem; font-weight: 500; }
 .hf-arrow { display: none; position: absolute; top: 55%; right: -1.75rem; width: 1.25rem; color: var(--color-muted); }

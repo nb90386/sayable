@@ -125,7 +125,7 @@ export function Workload() {
 
         <p className="work-assume">
           Assumes {a.inUse}% of pages are still in use, {a.complex}% are forms, tables or scans, {MIN.simple[0]} to {MIN.simple[1]} minutes for a simple page and{" "}
-          {MIN.complex[0]} to {MIN.complex[1]} for a complex one.
+          {MIN.complex[0]} to {MIN.complex[1]} for a complex one. These are rough practitioner ranges, not measurements of your files and not a quote.
         </p>
         <details className="work-details">
           <summary>Change the assumptions</summary>

@@ -16,7 +16,7 @@ const buckets = [
   { name: "Must fix", tone: "var(--color-warm)", text: "Files people use to apply for, get or take part in a service: permit applications, utility assistance forms, current fee schedules." },
   { name: "Convert to web page", tone: "var(--color-signal)", text: "A two-page hours flyer residents would rather read on a phone. Moving it can cost less than repairing it." },
   { name: "Archive candidate", tone: "#8a93a3", text: "Old reference material nobody acts on. Your team confirms it meets the conditions for a clearly marked archive." },
-  { name: "Delete candidate", tone: "#b9bec8", text: "Duplicates, expired notices, superseded drafts. Nothing is removed unless your team agrees." },
+  { name: "Take off the website", tone: "#b9bec8", text: "Duplicates, expired notices, superseded drafts. Taking a file off the website is not destroying the record: the original stays in your records system under your retention schedule. Nothing changes unless your team agrees." },
 ];
 
 const deliverables = [

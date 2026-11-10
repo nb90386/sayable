@@ -52,7 +52,7 @@ export const FINDINGS = [
     fix: 318 / 1100 + 0.075,
     text: "A screen reader can\u2019t tell what this field is for.",
     fixText: "The field is now named \u201cApplicant name\u201d.",
-    detail: "Field had no accessible name (empty TU); seven fields like it.",
+    detail: "Field had no accessible name (empty TU), like seven others on the page, including the three check boxes.",
   },
   {
     id: "work",
@@ -538,7 +538,7 @@ export function ReportCard() {
       <dl className="report-finding">
         <div>
           <dt>Finding</dt>
-          <dd>Seven form fields have no accessible name</dd>
+          <dd>Eight form fields have no accessible name</dd>
         </div>
         <div>
           <dt>Evidence</dt>
