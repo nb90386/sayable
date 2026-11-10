@@ -1,0 +1,247 @@
+[
+ {
+  "verdict": "SIMULATED city-manager view. The new hero is a clear improvement on the old one. The previous version was a giant date with three countdown cards. It answered \"which deadline\" loudly, but it said almost nothing about what Sayable does until below the fold, and the cookie bar covered part of it. The new hero puts the offer first. \"Find the PDFs that need fixing before your deadline\" sits next to a real-looking city permit form with a finding marked on it, so within seconds I can see the deadline, the kind of problem, and the Readiness Audit CTA. That works at both 1440 and 390. The scroll story (a blind resident hears \"Edit text. Blank.\", each finding is struck through and corrected, then the scene pulls back to thousands of PDFs) makes \"why now\" concrete instead of abstract. The cost is that the deadline was shrunk to a dense one-line strip, and in doing so it lost things a cautious public official needs. The hero no longer says this is the ADA Title II rule or that the standard is WCAG 2.1 AA. The special-district case is gone from the visible text. The court challenge is hidden behind \"About this date\". Once scrolling starts, the deadline and the audit CTA disappear for most of the sequence, and that sequence ends on an inventory scene with no next step.",
+  "issues": [
+   {
+    "severity": "P1",
+    "problem": "The deadline strip never names the rule or the standard. 'Federal accessibility deadline' does not tell a city manager it is ADA Title II or that the required standard is WCAG 2.1 AA, and that is what they would repeat to council or counsel. The previous hero said 'Federal ADA Title II web accessibility rule'.",
+    "fix": "Change the eyebrow in DeadlineMark to 'ADA Title II web rule \u00b7 WCAG 2.1 AA' (or put 'WCAG 2.1 AA' in the subline), so the strip names the rule, the date and the standard."
+   },
+   {
+    "severity": "P1",
+    "problem": "The scope line says 'State and local governments of 50,000 or more. Smaller? April 26, 2028'. It leaves out that special districts get 2028 whatever their size, and it does not say the population is the total population of the government, so a large utility or transit district could pick the wrong date.",
+    "fix": "Change the line to 'Governments with a total population of 50,000+. Under 50,000 or a special district: April 26, 2028.' At 390 px it can wrap to two lines."
+   },
+   {
+    "severity": "P2",
+    "problem": "The previous hero showed that the dates may change because the extension is being challenged in court (NFB v. DOJ). Now that is behind the 'About this date' disclosure, so a live countdown reads as settled law. That is a credibility risk with legal-minded readers.",
+    "fix": "Add a short always-visible caption under the strip, such as 'Dates as of [today]; the extension is being challenged in court (no ruling).' Keep the disclosure for the detail."
+   },
+   {
+    "severity": "P2",
+    "problem": "Once the scan scenes start (first correction, midway), the deadline and the 'Request a Readiness Audit' CTA scroll away. The left column offers only 'Hear it', 'Transcript' and 'Check one of your PDFs free', so the paid offer drops out of the persuasive part of the story.",
+    "fix": "Keep the compact deadline strip pinned in the scan column header, or add the primary CTA under the ScanLog once all four findings resolve. The nav 'Request an Audit' button alone is too easy to miss."
+   },
+   {
+    "severity": "P2",
+    "problem": "The inventory scene ends on a question ('Which need attention first?') with no answer or action. That is the moment a manager is most ready to act, and it is the point where the audit's prioritisation would answer the question.",
+    "fix": "Add one line to SceneCopy for the inventory scene, such as 'The Readiness Audit lists them and ranks which to fix first.', with a 'Request a Readiness Audit' link."
+   },
+   {
+    "severity": "P3",
+    "problem": "The countdown shows '00 hrs' at load and is set in the same weight as the date. At a glance '167 days 00 hrs 15 min' looks broken or noisy, and the hours and minutes add urgency without adding meaning for a deadline five months away.",
+    "fix": "Show only '167 days left' in the strip and keep hours and minutes for the 'About this date' panel, or show hours only inside the final 7 days."
+   }
+  ]
+ },
+ {
+  "verdict": "SIMULATED review. The new hero looks much more like a real service than the previous one, which was a giant black date and three countdown cards. The date now sits as a compact, sourced line above a headline that says what Sayable does, and that line includes the 2028 date for smaller governments. The visual is a plain municipal permit form whose problems are explained in words a resident would understand (\"A screen reader can't find this title as a heading\"). The struck-through finding next to its correction shows the work itself, not a promise. As a city IT director, I would read it as a credible early-stage vendor, not an AI demo. Some things still pull it back toward \"demo.\" The word \"person\" never appears at load, and the green \"Sayable scan\" pill and laser line read as automation. The fictional-city seal looks official, and the \"example\" label appears only as small caption text. The ticking minute counter feels like sales pressure. The dark inventory scene of floating pages looks decorative rather than useful. And there is no visible link from \"records every fix and check\" to a real deliverable.",
+  "issues": [
+   {
+    "severity": "P1",
+    "problem": "At load the hero never says a person checks the work. The 'Sayable scan' pill, the sweeping line and 'Scroll to run the scan' make it look like an automated AI tool, which is exactly what city IT and ADA staff distrust.",
+    "fix": "Add 'Every fix is checked by a person before we hand it back' to the subhead or the legend. In the first-correction scene, add a small 'Checked by reviewer' marker beside each green correction (role only, no name)."
+   },
+   {
+    "severity": "P1",
+    "problem": "'Records every fix and check' is claimed but never shown, so a procurement reader can't see what they would actually receive.",
+    "fix": "At the end of the scan, show a thumbnail of the sample audit record or deck you already have (finding, correction, WCAG 2.1 AA criterion, check date), with a 'See a sample Readiness Audit' link next to the CTA."
+   },
+   {
+    "severity": "P2",
+    "problem": "The fictional 'City of Alder Creek' form has an official-looking seal, and the 'Sample form, fictional city' note only appears mid-scroll in small grey text. A skimmer may take it as a real client, or think the site is passing off a fake one.",
+    "fix": "Put a visible 'Example document' tab on the form's top edge from the first frame on both breakpoints. Make the seal a generic placeholder shape."
+   },
+   {
+    "severity": "P2",
+    "problem": "The minute-resolution countdown (167 days 00 hrs 15 min) feels like urgency marketing. The hero also leaves out that the date is under legal challenge, which a careful buyer will find anyway and then trust the site less.",
+    "fix": "Show days only, or 'in 167 days'. Add a short line beside 'About this date': 'Extension under challenge (NFB v. DOJ), no ruling yet.' Keep the 50,000+ and smaller/special-district split as it is now."
+   },
+   {
+    "severity": "P2",
+    "problem": "On mobile at 390 px, the finding callout covers the right half of the form title it describes. The dev 'N' badge sits on top of the form in the captures, and the secondary 'See how it works' button collapses to a bare link.",
+    "fix": "Below about 480 px, place the callout under the highlighted element instead of on it. Hide the Next.js dev indicator in capture builds. Keep the secondary CTA as an outlined button."
+   },
+   {
+    "severity": "P3",
+    "problem": "The inventory scene (dark field of floating pages, 'may have thousands') is atmospheric but carries no information, and it reads as AI-demo decoration.",
+    "fix": "Turn it into a plain sorted grid or list by document type (agendas, permits, notices, budgets), with the example form called out as 'start here'. Explain the prioritization rule in words (resident-facing, current, frequently linked). Don't add invented counts."
+   }
+  ]
+ },
+ {
+  "verdict": "SIMULATED procurement review. The new hero is a clear improvement on the old one. The previous hero was a huge black date over three countdown cards. It told me a deadline existed but not what Sayable does. The new one leads with the job: \"Find the PDFs that need fixing before your deadline.\" Next to it sits one of our own forms, the permit application, with a plain-language finding I can repeat to a department head (\"A screen reader can't find this title as a heading\"). The deadline is now a single line of context rather than the headline, and it covers the smaller-government date. The main button, \"Request a Readiness Audit\", is the strongest element on the page at both widths. But my central question gets only half an answer. The button is clear. What happens after I press it is not. Nothing in the hero or in the scroll beats I saw (load, first finding, inventory) says what I submit, whether this is a sales call or a scope request, what the audit produces, or how it ends. Nothing says whether I am committing to anything. As I scroll the scan, the button disappears and does not come back. The inventory scene ends on a question, \"Which need attention first?\", with no button. And the nav has a second, differently worded button, \"Request an Audit\".",
+  "issues": [
+   {
+    "severity": "P1",
+    "problem": "Nothing near the main button says what happens after I request an audit: what I send, what comes back, or whether I am committing to anything. A buyer cannot judge the risk of clicking.",
+    "fix": "Add a three-step line under the buttons, using only facts we already state: 'You send your website address -> we list every PDF it links to and sort the work -> you get the audit report and decide what's archived. No commitment to repair.' Link 'audit report' to /readiness-audit."
+   },
+   {
+    "severity": "P1",
+    "problem": "The main button is not visible during the scroll scan. The inventory beat ends on 'Which need attention first?' with no button, at the moment the visitor most wants an answer. On mobile at 390px the button scrolls away before the form even appears.",
+    "fix": "Put 'Request a Readiness Audit' under the inventory scene's text as the answer to its question, with a short line: 'A Readiness Audit answers this for your site.' Alternatively, keep a small sticky button visible while the scan is pinned."
+   },
+   {
+    "severity": "P2",
+    "problem": "The button wording differs: the nav says 'Request an Audit' and the hero says 'Request a Readiness Audit'. A procurement reader may think these are two different offerings.",
+    "fix": "Use 'Request a Readiness Audit' everywhere, or shorten the nav button to 'Readiness Audit'. Use the same wording on the /contact?topic=audit page heading."
+   },
+   {
+    "severity": "P2",
+    "problem": "The secondary button 'See how it works' and the line 'Scroll to run the scan' compete. One sends me to another page and the other asks me to scroll this one. On mobile, 'See how it works' becomes a plain text link that looks like body copy.",
+    "fix": "Change the secondary action to an in-page link that starts the scan (for example 'Watch a sample scan'), or remove it and keep /how-it-works in the nav. On mobile, give it the same outlined button style it has on desktop."
+   },
+   {
+    "severity": "P2",
+    "problem": "The countdown ('167 days 00 hrs 15 min') shows only one date, while the population threshold and the NFB v. DOJ court challenge sit behind 'About this date'. The page still treats the date as fixed while it is being challenged in court.",
+    "fix": "Next to the date, add a short visible note such as 'Extension under challenge in court (NFB v. DOJ, no ruling yet)'. Spell out the scope as 'State and local governments of 50,000 or more (not special districts)'."
+   },
+   {
+    "severity": "P3",
+    "problem": "The opening paragraph says what Sayable does, but it never names the two things I would actually buy: the audit, and repair that a person checks. It also never says which standard the work is measured against.",
+    "fix": "Change the paragraph to: 'Sayable's Readiness Audit finds the WCAG 2.1 AA problems in your city's public PDFs and puts the work in order. Our person-checked repair fixes them and records every fix and check.'"
+   }
+  ]
+ },
+ {
+  "verdict": "SIMULATED review (city clerk, no accessibility training). The new hero is a clear step up from the old one. The previous hero showed a huge date, three countdown cards and a paragraph that said \"WCAG 2.1 AA\". It told me something was due but not what was wrong or what I would have to do. The new hero puts a real-looking city permit form next to the headline, so I can see right away that the problem is our PDFs. When I scroll to \"A resident who is blind opens this form... it hears only 'Edit text. Blank.'\", I understand the problem in plain human terms, and the before/after list shows that a person fixes it. The countdown has shrunk to a single line, which is the right size. My main complaint is the order. The plain explanation only comes a few scrolls down. At load, the first callout I read says \"A screen reader can't find this title as a heading\", which is two terms I don't know. The deadline line also never says what the rule requires. So on the first screen I learn that PDFs need fixing before a date, but not why in words I'd use, and I only get that if I keep scrolling. On a phone the form sits below the fold, so on that first screen I see only text.",
+  "issues": [
+   {
+    "severity": "P1",
+    "problem": "The plain-language reason (a blind resident's screen reader reads a blank form field as 'Edit text. Blank.') only shows up after several scrolls. The load screen says 'accessibility problems' and expects me to work out the rest. If I don't scroll, I leave without understanding the problem.",
+    "fix": "Change the hero subcopy to say the human problem directly, for example: 'When a resident who is blind opens one of your PDF forms, their screen reader can read it as \"Edit text. Blank.\" Sayable finds these PDFs, puts the fixes in order, and records every fix and check.' Keep the headline as it is."
+   },
+   {
+    "severity": "P1",
+    "problem": "The first finding on load uses jargon: 'A screen reader can't find this title as a heading.' 'Heading' is a structural idea I don't follow, and it's the least intuitive of the four problems. The unnamed field, which is the one I can actually picture, comes second.",
+    "fix": "Show the unnamed 'Applicant name' field as finding 1 with the callout 'Read aloud, this box says only \"Edit text. Blank.\"' Move the heading finding later and reword it, for example: 'Software that reads the page aloud can't tell this is the form's title.' Explain 'screen reader' once in a few words, such as 'software that reads the screen aloud'."
+   },
+   {
+    "severity": "P2",
+    "problem": "'Federal accessibility deadline: April 26, 2027' never says which rule it is or what must be done by that date. I can't repeat it to my manager or city attorney. The court challenge and the WCAG 2.1 AA standard are hidden behind 'About this date'.",
+    "fix": "Rewrite the label as one line, for example: 'Federal ADA Title II rule: city websites, and the PDFs posted on them, must be usable by people with disabilities.' Add a short visible line: 'The extension is being challenged in court (NFB v. DOJ); no ruling yet.' Leave WCAG 2.1 AA inside 'About this date'."
+   },
+   {
+    "severity": "P2",
+    "problem": "'Smaller? April 26, 2028' doesn't say smaller than what, and leaves out special districts. A clerk at a water or library district may wrongly think the 2027 date applies to them, or may not know which date is theirs.",
+    "fix": "Change the link to: 'Under 50,000 people, or a special district? April 26, 2028.' On the 2027 line, say 'total population' explicitly."
+   },
+   {
+    "severity": "P2",
+    "problem": "The scan only advances on scroll, and the only cue is a small 'Scroll to run the scan' line next to two tiny color swatches at the bottom of the screen. On the 390 px screen the hint and legend don't appear, and the form starts below the fold. At load the document is labeled 'Sayable scan', which makes it look like a real city's file. 'Sample form, fictional city' only appears later in small grey text.",
+    "fix": "Put a visible tag on the document from the first frame: 'Sample form \u00b7 fictional city'. On mobile, add a one-line cue under the CTAs: 'Scroll to watch a sample form get checked.' Also add a way to step through the scan without scrolling, such as Next/Previous finding buttons."
+   },
+   {
+    "severity": "P3",
+    "problem": "The inventory scene ('Your city may have thousands of PDFs. Which need attention first?') reads well but doesn't link back to the deadline or the audit. The story stops without telling me what to do next.",
+    "fix": "Add a short closing line and the existing CTA to the inventory scene, for example: 'A Readiness Audit lists your public PDFs and shows which to fix first before your date.' Follow it with the 'Request a Readiness Audit' button."
+   }
+  ]
+ },
+ {
+  "verdict": "Simulated ADA coordinator view, not real user research. The new hero is a clear improvement on the old one, which was a giant black date and three countdown cards. The old hero gave me a number to worry about. The new one puts the date on a single line and spends the space on a believable permit form, and the first problem is named before I scroll. The legal facts are right in the source: April 26, 2027 for governments with 50,000 or more people, April 26, 2028 for smaller ones and special districts, WCAG 2.1 AA, Census-based total population, and the NFB v. DOJ challenge. The problem is where they sit. The qualifiers that matter to me are folded inside \"About this date\", while the always-visible label \"Federal accessibility deadline\" and the headline \"before your deadline\" read as settled. The example is accurate and fair: unnamed fields, ungrouped check boxes, a title tagged as a paragraph, and a reading order that starts at the footer are all real PDF tagging failures that screen reader users run into. Two things weaken it. It opens on the least serious of the four findings, and the four marks don't show that the scan also flags other fields it leaves uncorrected.",
+  "issues": [
+   {
+    "severity": "P1",
+    "problem": "The only always-visible label is \"Federal accessibility deadline\" and the headline says \"before your deadline\". Neither names the rule or says the date is under challenge. \"Being challenged in court\" only appears after opening the About this date disclosure. A coordinator showing this to counsel or council would be repeating a claim that is only partly qualified.",
+    "fix": "Change the eyebrow to \"ADA Title II web rule compliance date\". Add a visible line under the meta row, outside the details element: \"Extension under legal challenge (NFB v. DOJ); no ruling as of {LEGAL_CHECKED}.\" It should link to #why-now."
+   },
+   {
+    "severity": "P1",
+    "problem": "The hero says nothing about the rule's exceptions for archived web content and for preexisting conventional electronic documents, which have conditions attached. Telling a city to find 'the PDFs that need fixing' implies every linked PDF is in scope. That overstates the obligation and is the first objection I would raise. The 'sort' scene only says 'Your team decides what counts as archived'.",
+    "fix": "Add one sentence to the About this date body, and repeat it in the sort scene: \"The rule has exceptions, with conditions, for archived content and some preexisting documents. The audit flags candidates; your counsel decides.\" Link it to the existing Title II exceptions copy."
+   },
+   {
+    "severity": "P2",
+    "problem": "The visible meta line says \"State and local governments of 50,000 or more\" without the word \"total population\" or the Census basis. Readers may assume it means residents served or staff headcount. Counties and transit authorities may also be unsure whether 'special districts' covers them. The Census explanation is only inside the disclosure.",
+    "fix": "Change the visible line to \"State and local governments with a total population of 50,000 or more (2020 Census).\" The switch label should read \"Under 50,000, or a special district? April 26, 2028\". Use the existing DEADLINES.who strings verbatim."
+   },
+   {
+    "severity": "P2",
+    "problem": "The resting example, finding 1 (title not tagged as a heading), is the mildest of the four. A screen reader still reads the title aloud. Opening on it undersells the problem and puts a cosmetic-sounding issue in front of a skeptical buyer. The issue that actually stops a resident, a field the screen reader announces as \"Edit text. Blank.\", only appears after scrolling, although the problem scene's copy leads with it.",
+    "fix": "Reorder FINDINGS so the unnamed Applicant name field is mark 1 and the RestNote at load. Make the RestNote text \"A screen reader hears only 'Edit text. Blank.'\" The heading becomes mark 2 or 3."
+   },
+   {
+    "severity": "P2",
+    "problem": "Midway, Daytime phone and Site address are outlined in red but have no number, no log entry and no correction. The finding detail says seven other fields are affected, but that text is hidden in Technical details. A coordinator could read this as the scan catching problems the repair then skips, or as numbering that doesn't match.",
+    "fix": "Add one log line, for example \"Same problem in 7 more fields; each corrected the same way\". Show those outlines turning green when mark 2 is corrected, so every red mark on the form ends with a resolution."
+   },
+   {
+    "severity": "P3",
+    "problem": "The countdown runs to the minute to midnight Eastern time, which suggests a precision the rule doesn't have, since it sets a date. It also tends to read as sales urgency. On mobile, the 167 days / 00 hrs / 15 min row and the switch wrap tightly above the headline.",
+    "fix": "Show whole days only, for example \"167 days away\", and keep the minute-level explanation in the disclosure. This removes the hrs and min slots, steadies the row at 390 px, and matches the date-not-time basis the page already states."
+   }
+  ]
+ },
+ {
+  "verdict": "SIMULATED review. The new hero is clearly better than the previous one. The old version was a giant black date with three countdown cards: a timer with no product in it. The new one puts the date in a single compact line (April 26, 2027 | 167 days 00 hrs 15 min, with the 2028 toggle) and runs that line straight into the green scan rule across a tilted permit form. At load, the first finding is already flagged in the resident's words. That handoff from the deadline line to the scan beam is the original idea here. Using one hairline as both the timeline and the scanner is a better device than anything on a typical Apple-style page, and the red-dashed problem / green-solid correction / numbered-ledger system is ownable and consistent. The transition is not yet exceptional, for three reasons. The scroll handoff happens mid-fade: the 1440 first-finding frame shows grey, half-faded copy and a greyed play button. Finding 1 skips its correction beat: it is red at load and already green, crossed out in the ledger, by the first-finding frame. And the inventory frame changes to a dark scatter of generic thumbnails that loses the document grammar the sequence built up. The weakest frame is 1440-2-first-finding. Fix it by finishing the headline and copy crossfade before the beam reaches field 2, and by giving finding 1 its own short scroll segment that turns the red dashes into the green solid box.",
+  "issues": [
+   {
+    "severity": "P1",
+    "problem": "Weakest frame (1440-2-first-finding): the scene copy 'A resident who is blind opens this form.', its body and the 'Hear it, as posted' button are still partly transparent grey while the beam is already on finding 2. The type reads as disabled, and two visual events compete at once.",
+    "fix": "In SceneCopy, map copy opacity to a short early range of scene progress (for example 0 to 0.12) so it is fully opaque before the beam leaves the title. Keep the play button at full contrast from the moment the copy is visible. Only the beam and the form overlays should move during the finding range."
+   },
+   {
+    "severity": "P1",
+    "problem": "Finding 1 never gets its correction moment. It is red-dashed at load, and by the first-finding frame it is already green, with a 'Heading' tag and a struck-through ledger line. The red-to-green change that defines the whole grammar happens off-frame for the most visible element.",
+    "fix": "Reserve the first scroll segment for finding 1. Morph the dashed red outline into the solid green outline, add the 'Heading' chip, and strike through the ledger line, all while the beam sits on the title. Only then let the beam move on to 'Applicant name'."
+   },
+   {
+    "severity": "P2",
+    "problem": "In the handoff from the deadline to the scan, the countdown line and the green rule connect only at load. Once the user scrolls, the date block disappears, and the next frames show no deadline at all, so the link between the deadline and the scan is a one-frame trick.",
+    "fix": "Keep a small date stamp ('April 26, 2027') on the end of the scan rule, or on the 'Sayable scan' pill, as it travels down the form. The date then becomes the scanner's label, and no extra element is needed."
+   },
+   {
+    "severity": "P2",
+    "problem": "The inventory frame (1440-5) switches to a dark field of scattered generic page thumbnails with floating category pills. It reads as stock 'document cloud' imagery and drops the red/green finding marks and the numbered ledger.",
+    "fix": "Pull back from the corrected permit form, which stays highlighted in the centre, and lay out the other thumbnails on an orderly grid sorted by category. Put tiny red dash or green tick marks only on the few you choose to show. That keeps the same grammar at a larger scale and suggests prioritisation, with no invented counts."
+   },
+   {
+    "severity": "P2",
+    "problem": "At 390 px, the scan beam is a thin line across a small form placed above the copy. The finding labels are about 6 to 8 px and can't be read, so mobile users follow only the ledger, not the scan.",
+    "fix": "On mobile, crop the form to a band around the active field: scale it up and pan it vertically with scroll so the field under the beam is shown at a readable size. Keep the ledger directly below, with the active row aligned to the beam."
+   },
+   {
+    "severity": "P3",
+    "problem": "At load, the 'Sayable scan' pill and the long diagonal rule float detached at the top right, while the legend ('A problem a resident would hit', 'The correction', 'Scroll to run the scan') sits far away at the bottom left. The eye has to cross the whole viewport to decode the marks.",
+    "fix": "Move the two-swatch legend next to the first finding's callout on the form, or under the date line, and drop the separate bottom-left legend row. Keep 'Scroll to run the scan' as the only bottom cue."
+   }
+  ]
+ },
+ {
+  "verdict": "This is a simulated review, not real user research. On semantics, the new hero is clearly better than the previous \"giant black date and three countdown cards\". The old hero was mostly a visual countdown with little else. The new one opens with a real h1 and a lede, two plain-text CTAs, and a deadline line written as text. That line has the date, who it applies to, a native button to switch to the other date, and a native details element with the legal basis, the WCAG 2.1 AA standard and the court challenge. The live digits are aria-hidden and replaced by a calm sr-only sentence, which is the right choice. Each scene's copy is a real h2 with paragraphs in a sensible DOM order. The stage, canvases, tags and scan log are all aria-hidden, and there is a full reduced-motion still version. A screen-reader user reading in order gets the whole argument. The weak points come from the scroll mechanics. Copy that has scrolled out of view is hidden only with opacity, so it can still be focused and read. The scan's per-finding \"heard\" before/after lines only exist in an aria-hidden layer. The date switch changes content without saying so. And keyboard users are told to \"scroll to run the scan\" with no control that does it for them. A keyboard or screen-reader user can reach about 90% of the same content, but not quite the same experience.",
+  "issues": [
+   {
+    "severity": "P1",
+    "problem": "Hero copy and scene copy that have scrolled away are hidden only with opacity and transform (heroO, SceneBlock opacity 0), not with visibility. After scrolling, Shift+Tab or a screen-reader virtual cursor lands on invisible hero CTAs, the date switch and 'About this date'. The hero-copy wrapper has no onFocusCapture, so nothing scrolls back to show them. Focus is invisible, which fails WCAG 2.4.7 and 2.4.11 in spirit.",
+    "fix": "Give the hero-copy wrapper the same onFocusCapture jump the scenes use (scroll to progress 0). Also set visibility:hidden, or the inert attribute, once opacity reaches 0. KindTags and StackLabels already do this with useTransform to 'visible'/'hidden'. Then hidden copy is neither focusable nor read out of context."
+   },
+   {
+    "severity": "P1",
+    "problem": "The core demonstration is aria-hidden in ScanLog: what a screen reader hears before and after each fix (f.heard and f.heardFixed). The 'Technical details' list includes f.text, f.fixText and f.detail but not the heard strings. A blind visitor gets the claim ('Edit text. Blank.') for only one field, not the before/after for all four findings.",
+    "fix": "In the Technical details <ol>, add the before/after heard text to each item, for example 'Before, a screen reader says: \u201c\u2026\u201d. After: \u201c\u2026\u201d.' Or render a visually hidden static version of the scan log that is not aria-hidden, next to the inline one."
+   },
+   {
+    "severity": "P2",
+    "problem": "The date toggle button ('Smaller? April 26, 2028') swaps the date, the audience sentence and the sr-only count. Nothing announces that change. The button's own label also changes to the opposite option, so a screen-reader user hears no confirmation and may think nothing happened.",
+    "fix": "Make it a two-option control with a stable label, for example a group labelled 'Your government' with two aria-pressed buttons: '50,000 or more' and 'Under 50,000 or special district'. Alternatively, wrap the date plus audience sentence in an aria-live='polite' region so the new date and audience are read once after the switch."
+   },
+   {
+    "severity": "P2",
+    "problem": "The scan runs only on scroll, and the visible instructions are 'Scroll to run the scan' and 'Scroll to scan'. A keyboard user can only advance it with Space or PageDown, which jumps past states in big steps. Switch and voice users get no direct way to step to 'first finding', 'first correction' or 'inventory'.",
+    "fix": "Add a small visible list of scene links or buttons (Problem, Scale, Sort, Repair, Record) that calls the existing jump(i). Change the instruction to 'Scroll or choose a step'. Use aria-current on the active step."
+   },
+   {
+    "severity": "P2",
+    "problem": "'Skip the story' is the first focusable item in the section and sits before the h1 and CTAs. It jumps to #receive, past 'Request a Readiness Audit' and the date controls. A keyboard user who skips the long story also loses the primary CTA. A user who doesn't skip has to tab through every scene's links and Listen buttons, and each one makes the page jump.",
+    "fix": "Move the skip link after the hero actions in DOM order and label it 'Skip the scan story'. That way the deadline, h1 and CTAs are always reached first, and only the scene sequence is skipped."
+   },
+   {
+    "severity": "P3",
+    "problem": "The sr-only countdown says only 'About N days remain'. It doesn't say which date or audience it refers to, and it sits inside the p.dm-row next to the date with no separator. A screen reader may run them together as 'April 26, 2027About 167 days remain'. The reading order also puts the countdown before the audience sentence.",
+    "fix": "Make the sr-only text a full sentence with a leading space, for example ' About 167 days remain until April 26, 2027.'. Or put the audience sentence in the same <p> so date, audience and count read as one unit."
+   }
+  ]
+ }
+]

@@ -44,7 +44,7 @@ export const nav: NavGroup[] = [
 /** Flat list of every primary destination, for the mobile menu and footer. */
 export const navLinks: NavLink[] = nav.flatMap((g) => (g.items ? g.items : [{ href: g.href!, label: g.label }]));
 
-export const cta = { href: "/contact?topic=audit", label: "Request an Audit", long: "Request a Readiness Audit" } as const;
+export const cta = { href: "/contact?topic=audit", label: "Request a Readiness Audit", long: "Request a Readiness Audit" } as const;
 
 export const stages = [
   {

@@ -156,3 +156,20 @@ Reduced motion renders the same scenes as still figures in reading order, and th
 - **Resident demo** (`Resident.tsx`): the form, held sticky beside the announcement list on desktop and pinned compact above it on phones. Vermilion dashes mark problem lines and fields; viridian marks repaired ones. The structure overlay reuses the scanner's broken and fixed layers.
 - **Desktop privacy bar**: one slim pill along the bottom, at 1000px and wider.
 - Supporting-page heroes (`PageHero.tsx`, `hiw/HeroFlow.tsx`, `about/DocStructure.tsx`, `solutions/Workflows.tsx`) use the same paper, Georgia document type, vermilion and viridian.
+
+## Hero reconstruction (9 November 2026, branch `sayable/hero-reconstruction`)
+
+The deadline drives the story; it does not replace it. The giant date and the countdown cards are gone.
+
+- **The first viewport** is the scan stage at rest. The form lies on the right with the Sayable scan resting on its top edge, and problem 1 is marked on the title with a note beside it.
+- **The deadline mark** (`DeadlineMark.tsx`) sits on the left as three lines of type:
+  - "ADA Title II web rule · WCAG 2.1 AA"
+  - April 26, 2027 in Funnel Display 500 (about 2.4rem), with "in 167 days" after a hairline
+  - the scope and the 2028 switch, then the court-challenge status and "About this date"
+- **The signal**: a viridian line of light is drawn from the end of the count to the left end of the scan line, so the deadline is literally where the scan begins.
+  - It is placed by measuring the rendered elements, draws in over 1 s after the form settles, and fades in the first ~1.5% of scroll as the scan takes over.
+  - Wide screens only.
+- **The count** shows days only. The rule sets a date, not a time of day, and the simulated reviewers read hours and minutes as sales pressure. A changed digit slides in over 220 ms.
+- **The form's entrance** is one 950 ms rise and fade on the independent `translate` property, so Motion keeps sole ownership of `transform`.
+- **Concepts.** Three were rendered and compared (`docs/hero-reconstruction/concepts/`): A, a date line above the headline; B, the signal; C, a paper tab clipped to the form. C hid the very problem it should show, and A read as a data row, so B was chosen.
+- **The first scroll scene** is the resident ("A resident who is blind opens this form."), with the before narration. Each scan-log entry carries what a screen reader hears, before and after.

@@ -56,11 +56,11 @@ test("internal links resolve", async ({ page, request }) => {
   }
 });
 
-test("the hero leads with the federal date and the offer, at full opacity", async ({ page }) => {
+test("the hero shows the date, the form under the scan, and the offer, at full opacity", async ({ page }) => {
+  await page.addInitScript(() => localStorage.setItem("sayable-consent", JSON.stringify({ v: 1, analytics: false, at: "test" })));
   await page.goto("/");
   const h1 = page.getByRole("heading", { level: 1 });
-  await expect(h1).toContainText("April 26, 2027");
-  await expect(h1).toContainText("total population of 50,000 or more");
+  await expect(h1).toHaveText("Find the PDFs that need fixing before your deadline.");
   // no fade-in: the headline and the primary action are at full opacity from the first frame
   const chainOpacity = (sel: string) =>
     page.locator(sel).first().evaluate((el) => {
@@ -69,10 +69,20 @@ test("the hero leads with the federal date and the offer, at full opacity", asyn
       return o;
     });
   expect(await chainOpacity("h1")).toBe(1);
-  expect(await chainOpacity(".dh .btn")).toBe(1);
-  await expect(page.locator(".dh").getByRole("link", { name: /Request a Readiness Audit/ })).toBeInViewport();
-  await expect(page.locator(".dh")).toContainText("Sayable finds your public PDFs");
-  await expect(page.getByRole("link", { name: "Skip the story" })).toHaveAttribute("href", "#receive");
+  expect(await chainOpacity(".hero-actions .btn")).toBe(1);
+  // the date, the form and the action are all in the first viewport
+  await expect(page.locator(".hero-copy .dm-date")).toHaveText("April 26, 2027");
+  await expect(page.locator(".hero-copy .dm-date")).toBeInViewport();
+  await expect(page.locator(".hero-copy").getByRole("link", { name: /Request a Readiness Audit/ })).toBeInViewport();
+  await expect(page.locator(".hero-copy").getByRole("link", { name: "See how it works" })).toBeVisible();
+  await expect(page.locator(".story-doc")).toBeInViewport({ ratio: 0.2 });
+  await expect(page.locator(".hero-copy")).toContainText("For governments with a total population of 50,000 or more.");
+  await expect(page.locator(".hero-copy")).toContainText("ADA Title II web rule · WCAG 2.1 AA");
+  await expect(page.locator(".hero-copy")).toContainText("Extension under court challenge");
+  // no countdown cards, and the first problem is named on the form before any scroll
+  await expect(page.locator(".cd-unit")).toHaveCount(0);
+  await expect(page.locator(".rest-note")).toContainText("reads this title as plain text");
+  await expect(page.getByRole("link", { name: "Skip the scan story" })).toHaveAttribute("href", "#receive");
   // the scan is named for people, and its findings are in plain words (technical identifiers only in Details)
   await expect(page.locator(".scan-line")).toContainText("Sayable scan");
   await expect(page.locator(".scan-log-wrap li").first()).toContainText("This title isn’t recognized as a heading.");
@@ -82,11 +92,32 @@ test("the hero leads with the federal date and the offer, at full opacity", asyn
   await expect(page.locator("main")).not.toContainText(/CommonLook|Equidox|ChatGPT|Acrobat/);
 });
 
+test("the deadline signal joins the date to the scan on wide screens, and leaves when scrolling starts", async ({ page }, info) => {
+  test.skip(info.project.name.includes("mobile"), "the signal is drawn on wide screens only");
+  await page.goto("/");
+  const sig = page.locator(".dm-signal");
+  await expect(sig).toBeVisible();
+  const ends = await page.evaluate(() => {
+    const s = document.querySelector(".dm-signal")!.getBoundingClientRect();
+    const c = document.querySelector(".hero-copy .dm-count")!.getBoundingClientRect();
+    const l = document.querySelector(".story-doc .scan-line")!.getBoundingClientRect();
+    return { startGap: s.left - c.right, endGap: Math.abs(s.right - l.left) };
+  });
+  expect(ends.startGap).toBeGreaterThan(0);
+  expect(ends.startGap).toBeLessThan(30);
+  expect(ends.endGap).toBeLessThan(12);
+  await page.evaluate(() => {
+    const el = document.querySelector(".story") as HTMLElement;
+    window.scrollTo(0, el.offsetTop + 0.05 * (el.offsetHeight - innerHeight));
+  });
+  await expect.poll(() => sig.evaluate((e) => Number(getComputedStyle(e).opacity))).toBeLessThan(0.05);
+});
+
 test.describe("the deadline countdown", () => {
   // 2026-11-09 17:00 UTC is 167 days 11 hours before 2027-04-26 00:00 US Eastern (04:00 UTC)
   const NOW = new Date("2026-11-09T17:00:00Z");
   const read = (page: import("@playwright/test").Page) =>
-    page.locator(".cd .cd-num").evaluateAll((els) => els.map((e) => e.getAttribute("data-v")));
+    page.locator(".hero-copy .dm-num").evaluateAll((els) => els.map((e) => e.getAttribute("data-v")));
 
   for (const tz of ["America/Los_Angeles", "America/New_York", "Pacific/Auckland", "UTC"]) {
     test(`counts to the same instant in ${tz}, with no hydration mismatch`, async ({ browser }) => {
@@ -97,8 +128,8 @@ test.describe("the deadline countdown", () => {
       page.on("pageerror", (e) => errors.push(e.message));
       await page.clock.setFixedTime(NOW);
       await page.goto("/");
-      await expect.poll(() => read(page)).toEqual(["167", "11", "00"]);
-      await expect(page.locator(".dh-count .sr-only")).toHaveText("About 167 days remain until April 26, 2027.");
+      await expect.poll(() => read(page)).toEqual(["167"]);
+      await expect(page.locator(".hero-copy .dm-row .sr-only")).toContainText("About 167 days remain until April 26, 2027.");
       expect(errors.filter((e) => /hydrat|did not match/i.test(e))).toEqual([]);
       await ctx.close();
     });
@@ -107,36 +138,42 @@ test.describe("the deadline countdown", () => {
   test("switches to the 2028 date without guessing, and back", async ({ page }) => {
     await page.clock.setFixedTime(NOW);
     await page.goto("/");
-    await page.getByRole("radio", { name: "Under 50,000 or special district" }).click();
-    await expect(page.getByRole("heading", { level: 1 })).toContainText("April 26, 2028");
-    await expect.poll(() => read(page)).toEqual(["533", "11", "00"]);
-    await page.getByRole("radio", { name: "Population 50,000 or more" }).click();
-    await expect(page.getByRole("heading", { level: 1 })).toContainText("April 26, 2027");
+    // the live count only renders after hydration, so wait for it before using the switch
+    await expect.poll(() => read(page)).toEqual(["167"]);
+    await page.locator(".hero-copy").getByRole("button", { name: "Under 50,000, or a special district? April 26, 2028" }).click();
+    await expect(page.locator(".hero-copy .dm-date")).toHaveText("April 26, 2028");
+    await expect(page.locator(".hero-copy")).toContainText("For governments under 50,000 people, and all special districts.");
+    await expect.poll(() => read(page)).toEqual(["533"]);
+    await page.locator(".hero-copy").getByRole("button", { name: "50,000 or more? April 26, 2027" }).click();
+    await expect(page.locator(".hero-copy .dm-date")).toHaveText("April 26, 2027");
   });
 
-  test("one second before the date, then the date itself: never negative", async ({ page }) => {
-    await page.clock.setFixedTime(new Date("2027-04-26T03:59:59Z"));
+  test("the last day, the date itself and after it: never negative", async ({ page }) => {
+    await page.clock.setFixedTime(new Date("2027-04-26T03:59:00Z"));
     await page.goto("/");
-    await expect.poll(() => read(page)).toEqual(["000", "00", "01"]);
+    await expect(page.locator(".hero-copy .dm-count")).toContainText("Less than a day");
     await page.clock.setFixedTime(new Date("2027-04-26T04:00:00Z"));
     await page.reload();
-    await expect.poll(() => read(page)).toEqual(["000", "00", "00"]);
-    await expect(page.locator(".cd-basis").first()).toHaveText("The compliance date arrived on April 26, 2027.");
+    await expect(page.locator(".hero-copy .dm-count")).toHaveAttribute("data-passed", "");
+    await expect(page.locator(".hero-copy .dm-count")).toContainText("The date has arrived");
     await page.clock.setFixedTime(new Date("2028-01-01T00:00:00Z"));
     await page.reload();
-    await expect.poll(() => read(page)).toEqual(["000", "00", "00"]);
-    await expect(page.locator(".dh-count .sr-only")).toHaveText("The compliance date, April 26, 2027, has arrived.");
+    await expect(page.locator(".hero-copy .dm-row .sr-only")).toContainText("The date, April 26, 2027, has arrived.");
+    await expect(page.locator(".hero-copy .dm-num")).toHaveCount(0);
   });
 
-  test("ticks on the minute while the page is open", async ({ page }) => {
-    await page.clock.install({ time: NOW });
+  test("drops one day when exactly a whole number of days remain", async ({ page }) => {
+    // The count runs to a fixed instant (04:00 UTC on April 26, 2027), so the number changes each day at 04:00 UTC.
+    await page.clock.install({ time: new Date("2026-11-10T03:58:30Z") });
     await page.goto("/");
-    await page.clock.pauseAt(new Date(NOW.getTime() + 1000));
-    await expect.poll(() => read(page)).toEqual(["167", "11", "00"]);
-    await page.clock.runFor(60_000);
-    await expect.poll(() => read(page)).toEqual(["167", "10", "59"]);
-    await expect(page.locator(".dh")).toContainText("Dates in effect as of November 9, 2026");
+    await page.clock.pauseAt(new Date("2026-11-10T03:59:00Z"));
+    await expect.poll(() => read(page)).toEqual(["167"]);
+    await page.clock.runFor(125_000);
+    await expect.poll(() => read(page)).toEqual(["166"]);
+    await page.locator(".hero-copy .dm-about summary").click();
+    await expect(page.locator(".hero-copy .dm-about-body")).toContainText("Dates in effect as of November 9, 2026");
   });
+
 });
 
 test("the scan is driven only by scroll: idle, forward, reverse and reload", async ({ page }, info) => {
@@ -269,7 +306,7 @@ test("reduced motion gets the whole story as still figures", async ({ page }) =>
   await page.goto("/");
   // the still version swaps in after hydration
   await expect(page.locator(".story-still")).toBeVisible();
-  for (const h of ["Four kinds of problem on one page.", "Your city may have thousands of PDFs. Which need attention first?", "Start with the files residents use.", "Then a person repairs them.", "Every file comes back with its record."]) {
+  for (const h of ["A resident who is blind opens this form.", "Your city may have thousands of PDFs. Which need attention first?", "Start with the files residents use.", "Then a person repairs them.", "Every file comes back with its record."]) {
     const el = page.getByRole("heading", { name: h });
     await el.scrollIntoViewIfNeeded();
     await expect(el).toBeVisible();

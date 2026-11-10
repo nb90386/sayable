@@ -532,53 +532,9 @@ html[data-hdr="night"] .site-header .text-muted { color: var(--color-moon-muted)
 }
 @media (max-width: 400px) { .dl-k { font-size: 0.86rem; } }
 
-/* ──────────────────────────────────────────────────────────────
-   Deadline hero: the federal date, a live count to it, and the offer.
-   Light falls from the upper left, as on the story stage. Numerals sit on paper tiles.
-   ────────────────────────────────────────────────────────────── */
-.dh { position: relative; isolation: isolate; overflow: hidden; min-height: 100svh; display: flex; align-items: center; padding: calc(var(--header-h) + clamp(1.25rem, 4vh, 3rem)) 0 clamp(2rem, 5vh, 3.5rem); background: var(--color-paper); }
-.dh-light { position: absolute; inset: 0; z-index: -1; pointer-events: none; background: radial-gradient(70% 80% at 18% 12%, #f8f7f3 0%, rgb(248 247 243 / 0) 70%), radial-gradient(60% 50% at 85% 100%, rgb(27 90 69 / 0.05) 0%, rgb(27 90 69 / 0) 70%); }
-.dh-grid { display: grid; gap: clamp(1rem, 2.6vh, 1.75rem); width: 100%; }
-.dh-top { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 0.75rem 1.5rem; }
-.dh-rule { font-weight: 600; font-size: 0.98rem; color: var(--color-ink-soft); }
-.dh-h1 { display: grid; gap: clamp(0.6rem, 1.6vh, 1rem); }
-.dh-date { display: block; font-family: var(--font-display); font-weight: 500; font-size: min(clamp(3.6rem, 0.8rem + 10vw, 12rem), 19vh); line-height: 0.9; letter-spacing: -0.045em; font-variant-numeric: lining-nums; color: var(--color-ink); background: linear-gradient(180deg, #3a362d 0%, #17150f 58%); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; filter: drop-shadow(0 1px 0 rgb(255 255 255 / 0.7)) drop-shadow(0 18px 24px rgb(40 30 12 / 0.12)); padding-bottom: 0.04em; }
-.dh-kicker { display: block; font-family: var(--font-display); font-weight: 500; font-size: min(var(--step-2), 4.2vh); line-height: 1.15; letter-spacing: -0.018em; color: var(--color-ink-soft); max-width: 40ch; text-wrap: balance; }
-
-.dh-count { display: grid; gap: 0.7rem; justify-items: start; }
-.cd { display: flex; gap: clamp(0.5rem, 1.2vw, 0.9rem); }
-.cd-unit { display: grid; justify-items: center; gap: 0.35rem; min-width: clamp(4.6rem, 3rem + 4vw, 8.5rem); padding: clamp(0.7rem, 1.6vh, 1.05rem) clamp(0.7rem, 1.4vw, 1.3rem) clamp(0.55rem, 1.2vh, 0.8rem); border-radius: var(--radius-ui); background: linear-gradient(180deg, #fdfcfa 0%, #f6f5f1 100%); box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.95), 0 0 0 1px rgb(23 21 15 / 0.06), 0 1px 2px rgb(40 30 12 / 0.07), 0 14px 28px -16px rgb(40 30 12 / 0.28); }
-.cd-unit:first-child { min-width: clamp(6rem, 3.6rem + 6vw, 11.5rem); }
-.cd-num { display: inline-flex; font-family: var(--font-display); font-weight: 500; font-size: min(clamp(2.1rem, 1rem + 3.4vw, 4.4rem), 8vh); line-height: 1; letter-spacing: -0.02em; font-variant-numeric: tabular-nums lining-nums; color: var(--color-ink); opacity: 0; transition: opacity var(--dur-slow) var(--ease-out); }
-.cd-num[data-ready] { opacity: 1; }
+/* Digit slots for the live count (DeadlineMark): fixed width, clipped so a changed digit can slide in. */
 .cd-slot { position: relative; display: inline-block; width: 1ch; height: 1.04em; overflow: hidden; text-align: center; }
 .cd-digit { display: block; }
-.cd-label { font-size: 0.82rem; font-weight: 600; color: var(--color-muted); }
-.cd[data-passed] .cd-num { color: var(--color-muted); }
-.cd-basis { font-size: 0.88rem; line-height: 1.45; color: var(--color-muted); max-width: 60ch; }
-
-.dh-foot { display: grid; gap: 1.25rem; padding-top: clamp(1rem, 2.4vh, 1.5rem); border-top: 1px solid var(--rule); }
-.dh-lede { font-size: var(--step-0); line-height: 1.5; color: var(--color-ink-soft); max-width: 58ch; }
-.dh-act { display: grid; gap: 0.75rem; align-content: start; }
-.dh-assure { font-size: 0.9rem; line-height: 1.45; color: var(--color-muted); }
-@media (min-width: 1000px) {
-  .dh-foot { grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr); gap: 3rem; align-items: start; }
-  .dh-act { justify-items: end; text-align: right; }
-}
-@media (max-width: 720px) {
-  .dh { min-height: auto; align-items: start; padding-top: calc(var(--header-h) + 1.25rem); }
-  .dh-date { font-size: clamp(3.4rem, 17vw, 5.5rem); line-height: 0.92; }
-  .dh-kicker { font-size: 1.22rem; }
-  .dh-seg { display: grid; grid-template-columns: 1fr 1fr; width: 100%; border-radius: 16px; }
-  .dh-seg .seg-opt { min-height: 3rem; padding: 0.45rem 0.6rem; line-height: 1.2; font-size: 0.9rem; border-radius: 12px; }
-  .dh-seg .seg-knob { border-radius: 12px; }
-  .cd { width: 100%; gap: 0.4rem; }
-  .cd-unit, .cd-unit:first-child { min-width: 0; flex: 1 1 0; padding: 0.65rem 0.25rem 0.5rem; }
-  .cd-unit:first-child { flex-grow: 1.35; }
-  .cd-num { font-size: clamp(1.7rem, 8.4vw, 2.4rem); }
-  .cd-label { font-size: 0.76rem; }
-}
-@media (prefers-reduced-motion: reduce) { .cd-num { transition: none; } }
 
 /* ──────────────────────────────────────────────────────────────
    The resident: one form, what a screen reader announces, as posted and after repair.
@@ -649,20 +605,6 @@ html[data-hdr="night"] .site-header .text-muted { color: var(--color-moon-muted)
 .why-list dt { font-weight: 650; font-size: 1.08rem; line-height: 1.35; }
 .why-list dd { margin-top: 0.45rem; font-size: 0.98rem; line-height: 1.55; color: var(--color-ink-soft); max-width: 56ch; }
 .hero-title.scan-intro-title { font-size: min(clamp(2.2rem, 1rem + 2.7vw, 3.7rem), 7vh); max-width: 16ch; }
-.dh-main { display: grid; gap: clamp(1rem, 2.6vh, 1.75rem); }
-@media (min-width: 1000px) {
-  .dh-main { grid-template-columns: minmax(0, 1fr) auto; grid-template-rows: auto auto; column-gap: 3rem; }
-  .dh-h1 { grid-column: 1 / -1; grid-row: 1 / 3; grid-template-columns: subgrid; grid-template-rows: subgrid; row-gap: clamp(1rem, 2.6vh, 1.75rem); }
-  .dh-date { grid-column: 1 / -1; font-size: min(clamp(3.6rem, 0.8rem + 11vw, 14.5rem), 21vh); }
-  .dh-kicker { grid-column: 1; align-self: start; }
-  .dh-count { grid-column: 2; grid-row: 2; position: relative; justify-items: end; text-align: right; }
-  .cd-basis { max-width: 44ch; }
-}
-@media (max-width: 999px) {
-  .dh-foot { display: flex; flex-direction: column; }
-  .dh-act { order: -1; }
-}
-@media (max-width: 720px) { .dh-kicker { font-size: 1.12rem; } .dh-date { font-size: clamp(3.2rem, 15.5vw, 5.5rem); } }
 .res-seg { justify-self: start; }
 .res-xray { animation: res-xray-in var(--dur-base) var(--ease-out); }
 @keyframes res-xray-in { from { opacity: 0; } }
@@ -692,4 +634,107 @@ html[data-hdr="night"] .site-header .text-muted { color: var(--color-moon-muted)
 @media (min-width: 1000px) {
   .consent-banner { left: 0; right: 0; margin-inline: auto; width: min(60rem, calc(100vw - 32px)); display: flex; align-items: center; justify-content: space-between; gap: 1.5rem; padding: 0.6rem 0.75rem 0.6rem 1.25rem; border-radius: 999px; }
   .consent-banner > div { margin-top: 0 !important; flex: none; flex-wrap: nowrap; }
+}
+
+/* ──────────────────────────────────────────────────────────────
+   Hero deadline mark: the date as a precise line of type above the headline,
+   with the live count beside it. Concept B draws a line of light from the date
+   to the form; it hands over to the Sayable scan when the visitor scrolls.
+   ────────────────────────────────────────────────────────────── */
+.dm { position: relative; display: grid; gap: 0.3rem; margin-bottom: clamp(1.1rem, 3vh, 1.9rem); }
+.dm-k { font-size: 0.88rem; font-weight: 600; color: var(--color-ink-soft); }
+.dm-row { display: flex; align-items: baseline; flex-wrap: wrap; gap: 0.25rem 1rem; }
+.dm-date { font-family: var(--font-display); font-weight: 500; font-size: clamp(1.6rem, 1.1rem + 1.2vw, 2.25rem); line-height: 1.05; letter-spacing: -0.022em; font-variant-numeric: lining-nums; color: var(--color-ink); }
+.dm-count { display: inline-flex; align-items: baseline; gap: 0.28rem; padding-left: 1rem; border-left: 1px solid var(--rule-strong); font-variant-numeric: tabular-nums lining-nums; color: var(--color-ink); }
+.dm-num { display: inline-flex; font-family: var(--font-display); font-weight: 500; font-size: clamp(1.25rem, 1rem + 0.6vw, 1.6rem); line-height: 1; letter-spacing: -0.01em; opacity: 0; transition: opacity var(--dur-slow) var(--ease-out); }
+.dm-num[data-ready] { opacity: 1; }
+.dm-u { font-size: 0.8rem; font-weight: 600; color: var(--color-muted); margin-right: 0.45rem; }
+.dm-u:last-of-type { margin-right: 0; }
+.dm-count .cd-slot { height: 1.06em; }
+.dm-count[data-passed] { color: var(--color-muted); }
+.dm-who { font-size: 0.9rem; line-height: 1.45; color: var(--color-muted); max-width: 46ch; }
+.dm-switch { color: var(--color-ink-soft); font-weight: 600; text-decoration: underline; text-decoration-color: var(--rule-strong); text-underline-offset: 0.22em; min-height: 1.75rem; transition: color var(--dur-fast) var(--ease-out), text-decoration-color var(--dur-fast) var(--ease-out); }
+.dm-switch:hover { color: var(--color-ink); text-decoration-color: currentColor; }
+.dm-about { position: relative; justify-self: start; }
+.dm-about summary { list-style: none; cursor: pointer; display: inline-flex; align-items: center; gap: 0.35rem; min-height: 1.75rem; font-size: 0.86rem; font-weight: 600; color: var(--color-signal); }
+.dm-about summary::-webkit-details-marker { display: none; }
+.dm-about summary::after { content: ""; width: 0.45rem; height: 0.45rem; border-right: 1.5px solid currentColor; border-bottom: 1.5px solid currentColor; transform: translateY(-2px) rotate(45deg); transition: transform var(--dur-fast) var(--ease-out); }
+.dm-about[open] summary::after { transform: translateY(1px) rotate(-135deg); }
+.dm-about-body { position: absolute; z-index: 8; top: calc(100% + 0.4rem); left: 0; width: min(26rem, calc(100vw - 2 * var(--gutter))); display: grid; gap: 0.6rem; padding: 1rem 1.1rem; border-radius: var(--radius-ui); background: var(--color-sheet); font-size: 0.9rem; line-height: 1.5; color: var(--color-ink-soft); box-shadow: 0 0 0 1px rgb(23 21 15 / 0.07), 0 2px 4px rgb(40 30 12 / 0.06), 0 18px 40px -18px rgb(40 30 12 / 0.35); transform-origin: top left; animation: dm-pop var(--dur-enter) var(--ease-out); }
+.dm-about-body a { color: var(--color-signal); text-decoration: underline; text-underline-offset: 0.2em; }
+@keyframes dm-pop { from { opacity: 0; transform: scale(0.97) translateY(-4px); } }
+
+/* The signal: a line of light from the count to the Sayable scan, placed by measurement (Signal in DeadlineMark.tsx). */
+.dm-signal { position: absolute; z-index: 2; height: 3px; margin-top: -1.5px; transform-origin: left center; pointer-events: none; }
+.dm-signal > span { position: absolute; inset: 0; border-radius: 2px; background: linear-gradient(90deg, rgb(27 90 69 / 0.35) 0%, rgb(27 90 69 / 0.85) 30%, #1b5a45 100%); box-shadow: 0 0 10px rgb(27 90 69 / 0.4), 0 0 28px rgb(27 90 69 / 0.18); transform-origin: left center; animation: dm-signal-in 1000ms cubic-bezier(0.22, 1, 0.36, 1) 500ms both; }
+@keyframes dm-signal-in { from { transform: scaleX(0); opacity: 0; } 30% { opacity: 1; } }
+.dm-meta { display: flex; flex-wrap: wrap; align-items: center; gap: 0.1rem 0.9rem; font-size: 0.9rem; line-height: 1.45; color: var(--color-muted); }
+@media (min-width: 900px) {
+  .hero-copy { top: max(calc(var(--header-h) + 1rem), calc(var(--doc-top) - 2.35rem)); }
+  .dm-date { font-size: clamp(1.9rem, 1.2rem + 1.3vw, 2.6rem); }
+}
+
+/* At rest, problem 1 is named on the form itself (in the document's own space). */
+.rest-note { position: absolute; z-index: 4; left: 47%; top: 18.4%; display: flex; align-items: flex-start; gap: 0.55rem; max-width: 46%; padding: 0.45rem 0.75rem 0.5rem 0.5rem; border-radius: 10px; background: #fff7f2; color: #5b1f09; font-size: clamp(0.78rem, 0.6rem + 0.4vw, 0.95rem); line-height: 1.35; font-weight: 500; box-shadow: 0 0 0 1px rgb(163 54 18 / 0.25), 0 10px 22px -12px rgb(91 31 9 / 0.45); }
+.rest-note-n { flex: none; display: grid; place-items: center; width: 1.35rem; height: 1.35rem; border-radius: 50%; background: var(--color-ember); color: #fff; font-size: 0.78rem; font-weight: 650; }
+@media (max-width: 899px) { .rest-note { top: 18.6%; left: 44%; max-width: 50%; font-size: 0.66rem; padding: 0.4rem 0.6rem 0.45rem 0.45rem; gap: 0.4rem; } .rest-note-n { width: 1.1rem; height: 1.1rem; font-size: 0.66rem; } }
+
+/* What a screen reader hears, for the finding under the scan. */
+.scan-log-heard { display: none; margin-top: 0.3rem; font-size: 0.9rem; line-height: 1.35; color: var(--color-ink-soft); }
+.scan-log-heard > span { font-weight: 650; color: var(--color-muted); margin-right: 0.2rem; }
+.scan-log li[data-current] .scan-log-heard { display: block; }
+.scan-log li[data-current][data-fixed] .scan-log-heard { color: var(--color-signal-deep); }
+
+/* The form settles into the room on arrival. Uses the independent translate property so Motion keeps owning transform. */
+.story .story-doc { animation: doc-arrive 950ms cubic-bezier(0.22, 1, 0.36, 1) 60ms both; }
+@keyframes doc-arrive { from { opacity: 0; translate: 0 36px; } }
+@media (prefers-reduced-motion: reduce) { .story .story-doc, .dm-signal > span, .dm-about-body { animation: none !important; } .dm-num { transition: none; } }
+
+/* Phones: the date and count share one line, the headline is shorter, and the form shows below. */
+@media (max-width: 899px) {
+  .dm { margin-bottom: 0.9rem; gap: 0.2rem; }
+  .dm-k { font-size: 0.8rem; }
+  .dm-row { gap: 0.2rem 0.7rem; flex-wrap: nowrap; }
+  .dm-date { font-size: 1.32rem; }
+  .dm-count { padding-left: 0.7rem; gap: 0.2rem; }
+  .dm-num { font-size: 1.08rem; }
+  .dm-u { font-size: 0.72rem; margin-right: 0.25rem; }
+  .dm-meta { font-size: 0.8rem; gap: 0 0.7rem; }
+  .dm-meta > span:first-child { flex-basis: 100%; }
+  .dm-switch, .dm-about summary { min-height: 2.25rem; font-size: 0.8rem; }
+  .hero-copy .hero-title { font-size: clamp(2rem, 1rem + 4.6vw, 2.6rem); max-width: 14ch; }
+  .hero-copy .hero-lede { font-size: 0.98rem; margin-top: 0.7rem; }
+  .hero-copy .hero-actions { margin-top: 0.9rem; gap: 0.5rem 1rem; }
+  .hero-copy .hero-actions .btn-quiet { box-shadow: none; padding-inline: 0.25rem; text-decoration: underline; text-decoration-color: var(--rule-strong); text-underline-offset: 0.22em; }
+}
+
+/* A quiet cue at rest: what the marks mean, and that scrolling runs the scan. */
+.hero-cue { position: absolute; z-index: 3; left: 0; right: 0; bottom: clamp(1.25rem, 5vh, 2.75rem); pointer-events: none; }
+.hero-cue .wrap { display: flex; align-items: center; gap: 1.4rem; font-size: 0.86rem; font-weight: 600; color: var(--color-ink-soft); }
+.hero-cue-key { display: inline-flex; align-items: center; gap: 0.45rem; }
+.hero-cue-key i { width: 0.95rem; height: 0.7rem; border-radius: 3px; border: 1.5px dashed var(--color-warm); background: rgb(207 69 32 / 0.08); }
+.hero-cue-key[data-k="fixed"] i { border-style: solid; border-color: var(--color-signal); background: rgb(27 90 69 / 0.08); }
+.hero-cue-scroll { display: inline-flex; align-items: center; gap: 0.5rem; padding-left: 1.4rem; border-left: 1px solid var(--rule-strong); color: var(--color-ink); }
+.hero-cue-scroll [data-icon] { width: 0.7rem; height: 1rem; }
+@media (max-width: 899px), (max-height: 760px) { .hero-cue { display: none; } }
+/* Reduced motion: the hero keeps its form, still, with problem 1 named. */
+.hero-still-grid { display: grid; gap: 2rem; }
+@media (min-width: 1000px) { .hero-still-grid { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); align-items: center; gap: 3rem; } }
+.story-still .hero-still-figure { min-height: 0; }
+.hero-still-figure { position: relative; max-width: 30rem; justify-self: center; width: 100%; }
+.hero-still-sheet .permit-page { display: block; width: 100%; height: auto; }
+.hero-still-figure .rest-note { left: 44%; top: 19%; max-width: 54%; }
+.dm-status { font-size: 0.82rem; line-height: 1.4; color: var(--color-muted); }
+.dm-count .dm-u:first-child { margin-right: 0.1rem; }
+.hero-next { margin-top: 0.85rem; font-size: 0.9rem; line-height: 1.45; color: var(--color-muted); }
+.hero-cue-sample { color: var(--color-muted); padding-right: 1.4rem; border-right: 1px solid var(--rule-strong); }
+.hero-copy .skip-story { position: static; }
+@media (max-width: 899px) { .dm-status { font-size: 0.74rem; } .hero-next { font-size: 0.8rem; margin-top: 0.5rem; } }
+.dm-status { margin-top: 0.05rem; }
+@media (max-width: 899px) {
+  .dm-long { display: none; }
+  .hero-copy .hero-next { display: none; }
+  .hero-copy .hero-title { font-size: clamp(1.9rem, 0.9rem + 4.4vw, 2.4rem); max-width: 17ch; }
+  .dm-meta > span:first-child { flex-basis: auto; }
+  .rest-note { font-size: 0.56rem !important; }
 }

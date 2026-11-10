@@ -5,7 +5,8 @@ export default defineConfig({
   timeout: 60_000,
   use: {
     baseURL: process.env.BASE_URL ?? "http://localhost:3100",
-    launchOptions: { executablePath: process.env.PW_CHROME || undefined },
+    // Fake audio output: playback timing no longer depends on the host machine's sound device.
+    launchOptions: { executablePath: process.env.PW_CHROME || undefined, args: ["--disable-audio-output"] },
     // Protected Vercel previews: pass the short-lived local OIDC token as a header (never logged).
     extraHTTPHeaders: process.env.VERCEL_OIDC_TOKEN ? { "x-vercel-trusted-oidc-idp-token": process.env.VERCEL_OIDC_TOKEN } : undefined,
   },

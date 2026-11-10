@@ -3,7 +3,13 @@
 import { m, motionValue, useMotionTemplate, useMotionValueEvent, useScroll, useTransform, type MotionValue } from "motion/react";
 import Link from "next/link";
 import { memo, useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState } from "react";
+import cues from "@/content/audio-cues.json";
+import { track } from "@/lib/analytics";
+import type { DeadlineKey } from "@/lib/deadline";
 import { usePrefersReducedMotion } from "@/lib/usePrefersReducedMotion";
+import { PermitSheet } from "@/components/doc/PermitSheet";
+import { regions } from "@/components/doc/permit";
+import { DeadlineMark, RestNote, Signal } from "./DeadlineMark";
 import { geometry, type Geo } from "./geometry";
 import { PALETTES, PALETTE } from "./palette";
 import { FINDINGS, P, StageVisual, scanFrom } from "./StageVisual";
@@ -23,7 +29,7 @@ type Scene = {
 };
 
 const SCENES: Scene[] = [
-  { id: "problem", rail: "The problem", win: [P.b0 + 0.02, P.b1 - 0.01, P.path1 + 0.005, P.c0 + 0.005], at: 0.2, pos: "top", dark: false },
+  { id: "problem", rail: "The problem", win: [P.b0 + 0.02, P.b0 + 0.045, P.path1 + 0.005, P.c0 + 0.005], at: 0.2, pos: "top", dark: false },
   { id: "scale", rail: "The scale", win: [P.c1 - 0.02, P.c1 + 0.005, P.d0 - 0.015, P.d0 + 0.01], at: 0.41, pos: "top", dark: true },
   { id: "sort", rail: "Priorities", win: [P.d0 + 0.02, P.d0 + 0.05, P.e0 - 0.025, P.e0], at: 0.57, pos: "top", dark: true },
   { id: "repair", rail: "The repair", win: [P.e1 - 0.005, P.e1 + 0.02, P.fix1 - 0.005, P.fix1 + 0.012], at: 0.77, pos: "right", dark: false },
@@ -55,25 +61,77 @@ function useStageSize(ref: React.RefObject<HTMLElement | null>) {
   return size;
 }
 
+/** A short illustrative narration, played only when asked. */
+function Listen({ which, active }: { which: "before" | "after"; active: boolean }) {
+  const data = cues[which];
+  const audio = useRef<HTMLAudioElement>(null);
+  const [playing, setPlaying] = useState(false);
+  const [t, setT] = useState(0);
+  useEffect(() => {
+    if (!active && audio.current && !audio.current.paused) audio.current.pause();
+  }, [active]);
+  const toggle = () => {
+    const a = audio.current;
+    if (!a) return;
+    if (a.paused) {
+      if (a.ended || (a.duration && a.currentTime >= a.duration - 0.05)) a.currentTime = 0;
+      track("demo_play", { item: `story-${which}` });
+      void a.play().catch(() => setPlaying(false));
+    } else a.pause();
+  };
+  return (
+    <div className="mt-5">
+      <div className="flex items-center gap-3">
+        <button type="button" onClick={toggle} className="listen-btn press" aria-pressed={playing}>
+          <span aria-hidden="true" data-icon={playing ? "pause" : "play"} />
+          {playing ? "Pause" : which === "before" ? "Hear it, as posted" : "Hear it, repaired"}
+          <span className="font-[400] opacity-70">{Math.round(data.duration)} s</span>
+        </button>
+        <span aria-hidden="true" className="listen-bar">
+          <span style={{ transform: `scaleX(${data.duration ? t / data.duration : 0})` }} />
+        </span>
+      </div>
+      <audio
+        ref={audio}
+        src={data.src}
+        preload="none"
+        onPlay={() => setPlaying(true)}
+        onPause={() => setPlaying(false)}
+        onEnded={() => setPlaying(false)}
+        onTimeUpdate={(e) => setT(e.currentTarget.currentTime)}
+      />
+      <details className="listen-transcript mt-3">
+        <summary>Transcript</summary>
+        <p>{data.cues.map((c) => c.text).join(" ")}</p>
+        <p>An illustrative narration made with a text-to-speech voice, not a recording of a screen reader.</p>
+      </details>
+    </div>
+  );
+}
+
 function Availability({ children }: { children: React.ReactNode }) {
   return <p className="avail">{children}</p>;
 }
 
 /** The words for each scene. Real headings and paragraphs, in reading order. */
-function SceneCopy({ i, extra }: { i: number; active?: boolean; extra?: React.ReactNode }) {
+function SceneCopy({ i, active, extra }: { i: number; active?: boolean; extra?: React.ReactNode }) {
   switch (SCENES[i]!.id) {
     case "problem":
       return (
         <>
-          <h2 className="scene-title">Four kinds of problem on one page.</h2>
-          <p className="scene-body scene-body-wide">Each numbered finding is something the resident would run into. The correction a person makes appears as the scan passes it.</p>
+          <h2 className="scene-title">A resident who is blind opens this form.</h2>
+          <p className="scene-body scene-body-wide">
+            Their screen reader reads it aloud. Where the page says Applicant name, it hears only &ldquo;Edit text. Blank.&rdquo; The scan finds four kinds of
+            problem like this, and shows the correction a person makes.
+          </p>
           {extra}
+          <Listen which="before" active={!!active} />
           <details className="scene-details">
             <summary>Technical details</summary>
             <ol>
               {FINDINGS.map((f) => (
                 <li key={f.id}>
-                  {f.text} {f.fixText} <span>{f.detail}</span>
+                  {f.text} {f.fixText} Before, a screen reader says &ldquo;{f.heard}&rdquo; After: &ldquo;{f.heardFixed}&rdquo; <span>{f.detail}</span>
                 </li>
               ))}
             </ol>
@@ -90,7 +148,12 @@ function SceneCopy({ i, extra }: { i: number; active?: boolean; extra?: React.Re
       return (
         <>
           <h2 className="scene-title">Your city may have thousands of PDFs. Which need attention first?</h2>
-          <p className="scene-body">Agendas, permits, notices and budgets, years of them, all linked from your website.</p>
+          <p className="scene-body">Agendas, permits, notices and budgets, years of them, all linked from your website. A Readiness Audit lists them and shows which to fix first.</p>
+          <p className="mt-5">
+            <Link href="/contact?topic=audit" className="btn btn-night" onClick={() => track("audit_cta_click", { item: "story-scale" })}>
+              Request a Readiness Audit <span className="arrow" aria-hidden="true" data-icon="arrow-r" />
+            </Link>
+          </p>
         </>
       );
     case "sort":
@@ -114,6 +177,7 @@ function SceneCopy({ i, extra }: { i: number; active?: boolean; extra?: React.Re
             Fields get their names, the reading order follows the page, and the title becomes a heading. Software we are still testing drafts routine fixes. A
             person checks every one.
           </p>
+          <Listen which="after" active={!!active} />
           <Availability>
             <Link href="/product" className="text-link">
               PDF repair
@@ -137,16 +201,28 @@ function SceneCopy({ i, extra }: { i: number; active?: boolean; extra?: React.Re
   }
 }
 
-function ScanIntro() {
+function Hero({ which, setWhich }: { which: DeadlineKey; setWhich: (k: DeadlineKey) => void }) {
   return (
     <>
-      <h2 id="scan-title" className="hero-title scan-intro-title">
-        Sayable reads the form the way a screen reader does.
-      </h2>
+      <DeadlineMark which={which} setWhich={setWhich} />
+      <h1 id="hero-title" className="hero-title">
+        Find the PDFs that need fixing before your deadline.
+      </h1>
       <p className="hero-lede">
-        As you scroll, the scan moves down the page. Each problem is named in plain words, then the correction a person would make is shown. The four
-        findings and their corrections are also listed under Technical details. An illustration of the work, not a live scan.
+        Sayable finds the accessibility problems in your city&rsquo;s public PDFs, puts the work in order, and has a person check every fix.
       </p>
+      <div className="hero-actions">
+        <Link href="/contact?topic=audit" className="btn" onClick={() => track("audit_cta_click", { item: "hero" })}>
+          Request a Readiness Audit <span className="arrow" aria-hidden="true" data-icon="arrow-r" />
+        </Link>
+        <Link href="/how-it-works" className="btn btn-quiet">
+          See how it works
+        </Link>
+      </div>
+      <p className="hero-next">A 30-minute call, then a written quote. Nothing starts until you agree.</p>
+      <a href="#receive" className="skip-story sr-only-focusable">
+        Skip the scan story
+      </a>
     </>
   );
 }
@@ -161,7 +237,8 @@ function ScanLog({ p, narrow = false, className = "" }: { p: MotionValue<number>
     const k = states(sv);
     setSt((prev) => (prev === k ? prev : k));
   });
-  const current = st.lastIndexOf("1");
+  // the latest finding the scan has reached, found or corrected; it carries the "heard" line
+  const current = Math.max(st.lastIndexOf("1"), st.lastIndexOf("2"));
   return (
     <div className={`scan-log ${className}`} aria-hidden="true" data-states={st}>
       <p className="scan-log-head">
@@ -178,6 +255,9 @@ function ScanLog({ p, narrow = false, className = "" }: { p: MotionValue<number>
               <span className="scan-log-t">
                 <span className="scan-log-problem">{f.text}</span>
                 <span className="scan-log-fix">{f.fixText}</span>
+                <span className="scan-log-heard">
+                  <span>Heard</span> &ldquo;{v === "2" ? f.heardFixed : f.heard}&rdquo;
+                </span>
               </span>
             </li>
           );
@@ -248,7 +328,9 @@ export function Story() {
   const geo = useMemo(() => (size ? geometry(size.W, size.H, false, hb) : null), [size, hb]);
   const { scrollYProgress: p } = useScroll({ target: track, offset: ["start start", "end end"] });
   const [active, setActive] = useState(-1);
-
+  const [which, setWhich] = useState<DeadlineKey>("large");
+  // Where the resting form's top edge sits, so the deadline row can line up with the scan.
+  const docVars = geo ? ({ "--doc-top": `${Math.round(geo.doc.a.y - (geo.docH * geo.doc.a.s) / 2)}px` } as React.CSSProperties) : undefined;
 
   // One room, changing light: day, dusk while the collection fills it, morning for the repair, day for the record.
   const lightStops = [0, P.c0 - 0.005, P.c1 - 0.025, P.e0 + 0.005, P.e1, P.f0, P.f1];
@@ -260,7 +342,9 @@ export function Story() {
 
   const heroY = useTransform(p, [P.aHold, P.b0 + 0.035], [0, -(heroBottom + 40)]);
   const heroO = useTransform(p, [P.b0 + 0.015, P.b0 + 0.035], [1, 0]);
-  const logO = useTransform(p, [P.path1 + 0.005, P.c0 + 0.005], [1, 0]);
+  const heroVis = useTransform(heroO, (v) => (v > 0.01 ? "visible" : "hidden"));
+  const cueO = useTransform(p, [0.018, 0.035], [1, 0]);
+  const logO = useTransform(p, [P.b0 + 0.02, P.b0 + 0.035, P.path1 + 0.005, P.c0 + 0.005], [0, 1, 1, 0]);
 
   useMotionValueEvent(p, "change", (v) => {
     const a = sceneAt(v);
@@ -272,30 +356,52 @@ export function Story() {
   });
   useEffect(() => () => void delete document.documentElement.dataset.hdr, []);
 
-  const jump = useCallback((i: number) => {
+  const jumpTo = useCallback((at: number) => {
     const el = track.current;
     if (!el) return;
     const top = el.getBoundingClientRect().top + window.scrollY;
     const range = el.offsetHeight - window.innerHeight;
-    window.scrollTo({ top: top + SCENES[i]!.at * range, behavior: "auto" });
+    window.scrollTo({ top: top + at * range, behavior: "auto" });
   }, []);
+  const jump = useCallback((i: number) => jumpTo(SCENES[i]!.at), [jumpTo]);
 
   if (reduced) return <StoryStill />;
 
   return (
-    <section ref={track} className="story" aria-labelledby="scan-title" data-sc-act="story">
-      <m.div ref={stage} className="story-stage" style={{ background: bg }}>
-        <a href="#receive" className="skip-story sr-only-focusable">
-          Skip the story
-        </a>
-        {geo ? <Visual p={p} geo={geo} pal={pal} /> : null}
+    <section ref={track} className="story" aria-labelledby="hero-title" data-sc-act="story">
+      <m.div ref={stage} className="story-stage" style={{ background: bg, ...docVars }}>
+        {geo ? <Visual p={p} geo={geo} pal={pal} tag={<RestNote p={p} />} /> : null}
+        {geo && !geo.narrow ? <Signal stage={stage} p={p} deps={`${geo.W}x${geo.H}-${which}`} /> : null}
 
         <m.div className="scan-log-wrap" style={{ opacity: logO }}>
           <ScanLog p={p} />
         </m.div>
 
-        <m.div ref={heroRef} className="hero-copy wrap" style={{ opacity: heroO, y: heroY }}>
-          <ScanIntro />
+        <m.div className="hero-cue" aria-hidden="true" style={{ opacity: cueO }}>
+          <div className="wrap">
+            <span className="hero-cue-sample">Sample form, fictional city</span>
+            <span className="hero-cue-key">
+              <i /> A problem a resident would hit
+            </span>
+            <span className="hero-cue-key" data-k="fixed">
+              <i /> The correction
+            </span>
+            <span className="hero-cue-scroll">
+              Scroll to run the scan <span data-icon="arrow-d" />
+            </span>
+          </div>
+        </m.div>
+
+        <m.div
+          ref={heroRef}
+          className="hero-copy wrap"
+          style={{ opacity: heroO, y: heroY, visibility: heroVis }}
+          onFocusCapture={() => {
+            // keyboard focus inside the hero after it has scrolled away brings the story back to the start
+            if (p.get() > P.b0 + 0.015) jumpTo(0);
+          }}
+        >
+          <Hero which={which} setWhich={setWhich} />
         </m.div>
 
         {SCENES.map((s, i) => (
@@ -307,9 +413,9 @@ export function Story() {
 }
 
 /** The stage, memoised: scene changes and hero measurement re-render the copy, never the visual. */
-const Visual = memo(function Visual({ p, geo, pal }: { p: MotionValue<number>; geo: Geo; pal: (typeof PALETTES)[keyof typeof PALETTES] }) {
+const Visual = memo(function Visual({ p, geo, pal, tag }: { p: MotionValue<number>; geo: Geo; pal: (typeof PALETTES)[keyof typeof PALETTES]; tag?: React.ReactNode }) {
   return (
-    <StageVisual p={p} geo={geo} pal={pal}>
+    <StageVisual p={p} geo={geo} pal={pal} docTag={tag}>
       <KindTags p={p} geo={geo} />
       <StackLabels p={p} geo={geo} />
     </StageVisual>
@@ -349,15 +455,25 @@ function SceneBlock({
 
 /** Reduced motion: the same story as still figures, in reading order, with nothing moving. */
 function StoryStill() {
+  const [which, setWhich] = useState<DeadlineKey>("large");
   const box = useRef<HTMLDivElement>(null);
   const size = useStageSize(box);
   const geo = useMemo(() => (size ? geometry(size.W, size.H, true) : null), [size]);
   const values = useMemo(() => SCENES.map((s) => motionValue(s.at)), []);
+  const rest = useMemo(() => motionValue(0), []);
   return (
-    <section className="story-still" aria-labelledby="scan-title" data-sc-act="story">
+    <section className="story-still" aria-labelledby="hero-title" data-sc-act="story">
       <div className="wrap pt-[calc(var(--header-h)+3rem)]">
-        <div className="hero-copy-still">
-          <ScanIntro />
+        <div className="hero-still-grid">
+          <div className="hero-copy-still">
+            <Hero which={which} setWhich={setWhich} />
+          </div>
+          <div className="hero-still-figure">
+            <PermitSheet className="hero-still-sheet">
+              <rect x={regions.title!.x - 8} y={regions.title!.y - 8} width={regions.title!.w + 16} height={regions.title!.h + 16} rx="6" fill="rgb(207 69 32 / 0.06)" stroke="#cf4520" strokeWidth="2.5" strokeDasharray="9 7" />
+            </PermitSheet>
+            <RestNote p={rest} />
+          </div>
         </div>
       </div>
       {SCENES.map((s, i) => (

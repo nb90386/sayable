@@ -45,6 +45,8 @@ export const FINDINGS = [
     text: "This title isn\u2019t recognized as a heading.",
     fixText: "Now identified as the form\u2019s main heading.",
     detail: "Tagged as a paragraph (P); retagged as H1.",
+    heard: "Residential permit application.",
+    heardFixed: "Residential Permit Application. Heading level 1.",
   },
   {
     id: "name",
@@ -53,6 +55,8 @@ export const FINDINGS = [
     text: "A screen reader can\u2019t tell what this field is for.",
     fixText: "The field is now named \u201cApplicant name\u201d.",
     detail: "Field had no accessible name (empty TU), like seven others on the page, including the three check boxes.",
+    heard: "Edit text. Blank.",
+    heardFixed: "Applicant name. Edit text. Required.",
   },
   {
     id: "work",
@@ -61,6 +65,8 @@ export const FINDINGS = [
     text: "These checkboxes have no names and aren\u2019t grouped.",
     fixText: "Each option is labeled and grouped under its question.",
     detail: "Three check boxes, no names, no group label; now named and grouped as \u201cType of work\u201d.",
+    heard: "Check box. Not checked. Check box. Not checked.",
+    heardFixed: "Type of work. New construction, check box.",
   },
   {
     id: "footer",
@@ -69,6 +75,8 @@ export const FINDINGS = [
     text: "The page is read starting at the footer.",
     fixText: "The reading order now follows the page.",
     detail: "Tag order began with the footer text; footer now marked as an artifact and order follows the layout.",
+    heard: "Page 1 of 2.",
+    heardFixed: "Residential Permit Application. Heading level 1.",
   },
 ] as const;
 
@@ -427,11 +435,14 @@ export function StageVisual({
   geo,
   pal,
   children,
+  docTag,
 }: {
   p: MotionValue<number>;
   geo: Geo;
   pal: Palette;
   children?: React.ReactNode;
+  /** Something that travels with the document itself (in its 3D space), e.g. the deadline tab. */
+  docTag?: React.ReactNode;
 }) {
   const uid = useId().replace(/:/g, "");
   const { doc, report } = geo;
@@ -512,6 +523,7 @@ export function StageVisual({
           <m.div className="scan-line" style={{ y: scanY, opacity: lineO }}>
             <m.span style={{ opacity: labelB }}>Sayable scan</m.span>
           </m.div>
+          {docTag}
         </m.div>
         <m.div className="story-report" style={{ width: report.w, marginLeft: -report.w / 2, x: rx, y: report.y, rotate: rRotate, opacity: rOpacity }}>
           <m.div className="report-clip" style={{ clipPath: rClip }}>
